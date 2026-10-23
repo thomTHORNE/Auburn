@@ -108,6 +108,8 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
   final _random = Random();
   Map<String, int> _restBands = {};
   String? _tapped;
+  String? _missedAsked; // after a miss, the group that was asked
+  String _feedback = '';
 
   // Tap test: the app names a group, the user taps it.
   static const _rounds = 20;
@@ -172,23 +174,46 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
         _showAsked();
       });
 
-  // Turn the figure to a side that shows the asked group.
+  void _stopTest() => setState(() {
+        _testQueue = [];
+        _feedback = 'TEST STOPPED';
+      });
+
+  // Turn the figure to a side that shows the asked group, and say so.
   void _showAsked() {
     final g = _asked;
-    if (g != null && !_onView(g, _view)) _view = _view == 'front' ? 'back' : 'front';
+    if (g != null && !_onView(g, _view)) {
+      _view = _view == 'front' ? 'back' : 'front';
+      _feedback = '$_feedback   TURNED TO ${_view.toUpperCase()}';
+    }
   }
 
   void _onTap(String? id) => setState(() {
         _tapped = id;
+        _missedAsked = null;
         final asked = _asked;
-        if (asked == null) return;
+        if (asked == null) {
+          _feedback = '';
+          return;
+        }
+        final tapped = id == null ? 'NOTHING' : _label(id);
         if (id == asked) {
           _hits++;
+          _feedback = '✓ $tapped';
         } else {
-          _misses.add('${_label(asked)}→${id == null ? 'NOTHING' : _label(id)}');
+          _misses.add('${_label(asked)}→$tapped');
+          _missedAsked = asked;
+          _feedback = '✗ TAPPED $tapped';
         }
         _testQueue.removeAt(0);
-        _showAsked();
+        // After a miss, hold the figure for a moment so the miss is seen, then turn if needed.
+        if (_missedAsked == null) {
+          _showAsked();
+        } else {
+          Future.delayed(const Duration(milliseconds: 1200), () {
+            if (mounted) setState(_showAsked);
+          });
+        }
       });
 
   @override
@@ -237,10 +262,11 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
             _button(_view == 'front' ? 'FRONT ▸ BACK' : 'BACK ▸ FRONT',
                 () => setState(() => _view = _view == 'front' ? 'back' : 'front'),
                 flex: 2),
-            _button(testing ? 'TESTING' : 'TAP TEST', testing ? null : _startTest),
+            _button(testing ? 'STOP TEST' : 'TAP TEST', testing ? _stopTest : _startTest),
           ]),
           const SizedBox(height: 8),
           Text(status, style: const TextStyle(fontFamily: 'monospace', color: _cyanWhite, fontSize: 13)),
+          Text(_feedback, style: const TextStyle(fontFamily: 'monospace', color: _text, fontSize: 13)),
           if (_rest)
             Padding(
               padding: const EdgeInsets.only(top: 4),
@@ -257,8 +283,9 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
                     final painter = _FigurePainter(
                       regions: _regions.where((r) => r.view == _view).toList(),
                       lit: testing ? const {} : lit,
-                      restBands: _rest && !testing ? _restBands : const {},
-                      tapped: testing ? null : _tapped,
+                      restBands: _rest ? _restBands : const {},
+                      tapped: _tapped,
+                      missedAsked: _missedAsked,
                     );
                     return GestureDetector(
                       behavior: HitTestBehavior.opaque,
@@ -292,12 +319,14 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
 }
 
 class _FigurePainter extends CustomPainter {
-  _FigurePainter({required this.regions, required this.lit, required this.restBands, required this.tapped});
+  _FigurePainter(
+      {required this.regions, required this.lit, required this.restBands, required this.tapped, this.missedAsked});
 
   final List<_Region> regions;
   final Set<String> lit;
   final Map<String, int> restBands;
   final String? tapped;
+  final String? missedAsked;
 
   static const _box = Size(200, 400);
 
@@ -361,14 +390,23 @@ class _FigurePainter extends CustomPainter {
         canvas.drawLine(Offset(x, b.bottom), Offset(x + b.height, b.top), hatch);
       }
       canvas.restore();
-      canvas.drawPath(
-          r.path,
-          r.id == tapped
-              ? (Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 1.6
-                ..color = _cyanWhite)
-              : ink);
+      // The tapped region is outlined in Cyan White; after a miss, the group
+      // that was asked is outlined thick in ink, so the gap between them shows.
+      final Paint edge;
+      if (r.id == tapped) {
+        edge = Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2.0
+          ..color = _cyanWhite;
+      } else if (r.id == missedAsked) {
+        edge = Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2.4
+          ..color = _ink;
+      } else {
+        edge = ink;
+      }
+      canvas.drawPath(r.path, edge);
     }
     canvas.restore();
   }

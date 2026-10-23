@@ -9,7 +9,7 @@ A front and a back figure on an ember plate, one region per muscle group, under 
 | Exercise (top left) | Cycles placeholder exercises. The groups each one works light up in Cyan White. The muscle groups are guesses, not your own ticks. |
 | `REST` | Tints every group with a random rest band — repair, maybe, train, overdue. Tapping again re-rolls the bands. |
 | `FRONT ▸ BACK` | Turns the figure. |
-| `TAP TEST` | Names each of the 20 groups once, in random order, turning the figure when needed. Tap the named group; the line under the buttons scores hits and lists misses as asked→tapped. |
+| `TAP TEST` | Names each of the 20 groups once, in random order. Tap the named group: a hit outlines it in Cyan White and shows ✓; a miss outlines what you tapped in Cyan White and the asked group thick in ink, and shows ✗. When the next group is on the other side, the figure turns and says so — after a miss, a moment later. `STOP TEST` ends it. The final line scores hits and lists misses as asked→tapped. Rest tints stay on during the test; exercise lighting does not. |
 
 Outside the test, tapping a region outlines it and prints its name.
 
