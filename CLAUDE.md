@@ -10,7 +10,7 @@ A personal fitness training app, built around how the user actually trains.
 
 Most of what the fitness apps on the market do applies to Auburn. Where it departs from them is in the specifics of how the user trains and approaches training, and those departures are the reason Auburn exists rather than an off-the-shelf app being used. [Foundation](Foundation.md) states them, and is the root everything else answers to.
 
-Mobile only. v1 targets Android; the stack keeps other platforms within reach. The stack itself is under research in `Research/Platforms/`, with Flutter leading.
+Mobile only. v1 targets Android; the stack keeps other platforms within reach. The stack is Flutter — see `Spec/Architecture/Architecture.md`.
 
 Currently in the **foundation phase**, pre-spec and pre-development.
 
@@ -195,7 +195,7 @@ is it right?  Sketch   ──────►  Prototype
 
 | Level | Answers | Fidelity | Timebox |
 |---|---|---|---|
-| **Probe** | One fact about a platform or library. "Does Health Connect give a Flutter app the runs the Suunto app saved?" | No UI. Console output is enough. | Hours |
+| **Probe** | One fact about a platform or library. "Does intervals.icu give a Flutter app the original FIT file of a Suunto run?" | No UI. Console output is enough. | Hours |
 | **Spike** | Whether a technical path works end to end. "Can a Suunto run be read, stored locally, and survive a restart?" | Minimal UI, no structure worth keeping. | 1–2 days |
 | **Sketch** | How one interaction feels in the hand. "Can a set be logged one-handed between sets?" | One screen, real device, fake data. | 1–2 days |
 | **Prototype** | Whether a whole flow holds up in real use. "Does a full gym session log without friction for a week?" | Several screens, realistic data, used in the gym. | Days to build, a week of use |
