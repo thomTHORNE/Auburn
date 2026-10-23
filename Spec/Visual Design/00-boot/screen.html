@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=400">
+<title>Auburn · Screen 00 · Boot</title>
+<!-- Approved board for screen 00, Boot: Boot P (dark) and Boot Q (light) from the design canvas.
+     Layout reference only. The values are Visual Design's basics, as the CSS variables below. The tube's effects
+     (scanlines, glow, curvature) are not drawn here; the app's shader adds them.
+     data-theme="dark" | "light" picks the version; #still on the URL shows the held frame. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&family=Saira:wght@300;600&display=swap">
+<style>
+:root {
+  --tube: #1A1D1A;
+  --obsidian: #121215;
+  --ember: #D9573B;
+  --cyan-white: #DDF7F5;
+  --font-display: Gelasio, Georgia, serif;
+  --font-mark: Saira, sans-serif;
+  --boot-duration: 8s;            /* power-on to the end of the fade */
+  --dot-size: 9px;
+}
+[data-theme="dark"]  { --screen: var(--tube);  --wordmark: var(--ember);    --dot: rgba(217,87,59,0.14); --wordmark-width: 220px; }
+[data-theme="light"] { --screen: var(--ember); --wordmark: var(--obsidian); --dot: rgba(18,18,21,0.10);  --wordmark-width: 200px; }
+
+body { margin: 0; background: #000; }
+.screen { width: 400px; height: 640px; position: relative; overflow: hidden; background: var(--screen); }
+.power-line { position: absolute; left: 0; right: 0; top: 319px; height: 2px; background: var(--cyan-white); animation: powerLine var(--boot-duration) linear both; }
+.picture { position: absolute; inset: 0; animation: open var(--boot-duration) linear both; }
+.dots { position: absolute; inset: 0; background-image: radial-gradient(var(--dot) 1px, transparent 1.4px); background-size: var(--dot-size) var(--dot-size); opacity: 0.7; }
+.stack { position: relative; height: 100%; box-sizing: border-box; padding: 0 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+
+/* The mark: an Ember plate, a double Obsidian rule, three Obsidian pillars lettered H, C, M, and the line beneath a rule. */
+.plate { width: 220px; height: 264px; box-sizing: border-box; background: var(--ember); padding: 10px; animation: plateIn var(--boot-duration) linear both; }
+.rule-outer { height: 100%; box-sizing: border-box; border: 2px solid var(--obsidian); padding: 4px; }
+.rule-inner { height: 100%; box-sizing: border-box; border: 1px solid var(--obsidian); padding: 12px 14px 10px; display: flex; flex-direction: column; }
+.pillars { flex: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+.pillar { display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; background: var(--obsidian); transform-origin: bottom; font-family: var(--font-mark); font-weight: 300; font-size: 28px; line-height: 1; color: var(--ember); }
+.pillar:nth-child(1) { animation: rise1 var(--boot-duration) ease-out both; }
+.pillar:nth-child(2) { animation: rise2 var(--boot-duration) ease-out both; }
+.pillar:nth-child(3) { animation: rise3 var(--boot-duration) ease-out both; }
+.line { height: 26px; margin-top: 10px; border-top: 1px solid var(--obsidian); display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; font-family: var(--font-mark); font-weight: 600; font-size: 8px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--obsidian); }
+.line span { animation: lineIn var(--boot-duration) linear both; }
+.wordmark { margin: 0; width: var(--wordmark-width); display: flex; justify-content: space-between; font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1; color: var(--wordmark); animation: wordIn var(--boot-duration) ease-out both; }
+
+/* Timeline, as fractions of --boot-duration: power-on 0–6%, picture opens 6–15%, plate 9–15%,
+   pillars rise one after another 15–39%, wordmark 36–51%, line 45–54%, hold to 85%, fade 85–100%. */
+@keyframes powerLine { 0% { transform: scaleX(0); opacity: 1 } 6% { transform: scaleX(1); opacity: 1 } 12%, 100% { transform: scaleX(1); opacity: 0 } }
+@keyframes open { 0%, 6% { clip-path: inset(50% 0 50% 0); opacity: 1 } 15%, 85% { clip-path: inset(0 0 0 0); opacity: 1 } 100% { clip-path: inset(0 0 0 0); opacity: 0 } }
+@keyframes plateIn { 0%, 9% { opacity: 0 } 15%, 100% { opacity: 1 } }
+@keyframes rise1 { 0%, 15% { transform: scaleY(0) } 27%, 100% { transform: scaleY(1) } }
+@keyframes rise2 { 0%, 21% { transform: scaleY(0) } 33%, 100% { transform: scaleY(1) } }
+@keyframes rise3 { 0%, 27% { transform: scaleY(0) } 39%, 100% { transform: scaleY(1) } }
+@keyframes wordIn { 0%, 36% { opacity: 0; transform: scaleX(1.12) } 51%, 100% { opacity: 1; transform: scaleX(1) } }
+@keyframes lineIn { 0%, 45% { opacity: 0 } 48% { opacity: .6 } 49.5% { opacity: .15 } 54%, 100% { opacity: 1 } }
+
+/* #still: the held frame, for the state images. */
+.still * { animation: none !important; }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="power-line" aria-hidden="true"></div>
+  <div class="picture">
+    <div class="dots" aria-hidden="true"></div>
+    <div class="stack">
+      <div class="plate" role="img" aria-label="Auburn mark: three pillars lettered H, C, M, with the line beneath">
+        <div class="rule-outer"><div class="rule-inner">
+          <div class="pillars"><span class="pillar">H</span><span class="pillar">C</span><span class="pillar">M</span></div>
+          <div class="line"><span id="line"></span></div>
+        </div></div>
+      </div>
+      <h1 class="wordmark" aria-label="Auburn"><span>A</span><span>U</span><span>B</span><span>U</span><span>R</span><span>N</span></h1>
+    </div>
+  </div>
+</div>
+<script>
+// One line per boot, picked at random, never the same as the last boot's (the app remembers the last; this file does not).
+var lines = ['More human than human.', 'Introducing, the new You.', 'Human, improved.', 'Built better. By you.', 'Engineered to endure.', 'Strength is a protocol.', 'Advancement is mandatory.', 'Obsolescence is optional.', 'Flesh: the first machine.'];
+var params = new URLSearchParams(location.search);
+if (params.get('theme')) document.documentElement.dataset.theme = params.get('theme');
+document.getElementById('line').textContent = lines[params.has('line') ? +params.get('line') : Math.floor(Math.random() * lines.length)];
+if (location.hash === '#still') document.querySelector('.screen').classList.add('still');
+document.querySelector('.power-line').style.display = location.hash === '#still' ? 'none' : '';
+</script>
+</body>
+</html>

@@ -95,7 +95,7 @@ Auburn/
 
 ## Visual design process
 
-`Spec/Visual Design.md` holds the foundations — the frame, palette, type, spacing, grade marks, rest band colours, the tube, the muscle figure's style — and a section per screen. A screen is either agreed or stated as not yet specified, with a TASKS.md item for each screen still open. The screens are agreed one at a time.
+`Spec/Visual Design.md` holds the basics — the frame, palette, type, spacing, grade marks, rest band colours, the tube, the muscle figure's style — and a section per screen. A screen is either agreed or stated as not yet specified, with a TASKS.md item for each screen still open. The screens are agreed one at a time.
 
 ### How a screen gets agreed
 
@@ -114,18 +114,18 @@ Its section in `Visual Design.md` has five parts:
 - **Controls.** Every tap and what it does.
 - **Images.** One per state that matters, embedded from the screen's folder.
 
-Its folder, `Spec/Visual Design/<nn-screen>/`, holds `screen.html` — the approved board as one standalone file, using only foundation values, named as CSS variables — and the state images as PNGs at cover-screen size.
+Its folder, `Spec/Visual Design/<nn-screen>/`, holds `screen.html` — the approved board as one standalone file, using only the basics' values, named as CSS variables — and the state images as PNGs at cover-screen size.
 
 ### What owns what
 
-- Foundations own every value. A screen never introduces one; a value it needs is added to the foundations first.
+- The basics own every value. A screen never introduces one; a value it needs is added to the basics first.
 - The section owns behaviour and contents.
 - `screen.html` owns layout: sizes, gaps, positions. Canvas pixels are Flutter logical pixels.
 - Images only illustrate.
 
 Where two disagree, the owner holds and the other is fixed in the same edit. A change to a screen is not done until its section, HTML, and images all agree.
 
-The tube — curvature, scanlines, glass — is not in the canvas. Its values are in the foundations, and its look is checked on the device.
+The tube — curvature, scanlines, glass — is not in the canvas. Its values are in the basics, and its look is checked on the device.
 
 ---
 

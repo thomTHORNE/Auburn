@@ -75,5 +75,6 @@ A tap registers the moment it lands, on screen and in the hand, before anything 
 "Did that register?" is answered by looking, which is what the gym floor cannot afford. An input with no immediate answer gets tapped twice, and a set logged twice or not at all corrupts the history that rest and progress are read from.
 
 > In practice: a logged set is confirmed with a haptic pulse, so the phone can be put down without a glance.
+> The boot screen is the one exception: it plays to the end, and a tap during it does nothing.
 
 *Derives from: Training; A set is graded by feel.*
