@@ -137,7 +137,7 @@ enum Grade { ideal, acceptable, light, yielding, warmup }
 class LoggedSet {
   final String commitId;              // a hypertrophy commit
   final DateTime loggedAt;            // sets are ordered by it
-  final double loadKg;                // the total; for bodyweight, the added load
+  final double loadKg;                // the total; for dumbbells, one dumbbell; for bodyweight, the added load
   final List<double>? platesPerSide;  // plates only, as entered
   final Grade? grade;
   final int? reps;

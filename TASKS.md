@@ -49,25 +49,9 @@ Resolved tasks are removed from TASKS.md.
 
     The prompt when a goal falls overdue, and the log of answers. References the limit Rest owns. Waits on Research/Method for when the prompt appears and whether it must be answered first.
 
-- [ ] **`#7.4` Workouts are not specified**
-    `BLOCKER`
 
-    Choosing the gym, committing exercises in order, duration, and past workouts.
 
-- [ ] **`#7.5` Sets are not specified**
-    `BLOCKER`
 
-    Load, grade, and reps when counted.
-
-- [ ] **`#7.6` The modality roll is not specified**
-    `BLOCKER`
-
-    The roll, on when a workout starts and switched off or on during it.
-
-- [ ] **`#7.7` Exercises are not specified**
-    `BLOCKER`
-
-    The user's exercises, the muscle groups each works, alternates, gym ties, notes, and past sets by workout.
 
 - [ ] **`#7.8` Progress is not specified**
     `BLOCKER`
