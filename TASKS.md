@@ -42,15 +42,7 @@ Resolved tasks are removed from TASKS.md.
 
     A goal's explanation, the exercises that work toward it, and its progress. Weaknesses are goals.
 
-- [ ] **`#7.12` Muscle groups are not specified**
-    `BLOCKER`
 
-    The standard list, the muscle groups an exercise works, the AMAP rule, and splits.
-
-- [ ] **`#7.2` Rest is not specified**
-    `BLOCKER`
-
-    Each muscle group's rest, its bands, its overdue limit, cardio's rest, and every rest at a glance. Owns the limit the overdue log reads.
 
 - [ ] **`#7.3` The overdue log is not specified**
     `BLOCKER`
@@ -98,7 +90,7 @@ Resolved tasks are removed from TASKS.md.
     A one-time import of Training '26. Waits on Research/Notion Import for how the export writes relations and order.
 
 - [ ] **`#7.13` The muscle figure is not specified**
-    `BLOCKER` · `Deps: #7.12`
+    `BLOCKER`
 
     Front and back views, one region per muscle group, predefined zoom sections for the small groups, lighting an exercise's groups, and tinting by rest band. The art is traced from Albinus's Tabulae sceleti et musculorum (1747), engraved by Jan Wandelaar, from a public-domain scan.
 
