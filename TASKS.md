@@ -37,12 +37,6 @@ Resolved tasks are removed from TASKS.md.
 
 ### `#7` Features · [Spec/Features/](Spec/Features/)
 
-- [ ] **`#7.1` Goals are not specified**
-    `BLOCKER`
-
-    A goal's explanation, the exercises that work toward it, and its progress. Weaknesses are goals.
-
-
 
 - [ ] **`#7.3` The overdue log is not specified**
     `BLOCKER`
@@ -52,11 +46,6 @@ Resolved tasks are removed from TASKS.md.
 
 
 
-
-- [ ] **`#7.8` Progress is not specified**
-    `BLOCKER`
-
-    Each exercise's ideal load over time. Waits on Research/Method for what the view shows.
 
 
 - [ ] **`#7.10` Cardio is not specified**

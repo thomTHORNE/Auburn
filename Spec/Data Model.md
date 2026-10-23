@@ -71,8 +71,11 @@ class Exercise {
   final String observations;          // the notes, shown as three tabs
   final String settings;
   final String form;
+  final ExerciseParameter shownParameter; // what Progress plots; default load
   final bool archived;
 }
+
+enum ExerciseParameter { load, reps }
 ```
 
 - A hypertrophy exercise has a load kind and works at least one muscle group. An AMAP exercise resets none of them.
@@ -89,11 +92,17 @@ class Goal {
   final String name;
   final String explanation;
   final ActivityKind? cardioKind; // a cardio goal: measured against activities of this kind
+  final CardioParameter shownParameter; // cardio goals: what Progress plots; default pace
+  final double? minDistanceKm;    // cardio goals: only activities in this range count
+  final double? maxDistanceKm;
   final bool archived;
 }
+
+enum CardioParameter { pace, duration, distance, averageHeartRate }
 ```
 
 - A goal's exercises are the exercises that name it.
+- `minDistanceKm ≤ maxDistanceKm` when both are set.
 
 ## Workouts
 

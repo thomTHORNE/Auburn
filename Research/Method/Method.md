@@ -25,7 +25,6 @@ The mechanics of how the user trains, as run in Notion (Training '26) since Dece
 ## Open questions
 
 - **The overdue prompt.** When it appears, and whether answering is required before anything else.
-- **Progress view.** Notion charts each exercise's ideal load over time. What Auburn shows.
 
 ## Findings
 
