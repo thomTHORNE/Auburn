@@ -31,3 +31,15 @@ Needs: a build run on the Fold.
 Feeds: Research/Platforms, Spec/Visual Design.
 Code: Lab/crt-shader/
 Stakes: a fail limits the CRT look to static texture layers.
+
+---
+
+## Glass that moves
+
+Sketch · parked
+
+Question: does a halo and smudge layer that shifts with the phone's tilt read as real glass over the screen, without crossing the values and keys it must not obscure?
+Pass: in use at the gym, the glass reads as physical, and no value or key is ever harder to read because of where the halo has moved.
+Timebox: 1–2 days.
+Needs: a passing CRT shader probe; a build on the Fold.
+Feeds: Spec/Visual Design.
