@@ -26,7 +26,7 @@ Auburn presents what it knows — rest, history, notes — and leaves the judgme
 
 Training is chosen by a body Auburn cannot feel. An app that decides on the user's behalf replaces the one source that knows with one that only counts, and the user stops learning to read their own body.
 
-> In practice: the rest gauge shows days and a colour; it never says which goal to train. Weaknesses are named by the user, and notes are written by the user.
+> In practice: the rest gauge shows days and a colour; it never says which muscle group to train. Weaknesses are named by the user, and notes are written by the user.
 
 *Derives from: Rest and feel choose the training; Each exercise keeps its own notes; Weaknesses.*
 
@@ -38,9 +38,9 @@ The rules are the user's, and Auburn holds the user to them. Where a rule exists
 
 A rule that bends whenever it is inconvenient stops being a rule. The value of being held to account is that it does not depend on how the user feels about it in the moment.
 
-> In practice: a roll stands. A goal of only AMAP exercises is refused. An overdue goal asks why, and the answer is kept.
+> In practice: a roll stands. A muscle group appears only once an exercise resets it. An overdue muscle group asks why, and the answer is kept.
 
-*Derives from: The goal is the unit; Rest and feel choose the training; Variety on purpose.*
+*Derives from: Muscles set the pace; Rest and feel choose the training; Variety on purpose.*
 
 ---
 
@@ -50,7 +50,7 @@ Nothing is added — a field, a grouping, a setting — unless it brings a direc
 
 Structure has upkeep. Unused structure is not neutral: it has to be filled in, ignored, or worked around, and it crowds out what is used. The Notion system that came before Auburn built fixed splits, intended reps, and an ignore-tracking flag, and abandoned each.
 
-> In practice: a goal's split is optional. Fields that went unfilled in Notion were not carried into Auburn.
+> In practice: a muscle group's split is optional. Fields that went unfilled in Notion were not carried into Auburn.
 
 *Derives from: Training; The problem.*
 

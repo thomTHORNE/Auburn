@@ -40,9 +40,9 @@ Each pillar is one departure from the market's defaults: what Auburn does instea
 
 ### Rest and feel choose the training
 
-What is trained on a given day is chosen from two things: how long each goal has rested, and how the body feels. Auburn shows the first. The user brings the second, and decides.
+What is trained on a given day is chosen from two things: how long each muscle group has rested, and how the body feels. Auburn shows the first. The user brings the second, and decides.
 
-Rest has a limit. When a goal rests past it, Auburn asks why it was not trained and keeps the answer in a log of its own, so slack is seen rather than forgotten.
+Rest has a limit. When a muscle group rests past it, Auburn asks why it was not trained and keeps the answer in a log of its own, so slack is seen rather than forgotten.
 
 Auburn never prescribes the day's training.
 
@@ -52,15 +52,19 @@ A set is recorded as its load and a grade of how it went — the control and for
 
 Auburn never requires a rep count to log a set.
 
-### The goal is the unit
+### Muscles set the pace
 
-A goal says why. It holds the user's own explanation of what it is for and how it is meant to be achieved, and the exercises that serve it — primary and alternates. Its rest decides when it is trained again. An exercise is seen through the goal it serves.
+Rest is kept per muscle group, from a standard list. A muscle is worked wherever training happens, by whichever exercise works it, so its rest counts the days since any exercise worked it, at any gym. Each exercise names the muscle groups it trains, and those are the rests it resets.
 
-Every goal is owed. A goal always holds at least one exercise that resets its rest. A goal of only AMAP exercises could never fall due, and Auburn does not allow that escape.
+Every muscle group is owed. A group appears once an exercise resets it, and an AMAP exercise resets none, so no group can be held only by work that never lets it fall due.
+
+### A goal says why
+
+A goal is something to reach: a movement mastered, an imbalance levelled, a time run. It holds the user's own explanation of what it is for and how it is meant to be achieved, and the exercises that work toward it. A goal is never owed. It shows progress, not rest.
 
 ### Variety on purpose
 
-A fixed routine goes stale and leaves gaps. A workout can switch on the modality roll: each exercise committed to it then gets a rolled modality — slow and controlled, reps counted to test strength, or by feel. Training stays fresh, experimenting is built in, and the counted sets give a measured check on progress. With the roll off, every exercise is done by feel.
+A fixed routine goes stale and leaves gaps. Every workout starts with the modality roll on: each exercise committed to it gets a rolled modality — slow and controlled, reps counted to test strength, or by feel. Training stays fresh, experimenting is built in, and the counted sets give a measured check on progress. With the roll off, every exercise is done by feel.
 
 A roll is never re-rolled.
 
@@ -72,7 +76,7 @@ Auburn never hides an exercise's notes while it is being done.
 
 ### Weaknesses
 
-Some of what training has to address is specific: a weakness found in your own body, such as weak motor recruitment through one leg and its hip. Auburn gives weaknesses a space of their own, where each is named and targeted.
+Some of what training has to address is specific: a weakness found in your own body, such as weak motor recruitment through one leg and its hip. A weakness is a goal the user names: what it is, how it is meant to be levelled, and the exercises that work it.
 
 Auburn never names or diagnoses a weakness. Weaknesses are found by the user.
 
@@ -80,20 +84,22 @@ Auburn never names or diagnoses a weakness. Weaknesses are found by the user.
 
 ## Terms
 
-- **Goal** — a purpose in training: the user's explanation of what it is and how it is achieved, and the exercises that serve it.
-- **Exercise** — a movement on specific equipment. Belongs to one or more goals, and optionally to the gyms it is done at.
-- **Workout** — one visit to train at a gym: the exercises committed to it, in order, and their sets. Titled by its date and gym.
+- **Muscle group** — a part of the body rest is kept for, from a standard list: chest, shoulders, biceps, triceps, forearms, lats, upper back, traps, lower back, abs, obliques, quads, hamstrings, glutes, calves, adductors, abductors, neck. Cardio rests the same way, reset by runs, treadmill sessions, and hikes from the watch.
+- **Goal** — something to reach: the user's explanation of what it is and how it is achieved, and the exercises that work toward it.
+- **Exercise** — a movement, on specific equipment where it uses any. Works one or more muscle groups, may serve goals, may name alternates, and may be tied to the gyms it is done at. A mobility exercise works no muscle group and serves no goal.
+- **Alternate** — an exercise named on another as its stand-in, used when that one's equipment is taken.
+- **Workout** — one visit to train at a gym: the exercises committed to it, in order, and their sets. Titled by its date and gym. A workout is hypertrophy or mobility, never both.
 - **Gym** — where a workout happens, home included. Gyms differ in equipment: an exercise tied to a gym is that gym's version of the lift, and one tied to none is the same everywhere.
-- **Split** — an optional grouping of goals, such as Upper, Leg Day, or Stim.
+- **Split** — an optional grouping of muscle groups, such as Upper or Leg Day.
 - **Commit** — adding an exercise to the current workout. When the workout's roll is on, its modality is rolled at that moment.
 - **Modality** — how an exercise is done in a workout: slow and controlled, counted, or by feel.
-- **Set** — a load and a grade, plus reps when the modality counts them.
-- **Grade** — how a set went, read by feel.
+- **Set** — a load and a grade, plus reps when the modality counts them. Mobility exercises have no sets.
+- **Grade** — how a set went, read by feel. A mobility exercise carries its own optional grade: controlled, improved, or poor.
   - *Ideal:* heavy, taken to failure with control, within a hypertrophy rep range.
   - *Acceptable:* close to ideal with clearly fewer reps, or form held at the edge of breaking.
   - *Light:* too easy to count as work.
   - *Yielding:* form and control lost; the load is not tried again until enough ideal sets come first.
   - *Warmup.*
-- **Rest** — the days since a goal was last trained by an exercise that resets it.
-- **AMAP** — "as much as possible": an exercise that never resets a goal's rest. Usually low-fatigue isolation work; heavy compounds always reset.
-- **Overdue** — a goal that has rested past its own limit. Each goal carries its limit.
+- **Rest** — the days since a muscle group was last worked by an exercise that resets it, at any gym; for cardio, since the last activity from the watch.
+- **AMAP** — "as much as possible": an exercise that resets no muscle group's rest. Usually low-fatigue isolation work; heavy compounds always reset.
+- **Overdue** — a muscle group, or cardio, that has rested into its last band. Each carries its own limit.
