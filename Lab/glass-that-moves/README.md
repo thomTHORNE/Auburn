@@ -2,7 +2,7 @@
 
 Throwaway code. The question, pass condition, and verdict live in [`Lab/Log.md`](../Log.md).
 
-The CRT probe's stand-in logging screen under [`shaders/glass.frag`](shaders/glass.frag): the same CRT shader, with the glass layer driven by the phone's tilt. The halo moves the way a reflection on real glass would as the phone turns. The smudges stay fixed on the glass and show up where the halo passes over them.
+The CRT probe's stand-in logging screen under [`shaders/glass.frag`](shaders/glass.frag): the same CRT shader, with the glass layer driven by the phone's tilt. The halo moves the way a reflection on real glass would as the phone turns. What is on the glass — an oily film, swipe streaks, thumbprints over the keys, and dust — stays fixed and shows up where the light catches it.
 
 Buttons on the readout line:
 
