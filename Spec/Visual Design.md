@@ -26,6 +26,18 @@ Auburn has a dark and a light theme. It follows the device unless Settings sets 
 | Gelasio 700 | The wordmark |
 | Saira 300 / 600 | The mark's letters and its line |
 
+### The tube
+
+Every screen runs under one shader: curvature, chromatic aberration kept off the centre, bloom, scanlines, a vignette, a slow rolling band, grain, and glass that moves with the phone's tilt.
+
+| | |
+|---|---|
+| Strength | 0.6 |
+| Glass | Low (0.6); High (1.2) on the boot |
+| Glass travel with tilt | Small (0.35) |
+
+With the system's reduce-motion setting on, the band, the grain, and the glass hold still.
+
 The rest of the basics are not yet specified.
 
 ## Screens

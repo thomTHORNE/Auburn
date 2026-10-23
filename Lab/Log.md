@@ -33,6 +33,7 @@ Needs: a build on the Fold.
 Feeds: Spec/Visual Design.
 Code: Lab/screens-under-tube/
 Stakes: a screen that fails goes back to the canvas.
+Screen 00, boot: pass. Rebuilt from its screen.html, it matches the approved board; the mark, wordmark, and line read through the tube, and the tilt-driven glass runs. At the approved glass LOW the glass is barely visible on the boot; HIGH (1.2) with travel SMALL fits it better.
 
 ---
 

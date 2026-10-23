@@ -10,5 +10,5 @@ const cyanWhite = Color(0xFFDDF7F5);
 
 /// The tube's settings, from the CRT and glass Lab verdicts.
 const tubeStrength = 0.6;
-const tubeGlass = 0.6;
+const tubeGlass = 0.6; // Low; a screen may opt into High (1.2)
 const tubeTravel = 0.35;

@@ -17,16 +17,19 @@ enum ThemeChoice { system, dark, light }
 
 /// One approved screen: its number, name, whether it has a light theme, and how to build it.
 class ApprovedScreen {
-  const ApprovedScreen(this.number, this.name, this.hasLight, this.build);
+  const ApprovedScreen(this.number, this.name, this.hasLight, this.build, {this.glassHigh = false});
 
   final String number;
   final String name;
   final bool hasLight;
+
+  /// The screen's glass level in Visual Design's basics: Low unless the screen opts into High.
+  final bool glassHigh;
   final Widget Function(bool dark, int replays) build;
 }
 
 final _screens = <ApprovedScreen>[
-  ApprovedScreen('00', 'BOOT', true, (dark, replays) => BootScreen(dark: dark, replays: replays)),
+  ApprovedScreen('00', 'BOOT', true, (dark, replays) => BootScreen(dark: dark, replays: replays), glassHigh: true),
 ];
 
 class LabApp extends StatelessWidget {
@@ -90,10 +93,10 @@ class _ScreenRunnerState extends State<ScreenRunner> {
   bool _controls = false;
   int _replays = 0;
 
-  // For checking the glass: the approved values first.
+  // For checking the glass; each screen starts at its own level from the basics.
   static const _glassLevels = [('LOW', 0.6), ('HIGH', 1.2), ('OFF', 0.0)];
   static const _travels = [('SMALL', 0.35), ('LARGE', 0.7)];
-  int _glass = 0;
+  late int _glass = widget.screen.glassHigh ? 1 : 0;
   int _travel = 0;
   int _centers = 0;
 
