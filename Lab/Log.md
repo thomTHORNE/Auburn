@@ -24,7 +24,7 @@ Notes: the code was never run. Kept as reference for reading Health Connect.
 
 ## Muscle figure regions
 
-Sketch · running
+Sketch · done
 
 Question: on the Fold cover screen, can the 20 muscle groups, drawn as regions on a front and a back figure, be told apart and tapped one-handed — at full size, or with a predefined zoom on part of the body — both when an exercise lights its groups and when every group is tinted by its rest band?
 Pass: every group can be tapped without hitting its neighbour, at full size or zoomed; lit groups are found at a glance; and the rest tint reads without the figure losing its engraved look under the CRT shader.
@@ -33,6 +33,8 @@ Needs: a build on the Fold.
 Feeds: Spec/Visual Design, the muscle figure.
 Code: Lab/muscle-figure/
 Stakes: if small groups (neck, the three delts, obliques, abductors) cannot be tapped even zoomed, they need merged regions for display.
+Verdict (2026-10-23): pass, with zoom. Placeholder regions for the 20 muscle groups, front and back, under the CRT and glass shader. An exercise's groups lit in Cyan White are found at a glance. At full size the small groups — the three delts, neck, obliques, abductors — are missed one-handed; zoomed to a predefined section (shoulders, torso, hips, legs) they are hit. The rest tint reads in blue, green, and orange; red is the weakest on the ember plate.
+Notes: the tap test scored 6 of 20 with 13 taps zoomed. Most misses came from the test asking for groups outside the zoomed section, since it turned the figure but never changed the zoom. The neighbour misses were rear delts and lats, forearms and triceps, and neck and traps; worth checking again on the traced art. Merged regions are not needed. Code kept as reference.
 
 ---
 

@@ -29,6 +29,8 @@ Resolved tasks are removed from TASKS.md.
 - [ ] **`#6.1` No visual values are specified**
     `MINOR`
 
+    The values on the design canvas and the Lab verdicts: CRT strength 0.6, glass LOW, travel SMALL. The rest bands' red reads weakly on the ember plate.
+
 ## Alignment 2 — Features
 
 ### `#7` Features · [Spec/Features/](Spec/Features/)
@@ -96,7 +98,7 @@ Resolved tasks are removed from TASKS.md.
 - [ ] **`#7.13` The muscle figure is not specified**
     `BLOCKER` · `Deps: #4.1, #7.12`
 
-    Front and back views, one region per muscle group, lighting an exercise's groups, and tinting by rest band. The art is traced from Albinus's Tabulae sceleti et musculorum (1747), engraved by Jan Wandelaar, from a public-domain scan.
+    Front and back views, one region per muscle group, predefined zoom sections for the small groups, lighting an exercise's groups, and tinting by rest band. The art is traced from Albinus's Tabulae sceleti et musculorum (1747), engraved by Jan Wandelaar, from a public-domain scan.
 
 ## Alignment 3 — Integrations
 
