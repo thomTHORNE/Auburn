@@ -21,7 +21,7 @@ Resolved tasks are removed from TASKS.md.
 
 ### `#6` Visual Design · [Spec/Visual Design.md](Spec/Visual%20Design.md)
 
-- [ ] **`#6.1` No visual values are specified**
+- [ ] **`#6.1` The visual foundations are not specified**
     `MINOR`
 
     The values on the design canvas and the Lab verdicts: CRT strength 0.6, glass LOW, travel SMALL. The rest bands' red reads weakly on the ember plate. The muscle figure's engraving, lit and band colours, source plates, and asset format: one shape per muscle group per view, named after the group.
@@ -30,6 +30,51 @@ Resolved tasks are removed from TASKS.md.
     `MINOR`
 
     Front and back plates from Albinus's Tabulae sceleti et musculorum (1747), engraved by Jan Wandelaar, traced into one region per muscle group from a public-domain scan. Refined placeholder shapes stand in until it is done.
+
+- [ ] **`#6.3` Screen 00, boot, is not specified**
+    `GAP`
+
+- [ ] **`#6.4` Screen 01, navigation, is not specified**
+    `GAP`
+
+- [ ] **`#6.5` Screen 02, rest at a glance, is not specified**
+    `GAP`
+
+- [ ] **`#6.6` Screen 03, the overdue prompt, is not specified**
+    `GAP`
+
+- [ ] **`#6.7` Screen 04, starting a workout, is not specified**
+    `GAP`
+
+- [ ] **`#6.8` Screen 05, committing an exercise, is not specified**
+    `GAP`
+
+- [ ] **`#6.9` Screen 06, logging a set, is not specified**
+    `GAP`
+
+- [ ] **`#6.10` Screen 07, a mobility workout, is not specified**
+    `GAP`
+
+- [ ] **`#6.11` Screen 08, past workouts, is not specified**
+    `GAP`
+
+- [ ] **`#6.12` Screen 09, an exercise, is not specified**
+    `GAP`
+
+- [ ] **`#6.13` Screen 10, creating or editing an exercise, is not specified**
+    `GAP`
+
+- [ ] **`#6.14` Screen 11, goals, is not specified**
+    `GAP`
+
+- [ ] **`#6.15` Screen 12, a muscle group, is not specified**
+    `GAP`
+
+- [ ] **`#6.16` Screen 13, splits and gyms, is not specified**
+    `GAP`
+
+- [ ] **`#6.17` Screen 14, the overdue log, is not specified**
+    `GAP`
 
 ### `#9` Architecture · [Spec/Architecture/Architecture.md](Spec/Architecture/Architecture.md)
 

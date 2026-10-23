@@ -129,6 +129,42 @@ The tube — curvature, scanlines, glass — is not in the canvas. Its values ar
 
 ---
 
+## Visual design process
+
+`Spec/Visual Design.md` holds the foundations — the frame, palette, type, spacing, grade marks, rest band colours, the tube, the muscle figure's style — and a section per screen. A screen is either agreed or stated as not yet specified, with a TASKS.md item for each screen still open. The screens are agreed one at a time.
+
+### How a screen gets agreed
+
+1. **Explain it first.** Before any design, Claude states the screen's purpose, why it earns its place, and what it must carry. The user confirms it is understood, or the screen is cut or merged. A screen that cannot say why it exists is not designed.
+2. **Iterate on the design canvas**, round by round, until the user approves a version.
+3. **Save the approved version**: the section, the screen's HTML, and an image per state, as below.
+4. **Remove its TASKS.md item.**
+
+### An agreed screen
+
+Its section in `Visual Design.md` has five parts:
+
+- **Purpose.** One sentence: what the user comes here to do.
+- **Earns its place.** What would break or be worse without it, and why it is not folded into another screen.
+- **Contents.** Top to bottom, everything on it, and what is always visible.
+- **Controls.** Every tap and what it does.
+- **Images.** One per state that matters, embedded from the screen's folder.
+
+Its folder, `Spec/Visual Design/<nn-screen>/`, holds `screen.html` — the approved board as one standalone file, using only foundation values, named as CSS variables — and the state images as PNGs at cover-screen size.
+
+### What owns what
+
+- Foundations own every value. A screen never introduces one; a value it needs is added to the foundations first.
+- The section owns behaviour and contents.
+- `screen.html` owns layout: sizes, gaps, positions. Canvas pixels are Flutter logical pixels.
+- Images only illustrate.
+
+Where two disagree, the owner holds and the other is fixed in the same edit. A change to a screen is not done until its section, HTML, and images all agree.
+
+The tube — curvature, scanlines, glass — is not in the canvas. Its values are in the foundations, and its look is checked on the device.
+
+---
+
 ## Research
 
 `Research/` is where an idea is developed in parallel to the spec, at more length than `Ideas.md` can hold.
