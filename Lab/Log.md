@@ -24,7 +24,7 @@ Notes: the code was never run. Kept as reference for reading Health Connect.
 
 ## Suunto via intervals.icu
 
-Probe · running
+Probe · done
 
 Question: with a personal intervals.icu API key, does a Flutter app fetch the original FIT files of a run, a treadmill session, and a hike recorded on the Suunto watch, and read distance, duration, and heart rate from each?
 Pass: all three activity types arrive as original FIT files and parse with those fields.
@@ -33,6 +33,8 @@ Needs: intervals.icu connected to Suunto; an API key and athlete ID entered on t
 Feeds: Research/Suunto, Research/Platforms.
 Code: Lab/suunto-intervals/
 Stakes: if the fetch fails, the fallback is a manual FIT export from the Suunto app. If the files cannot be parsed, cardio leaves v1.
+Verdict (2026-10-23): pass. A Flutter app with a personal intervals.icu API key lists the athlete's activities and downloads each one's original FIT file. A run, a treadmill session, and a hike each parsed with distance, duration, and heart rate, from 1,261 to 9,264 heart-rate samples per activity. The FIT file's own sub-sport marks treadmill sessions; intervals.icu calls them VirtualRun.
+Notes: fit_tool 1.0.5 throws on sport values newer than its profile. One activity carried value 64, which stopped the run after seven files. Product code needs a parser that tolerates unknown values. The athlete id worked with its "i" prefix. Code kept as reference.
 
 ---
 

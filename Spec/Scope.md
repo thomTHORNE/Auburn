@@ -26,7 +26,7 @@ A version may withhold a pillar of Foundation, but never break one of its refusa
 | **Exercises** | The user's own exercises, each optionally tied to gyms, with its notes and its past sets, grouped by workout and showing the gym and the exercise's place in that workout. |
 | **Progress** | Each exercise's ideal load over time. |
 | **Mobility** | Mobility workouts, with a grading system of their own. |
-| **Cardio** | Runs, treadmill sessions, and hikes recorded on the Suunto watch, read through Health Connect. |
+| **Cardio** | Runs, treadmill sessions, and hikes recorded on the Suunto watch, read from intervals.icu, which syncs them from the Suunto app. |
 | **Notion history** | A one-time import of Training '26: goals, exercises and their notes, workouts, and sets. |
 
 ### Excluded
