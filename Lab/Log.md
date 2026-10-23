@@ -15,3 +15,4 @@ Pass: all three activity types appear with those fields.
 Timebox: half a day.
 Needs: "Save to Health Connect" turned on in the Suunto app, and a build run on the phone.
 Feeds: Research/Suunto, Research/Platforms.
+Stakes: a fail removes cardio from v1.

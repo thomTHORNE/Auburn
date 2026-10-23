@@ -8,6 +8,7 @@ Bringing basic data for runs, treadmill sessions, and hikes recorded on a Suunto
 
 - Auburn does not record these activities itself. The watch does.
 - **The path is a double jump.** The Suunto app writes to Health Connect; Auburn reads from Health Connect only what the Suunto app wrote.
+- **Cardio reaches v1 through the double jump or not at all.** If the probe shows it cannot work, cardio is out of v1.
 
 ## Open questions
 

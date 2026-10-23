@@ -9,6 +9,8 @@ The mechanics of how the user trains, as run in Notion (Training '26) since Dece
 - **Rest is per goal**: days since the latest set of any of its exercises, except AMAP exercises, which never reset it.
 - **Rest bands and the overdue limit are per goal.** A heavy leg goal and a cardio goal rest and fall due on different schedules.
 - **The overdue log** is standalone. It is tied to no goal, exercise, or workout: an entry is an answer to why training did not happen, kept so slack can be looked at over time.
+- **A workout records its gym**, and is titled by date and gym — Iva Gyma in the hometown, Gyms4You locally.
+- **Commit order is kept.** An exercise's past sets show its place in each workout.
 - **Modalities**: slow and controlled; counted, to test strength; by feel. One is rolled on commit.
 
 ## Open questions
@@ -17,9 +19,9 @@ The mechanics of how the user trains, as run in Notion (Training '26) since Dece
 - **The overdue prompt.** When it appears, and whether answering is required before anything else.
 - **Rolling.** Whether the three modalities are equally likely, whether a goal or exercise can exclude one, and whether a roll can be re-rolled.
 - **Progression.** How many ideal sets lift a Yielding hold, and whether Light, Acceptable, and Ideal carry rules of their own.
-- **Gyms.** Equipment differs by gym. Whether Auburn knows which gym a workout is at, and whether a goal's alternate exercises are how it adapts.
+- **Gyms.** Whether past loads and progress are read per gym, and whether a goal's alternates adapt to the gym's equipment.
 - **Progress view.** Notion charts each exercise's ideal load over time. What Auburn shows.
-- **Mobility workouts.** Logged without sets, following a fixed routine. How Auburn records them.
+- **Mobility grades.** Mobility is graded on a system of its own: its method is fluid and stable motion, not failure. What it grades, and the grades themselves.
 
 ## Findings
 

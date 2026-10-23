@@ -32,15 +32,6 @@ Foundation is the root every other document answers to. Its departures from the 
 
 ## Alignment 1 — Spec top level
 
-::: toggle `#2` Scope
-[Spec/Scope.md](Spec/Scope.md)
-- - -
-- [ ] `#2.1` `BLOCKER` **v1 inclusions are not specified**
-    Which of the market's general concepts v1 carries, and which of Auburn's departures it delivers.
-<br>
-- [ ] `#2.2` `GAP` `Deps: #2.1` **v1 exclusions are not specified**
-:::
-
 ::: toggle `#3` Design Principles
 [Spec/Design Principles.md](Spec/Design%20Principles.md)
 - - -

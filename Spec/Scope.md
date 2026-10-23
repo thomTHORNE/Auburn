@@ -17,15 +17,27 @@ A version may withhold a pillar of Foundation, but never break one of its refusa
 | | |
 |---|---|
 | **Platforms** | Android phones. |
-
-The rest of v1 is not yet specified.
+| **Goals** | Goals with the user's explanation, their primary and alternate exercises, and the AMAP rule. Every goal is owed. Weaknesses are goals in v1. A goal may carry a split. |
+| **Rest** | Each goal's rest, rest bands, and overdue limit, set per goal. Every goal's rest at a glance, as the basis for choosing the day's training. |
+| **The overdue log** | The prompt when a goal falls overdue, and the log of answers. |
+| **Workouts** | Starting a workout at a gym, committing exercises to it in order, its duration, and past workouts. |
+| **Sets** | Load and grade, plus reps when the modality counts them. |
+| **Modality** | A modality rolled on every commit. |
+| **Exercises** | The user's own exercises, each with its notes and its past sets, grouped by workout and showing the gym and the exercise's place in that workout. |
+| **Progress** | Each exercise's ideal load over time. |
+| **Mobility** | Mobility workouts, with a grading system of their own. |
+| **Cardio** | Runs, treadmill sessions, and hikes recorded on the Suunto watch, read through Health Connect. |
+| **Notion history** | A one-time import of Training '26: goals, exercises and their notes, workouts, and sets. |
 
 ### Excluded
 
 | Excluded | |
 |---|---|
 | iOS, watch, desktop, and web | v1 is built for the phone training happens with. The stack keeps iOS within reach. |
-
-The rest of v1's exclusions are not yet specified.
+| A space of its own for weaknesses | Weaknesses are goals in v1. A dedicated space waits on understanding how a weakness is targeted. |
+| Manual cardio entry | Cardio comes from the watch, or not at all. |
+| A built-in exercise library | Exercises are the user's own. A catalog needs sourcing and upkeep, and nothing in current training uses one. |
+| A rest timer | Nothing in current training depends on one. |
+| A body-weight log | Nothing in v1 reads it. |
 
 Excluding these is what makes the rest of v1 small enough to finish. Anything here worth reconsidering later lives in [Ideas.md](../Ideas.md), not in this table.
