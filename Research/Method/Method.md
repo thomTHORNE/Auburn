@@ -1,4 +1,6 @@
-Status: Open
+Status: Promoted
+
+Landed in Foundation and Spec/Features. This document is no longer the reference.
 
 # Method
 
@@ -24,7 +26,7 @@ The mechanics of how the user trains, as run in Notion (Training '26) since Dece
 
 ## Open questions
 
-- **The overdue prompt.** When it appears, and whether answering is required before anything else.
+None.
 
 ## Findings
 

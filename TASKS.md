@@ -38,15 +38,6 @@ Resolved tasks are removed from TASKS.md.
 ### `#7` Features · [Spec/Features/](Spec/Features/)
 
 
-- [ ] **`#7.3` The overdue log is not specified**
-    `BLOCKER`
-
-    The prompt when a goal falls overdue, and the log of answers. References the limit Rest owns. Waits on Research/Method for when the prompt appears and whether it must be answered first.
-
-
-
-
-
 
 - [ ] **`#7.10` Cardio is not specified**
     `BLOCKER` · `Deps: #8.1`

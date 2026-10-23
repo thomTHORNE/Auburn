@@ -183,4 +183,4 @@ class OverdueEntry {
 
 ## Deleting
 
-Gyms, exercises, goals, and splits are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new. Workouts, commits, sets, activities, and overdue entries are deleted outright, along with anything they own.
+Gyms, exercises, goals, and splits are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Overdue entries are never deleted.
