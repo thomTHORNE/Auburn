@@ -58,10 +58,6 @@ Resolved tasks are removed from TASKS.md.
 
     Each exercise's ideal load over time. Waits on Research/Method for what the view shows.
 
-- [ ] **`#7.9` Mobility is not specified**
-    `BLOCKER`
-
-    Mobility workouts and their grading.
 
 - [ ] **`#7.10` Cardio is not specified**
     `BLOCKER` · `Deps: #8.1`
