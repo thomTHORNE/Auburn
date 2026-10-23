@@ -13,13 +13,13 @@ The mechanics of how the user trains, as run in Notion (Training '26) since Dece
 - **A workout starts with the gym.** Auburn asks which gym first; only exercises tied to it, or to no gym, are offered.
 - **Exercises are gym-specific where the equipment is.** An exercise may be tied to one or more gyms, or to none when the lift is the same everywhere. Progress is per exercise, and so per gym wherever it matters.
 - **Commit order is kept.** An exercise's past sets show its place in each workout.
-- **Modalities**: slow and controlled; counted, to test strength; by feel. One is rolled on commit.
+- **Modalities**: slow and controlled; counted, to test strength; by feel. When a workout's roll is on, one is rolled on each commit and never re-rolled. With the roll off, every exercise is done by feel.
 
 ## Open questions
 
 - **Rest band values.** Notion uses ≤2 days red (repair), 3 blue (maybe), 4 green (train), 5+ orange (train) for every goal. Whether these are the starting values for a new goal.
 - **The overdue prompt.** When it appears, and whether answering is required before anything else.
-- **Rolling.** Whether the three modalities are equally likely, whether a goal or exercise can exclude one, and whether a roll can be re-rolled.
+- **Rolling.** Whether the three modalities are equally likely, whether a goal or exercise can exclude one, and whether a new workout starts with the roll on or off.
 - **Progression.** How many ideal sets lift a Yielding hold, and whether Light, Acceptable, and Ideal carry rules of their own.
 - **A goal with nothing available.** A goal whose exercises are all tied to other gyms cannot be trained at the current one. Whether it is shown, and whether its rest keeps counting toward overdue while away.
 - **Progress view.** Notion charts each exercise's ideal load over time. What Auburn shows.

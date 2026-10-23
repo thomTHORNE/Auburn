@@ -58,15 +58,21 @@ Every goal is owed. A goal always holds at least one exercise that resets its re
 
 ### Variety on purpose
 
-A fixed routine goes stale and leaves gaps. When an exercise is committed to a workout, Auburn rolls its modality: slow and controlled, reps counted to test strength, or by feel. Training stays fresh, experimenting is built in, and the counted sets give a measured check on progress.
+A fixed routine goes stale and leaves gaps. A workout can switch on the modality roll: each exercise committed to it then gets a rolled modality — slow and controlled, reps counted to test strength, or by feel. Training stays fresh, experimenting is built in, and the counted sets give a measured check on progress. With the roll off, every exercise is done by feel.
+
+A roll is never re-rolled.
 
 ### Each exercise keeps its own notes
 
-Observations, settings, and form notes belong to the exercise and are in front of the user each time it is done.
+Observations, settings, and form notes belong to the exercise. They are in front of the user each time it is done, and editable on the spot.
+
+Auburn never hides an exercise's notes while it is being done.
 
 ### Weaknesses
 
 Some of what training has to address is specific: a weakness found in your own body, such as weak motor recruitment through one leg and its hip. Auburn gives weaknesses a space of their own, where each is named and targeted.
+
+Auburn never names or diagnoses a weakness. Weaknesses are found by the user.
 
 ---
 
@@ -77,7 +83,7 @@ Some of what training has to address is specific: a weakness found in your own b
 - **Workout** — one visit to train at a gym: the exercises committed to it, in order, and their sets. Titled by its date and gym.
 - **Gym** — where a workout happens, home included. Gyms differ in equipment: an exercise tied to a gym is that gym's version of the lift, and one tied to none is the same everywhere.
 - **Split** — an optional grouping of goals, such as Upper, Leg Day, or Stim.
-- **Commit** — adding an exercise to the current workout. Its modality is rolled at that moment.
+- **Commit** — adding an exercise to the current workout. When the workout's roll is on, its modality is rolled at that moment.
 - **Modality** — how an exercise is done in a workout: slow and controlled, counted, or by feel.
 - **Set** — a load and a grade, plus reps when the modality counts them.
 - **Grade** — how a set went, read by feel.

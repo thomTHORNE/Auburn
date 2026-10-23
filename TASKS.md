@@ -17,25 +17,12 @@ Resolved tasks are removed from TASKS.md.
 
 
 
-## Alignment 0 — Foundation
-
-::: toggle `#1` Foundation
-Foundation is the root every other document answers to. Its departures from the market are stated; what remains is listed below.
-
-[Foundation.md](Foundation.md)
-- - -
-- [ ] `#1.3` `GAP` **Pillars are incomplete**
-    Variety, Exercise notes, and Weaknesses have no refusal.
-:::
-
-
-
 ## Alignment 1 — Spec top level
 
 ::: toggle `#3` Design Principles
 [Spec/Design Principles.md](Spec/Design%20Principles.md)
 - - -
-- [ ] `#3.1` `BLOCKER` `Deps: #1.3` **No principles are specified**
+- [ ] `#3.1` `BLOCKER` **No principles are specified**
     Each traces to a Foundation pillar.
 :::
 

@@ -14,7 +14,6 @@ How Auburn gives a weakness a space of its own. The need is Foundation's to stat
 - **How training reaches it.** Whether exercises are linked to a weakness, and whether a session shows which weaknesses it touched.
 - **How progress shows.** Left against right on unilateral work, a test movement repeated over time, a rating of how it felt, or something else.
 - **Whether a weakness ends.** Resolved, retired, or simply no longer worked on.
-- **What Auburn refuses.** The pillar has no refusal yet.
 
 ## Findings
 

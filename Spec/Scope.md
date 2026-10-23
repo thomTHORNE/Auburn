@@ -22,7 +22,7 @@ A version may withhold a pillar of Foundation, but never break one of its refusa
 | **The overdue log** | The prompt when a goal falls overdue, and the log of answers. |
 | **Workouts** | Starting a workout by choosing the gym, which limits the exercises on offer to that gym's; committing exercises to it in order; its duration; and past workouts. |
 | **Sets** | Load and grade, plus reps when the modality counts them. |
-| **Modality** | A modality rolled on every commit. |
+| **Modality** | The modality roll, switched on per workout. With it off, every exercise is done by feel. |
 | **Exercises** | The user's own exercises, each optionally tied to gyms, with its notes and its past sets, grouped by workout and showing the gym and the exercise's place in that workout. |
 | **Progress** | Each exercise's ideal load over time. |
 | **Mobility** | Mobility workouts, with a grading system of their own. |
