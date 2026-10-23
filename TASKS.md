@@ -93,6 +93,11 @@ Resolved tasks are removed from TASKS.md.
 
     A one-time import of Training '26. Waits on Research/Notion Import for how the export writes relations and order.
 
+- [ ] **`#7.13` The muscle figure is not specified**
+    `BLOCKER` · `Deps: #4.1, #7.12`
+
+    Front and back views, one region per muscle group, lighting an exercise's groups, and tinting by rest band. The art is traced from Albinus's Tabulae sceleti et musculorum (1747), engraved by Jan Wandelaar, from a public-domain scan.
+
 ## Alignment 3 — Integrations
 
 ### `#8` Integrations · [Spec/Integrations/](Spec/Integrations/)
