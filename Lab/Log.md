@@ -22,6 +22,20 @@ Notes: the code was never run. Kept as reference for reading Health Connect.
 
 ---
 
+## Muscle figure regions
+
+Sketch · running
+
+Question: on the Fold cover screen, can the 20 muscle groups, drawn as regions on a front and a back figure, be told apart and tapped one-handed, both when an exercise lights its groups and when every group is tinted by its rest band?
+Pass: every group can be tapped without hitting its neighbour, lit groups are found at a glance, and the rest tint reads without the figure losing its engraved look under the CRT shader.
+Timebox: 1–2 days.
+Needs: a build on the Fold.
+Feeds: Spec/Visual Design, the muscle figure.
+Code: Lab/muscle-figure/
+Stakes: if small groups (neck, the three delts, obliques, abductors) cannot be told apart or tapped, the figure needs zoom, or merged regions for display.
+
+---
+
 ## Suunto via intervals.icu
 
 Probe · done

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400">
+<!-- Placeholder regions for the muscle figure sketch. One path per muscle group per view,
+     listed largest first; the app hit-tests in reverse so small regions win. -->
+<g id="front">
+<path id="outline" data-view="front" d="M85,26 a15,18 0 1,0 30,0 a15,18 0 1,0 -30,0 Z M92,42 L108,42 L108,58 L92,58 Z M72,58 L128,58 L140,70 L134,110 L126,170 L74,170 L66,110 L60,70 Z M60,68 L52,74 L50,110 L46,150 L44,190 L54,192 L58,152 L64,114 L68,88 Z M132,88 L136,114 L142,152 L146,192 L156,190 L154,150 L150,110 L148,74 L140,68 Z M43,200 a6,10 0 1,0 12,0 a6,10 0 1,0 -12,0 Z M145,200 a6,10 0 1,0 12,0 a6,10 0 1,0 -12,0 Z M74,168 L100,172 L98,250 L94,300 L92,370 L78,370 L74,300 L70,240 Z M130,240 L126,300 L122,370 L108,370 L106,300 L102,250 L100,172 L126,168 Z M76,378 a9,5 0 1,0 18,0 a9,5 0 1,0 -18,0 Z M106,378 a9,5 0 1,0 18,0 a9,5 0 1,0 -18,0 Z"/>
+<path id="chest" data-view="front" d="M99,60 L80,62 L72,72 L74,90 L88,96 L99,94 Z M101,94 L112,96 L126,90 L128,72 L120,62 L101,60 Z"/>
+<path id="abs" data-view="front" d="M90,98 L110,98 L111,160 L89,160 Z"/>
+<path id="obliques" data-view="front" d="M76,98 L88,100 L88,158 L78,150 L72,120 Z M128,120 L122,150 L112,158 L112,100 L124,98 Z"/>
+<path id="quads" data-view="front" d="M80,176 L97,180 L96,240 L92,262 L82,262 L76,230 L76,192 Z M124,192 L124,230 L118,262 L108,262 L104,240 L103,180 L120,176 Z"/>
+<path id="biceps" data-view="front" d="M52,100 a6,14 0 1,0 12,0 a6,14 0 1,0 -12,0 Z M136,100 a6,14 0 1,0 12,0 a6,14 0 1,0 -12,0 Z"/>
+<path id="forearms" data-view="front" d="M47,150 a6,26 0 1,0 12,0 a6,26 0 1,0 -12,0 Z M141,150 a6,26 0 1,0 12,0 a6,26 0 1,0 -12,0 Z"/>
+<path id="calves" data-view="front" d="M76,316 a6,24 0 1,0 12,0 a6,24 0 1,0 -12,0 Z M112,316 a6,24 0 1,0 12,0 a6,24 0 1,0 -12,0 Z"/>
+<path id="adductors" data-view="front" d="M97,182 L100,186 L103,182 L102,230 L100,236 L98,230 Z"/>
+<path id="front_delts" data-view="front" d="M63,70 a7,9 0 1,0 14,0 a7,9 0 1,0 -14,0 Z M123,70 a7,9 0 1,0 14,0 a7,9 0 1,0 -14,0 Z"/>
+<path id="side_delts" data-view="front" d="M56,75 a5,10 0 1,0 10,0 a5,10 0 1,0 -10,0 Z M134,75 a5,10 0 1,0 10,0 a5,10 0 1,0 -10,0 Z"/>
+<path id="abductors" data-view="front" d="M69,182 a4,10 0 1,0 8,0 a4,10 0 1,0 -8,0 Z M123,182 a4,10 0 1,0 8,0 a4,10 0 1,0 -8,0 Z"/>
+<path id="neck" data-view="front" d="M93,44 L107,44 L109,56 L91,56 Z"/>
+</g>
+<g id="back">
+<path id="outline" data-view="back" d="M85,26 a15,18 0 1,0 30,0 a15,18 0 1,0 -30,0 Z M92,42 L108,42 L108,58 L92,58 Z M72,58 L128,58 L140,70 L134,110 L126,170 L74,170 L66,110 L60,70 Z M60,68 L52,74 L50,110 L46,150 L44,190 L54,192 L58,152 L64,114 L68,88 Z M132,88 L136,114 L142,152 L146,192 L156,190 L154,150 L150,110 L148,74 L140,68 Z M43,200 a6,10 0 1,0 12,0 a6,10 0 1,0 -12,0 Z M145,200 a6,10 0 1,0 12,0 a6,10 0 1,0 -12,0 Z M74,168 L100,172 L98,250 L94,300 L92,370 L78,370 L74,300 L70,240 Z M130,240 L126,300 L122,370 L108,370 L106,300 L102,250 L100,172 L126,168 Z M76,378 a9,5 0 1,0 18,0 a9,5 0 1,0 -18,0 Z M106,378 a9,5 0 1,0 18,0 a9,5 0 1,0 -18,0 Z"/>
+<path id="lats" data-view="back" d="M74,94 L86,106 L98,110 L98,140 L88,150 L76,128 Z M124,128 L112,150 L102,140 L102,110 L114,106 L126,94 Z"/>
+<path id="hamstrings" data-view="back" d="M78,206 L97,208 L96,262 L82,262 L76,232 Z M124,232 L118,262 L104,262 L103,208 L122,206 Z"/>
+<path id="glutes" data-view="back" d="M75,188 a12,16 0 1,0 24,0 a12,16 0 1,0 -24,0 Z M101,188 a12,16 0 1,0 24,0 a12,16 0 1,0 -24,0 Z"/>
+<path id="upper_back" data-view="back" d="M84,70 L92,72 L98,96 L86,104 L76,92 Z M124,92 L114,104 L102,96 L108,72 L116,70 Z"/>
+<path id="lower_back" data-view="back" d="M90,142 L110,142 L112,168 L88,168 Z"/>
+<path id="traps" data-view="back" d="M100,48 L118,62 L108,70 L100,96 L92,70 L82,62 Z"/>
+<path id="triceps" data-view="back" d="M52,100 a6,14 0 1,0 12,0 a6,14 0 1,0 -12,0 Z M136,100 a6,14 0 1,0 12,0 a6,14 0 1,0 -12,0 Z"/>
+<path id="forearms" data-view="back" d="M47,150 a6,26 0 1,0 12,0 a6,26 0 1,0 -12,0 Z M141,150 a6,26 0 1,0 12,0 a6,26 0 1,0 -12,0 Z"/>
+<path id="calves" data-view="back" d="M76,300 a8,26 0 1,0 16,0 a8,26 0 1,0 -16,0 Z M108,300 a8,26 0 1,0 16,0 a8,26 0 1,0 -16,0 Z"/>
+<path id="rear_delts" data-view="back" d="M63,70 a7,9 0 1,0 14,0 a7,9 0 1,0 -14,0 Z M123,70 a7,9 0 1,0 14,0 a7,9 0 1,0 -14,0 Z"/>
+<path id="side_delts" data-view="back" d="M56,75 a5,10 0 1,0 10,0 a5,10 0 1,0 -10,0 Z M134,75 a5,10 0 1,0 10,0 a5,10 0 1,0 -10,0 Z"/>
+<path id="abductors" data-view="back" d="M68,182 a4,10 0 1,0 8,0 a4,10 0 1,0 -8,0 Z M124,182 a4,10 0 1,0 8,0 a4,10 0 1,0 -8,0 Z"/>
+<path id="neck" data-view="back" d="M93,44 L107,44 L109,56 L91,56 Z"/>
+</g>
+</svg>
