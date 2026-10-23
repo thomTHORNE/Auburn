@@ -14,10 +14,18 @@ A version may withhold a pillar of Foundation, but never break one of its refusa
 
 ### Included
 
-Not yet specified.
+| | |
+|---|---|
+| **Platforms** | Android phones. |
+
+The rest of v1 is not yet specified.
 
 ### Excluded
 
-Not yet specified.
+| Excluded | |
+|---|---|
+| iOS, watch, desktop, and web | v1 is built for the phone training happens with. The stack keeps iOS within reach. |
+
+The rest of v1's exclusions are not yet specified.
 
 Excluding these is what makes the rest of v1 small enough to finish. Anything here worth reconsidering later lives in [Ideas.md](../Ideas.md), not in this table.

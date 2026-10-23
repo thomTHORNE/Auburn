@@ -12,6 +12,18 @@ Most of what the fitness apps on the market do applies. Auburn does not reinvent
 
 ---
 
+## Training
+
+The goal is lifelong: to get stronger, stay mobile, and keep good endurance with age. Each kind of training has its own job:
+
+- **Hypertrophy training** builds muscle and, with it, strength.
+- **Mobility work** addresses weaknesses — see [Weaknesses](#weaknesses).
+- **Cardio** keeps the body healthy overall and supports a healthy way of living.
+
+Which exercises are done, and when in a year, changes with life circumstances. Auburn follows that change. It never groups the three kinds of training into phases of their own, and it adds structure only where the structure brings a direct benefit.
+
+---
+
 ## The problem
 
 Not yet written. This section states what the apps on the market get wrong for this way of training, and what that costs in practice.
@@ -20,7 +32,11 @@ Not yet written. This section states what the apps on the market get wrong for t
 
 ## Pillars
 
-Not yet written. Each pillar is one departure from the market's defaults: what Auburn does instead, why, and what it refuses to do.
+Each pillar is one departure from the market's defaults: what Auburn does instead, why, and what it refuses to do. The pillars below are not yet the complete set.
+
+### Weaknesses
+
+Some of what training has to address is specific: a weakness found in your own body, such as weak motor recruitment through one leg and its hip. Auburn gives weaknesses a space of their own, where each is named and targeted.
 
 ---
 

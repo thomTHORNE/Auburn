@@ -30,8 +30,8 @@ Foundation is the root every other document answers to, and it holds only its pr
 - [ ] `#1.2` `BLOCKER` `Deps: #1.1` **The problem is not written**
     What the market's apps get wrong for this way of training, and what it costs in practice.
 <br>
-- [ ] `#1.3` `GAP` `Deps: #1.1` **Pillars are not written**
-    One per departure: what Auburn does instead, why, and what it refuses.
+- [ ] `#1.3` `GAP` `Deps: #1.1` **Pillars are incomplete**
+    Weaknesses is written and has no refusal. The remaining departures are not yet stated.
 <br>
 - [ ] `#1.4` `GAP` `Deps: #1.1` **Terms are not written**
     The words Auburn uses with a meaning of its own — session, set, program, and whatever the user's training adds.

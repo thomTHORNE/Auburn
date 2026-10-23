@@ -10,7 +10,7 @@ A personal fitness training app, built around how the user actually trains.
 
 Most of what the fitness apps on the market do applies to Auburn. Where it departs from them is in the specifics of how the user trains and approaches training, and those departures are the reason Auburn exists rather than an off-the-shelf app being used. [Foundation](Foundation.md) states them, and is the root everything else answers to.
 
-Stack and target platforms are not yet decided. They are under research in `Research/Platforms/`.
+Mobile only. v1 targets Android; the stack keeps other platforms within reach. The stack itself is under research in `Research/Platforms/`, with Flutter leading.
 
 Currently in the **foundation phase**, pre-spec and pre-development.
 
@@ -51,6 +51,8 @@ Auburn/
 ├── Ideas.md                ← deferred ideas, not committed to spec
 ├── Research/               ← ideas developed in parallel to the spec. See Research below.
 ├── Learning/               ← explainers. See Learning below.
+├── Lab/                    ← throwaway code that answers questions. See Lab below.
+│   └── Log.md              ← every attempt and where it stands
 ├── .claude/skills/         ← project skills. /sitrep prints a conversation checkpoint.
 └── Spec/
     ├── Scope.md            ← what each version includes and excludes
@@ -174,6 +176,41 @@ Supporting rules:
 - **Real numbers, taken from the spec.** Where the spec states a figure, use that figure. Invented numbers make a worked example read as hypothetical, which is the one thing it must not be.
 - **Failures stated as symptoms, not as incorrectness.** "Last week's best set disappears from your history" lands. "The query returns a stale row" does not.
 - **Pace generously, then stop.** Length spent building a problem is earned. Length spent restating a solution is padding.
+
+---
+
+## Lab
+
+`Lab/` holds throwaway code that answers a question the spec cannot answer by reasoning. It runs alongside Research and the spec, not after them.
+
+### The range
+
+Two tracks, two scopes each. The track is the kind of question; the scope is how much of the app it touches.
+
+```
+              one point         a whole path or flow
+can it work?  Probe    ──────►  Spike
+is it right?  Sketch   ──────►  Prototype
+```
+
+| Level | Answers | Fidelity | Timebox |
+|---|---|---|---|
+| **Probe** | One fact about a platform or library. "Does Health Connect give a Flutter app the runs the Suunto app saved?" | No UI. Console output is enough. | Hours |
+| **Spike** | Whether a technical path works end to end. "Can a Suunto run be read, stored locally, and survive a restart?" | Minimal UI, no structure worth keeping. | 1–2 days |
+| **Sketch** | How one interaction feels in the hand. "Can a set be logged one-handed between sets?" | One screen, real device, fake data. | 1–2 days |
+| **Prototype** | Whether a whole flow holds up in real use. "Does a full gym session log without friction for a week?" | Several screens, realistic data, used in the gym. | Days to build, a week of use |
+
+Past the range is the walking skeleton: thin, end to end, and kept. That is development, not Lab. The line between them is the one *The Pragmatic Programmer* draws between prototypes and tracer bullets — one is thrown away, the other is built on.
+
+### Rules
+
+- **Question first.** Every attempt opens with an entry in `Lab/Log.md`: level, the one question, the pass condition, the timebox. The entry is the draft the user approves. Code inside an approved attempt needs no further approval.
+- **One question per attempt.** A second question found along the way gets its own entry.
+- **Shortcuts everywhere except the thing being tested.**
+- **Running out of time is an answer.** The question was bigger than it looked; say so and re-scope.
+- **The verdict is what counts.** It is written into the log entry and, as a finding, into the Research topic or spec item that asked the question.
+- **The code is never built on.** Product code may borrow from it as a reference, never extend it.
+- **Kept until superseded.** An attempt's code stays in `Lab/<attempt>/` until product code covers the same ground, then it is deleted and the entry is marked retired.
 
 ---
 
