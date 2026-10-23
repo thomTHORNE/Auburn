@@ -73,9 +73,9 @@ Some of what training has to address is specific: a weakness found in your own b
 ## Terms
 
 - **Goal** — a purpose in training: the user's explanation of what it is and how it is achieved, and the exercises that serve it.
-- **Exercise** — a movement on specific equipment. Belongs to one or more goals.
+- **Exercise** — a movement on specific equipment. Belongs to one or more goals, and optionally to the gyms it is done at.
 - **Workout** — one visit to train at a gym: the exercises committed to it, in order, and their sets. Titled by its date and gym.
-- **Gym** — where a workout happens. Gyms differ in equipment.
+- **Gym** — where a workout happens, home included. Gyms differ in equipment: an exercise tied to a gym is that gym's version of the lift, and one tied to none is the same everywhere.
 - **Split** — an optional grouping of goals, such as Upper, Leg Day, or Stim.
 - **Commit** — adding an exercise to the current workout. Its modality is rolled at that moment.
 - **Modality** — how an exercise is done in a workout: slow and controlled, counted, or by feel.

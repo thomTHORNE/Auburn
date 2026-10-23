@@ -20,10 +20,10 @@ A version may withhold a pillar of Foundation, but never break one of its refusa
 | **Goals** | Goals with the user's explanation, their primary and alternate exercises, and the AMAP rule. Every goal is owed. Weaknesses are goals in v1. A goal may carry a split. |
 | **Rest** | Each goal's rest, rest bands, and overdue limit, set per goal. Every goal's rest at a glance, as the basis for choosing the day's training. |
 | **The overdue log** | The prompt when a goal falls overdue, and the log of answers. |
-| **Workouts** | Starting a workout at a gym, committing exercises to it in order, its duration, and past workouts. |
+| **Workouts** | Starting a workout by choosing the gym, which limits the exercises on offer to that gym's; committing exercises to it in order; its duration; and past workouts. |
 | **Sets** | Load and grade, plus reps when the modality counts them. |
 | **Modality** | A modality rolled on every commit. |
-| **Exercises** | The user's own exercises, each with its notes and its past sets, grouped by workout and showing the gym and the exercise's place in that workout. |
+| **Exercises** | The user's own exercises, each optionally tied to gyms, with its notes and its past sets, grouped by workout and showing the gym and the exercise's place in that workout. |
 | **Progress** | Each exercise's ideal load over time. |
 | **Mobility** | Mobility workouts, with a grading system of their own. |
 | **Cardio** | Runs, treadmill sessions, and hikes recorded on the Suunto watch, read through Health Connect. |
