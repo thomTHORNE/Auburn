@@ -20,21 +20,15 @@ Resolved tasks are removed from TASKS.md.
 ## Alignment 0 — Foundation
 
 ::: toggle `#1` Foundation
-Foundation is the root every other document answers to, and it holds only its premise. Nothing below it can be written in Auburn's own voice until it says how the user trains and where that departs from the market.
+Foundation is the root every other document answers to. Its departures from the market are stated; what remains is listed below.
 
 [Foundation.md](Foundation.md)
 - - -
-- [ ] `#1.1` `BLOCKER` **The departures from market fitness apps are not stated**
-    Foundation says Auburn follows the market except where the user's training differs, and does not yet say where. Every pillar, principle, and scope line depends on this list.
+- [ ] `#1.3` `GAP` **Pillars are incomplete**
+    Goal, Variety, Exercise notes, and Weaknesses have no refusal.
 <br>
-- [ ] `#1.2` `BLOCKER` `Deps: #1.1` **The problem is not written**
-    What the market's apps get wrong for this way of training, and what it costs in practice.
-<br>
-- [ ] `#1.3` `GAP` `Deps: #1.1` **Pillars are incomplete**
-    Weaknesses is written and has no refusal. The remaining departures are not yet stated.
-<br>
-- [ ] `#1.4` `GAP` `Deps: #1.1` **Terms are not written**
-    The words Auburn uses with a meaning of its own — session, set, program, and whatever the user's training adds.
+- [ ] `#1.4` `GAP` **Terms are incomplete**
+    Overdue is not yet defined.
 :::
 
 
@@ -44,7 +38,7 @@ Foundation is the root every other document answers to, and it holds only its pr
 ::: toggle `#2` Scope
 [Spec/Scope.md](Spec/Scope.md)
 - - -
-- [ ] `#2.1` `BLOCKER` `Deps: #1.1` **v1 inclusions are not specified**
+- [ ] `#2.1` `BLOCKER` **v1 inclusions are not specified**
     Which of the market's general concepts v1 carries, and which of Auburn's departures it delivers.
 <br>
 - [ ] `#2.2` `GAP` `Deps: #2.1` **v1 exclusions are not specified**

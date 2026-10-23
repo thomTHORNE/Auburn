@@ -26,13 +26,41 @@ Which exercises are done, and when in a year, changes with life circumstances. A
 
 ## The problem
 
-Not yet written. This section states what the apps on the market get wrong for this way of training, and what that costs in practice.
+The apps on the market assume training is planned in advance and measured by counting. A programme says what today is; a set is weight times reps; progress is a number going up.
+
+That fits a routine. It does not fit training chosen each day from what has rested and how the body feels, where a set is worth the control it was done with, and where the way an exercise is done changes on purpose. Used for that, such an app demands data that is not the measure — reps typed in for a set judged by feel — and offers structure that goes unused. The Notion system that came before Auburn shows both: rep counts were dropped in practice, and fixed splits were built and then abandoned.
 
 ---
 
 ## Pillars
 
 Each pillar is one departure from the market's defaults: what Auburn does instead, why, and what it refuses to do. The pillars below are not yet the complete set.
+
+### Rest and feel choose the training
+
+What is trained on a given day is chosen from two things: how long each goal has rested, and how the body feels. Auburn shows the first. The user brings the second, and decides.
+
+Rest has a limit. When a goal rests past it, Auburn asks why it was not trained and keeps the answer in a log of its own, so slack is seen rather than forgotten.
+
+Auburn never prescribes the day's training.
+
+### A set is graded by feel
+
+A set is recorded as its load and a grade of how it went — the control and form it was done with — not as a count. Learning to read the body this way has proven worth more than rep counts, and it lowers the risk of injury. Counting is still a tool, and it is used when the modality calls for it.
+
+Auburn never requires a rep count to log a set.
+
+### The goal is the unit
+
+A goal says why. It holds the user's own explanation of what it is for and how it is meant to be achieved, and the exercises that serve it — primary and alternates. Its rest decides when it is trained again. An exercise is seen through the goal it serves.
+
+### Variety on purpose
+
+A fixed routine goes stale and leaves gaps. When an exercise is committed to a workout, Auburn rolls its modality: slow and controlled, reps counted to test strength, or by feel. Training stays fresh, experimenting is built in, and the counted sets give a measured check on progress.
+
+### Each exercise keeps its own notes
+
+Observations, settings, and form notes belong to the exercise and are in front of the user each time it is done.
 
 ### Weaknesses
 
@@ -42,4 +70,17 @@ Some of what training has to address is specific: a weakness found in your own b
 
 ## Terms
 
-Not yet written. The words Auburn uses with a meaning of its own — where a term the market uses loosely, or differently, is given one precise meaning here.
+- **Goal** — a purpose in training: the user's explanation of what it is and how it is achieved, and the exercises that serve it.
+- **Exercise** — a movement on specific equipment. Belongs to one or more goals.
+- **Workout** — one visit to train: the exercises committed to it and their sets.
+- **Commit** — adding an exercise to the current workout. Its modality is rolled at that moment.
+- **Modality** — how an exercise is done in a workout: slow and controlled, counted, or by feel.
+- **Set** — a load and a grade, plus reps when the modality counts them.
+- **Grade** — how a set went, read by feel.
+  - *Ideal:* heavy, taken to failure with control, within a hypertrophy rep range.
+  - *Acceptable:* close to ideal with clearly fewer reps, or form held at the edge of breaking.
+  - *Light:* too easy to count as work.
+  - *Yielding:* form and control lost; the load is not tried again until enough ideal sets come first.
+  - *Warmup.*
+- **Rest** — the days since a goal was last trained by an exercise that resets it.
+- **AMAP** — "as much as possible": an exercise that never resets a goal's rest. Usually low-fatigue isolation work; heavy compounds always reset.
