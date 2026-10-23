@@ -13,6 +13,7 @@ The mechanics of how the user trains, as run in Notion (Training '26) since Dece
 - **A workout starts with the gym.** Auburn asks which gym first; only exercises tied to it, or to no gym, are offered.
 - **Exercises are gym-specific where the equipment is.** An exercise may be tied to one or more gyms, or to none when the lift is the same everywhere. Progress is per exercise, and so per gym wherever it matters.
 - **Commit order is kept.** An exercise's past sets show its place in each workout.
+- **Each exercise declares its load kind**, and its load is entered through that kind's input: plates (a bar plus plates per side), stack (a pin-machine or cable stack, moved a step at a time), dumbbells (a pair from a rack), or bodyweight.
 - **Modalities**: slow and controlled; counted, to test strength; by feel. When a workout's roll is on, one is rolled on each commit and never re-rolled. With the roll off, every exercise is done by feel.
 
 ## Open questions

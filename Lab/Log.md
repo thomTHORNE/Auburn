@@ -16,3 +16,16 @@ Timebox: half a day.
 Needs: "Save to Health Connect" turned on in the Suunto app, and a build run on the phone.
 Feeds: Research/Suunto, Research/Platforms.
 Stakes: a fail removes cardio from v1.
+
+---
+
+## CRT shader over Flutter
+
+Probe · parked
+
+Question: can Flutter run a custom fragment shader over the whole rendered screen on the Fold 8 — curvature, chromatic aberration, scanlines, bloom, glass halo, and smudges — while taps still answer within one frame?
+Pass: the shader runs over live widgets at the screen's full refresh rate, and a tap's visual response is no slower than without it.
+Timebox: half a day.
+Needs: a build run on the Fold.
+Feeds: Research/Platforms, Spec/Visual Design.
+Stakes: a fail limits the CRT look to static texture layers.
