@@ -36,12 +36,17 @@ Resolved tasks are removed from TASKS.md.
 - [ ] **`#7.1` Goals are not specified**
     `BLOCKER` · `Deps: #4.1`
 
-    The goal, its explanation, primary and alternate exercises, splits, and the AMAP rule.
+    A goal's explanation, the exercises that work toward it, and its progress. Weaknesses are goals.
+
+- [ ] **`#7.12` Muscle groups are not specified**
+    `BLOCKER` · `Deps: #4.1`
+
+    The standard list, the muscle groups an exercise works, the AMAP rule, and splits.
 
 - [ ] **`#7.2` Rest is not specified**
     `BLOCKER` · `Deps: #4.1`
 
-    Each goal's rest, its bands, its overdue limit, and every goal's rest at a glance. Owns the limit the overdue log reads. Waits on Research/Method for starting band values and for rest while a goal's exercises are at another gym.
+    Each muscle group's rest, its bands, its overdue limit, cardio's rest, and every rest at a glance. Owns the limit the overdue log reads.
 
 - [ ] **`#7.3` The overdue log is not specified**
     `BLOCKER` · `Deps: #4.1`
@@ -56,17 +61,17 @@ Resolved tasks are removed from TASKS.md.
 - [ ] **`#7.5` Sets are not specified**
     `BLOCKER` · `Deps: #4.1`
 
-    Load, grade, and reps when counted. Waits on Research/Method for what lifts a Yielding hold.
+    Load, grade, and reps when counted.
 
 - [ ] **`#7.6` The modality roll is not specified**
     `BLOCKER` · `Deps: #4.1`
 
-    The roll at commit, switched on per workout. Waits on Research/Method for the odds, exclusions, and the default for a new workout.
+    The roll, on when a workout starts and switched off or on during it.
 
 - [ ] **`#7.7` Exercises are not specified**
     `BLOCKER` · `Deps: #4.1`
 
-    The user's exercises, gym ties, notes, and past sets by workout.
+    The user's exercises, the muscle groups each works, alternates, gym ties, notes, and past sets by workout.
 
 - [ ] **`#7.8` Progress is not specified**
     `BLOCKER` · `Deps: #4.1`
@@ -76,7 +81,7 @@ Resolved tasks are removed from TASKS.md.
 - [ ] **`#7.9` Mobility is not specified**
     `BLOCKER` · `Deps: #4.1`
 
-    Mobility workouts and their grading. Waits on Research/Method for what mobility grades.
+    Mobility workouts and their grading.
 
 - [ ] **`#7.10` Cardio is not specified**
     `BLOCKER` · `Deps: #4.1, #8.1`

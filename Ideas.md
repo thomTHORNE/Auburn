@@ -25,3 +25,11 @@ The Suunto watch records strength sessions with heart rate, and intervals.icu se
 Parked because v1 reads only runs, treadmill sessions, and hikes, and what heart rate would add beside graded sets is not yet understood.
 
 Worth revisiting if heart rate during a workout would change how rest or a grade is read.
+
+## A goal reached
+
+A goal could state what reaching it looks like — 4 km under 20 minutes, a bodyweight pull-up for eight controlled reps — and be marked reached.
+
+Parked because goals are new and what they should show beyond their exercises' progress is unknown.
+
+Worth revisiting once goals have been used for a while.

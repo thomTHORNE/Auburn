@@ -1,4 +1,6 @@
-Status: Open
+Status: Promoted
+
+Landed in Foundation: a weakness is a goal the user names. This document is no longer the reference.
 
 # Weaknesses
 

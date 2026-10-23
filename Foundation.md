@@ -84,7 +84,7 @@ Auburn never names or diagnoses a weakness. Weaknesses are found by the user.
 
 ## Terms
 
-- **Muscle group** — a part of the body rest is kept for, from a standard list: chest, shoulders, biceps, triceps, forearms, lats, upper back, traps, lower back, abs, obliques, quads, hamstrings, glutes, calves, adductors, abductors, neck. Cardio rests the same way, reset by runs, treadmill sessions, and hikes from the watch.
+- **Muscle group** — a part of the body rest is kept for, from a standard list: chest, front delts, side delts, rear delts, biceps, triceps, forearms, lats, upper back, traps, lower back, abs, obliques, quads, hamstrings, glutes, calves, adductors, abductors, neck. Cardio rests the same way, reset by runs, treadmill sessions, and hikes from the watch.
 - **Goal** — something to reach: the user's explanation of what it is and how it is achieved, and the exercises that work toward it.
 - **Exercise** — a movement, on specific equipment where it uses any. Works one or more muscle groups, may serve goals, may name alternates, and may be tied to the gyms it is done at. A mobility exercise works no muscle group and serves no goal.
 - **Alternate** — an exercise named on another as its stand-in, used when that one's equipment is taken.
