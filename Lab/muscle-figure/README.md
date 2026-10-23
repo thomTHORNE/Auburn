@@ -9,6 +9,7 @@ A front and a back figure on an ember plate, one region per muscle group, under 
 | Exercise (top left) | Cycles placeholder exercises. The groups each one works light up in Cyan White. The muscle groups are guesses, not your own ticks. |
 | `REST` | Tints every group with a random rest band — repair, maybe, train, overdue. Tapping again re-rolls the bands. |
 | `FRONT ▸ BACK` | Turns the figure. |
+| `FULL` · `SHOULDERS` · `TORSO` · `HIPS` · `LEGS` | Predefined zoom sections. The selected one is filled. Taps are read through the zoom, and the tap test counts how many taps were made zoomed and marks zoomed misses. |
 | `TAP TEST` | Names each of the 20 groups once, in random order. Tap the named group: a hit outlines it in Cyan White and shows ✓; a miss outlines what you tapped in Cyan White and the asked group thick in ink, and shows ✗. When the next group is on the other side, the figure turns and says so — after a miss, a moment later. `STOP TEST` ends it. The final line scores hits and lists misses as asked→tapped. Rest tints stay on during the test; exercise lighting does not. |
 
 Outside the test, tapping a region outlines it and prints its name.
@@ -21,9 +22,10 @@ From this folder, with the Fold connected and the app on the **cover screen**:
 flutter run --release -d <device id>
 ```
 
-1. Run `TAP TEST` one-handed, holding the phone as you would between sets. Screenshot the score.
-2. Step through the exercises on both sides of the figure: are the lit groups found at a glance?
-3. Turn `REST` on a few times: do the four band colours read on the ember plate, and does the figure still look engraved?
+1. Run `TAP TEST` one-handed, holding the phone as you would between sets, at `FULL` only. Screenshot the score.
+2. Run it again, zooming whenever a group looks too small. Screenshot that score too.
+3. Step through the exercises on both sides of the figure: are the lit groups found at a glance?
+4. Turn `REST` on a few times: do the four band colours read on the ember plate, and does the figure still look engraved?
 
 ## Known limits
 

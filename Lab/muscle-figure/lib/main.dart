@@ -62,6 +62,15 @@ const _exercises = <(String, List<String>)>[
   ('NECK CURL', ['neck']),
 ];
 
+/// Predefined zoom sections, in the figure's 200×400 space.
+const _sections = <(String, Rect)>[
+  ('FULL', Rect.fromLTWH(0, 0, 200, 400)),
+  ('SHOULDERS', Rect.fromLTWH(38, 34, 124, 84)),
+  ('TORSO', Rect.fromLTWH(40, 56, 120, 124)),
+  ('HIPS', Rect.fromLTWH(52, 150, 96, 110)),
+  ('LEGS', Rect.fromLTWH(50, 160, 100, 230)),
+];
+
 /// Rest bands: repair, maybe, train, overdue.
 const _bands = [
   ('REPAIR', Color(0xFFB3261E)),
@@ -103,6 +112,7 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
   List<_Region> _regions = [];
 
   String _view = 'front';
+  int _section = 0;
   int _exercise = 0;
   bool _rest = false;
   final _random = Random();
@@ -115,6 +125,7 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
   static const _rounds = 20;
   List<String> _testQueue = [];
   int _hits = 0;
+  int _zoomedTaps = 0;
   final _misses = <String>[];
   String? get _asked => _testQueue.isEmpty ? null : _testQueue.first;
 
@@ -170,6 +181,7 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
   void _startTest() => setState(() {
         _testQueue = [..._groups]..shuffle(_random);
         _hits = 0;
+        _zoomedTaps = 0;
         _misses.clear();
         _showAsked();
       });
@@ -197,11 +209,13 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
           return;
         }
         final tapped = id == null ? 'NOTHING' : _label(id);
+        final zoomed = _section != 0;
+        if (zoomed) _zoomedTaps++;
         if (id == asked) {
           _hits++;
           _feedback = '✓ $tapped';
         } else {
-          _misses.add('${_label(asked)}→$tapped');
+          _misses.add('${_label(asked)}→$tapped${zoomed ? ' (ZOOMED)' : ''}');
           _missedAsked = asked;
           _feedback = '✗ TAPPED $tapped';
         }
@@ -242,7 +256,7 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
     if (testing) {
       status = 'TAP ${_label(_asked!)}   ${_rounds - _testQueue.length + 1}/$_rounds';
     } else if (_misses.isNotEmpty || _hits > 0) {
-      status = 'TEST $_hits/$_rounds${_misses.isEmpty ? '' : '  MISSED ${_misses.join(' · ')}'}';
+      status = 'TEST $_hits/$_rounds · $_zoomedTaps ZOOMED${_misses.isEmpty ? '' : '  MISSED ${_misses.join(' · ')}'}';
     } else {
       status = 'TAPPED ${_tapped == null ? '—' : _label(_tapped!)}';
     }
@@ -263,6 +277,11 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
                 () => setState(() => _view = _view == 'front' ? 'back' : 'front'),
                 flex: 2),
             _button(testing ? 'STOP TEST' : 'TAP TEST', testing ? _stopTest : _startTest),
+          ]),
+          const SizedBox(height: 6),
+          Row(children: [
+            for (var i = 0; i < _sections.length; i++)
+              _button(_sections[i].$1, () => setState(() => _section = i), selected: i == _section),
           ]),
           const SizedBox(height: 8),
           Text(status, style: const TextStyle(fontFamily: 'monospace', color: _cyanWhite, fontSize: 13)),
@@ -286,6 +305,7 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
                       restBands: _rest ? _restBands : const {},
                       tapped: _tapped,
                       missedAsked: _missedAsked,
+                      section: _sections[_section].$2,
                     );
                     return GestureDetector(
                       behavior: HitTestBehavior.opaque,
@@ -299,7 +319,7 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
     );
   }
 
-  Widget _button(String label, VoidCallback? onTap, {int flex = 1}) => Expanded(
+  Widget _button(String label, VoidCallback? onTap, {int flex = 1, bool selected = false}) => Expanded(
         flex: flex,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 3),
@@ -308,10 +328,11 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
             child: Container(
               height: 40,
               alignment: Alignment.center,
-              decoration: BoxDecoration(border: Border.all(color: _text, width: 1.2)),
+              decoration: BoxDecoration(
+                  color: selected ? _text : null, border: Border.all(color: _text, width: 1.2)),
               child: Text(label,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontFamily: 'monospace', color: _text, fontSize: 13)),
+                  style: TextStyle(fontFamily: 'monospace', color: selected ? _tube : _text, fontSize: 12)),
             ),
           ),
         ),
@@ -320,20 +341,25 @@ class _SketchScreenState extends State<SketchScreen> with SingleTickerProviderSt
 
 class _FigurePainter extends CustomPainter {
   _FigurePainter(
-      {required this.regions, required this.lit, required this.restBands, required this.tapped, this.missedAsked});
+      {required this.regions,
+      required this.lit,
+      required this.restBands,
+      required this.tapped,
+      required this.section,
+      this.missedAsked});
 
   final List<_Region> regions;
   final Set<String> lit;
   final Map<String, int> restBands;
   final String? tapped;
   final String? missedAsked;
+  final Rect section;
 
-  static const _box = Size(200, 400);
-
-  /// Scale and offset that fit the 200×400 figure into the canvas.
+  /// Scale and offset that fit the zoom section into the canvas, centred.
   (double, Offset) _fit(Size size) {
-    final s = min(size.width / _box.width, size.height / _box.height);
-    return (s, Offset((size.width - _box.width * s) / 2, (size.height - _box.height * s) / 2));
+    final s = min(size.width / section.width, size.height / section.height);
+    final o = Offset((size.width - section.width * s) / 2, (size.height - section.height * s) / 2);
+    return (s, o - section.topLeft * s);
   }
 
   /// Regions are listed largest first, so the last one containing the point
@@ -359,6 +385,7 @@ class _FigurePainter extends CustomPainter {
 
     final (s, o) = _fit(size);
     canvas.save();
+    canvas.clipRect((Offset.zero & size).deflate(7));
     canvas.translate(o.dx, o.dy);
     canvas.scale(s);
 
