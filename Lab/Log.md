@@ -38,10 +38,11 @@ Notes: the fallback path (AnimatedSampler) was not needed and runs at half speed
 
 ## Glass that moves
 
-Sketch · parked
+Sketch · running
 
 Question: does a halo and smudge layer that shifts with the phone's tilt read as real glass over the screen, without crossing the values and keys it must not obscure?
 Pass: in use at the gym, the glass reads as physical, and no value or key is ever harder to read because of where the halo has moved.
 Timebox: 1–2 days.
 Needs: a passing CRT shader probe; a build on the Fold.
 Feeds: Spec/Visual Design.
+Code: Lab/glass-that-moves/
