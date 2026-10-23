@@ -19,14 +19,12 @@ Resolved tasks are removed from TASKS.md.
 
 ## Alignment 1 — Spec top level
 
-::: toggle `#4` Data Model
-[Spec/Data Model.md](Spec/Data%20Model.md)
-- - -
-- [ ] `#4.1` `BLOCKER` **No records are specified**
-:::
+### `#4` Data Model · [Spec/Data Model.md](Spec/Data%20Model.md)
 
-::: toggle `#6` Visual Design
-[Spec/Visual Design.md](Spec/Visual%20Design.md)
-- - -
-- [ ] `#6.1` `MINOR` **No visual values are specified**
-:::
+- [ ] **`#4.1` No records are specified**
+    `BLOCKER`
+
+### `#6` Visual Design · [Spec/Visual Design.md](Spec/Visual%20Design.md)
+
+- [ ] **`#6.1` No visual values are specified**
+    `MINOR`

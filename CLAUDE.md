@@ -307,12 +307,16 @@ Skills print what their skill file specifies. This section governs conversation.
 ## Spec & docs workflow
 
 - Never write to files without explicit approval of a specific draft. "Sure" or "ok" in response to "want me to write it?" means show a draft first — not write to files.
-- TASKS.md uses an Alignment → Goal → Item hierarchy. Goals carry `#N` IDs. Items carry `#N.N` decimal IDs scoped to their goal. Severity (`BLOCKER` / `GAP` / `MINOR`) is carried on the item line only. TASKS.md holds no second index of items — the Alignment → Goal → Item hierarchy is the whole file.
-- TASKS.md item format: first line carries the checkbox, ID, tags, and bold title; the description goes on the next line indented by 4 spaces. Tag order: severity, then `Deps: #X.X` if any. Items without a description are single-line. `<br>` separates consecutive items in a goal. Status: `[ ]` Unresolved (default), `[x]` Pending review (drafted, awaiting review).
+- TASKS.md uses an Alignment → Goal → Item hierarchy. Alignments are `##` headings. Goals are `###` headings carrying a `#N` ID and a link to the spec file they cover. Items carry `#N.N` decimal IDs scoped to their goal. TASKS.md holds no second index of items — the Alignment → Goal → Item hierarchy is the whole file.
+- TASKS.md item format: a list item whose first line is the checkbox and the bold ID and title; the next line, indented by 4 spaces, carries the tags — severity, then `Deps: #X.X` if any, separated by ` · `; a description, if any, follows after a blank line, indented by 4 spaces. A blank line separates consecutive items. Status: `[ ]` Unresolved (default), `[x]` Pending review (drafted, awaiting review).
 
   Example:
   ```
-  - [ ] `#3.2` `GAP` `Deps: #1.1` **A set logged in pounds against a program written in kilograms**
+  ### `#3` Sets · [Spec/Features/Sets.md](Spec/Features/Sets.md)
+
+  - [ ] **`#3.2` A set logged in pounds against a program written in kilograms**
+      `GAP` · `Deps: #1.1`
+
       The program prescribes 100 kg and the set is entered as 225 lb. Whether the set is stored as entered or converted…
   ```
 - Before drafting any spec section, check the item's `Deps:` field in TASKS.md. Surface all listed dependencies and propose batching them into the current work. Do not use an inline `[#N.N]` reference as a substitute for resolving a dependency.
