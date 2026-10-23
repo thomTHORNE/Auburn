@@ -17,3 +17,11 @@ A ceiling on how often a goal is trained in a week — no more than three runs, 
 Parked because per-goal rest bands already keep cardio spaced out, and a cap is a second kind of rule with its own interactions with rest.
 
 Worth revisiting if rest bands alone let a goal be trained more often in a week than the body handles.
+
+## Heart rate for gym workouts
+
+The Suunto watch records strength sessions with heart rate, and intervals.icu serves them as FIT files the same way it serves runs. A 48-minute session carried 2,895 heart-rate samples. Auburn could attach that record to the workout logged in the app.
+
+Parked because v1 reads only runs, treadmill sessions, and hikes, and what heart rate would add beside graded sets is not yet understood.
+
+Worth revisiting if heart rate during a workout would change how rest or a grade is read.

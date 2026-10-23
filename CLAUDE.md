@@ -30,7 +30,7 @@ Solo developer and founder. Strong product instincts. Technically capable — th
 - Strong Vue 3 + TypeScript frontend experience, at professional level
 - Familiar with .NET and C#
 - Building Northstar in Flutter/Dart
-- New ground on this project: not yet established. It depends on the stack Auburn settles on, and is recorded here once it does.
+- New ground on this project: GPU shaders (GLSL fragment shaders under Impeller), the FIT file format, and Android platform specifics. Flutter and Dart are familiar from Northstar.
 
 **Mentorship directive (applies during development):**
 Take a student-professor approach for the new ground: explain the reasoning, the alternatives considered, and the tradeoffs rather than only providing the answer. For the user's professional territory, answer directly. Explaining what the user does professionally is noise.

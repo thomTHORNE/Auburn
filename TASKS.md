@@ -22,15 +22,7 @@ Resolved tasks are removed from TASKS.md.
 ::: toggle `#4` Data Model
 [Spec/Data Model.md](Spec/Data%20Model.md)
 - - -
-- [ ] `#4.1` `BLOCKER` `Deps: #1.4, #5.1` **No records are specified**
-    Waits on Foundation's terms for what the records are, and on the stack for the type language they are stated in.
-:::
-
-::: toggle `#5` Architecture
-[Spec/Architecture/Architecture.md](Spec/Architecture/Architecture.md)
-- - -
-- [ ] `#5.1` `BLOCKER` **The tech stack is not specified**
-    Under research in `Research/Platforms/`. Enters as spec once that topic reaches `Ready`.
+- [ ] `#4.1` `BLOCKER` **No records are specified**
 :::
 
 ::: toggle `#6` Visual Design
