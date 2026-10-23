@@ -26,4 +26,4 @@ The two values fill the fields, so nothing has to be typed on the phone and the 
 ## Known limits
 
 - Only the newest 30 activities are fetched. If the last run, treadmill session, or hike is older than that, narrow the window with `±`.
-- Treadmill is recognised from the FIT sub-sport. If the watch records it otherwise, it shows as a run with its sub-sport printed.
+- Treadmill is recognised from the FIT sub-sport: treadmill, indoor running, or virtual activity. If the watch records it otherwise, it shows as a run with its sub-sport printed.

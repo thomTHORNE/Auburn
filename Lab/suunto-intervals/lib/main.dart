@@ -6,10 +6,9 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'dart:isolate';
-import 'dart:typed_data';
 
 import 'package:fit_tool/fit_tool.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -74,7 +73,10 @@ class _Parsed {
   final String? error;
 
   String? get kind {
-    if (sport == 'running') return subSport == 'treadmill' ? 'TREADMILL' : 'RUN';
+    if (sport == 'running') {
+      const indoor = {'treadmill', 'indoorRunning', 'virtualActivity'};
+      return indoor.contains(subSport) ? 'TREADMILL' : 'RUN';
+    }
     if (sport == 'hiking') return 'HIKE';
     return null;
   }
@@ -97,7 +99,7 @@ class _Activity {
   String get date => '${json['start_date_local'] ?? ''}'.split('T').first;
 }
 
-/// Runs off the UI thread: a long run's file holds thousands of records.
+/// Runs off the UI thread, as a top-level function so nothing else is sent along: a long run's file holds thousands of records.
 _Parsed _parse(Uint8List bytes) {
   FitFile file;
   var crcOk = true;
@@ -212,13 +214,13 @@ class _ProbeScreenState extends State<ProbeScreen> {
         a.bytes = bytes.length;
         final isFit = bytes.length > 12 && ascii.decode(bytes.sublist(8, 12), allowInvalid: true) == '.FIT';
         a.parsed = isFit
-            ? await Isolate.run(() => _parse(bytes))
+            ? await compute(_parse, bytes)
             : _Parsed(error: 'not a FIT file');
         setState(() {});
       }
       _say('done');
     } catch (e) {
-      _say('ERROR $e');
+      _say('ERROR ${'$e'.split('\n').first}');
     } finally {
       setState(() => _busy = false);
     }
@@ -304,9 +306,13 @@ class _ProbeScreenState extends State<ProbeScreen> {
               Text('VERDICT  ${_verdict()}',
                   style: const TextStyle(color: _ember, fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              ..._log.map((l) => Text(l, style: const TextStyle(fontSize: 12))),
-              const SizedBox(height: 8),
-              Expanded(child: ListView(children: _activities.map(_row).toList())),
+              Expanded(
+                child: ListView(children: [
+                  ..._log.map((l) => Text(l, style: const TextStyle(fontSize: 12))),
+                  const SizedBox(height: 8),
+                  ..._activities.map(_row),
+                ]),
+              ),
             ],
           ),
         ),
