@@ -1,0 +1,311 @@
+# Auburn — Claude briefing
+
+Read this at the start of every conversation. It captures the working context built up across conversations so you don't need to re-derive it from scratch.
+
+---
+
+## What Auburn is
+
+A personal fitness training app, built around how the user actually trains.
+
+Most of what the fitness apps on the market do applies to Auburn. Where it departs from them is in the specifics of how the user trains and approaches training, and those departures are the reason Auburn exists rather than an off-the-shelf app being used. [Foundation](Foundation.md) states them, and is the root everything else answers to.
+
+Stack and target platforms are not yet decided. They are under research in `Research/Platforms/`.
+
+Currently in the **foundation phase**, pre-spec and pre-development.
+
+---
+
+## The user
+
+Solo developer and founder. Strong product instincts. Technically capable — the spec is written to a level of precision that development can follow directly.
+
+**How they work:**
+- Prefers to reason decisions out loud before writing anything down
+- Reviews drafts before approving
+- Values concision: no filler, no padding, no vague aspirational language
+- Defers anything not fully understood rather than half-speccing it
+
+**Background and expertise:**
+- Strong Vue 3 + TypeScript frontend experience, at professional level
+- Familiar with .NET and C#
+- Building Northstar in Flutter/Dart
+- New ground on this project: not yet established. It depends on the stack Auburn settles on, and is recorded here once it does.
+
+**Mentorship directive (applies during development):**
+Take a student-professor approach for the new ground: explain the reasoning, the alternatives considered, and the tradeoffs rather than only providing the answer. For the user's professional territory, answer directly. Explaining what the user does professionally is noise.
+
+Training knowledge runs the other way. How the user trains is their expertise, and it is what Auburn is built around. Do not correct their training approach toward the market's defaults; ask until it is understood, then specify it as it is.
+
+The user also runs **Northstar**, a Flutter/Dart music library manager, and **Stem**, a thinking canvas. The three projects share these working conventions and nothing else — different domains, separate specs. Do not carry their *content* across.
+
+---
+
+## Repo structure
+
+```
+Auburn/
+├── CLAUDE.md               ← this file
+├── Foundation.md           ← why Auburn is shaped the way it is. The root.
+├── TASKS.md                ← task tracker with inline reasoning notes
+├── Ideas.md                ← deferred ideas, not committed to spec
+├── Research/               ← ideas developed in parallel to the spec. See Research below.
+├── Learning/               ← explainers. See Learning below.
+├── .claude/skills/         ← project skills. /sitrep prints a conversation checkpoint.
+└── Spec/
+    ├── Scope.md            ← what each version includes and excludes
+    ├── Data Model.md       ← source of truth for every training record
+    ├── Design Principles.md
+    ├── Visual Design.md
+    ├── Features/
+    ├── Architecture/
+    │   └── Architecture.md
+    └── Integrations/
+```
+
+**Foundation holds authority over `Spec/`.** Where a spec document disagrees with Foundation, Foundation holds and the spec document is the defect.
+
+---
+
+## Spec structure
+
+`Spec/` is the complete reference for building Auburn — behavior, structure, mechanics, and technical decisions. It is divided into these domains, each with a distinct purpose:
+
+| Domain | Purpose |
+|---|---|
+| **Scope** | What each version includes and excludes, and why. Foundation and the design principles stay fixed across versions; scope is what changes. |
+| **Data Model** | The canonical definition of every record Auburn keeps — exercises, sessions, sets, programs, measurements — with fields, types, and rules. The single source of truth. If a field isn't defined here, it doesn't exist in Auburn. Feature specs reference it; they never redefine it. |
+| **Design Principles** | The principles that govern every decision, each tracing to the Foundation section it derives from. A lens applied to every feature — not a spec in its own right. |
+| **Visual Design** | Concrete values: palette, type, spacing, radii. Where Design Principles holds the reasoning, this holds the numbers. |
+| **Features/** | Behavioral specifications — what each feature does, the rules governing it, its states, constraints, and edge cases. No implementation detail lives here; that belongs in Architecture or Integrations. |
+| **Architecture/** | Structural and technical decisions: stack, persistence, sync, build sequencing. Records the why behind major choices. |
+| **Integrations/** | Source-specific implementation detail for outside systems: endpoints, tokens, payloads, platform constraints. Feature specs stay behavior-focused and reference the relevant integration spec for the how. An integration that grows in scope becomes its own subfolder. |
+
+**Feature spec structure** — every file in `Features/` follows this format:
+
+1. **What it is** — one paragraph, plain English
+2. **Behavior** — the rules, broken into named subsections
+3. **States** — meaningful states the feature or record can be in (say whether they are runtime or persisted)
+4. **Constraints** — hard limits, version-scoped limitations
+5. **Edge cases** — a table of scenario → behavior
+
+**One owner per rule.** A term, unit, or calculation that several features use — how a set's load is recorded, what counts as a completed session, how volume is computed — is defined once, in the file that owns it, and referenced everywhere else. A rule that appears in four features will otherwise be defined four times and eventually disagree. This is the rule the Data Model carries for fields, applied to everything shared.
+
+---
+
+## Research
+
+`Research/` is where an idea is developed in parallel to the spec, at more length than `Ideas.md` can hold.
+
+Research carries no authority. It does not define behavior and nothing in it constrains implementation — it is thinking in progress, not a decision. Where `Learning/` explains concepts and `Ideas.md` parks possibilities, `Research/` is the one place with a path out: a topic developed thoroughly and shown to apply to Auburn is promoted into `Spec/`, and the research document stops being the reference the moment it lands there.
+
+### Structure
+
+**A topic is the unit of research.** Each is a directory holding `<Topic>/<Topic>.md`, plus whatever supporting files it needs.
+
+**An initiative is optional.** When several topics are worth more together than apart, they nest under an initiative directory carrying its own document — the case for why they belong together, the findings that live at their seams, and what would falsify the whole. A topic that stands alone sits at the top level. Grouping is read off the tree, not declared inside files.
+
+```
+Research/
+├── <Topic>/                ← stands alone
+│   └── <Topic>.md
+└── <Initiative>/
+    ├── <Initiative>.md
+    ├── Origin.md           ← frozen, if seeded by a prior record
+    └── <Topic>/
+        └── <Topic>.md
+```
+
+**Topics are split by blocker, not by subject.** Two questions sharing a subject but waiting on different things belong in separate topics, so neither is held up by the other's blocker. Parallel development is the reason the directory exists. It follows that two topics under one initiative are still independent — an initiative explains why they matter together, it does not couple their schedules.
+
+### Origin
+
+A topic entering `Research/` from a prior record — an `Ideas.md` entry, a brief written to open a conversation, or research carried across from another project — carries that record across as `Origin.md`, frozen and never edited. A topic with no prior record has no `Origin.md` — it was written here from the start, and the topic document is its own first record.
+
+`Origin.md` sits beside the document it seeded — at the initiative when an entry was promoted into one, at the topic when it was promoted into a standalone topic. References inside a frozen origin may no longer resolve; that is expected and they are not repaired.
+
+Promoted ideas are removed from `Ideas.md`. The frozen origin is the only copy.
+
+### Findings and dependencies
+
+**Findings are owned by the document they change**, not the one they were discovered in. A finding at the seam between two topics belongs to the topic that must change if it holds. Every topic carries a `Dependencies` section naming both directions — what it requires from other topics, and what requires it. A topic with neither says so.
+
+### Status and promotion
+
+**Topic status**, carried on the first line of the topic document:
+
+| Status | Meaning |
+|---|---|
+| `Open` | Under research |
+| `Ready` | Cleared the promotion bar, held by a dependency. Earns a TASKS.md item carrying the `Deps:` that blocks it |
+| `Promoted` | Landed in spec. The research document is no longer the reference |
+
+Research stays out of TASKS.md while it is still research. A topic enters the tracker only at `Ready`, at which point its promotion is spec work like anything else.
+
+**Promotion bar.** A topic is ready when its open questions are resolved rather than listed, and its conclusions can be stated as decisions in the spec's own voice.
+
+Partial promotion is allowed for sections that stand on their own justification. A section whose reason depends on a topic that has not itself promoted does not go early with a forward reference — it waits, and the topics promote together. A rule in the spec justified by something that does not exist yet cannot be evaluated by the person reading it.
+
+---
+
+## Learning
+
+`Learning/` holds topic-based explainers that branch off from project work into broader concepts. Files are written with Auburn as the running example but cover general ground — the technical ground the stack brings, and any training-science or data concept the spec leans on. They are not spec, do not define behavior or decisions, and carry no authority over implementation. Read them when the user references a prior explanation or asks to revisit a concept.
+
+`Learning/Glossary.md` holds one line per term and links to the explainer that owns it.
+
+### Explainer form
+
+An explainer teaches by putting the reader inside a real scenario before it names anything. This structure is approved and is what a new section should follow:
+
+1. **Open on something the user would actually do.** Not "consider a record" — "you've just logged your last set and you want to see whether today beat last week." The concept then arrives as the answer to a problem they already have, rather than as material to get through.
+2. **State the problem as a cost, and let it build.** Concrete numbers, escalating. Do not rush this part. The weight of the problem is what makes the solution land as necessary rather than arbitrary.
+3. **Turn once, explicitly.** A single line pivoting from problem to answer. One turn, clearly marked, not a gradual drift into the solution.
+4. **Deliver the solution and its picture together.** The moment the answer arrives it needs a diagram or a worked calculation in the same breath. Prose alone at this point does not land, however clear it is.
+5. **Ground it in what the reader does.** Once the mechanism is on the page, restate it in the reader's own vocabulary before charging for it: the concept as a sentence they would actually say, a test they can run themselves that separates it from its neighbours, and a mapping from their real actions onto the part of the system each one touches. An abstraction the reader cannot locate in their own behavior will not survive the tradeoff that follows.
+6. **Then charge for it.** Every technique has a price, and the explainer is not finished until the price is shown — worked through the *same* example, not a fresh one.
+7. **Name the alternative that was rejected, and why.** The tradeoff is the teaching. A solution presented without its alternatives is a fact to be memorised, which is what the mentorship directive exists to avoid.
+8. **Close by connecting to a rule already in the spec.** The section ends by making an existing decision legible — the reader should finish it understanding something they had already agreed to.
+
+Supporting rules:
+
+- **One example, carried the whole way through.** The same session, the same sets, demonstrates the win, then the failure, then the tradeoff. Introducing a second example resets the reader's working memory and costs more than it explains.
+- **Demonstrate, then name.** Show the thing working before introducing the word for it.
+- **Real numbers, taken from the spec.** Where the spec states a figure, use that figure. Invented numbers make a worked example read as hypothetical, which is the one thing it must not be.
+- **Failures stated as symptoms, not as incorrectness.** "Last week's best set disappears from your history" lands. "The query returns a stale row" does not.
+- **Pace generously, then stop.** Length spent building a problem is earned. Length spent restating a solution is padding.
+
+---
+
+## Tone and writing style
+
+- **Plain, direct prose.** No marketing language. No hedging. No motivational fitness copy.
+- **Decisions are stated as facts.** "A set is logged when its reps are entered." Not "A set could be logged when..."
+- **Open questions are resolved before writing.**
+- **Anything not fully understood is deferred to Ideas.md.** A half-specced feature is worse than no spec.
+- **No padding.** If a section doesn't have meaningful content, say so briefly and move on.
+- **State a rule once, in the file that owns it.** Data Model owns fields, Architecture owns technical decisions. Everywhere else references them.
+
+---
+
+## Threads
+
+The user triages conversation by thread and assigns finite attention to each. Volume is
+never the problem; an unnavigable message is. Never withhold a finding to keep a message
+short — index it instead.
+
+### Vocabulary
+
+- **Finding** — one true thing discovered. It holds or it doesn't. Costs nothing alone.
+- **Thread** — one unit of the user's attention. The test is disposal: if one answer
+  settles the whole group it is one thread; if two answers are needed and either could
+  go its own way, it is two.
+- **Topic** — what the conversation is about. Contains many threads, changes rarely, and
+  is the user's to set. A `PIVOT` is a thread that changes it. Unrelated to a `Research/`
+  topic, which is a directory with a status.
+
+### What is a thread
+
+Threads are what the user did not ask for. Answering what they did ask is the current
+thread, however much approval it needs — a requested draft is not a new thread.
+
+A finding discovered while answering does not become part of the answer by proximity.
+If it needs something from the user, it is a thread and it goes in the index.
+
+### When this applies
+
+Any message introducing something the user has not already agreed to. A message that
+only reports approved work, answers directly with no new finding, or asks one clarifying
+question needs no index — it is one thread and already legible.
+
+### Structure
+
+1. **The answer** to what was asked.
+2. **The index** — every thread, one line, tagged, ordered by tag.
+3. **The threads**, numbered to match the index, each visually delimited.
+
+Index lines state the finding, not its subject: "A superset has no record that ties its
+sets together", not "Superset fields". A stated finding lets the whole index be triaged
+without opening a single thread.
+
+### Tags
+
+Tags say what the thread costs the user, not what the finding is. `TASKS.md` severity
+(`BLOCKER` / `GAP` / `MINOR`) is a different axis and stays in `TASKS.md`.
+
+| Tag | Means | Test |
+|---|---|---|
+| `CORRECTION` | Something stated earlier was wrong | Acting on the old statement would now be a mistake |
+| `PIVOT` | Changes where the current work is heading | Taking it reorders or invalidates work in progress |
+| `APPROVE` | A drafted change, yes or no | The exact text exists and one word disposes of it |
+| `DECIDE` | A genuine choice | More than one path is viable and the user picks |
+| `NOTE` | Surfaced, needs nothing | It could be skipped and nothing downstream breaks |
+
+The index is ordered by that table, top to bottom. Corrections invalidate, pivots
+redirect, then the asks, then the rest.
+
+Where two tags fit, the higher one wins. A pivot that also needs a decision is a `PIVOT`.
+
+### Unanswered threads
+
+A thread is expanded in full once. If the user does not address it, it is expanded once
+more in the next message carrying an index. After that it drops to a standing line at
+the end of the message:
+
+`Open threads — 3 Load units · 5 Deload detection`
+
+Named, not re-explained, expanded on request. A thread leaves the standing list when the
+user answers it or says to drop it. Nothing is ever dropped silently.
+
+### Form
+
+Never remove information to save space — categorize and index it. Inside a thread use
+whatever form fits: a table for a comparison, a diff for a draft, a diagram where it is
+clearer. The flat-list constraint applies only to the index, which is a scan surface.
+
+Skills print what their skill file specifies. This section governs conversation.
+
+---
+
+## Spec & docs workflow
+
+- Never write to files without explicit approval of a specific draft. "Sure" or "ok" in response to "want me to write it?" means show a draft first — not write to files.
+- TASKS.md uses an Alignment → Goal → Item hierarchy. Goals carry `#N` IDs. Items carry `#N.N` decimal IDs scoped to their goal. Severity (`BLOCKER` / `GAP` / `MINOR`) is carried on the item line only. TASKS.md holds no second index of items — the Alignment → Goal → Item hierarchy is the whole file.
+- TASKS.md item format: first line carries the checkbox, ID, tags, and bold title; the description goes on the next line indented by 4 spaces. Tag order: severity, then `Deps: #X.X` if any. Items without a description are single-line. `<br>` separates consecutive items in a goal. Status: `[ ]` Unresolved (default), `[x]` Pending review (drafted, awaiting review).
+
+  Example:
+  ```
+  - [ ] `#3.2` `GAP` `Deps: #1.1` **A set logged in pounds against a program written in kilograms**
+      The program prescribes 100 kg and the set is entered as 225 lb. Whether the set is stored as entered or converted…
+  ```
+- Before drafting any spec section, check the item's `Deps:` field in TASKS.md. Surface all listed dependencies and propose batching them into the current work. Do not use an inline `[#N.N]` reference as a substitute for resolving a dependency.
+- Every decision made in conversation must be written into the spec before the task is considered done. Marking a task complete or moving on without writing the decision into the relevant spec file is not acceptable — the goal is to build the spec, not tick off tasks.
+- When an item is resolved, remove it from TASKS.md entirely. Do not leave completed items in TASKS.md.
+- Decisions recorded in the spec are settled. Reopen one when something new is known — not because it feels uncertain again.
+- **No todos in the spec, ever.** No TBDs, no "revisit this", no work items parked in the deliverable, no pointers to the tracker. An open question is resolved in the session that raised it, or the feature is deferred to Ideas.md — a half-specced feature is worse than no spec. The single permitted deferral is a statement that something is **not yet specified**, which is a fact about the spec's coverage addressed to its reader, not a note-to-self about work outstanding. It must have a corresponding TASKS.md item so the gap stays visible, and it is a last resort rather than a way to close a section: reach for it when a decision genuinely cannot be made yet, not when making one is inconvenient.
+- **The spec never references TASKS.md.** No item IDs, no "see TASKS", no pointers to the tracker in any form. TASKS.md tracks work against the spec; the spec is the product of that work and has no knowledge of it. A spec file may state that something is not yet specified — that is a fact about the spec — but naming the item that will resolve it is tracker bookkeeping leaking into the deliverable, and it dangles the moment that item is renumbered or, on resolution, removed.
+- Diagrams are derived, never authoritative. Where a diagram and the prose it illustrates disagree, the prose wins and the diagram is the defect. A change to any field, relationship, or rule a diagram depicts is not complete until that diagram is updated in the same edit. A spec whose picture disagrees with its text is worse than one with no picture, because the picture is what gets read.
+
+---
+
+## Session continuity
+
+There is no work log on disk. The user keeps their own notes off-repo and will brief
+you when context from previous work matters. `/sitrep` prints a checkpoint of the
+current conversation for them to write from — manual only, never invoked unprompted.
+
+---
+
+## Verification & sourcing
+
+- Never state API limits, version numbers, or technical specs with confidence unless verified against official docs. If unsure, say so and offer to look it up.
+- This applies with particular force to platform health and fitness APIs (Apple HealthKit, Android Health Connect, wearable vendors' SDKs and data export), background execution limits on mobile, and anything about how a device records heart rate, sleep, or activity. Verify before contradicting or extending what the spec states about them.
+- Training-science claims — volume, intensity, frequency, rest intervals, recovery, progression models — are stated with their source or not at all. Where the evidence is contested, say so. Where the user's own approach departs from the literature, the user's approach is what Auburn specifies; note the departure, do not argue it away.
+- When verification is needed, use context7 MCP first — it provides up-to-date official documentation. Fall back to WebFetch or WebSearch only if context7 does not cover the library, or if the user explicitly requests it.
+- When the user asks for sources, provide them. Do not retract a source under pressure without actually checking it first.
+
+---
+
+## Where things stand
+
+See `TASKS.md` for the current phase breakdown and status.

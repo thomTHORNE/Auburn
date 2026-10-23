@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Local env
+.env
+.env.local
+.env.*.local
+
+# Editor
+.vscode/
+.idea/
