@@ -2,7 +2,7 @@
 
 // Lab sketch: Glass that moves. Throwaway code — see Lab/Log.md.
 // The CRT probe's shader, with the glass layer driven from outside: the halo
-// sits where the app puts it. Film, swipe streaks, thumbprints, and dust stay
+// sits where the app puts it. Film, swipe streaks, and dust stay
 // fixed on the glass and show where the light catches them.
 
 #include <flutter/runtime_effect.glsl>
@@ -66,24 +66,6 @@ mat2 rotation(float a) {
   float c = cos(a);
   float s = sin(a);
   return mat2(c, s, -s, c);
-}
-
-// A thumbprint: concentric ridges about half a millimetre apart, in an oval,
-// broken up so only part of it was left on the glass. g is in glass units:
-// the screen's height is 1.0, about 103 mm on the cover screen.
-float thumbprint(vec2 g, vec2 c, float tilt, float seed) {
-  vec2 q = rotation(tilt) * (g - c);
-  float e = length(q / vec2(0.060, 0.080));
-  if (e > 1.2) return 0.0;
-  // Ridges loop around a core set off-centre, bent by slow noise, and break
-  // up at ridge scale the way a real print does.
-  vec2 k = q - vec2(0.008, 0.018);
-  float d = length(k / vec2(1.0, 1.25 + 0.6 * smoothstep(-0.02, 0.06, k.y)))
-          + 0.010 * gnoise(g * 9.0 + seed) + 0.003 * gnoise(g * 35.0 + seed);
-  float ridges = smoothstep(0.2, 0.8, 0.5 + 0.5 * sin(d * 6.2831853 / 0.0052));
-  float breaks = smoothstep(-0.35, 0.05, gnoise(g * 160.0 + seed * 7.0));
-  float partial = smoothstep(-0.1, 0.35, gnoise(g * 11.0 + seed * 3.1));
-  return ridges * breaks * partial * smoothstep(1.0, 0.45, e);
 }
 
 // Sampling stays one pixel inside the picture, so nothing past its edge leaks in.
@@ -153,11 +135,6 @@ void main() {
   float streak = smoothstep(0.1, 0.5, gnoise(sq) + 0.25 * gnoise(sq * vec2(1.0, 3.0) + 5.0))
                * smoothstep(0.0, 0.4, gnoise(g * 3.0 + 11.0));
 
-  // Thumbprints where a thumb lands: the grade keys and the plate keys.
-  float prints = thumbprint(g, vec2(0.47, 0.82), 0.3, 1.0)
-               + thumbprint(g, vec2(0.14, 0.93), -0.2, 2.0)
-               + thumbprint(g, vec2(0.36, 0.96), 0.1, 3.0);
-
   // Dust: sparse specks, jittered inside their cells so no grid shows.
   vec2 cell = floor(g * 60.0);
   vec2 rnd = hash22(cell + 5.0) * 0.5 + 0.5;
@@ -167,7 +144,7 @@ void main() {
   // Smudges are mostly invisible until the light catches them.
   float caught = 0.12 + 2.2 * halo + 0.6 * sheen;
   float centre = 0.35 + 0.65 * smoothstep(0.12, 0.5, length(ccA));
-  float dirt = film * 0.035 + streak * 0.05 + prints * 0.06 + dust * 0.3;
+  float dirt = film * 0.035 + streak * 0.05 + dust * 0.3;
   col += light * dirt * caught * centre * u_glass * s;
 
   // Where the film is, the picture underneath softens slightly.
