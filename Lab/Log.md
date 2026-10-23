@@ -22,7 +22,7 @@ Stakes: a fail removes cardio from v1.
 
 ## CRT shader over Flutter
 
-Probe · running
+Probe · done
 
 Question: can Flutter run a custom fragment shader over the whole rendered screen on the Fold 8 — curvature, chromatic aberration, scanlines, bloom, glass halo, and smudges — while taps still answer within one frame?
 Pass: the shader runs over live widgets at the screen's full refresh rate, and a tap's visual response is no slower than without it.
@@ -31,6 +31,8 @@ Needs: a build run on the Fold.
 Feeds: Research/Platforms, Spec/Visual Design.
 Code: Lab/crt-shader/
 Stakes: a fail limits the CRT look to static texture layers.
+Verdict (2026-10-23): pass. The full CRT shader runs over the whole screen on the Fold 8 cover screen at 120 Hz: 117–119 fps, frames at 6.8 ms typical and 7.9 ms worst 5%, inside the 8.3 ms budget and about a millisecond above no shader at all. Taps felt instant in every mode. The look was most appealing at strength 0.6 and 1.0.
+Notes: the fallback path (AnimatedSampler) was not needed and runs at half speed. With nothing animated, the first frame after an idle pause can take up to 19 ms — below what was felt. The probe's own tap timer did not work; feel stood in for it. Code kept as reference.
 
 ---
 
