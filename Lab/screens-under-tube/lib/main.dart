@@ -90,6 +90,13 @@ class _ScreenRunnerState extends State<ScreenRunner> {
   bool _controls = false;
   int _replays = 0;
 
+  // For checking the glass: the approved values first.
+  static const _glassLevels = [('LOW', 0.6), ('HIGH', 1.2), ('OFF', 0.0)];
+  static const _travels = [('SMALL', 0.35), ('LARGE', 0.7)];
+  int _glass = 0;
+  int _travel = 0;
+  int _centers = 0;
+
   bool _dark(BuildContext context) => switch (_theme) {
         ThemeChoice.dark => true,
         ThemeChoice.light => false,
@@ -108,7 +115,14 @@ class _ScreenRunnerState extends State<ScreenRunner> {
           fit: StackFit.expand,
           children: [
             // The screen under the tube. The controls sit outside the shader.
-            Tube(on: _tubeOn, child: widget.screen.build(dark, _replays)),
+            Tube(
+              on: _tubeOn,
+              glass: _glassLevels[_glass].$2,
+              travel: _travels[_travel].$2,
+              centers: _centers,
+              readout: _controls,
+              child: widget.screen.build(dark, _replays),
+            ),
             if (_controls) Align(alignment: Alignment.topCenter, child: SafeArea(child: _bar(dark))),
           ],
         ),
@@ -139,12 +153,19 @@ class _ScreenRunnerState extends State<ScreenRunner> {
     };
     return Padding(
       padding: const EdgeInsets.all(6),
-      child: Row(children: [
-        if (widget.screen.hasLight)
-          key(themeLabel, () => setState(() => _theme = ThemeChoice.values[(_theme.index + 1) % ThemeChoice.values.length])),
-        key(_tubeOn ? 'TUBE ON' : 'TUBE OFF', () => setState(() => _tubeOn = !_tubeOn)),
-        key('REPLAY', () => setState(() => _replays++)),
-        key('BACK', () => Navigator.of(context).pop()),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Row(children: [
+          if (widget.screen.hasLight)
+            key(themeLabel, () => setState(() => _theme = ThemeChoice.values[(_theme.index + 1) % ThemeChoice.values.length])),
+          key(_tubeOn ? 'TUBE ON' : 'TUBE OFF', () => setState(() => _tubeOn = !_tubeOn)),
+          key('REPLAY', () => setState(() => _replays++)),
+          key('BACK', () => Navigator.of(context).pop()),
+        ]),
+        Row(children: [
+          key('GLASS ${_glassLevels[_glass].$1}', () => setState(() => _glass = (_glass + 1) % _glassLevels.length)),
+          key('TRAVEL ${_travels[_travel].$1}', () => setState(() => _travel = (_travel + 1) % _travels.length)),
+          key('CENTER', () => setState(() => _centers++)),
+        ]),
       ]),
     );
   }

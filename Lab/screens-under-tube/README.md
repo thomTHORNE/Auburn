@@ -24,6 +24,8 @@ Use the cover screen. Fonts (Gelasio, Saira) load from Google Fonts the first ti
    - **Tube** — on or off, to compare with the plain screen.
    - **Replay** — plays an animated screen again.
    - **Back** — to the list.
+   - **Glass** — LOW (approved), HIGH, OFF; **Travel** — SMALL (approved), LARGE; **Center** — takes how the phone is held now as rest. For checking the glass only.
+   - With the controls open, a readout at the bottom shows whether the shader is running, the tilt, and where the glass's light sits.
 3. For each screen and theme, judge: does the layout match its `screen.html`, does every text and mark read through the shader, does it look like its approved images?
 
 ## Known limits

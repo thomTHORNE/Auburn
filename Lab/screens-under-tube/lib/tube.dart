@@ -11,10 +11,28 @@ import 'package:sensors_plus/sensors_plus.dart';
 import 'basics.dart';
 
 class Tube extends StatefulWidget {
-  const Tube({super.key, required this.on, required this.child});
+  const Tube({
+    super.key,
+    required this.on,
+    required this.child,
+    this.glass = tubeGlass,
+    this.travel = tubeTravel,
+    this.centers = 0,
+    this.readout = false,
+  });
 
   final bool on;
   final Widget child;
+
+  /// Overrides for checking the glass; the approved values are the defaults.
+  final double glass;
+  final double travel;
+
+  /// Bumped to take the phone's current pose as the resting one.
+  final int centers;
+
+  /// Shows what the tube is doing, outside the shader.
+  final bool readout;
 
   @override
   State<Tube> createState() => _TubeState();
@@ -52,6 +70,15 @@ class _TubeState extends State<Tube> with SingleTickerProviderStateMixin {
   }
 
   @override
+  void didUpdateWidget(Tube old) {
+    super.didUpdateWidget(old);
+    if (old.centers != widget.centers) {
+      _restX = _ax;
+      _restY = _ay;
+    }
+  }
+
+  @override
   void dispose() {
     _ticker.dispose();
     _sensor?.cancel();
@@ -61,15 +88,46 @@ class _TubeState extends State<Tube> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final program = _program;
-    if (!widget.on || program == null || !ui.ImageFilter.isShaderFilterSupported) return widget.child;
+    final supported = ui.ImageFilter.isShaderFilterSupported;
     final still = MediaQuery.of(context).disableAnimations;
-    final shader = program.fragmentShader()
-      ..setFloat(2, _elapsed.inMicroseconds / 1e6)
-      ..setFloat(3, tubeStrength)
-      ..setFloat(4, still ? 0.0 : 1.0)
-      ..setFloat(5, 0.28 - (still ? 0 : _tx) * tubeTravel)
-      ..setFloat(6, 0.14 + (still ? 0 : _ty) * tubeTravel)
-      ..setFloat(7, tubeGlass);
-    return ImageFiltered(imageFilter: ui.ImageFilter.shader(shader), child: widget.child);
+    final lightX = 0.28 - (still ? 0 : _tx) * widget.travel;
+    final lightY = 0.14 + (still ? 0 : _ty) * widget.travel;
+    Widget shown = widget.child;
+    if (widget.on && program != null && supported) {
+      final shader = program.fragmentShader()
+        ..setFloat(2, _elapsed.inMicroseconds / 1e6)
+        ..setFloat(3, tubeStrength)
+        ..setFloat(4, still ? 0.0 : 1.0)
+        ..setFloat(5, lightX)
+        ..setFloat(6, lightY)
+        ..setFloat(7, widget.glass);
+      shown = ImageFiltered(imageFilter: ui.ImageFilter.shader(shader), child: widget.child);
+    }
+    if (!widget.readout) return shown;
+    String f(double v) => v.toStringAsFixed(2);
+    final status = !widget.on
+        ? 'TUBE OFF'
+        : program == null
+            ? 'SHADER LOADING'
+            : supported
+                ? 'SHADER ON'
+                : 'SHADER UNSUPPORTED';
+    return Stack(fit: StackFit.expand, children: [
+      shown,
+      Positioned(
+        left: 8,
+        right: 8,
+        bottom: 8,
+        child: Container(
+          color: const Color(0xD9000000),
+          padding: const EdgeInsets.all(6),
+          child: Text(
+            '$status · GLASS ${f(widget.glass)} · TRAVEL ${f(widget.travel)}${still ? ' · REDUCED MOTION: GLASS STILL' : ''}\n'
+            'TILT x ${f(_tx)} y ${f(_ty)} · LIGHT x ${f(lightX)} y ${f(lightY)}',
+            style: const TextStyle(fontFamily: 'monospace', color: cyanWhite, fontSize: 11),
+          ),
+        ),
+      ),
+    ]);
   }
 }
