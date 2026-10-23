@@ -25,10 +25,7 @@ Foundation is the root every other document answers to. Its departures from the 
 [Foundation.md](Foundation.md)
 - - -
 - [ ] `#1.3` `GAP` **Pillars are incomplete**
-    Goal, Variety, Exercise notes, and Weaknesses have no refusal.
-<br>
-- [ ] `#1.4` `GAP` **Terms are incomplete**
-    Overdue is not yet defined.
+    Variety, Exercise notes, and Weaknesses have no refusal.
 :::
 
 

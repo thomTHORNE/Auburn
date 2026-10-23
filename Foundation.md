@@ -54,6 +54,8 @@ Auburn never requires a rep count to log a set.
 
 A goal says why. It holds the user's own explanation of what it is for and how it is meant to be achieved, and the exercises that serve it — primary and alternates. Its rest decides when it is trained again. An exercise is seen through the goal it serves.
 
+Every goal is owed. A goal always holds at least one exercise that resets its rest. A goal of only AMAP exercises could never fall due, and Auburn does not allow that escape.
+
 ### Variety on purpose
 
 A fixed routine goes stale and leaves gaps. When an exercise is committed to a workout, Auburn rolls its modality: slow and controlled, reps counted to test strength, or by feel. Training stays fresh, experimenting is built in, and the counted sets give a measured check on progress.
@@ -84,3 +86,4 @@ Some of what training has to address is specific: a weakness found in your own b
   - *Warmup.*
 - **Rest** — the days since a goal was last trained by an exercise that resets it.
 - **AMAP** — "as much as possible": an exercise that never resets a goal's rest. Usually low-fatigue isolation work; heavy compounds always reset.
+- **Overdue** — a goal that has rested past its own limit. Each goal carries its limit.

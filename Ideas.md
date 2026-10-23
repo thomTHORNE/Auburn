@@ -10,4 +10,10 @@ Each entry states the idea, why it is parked rather than settled, and the condit
 
 ---
 
-No entries yet.
+## Weekly cap
+
+A ceiling on how often a goal is trained in a week — no more than three runs, say. Rest and the overdue limit bound training from below; a cap would bound it from above.
+
+Parked because per-goal rest bands already keep cardio spaced out, and a cap is a second kind of rule with its own interactions with rest.
+
+Worth revisiting if rest bands alone let a goal be trained more often in a week than the body handles.

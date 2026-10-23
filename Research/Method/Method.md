@@ -7,12 +7,13 @@ The mechanics of how the user trains, as run in Notion (Training '26) since Dece
 ## Settled
 
 - **Rest is per goal**: days since the latest set of any of its exercises, except AMAP exercises, which never reset it.
+- **Rest bands and the overdue limit are per goal.** A heavy leg goal and a cardio goal rest and fall due on different schedules.
 - **The overdue log** is standalone. It is tied to no goal, exercise, or workout: an entry is an answer to why training did not happen, kept so slack can be looked at over time.
 - **Modalities**: slow and controlled; counted, to test strength; by feel. One is rolled on commit.
 
 ## Open questions
 
-- **Rest bands.** Notion uses ≤2 days red (repair), 3 blue (maybe), 4 green (train), 5+ orange (train). Whether these carry over, and where the overdue limit sits.
+- **Rest band values.** Notion uses ≤2 days red (repair), 3 blue (maybe), 4 green (train), 5+ orange (train) for every goal. Whether these are the starting values for a new goal.
 - **The overdue prompt.** When it appears, and whether answering is required before anything else.
 - **Rolling.** Whether the three modalities are equally likely, whether a goal or exercise can exclude one, and whether a roll can be re-rolled.
 - **Progression.** How many ideal sets lift a Yielding hold, and whether Light, Acceptable, and Ideal carry rules of their own.
