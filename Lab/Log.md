@@ -8,7 +8,7 @@ Status is one of: parked, running, done, retired. Done means the verdict is in a
 
 ## Suunto via Health Connect
 
-Probe · running
+Probe · done
 
 Question: does a Flutter app on the phone read the runs, treadmill sessions, and hikes the Suunto app saved to Health Connect, with distance, duration, and heart rate?
 Pass: all three activity types appear with those fields.
@@ -17,6 +17,22 @@ Needs: "Save to Health Connect" turned on in the Suunto app, and a build run on 
 Feeds: Research/Suunto, Research/Platforms.
 Code: Lab/suunto-health-connect/
 Stakes: a fail removes cardio from v1.
+Verdict (2026-10-23): fail, without running the probe. The Suunto app does not write to Health Connect: it is absent from the Fold's Health Connect app permissions. A paid relay (Health Sync) exists and is ruled out on cost.
+Notes: the code was never run. Kept as reference for reading Health Connect.
+
+---
+
+## Suunto via intervals.icu
+
+Probe · running
+
+Question: with a personal intervals.icu API key, does a Flutter app fetch the original FIT files of a run, a treadmill session, and a hike recorded on the Suunto watch, and read distance, duration, and heart rate from each?
+Pass: all three activity types arrive as original FIT files and parse with those fields.
+Timebox: half a day.
+Needs: intervals.icu connected to Suunto; an API key and athlete ID entered on the phone; a build run on the phone.
+Feeds: Research/Suunto, Research/Platforms.
+Code: Lab/suunto-intervals/
+Stakes: if the fetch fails, the fallback is a manual FIT export from the Suunto app. If the files cannot be parsed, cardio leaves v1.
 
 ---
 

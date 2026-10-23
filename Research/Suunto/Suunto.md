@@ -23,8 +23,9 @@ Bringing basic data for runs, treadmill sessions, and hikes recorded on a Suunto
 - **Health Connect knows which app wrote each record.** A read can be filtered by the writing app's package name, so Suunto's records can be read apart from anything else on the phone. Verified: Android's Health Connect read-data guide.
 - **Reads reach back 30 days by default.** An app can read data from up to 30 days before it was first granted permission. A separate history permission lifts the limit; uninstalling the app revokes it. Verified: same guide.
 - **Exercise sessions, distance, and heart rate are separate record types** in Health Connect. Whether the Suunto app writes each is unverified.
-- **The Suunto app reportedly has a "Save to Health Connect" setting.** From a third-party integration guide; not confirmed on Suunto's site.
-- **The Suunto Cloud API is reportedly partner-only**, not for personal use. Unverified; it no longer decides the path.
+- **The Suunto app does not write to Health Connect.** It is absent from Health Connect's app permissions on the Fold. Lab: Suunto via Health Connect.
+- **The Suunto Cloud API is partner-only.** Suunto's API portal: "We currently don't offer the API access for personal use."
+- **intervals.icu syncs from Suunto and serves the original files.** It is free for personal use, connects to Suunto directly, and returns each activity's original file to the owner's personal API key.
 
 ## Dependencies
 
