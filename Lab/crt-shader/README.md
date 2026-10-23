@@ -32,7 +32,7 @@ flutter run --profile -d <device id>
 Profile mode matters: debug builds are several times slower and make the numbers meaningless.
 
 1. `RESET`. Strength stays at 1.0 for the whole run.
-2. In each of `OFF`, `FILTER`, `LITE`, and `STILL`: tap grade and plate keys for about a minute, then `MODE`. Skip `SAMPLER`.
+2. In each of `OFF`, `FILTER`, `LITE`, and `STILL`: tap grade keys — any order, as often as you like — and the odd plate key for about a minute, then `MODE`. Skip `SAMPLER`. The set table scrolls, so every grade tap shows up.
 3. Screenshot the readout.
 4. Note how taps *felt* in `FILTER` and `STILL` — instant, or a beat behind.
 

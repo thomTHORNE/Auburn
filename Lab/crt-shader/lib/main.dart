@@ -108,6 +108,7 @@ class _ProbeScreenState extends State<ProbeScreen> with SingleTickerProviderStat
   // Stand-in screen state.
   final _plates = <double>[20, 10, 10];
   final _today = <(double, String)>[(60, 'WARMUP'), (100, 'IDEAL')];
+  String? _pressed;
 
   @override
   void initState() {
@@ -149,7 +150,10 @@ class _ProbeScreenState extends State<ProbeScreen> with SingleTickerProviderStat
   void _logSet(PointerDownEvent e, String grade) {
     final start = Timeline.now;
     _tapsSent++;
-    setState(() => _today.add((_total, grade)));
+    setState(() {
+      _today.add((_total, grade));
+      _pressed = grade;
+    });
     SchedulerBinding.instance.addPostFrameCallback((_) {
       _pendingTaps[SchedulerBinding.instance.currentSystemFrameTimeStamp.inMicroseconds] =
           (Timeline.now - start) / 1000;
@@ -362,18 +366,23 @@ class _ProbeScreenState extends State<ProbeScreen> with SingleTickerProviderStat
     );
   }
 
+  /// The table scrolls with the sets: it always shows the last three logged
+  /// and the one being done now, so every tap changes what is on screen.
   Widget _setRow(int i, TextStyle mono) {
     const last = [(60.0, 'WARMUP'), (100.0, 'IDEAL'), (100.0, 'IDEAL'), (80.0, 'IDEAL')];
-    final t = i < _today.length ? _today[i] : null;
+    final first = _today.length > 3 ? _today.length - 3 : 0;
+    final n = first + i;
+    final t = n < _today.length ? _today[n] : null;
+    final l = last[n % last.length];
     return SizedBox(
       height: 22,
       child: Row(
         children: [
-          SizedBox(width: 28, child: Text('S${i + 1}', style: mono)),
-          Expanded(child: Text('${_fmt(last[i].$1)} ${last[i].$2}', style: mono)),
+          SizedBox(width: 40, child: Text('S${n + 1}', style: mono)),
+          Expanded(child: Text('${_fmt(l.$1)} ${l.$2}', style: mono)),
           Expanded(
             child: Text(
-              t == null ? (i == _today.length ? '▸ NOW' : '—') : '${_fmt(t.$1)} ${t.$2}',
+              t == null ? (n == _today.length ? '▸ NOW' : '—') : '${_fmt(t.$1)} ${t.$2}',
               style: mono.copyWith(color: t == null ? _bright : _ember, fontWeight: FontWeight.bold),
             ),
           ),
@@ -397,25 +406,33 @@ class _ProbeScreenState extends State<ProbeScreen> with SingleTickerProviderStat
         ),
       );
 
-  Widget _grade(String g, {bool filled = false, required double height}) => Listener(
-        onPointerDown: (e) => _logSet(e, g),
-        child: Container(
-          height: height,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: filled ? _ember : Colors.transparent,
-            border: Border.all(color: _ember, width: 2),
-          ),
-          child: Text(g,
-              style: TextStyle(
-                fontFamily: filled ? 'serif' : 'monospace',
-                fontWeight: FontWeight.bold,
-                fontSize: filled ? 20 : 11,
-                letterSpacing: filled ? 4 : 0.5,
-                color: filled ? _obsidian : _bright,
-              )),
+  /// A grade key logs on pointer down and shows itself pressed until the finger
+  /// lifts, so every tap is answered on screen, in any order, as often as wanted.
+  Widget _grade(String g, {bool filled = false, required double height}) {
+    final pressed = _pressed == g;
+    final solid = filled != pressed;
+    return Listener(
+      onPointerDown: (e) => _logSet(e, g),
+      onPointerUp: (_) => setState(() => _pressed = null),
+      onPointerCancel: (_) => setState(() => _pressed = null),
+      child: Container(
+        height: height,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: solid ? (pressed ? _bright : _ember) : Colors.transparent,
+          border: Border.all(color: pressed ? _bright : _ember, width: 2),
         ),
-      );
+        child: Text(g,
+            style: TextStyle(
+              fontFamily: filled ? 'serif' : 'monospace',
+              fontWeight: FontWeight.bold,
+              fontSize: filled ? 20 : 11,
+              letterSpacing: filled ? 4 : 0.5,
+              color: solid ? _obsidian : _bright,
+            )),
+      ),
+    );
+  }
 
   String _fmt(double v) => v == v.roundToDouble() ? v.round().toString() : v.toString();
 }
