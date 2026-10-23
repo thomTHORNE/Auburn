@@ -240,6 +240,7 @@ Past the range is the walking skeleton: thin, end to end, and kept. That is deve
 
 - **Question first.** Every attempt opens with an entry in `Lab/Log.md`: level, the one question, the pass condition, the timebox. The entry is the draft the user approves. Code inside an approved attempt needs no further approval.
 - **One question per attempt.** A second question found along the way gets its own entry.
+- **A standing attempt** asks its one question of each new subject as it arrives — every approved screen, say — rather than opening a near-identical entry each time. It stays running, takes a verdict line per subject, and shares one codebase.
 - **Shortcuts everywhere except the thing being tested.**
 - **Running out of time is an answer.** The question was bigger than it looked; say so and re-scope.
 - **The verdict is what counts.** It is written into the log entry and, as a finding, into the Research topic or spec item that asked the question.

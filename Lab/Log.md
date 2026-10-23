@@ -22,6 +22,20 @@ Notes: the code was never run. Kept as reference for reading Health Connect.
 
 ---
 
+## Approved screens under the tube
+
+Sketch · running
+
+Question: does each screen approved on the canvas, rebuilt in Flutter, look and read as intended on the Fold under the tube — CRT strength 0.6, glass LOW, travel SMALL — in each of its themes?
+Pass: per screen, the layout matches its screen.html, every text and mark reads through the shader, and the look agrees with its approved images.
+Timebox: half a day for the app and screen 00; an hour or two for each screen after.
+Needs: a build on the Fold.
+Feeds: Spec/Visual Design.
+Code: Lab/screens-under-tube/
+Stakes: a screen that fails goes back to the canvas.
+
+---
+
 ## Muscle figure regions
 
 Sketch · done
