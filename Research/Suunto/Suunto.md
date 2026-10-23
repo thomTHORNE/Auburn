@@ -9,10 +9,10 @@ Bringing basic data for runs, treadmill sessions, and hikes recorded on a Suunto
 - Auburn does not record these activities itself. The watch does.
 - **The path runs through intervals.icu.** The Suunto app syncs each workout to intervals.icu. Auburn fetches the workout's original FIT file with the owner's personal API key and reads it.
 - **Cardio reaches v1 through intervals.icu.** The Suunto app does not write to Health Connect, and Suunto's own API is closed to personal use.
+- **An activity keeps its kind, start, duration, distance, average heart rate, and intervals.icu id.** Promoted to the Data Model.
 
 ## Open questions
 
-- **What "basic" means.** Which of those Auburn shows.
 - **History.** How far back the first import reaches.
 - **When data arrives.** On opening Auburn, in the background, or on request.
 - **Notes.** How an imported activity sits beside the user's own notes on it.

@@ -19,11 +19,6 @@ Resolved tasks are removed from TASKS.md.
 
 ## Alignment 1 — Spec top level
 
-### `#4` Data Model · [Spec/Data Model.md](Spec/Data%20Model.md)
-
-- [ ] **`#4.1` No records are specified**
-    `BLOCKER`
-
 ### `#6` Visual Design · [Spec/Visual Design.md](Spec/Visual%20Design.md)
 
 - [ ] **`#6.1` No visual values are specified**
@@ -31,72 +26,79 @@ Resolved tasks are removed from TASKS.md.
 
     The values on the design canvas and the Lab verdicts: CRT strength 0.6, glass LOW, travel SMALL. The rest bands' red reads weakly on the ember plate.
 
+### `#9` Architecture · [Spec/Architecture/Architecture.md](Spec/Architecture/Architecture.md)
+
+- [ ] **`#9.1` The storage engine is not specified**
+    `GAP`
+
+    The on-phone database behind the Data Model's records. Chosen when the walking skeleton begins.
+
 ## Alignment 2 — Features
 
 ### `#7` Features · [Spec/Features/](Spec/Features/)
 
 - [ ] **`#7.1` Goals are not specified**
-    `BLOCKER` · `Deps: #4.1`
+    `BLOCKER`
 
     A goal's explanation, the exercises that work toward it, and its progress. Weaknesses are goals.
 
 - [ ] **`#7.12` Muscle groups are not specified**
-    `BLOCKER` · `Deps: #4.1`
+    `BLOCKER`
 
     The standard list, the muscle groups an exercise works, the AMAP rule, and splits.
 
 - [ ] **`#7.2` Rest is not specified**
-    `BLOCKER` · `Deps: #4.1`
+    `BLOCKER`
 
     Each muscle group's rest, its bands, its overdue limit, cardio's rest, and every rest at a glance. Owns the limit the overdue log reads.
 
 - [ ] **`#7.3` The overdue log is not specified**
-    `BLOCKER` · `Deps: #4.1`
+    `BLOCKER`
 
     The prompt when a goal falls overdue, and the log of answers. References the limit Rest owns. Waits on Research/Method for when the prompt appears and whether it must be answered first.
 
 - [ ] **`#7.4` Workouts are not specified**
-    `BLOCKER` · `Deps: #4.1`
+    `BLOCKER`
 
     Choosing the gym, committing exercises in order, duration, and past workouts.
 
 - [ ] **`#7.5` Sets are not specified**
-    `BLOCKER` · `Deps: #4.1`
+    `BLOCKER`
 
     Load, grade, and reps when counted.
 
 - [ ] **`#7.6` The modality roll is not specified**
-    `BLOCKER` · `Deps: #4.1`
+    `BLOCKER`
 
     The roll, on when a workout starts and switched off or on during it.
 
 - [ ] **`#7.7` Exercises are not specified**
-    `BLOCKER` · `Deps: #4.1`
+    `BLOCKER`
 
     The user's exercises, the muscle groups each works, alternates, gym ties, notes, and past sets by workout.
 
 - [ ] **`#7.8` Progress is not specified**
-    `BLOCKER` · `Deps: #4.1`
+    `BLOCKER`
 
     Each exercise's ideal load over time. Waits on Research/Method for what the view shows.
 
 - [ ] **`#7.9` Mobility is not specified**
-    `BLOCKER` · `Deps: #4.1`
+    `BLOCKER`
 
     Mobility workouts and their grading.
 
 - [ ] **`#7.10` Cardio is not specified**
-    `BLOCKER` · `Deps: #4.1, #8.1`
+    `BLOCKER` · `Deps: #8.1`
 
     Runs, treadmill sessions, and hikes from the watch. Waits on Research/Suunto for what Auburn shows, history, when data arrives, and notes.
 
 - [ ] **`#7.11` The Notion import is not specified**
-    `BLOCKER` · `Deps: #4.1`
+    `BLOCKER`
 
     A one-time import of Training '26. Waits on Research/Notion Import for how the export writes relations and order.
 
 - [ ] **`#7.13` The muscle figure is not specified**
-    `BLOCKER` · `Deps: #4.1, #7.12`
+    `BLOCKER` · `Deps: #7.12`
 
     Front and back views, one region per muscle group, predefined zoom sections for the small groups, lighting an exercise's groups, and tinting by rest band. The art is traced from Albinus's Tabulae sceleti et musculorum (1747), engraved by Jan Wandelaar, from a public-domain scan.
 

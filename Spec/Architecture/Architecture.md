@@ -21,6 +21,14 @@ Mechanics that follow from those choices are split into their own documents in t
 
 ---
 
+## Persistence
+
+Local and offline. Every record lives on the phone, and Auburn works without a connection; only the cardio import reaches the network. v1 has no sync and no account. Records carry phone-generated IDs and created and updated times, so sync can be added later without migrating them.
+
+The storage engine is not yet specified.
+
+---
+
 ## Deferred, conditional on measurement
 
 These are not open questions. Each is a decision already made *not* to build something until a specific condition is observed.

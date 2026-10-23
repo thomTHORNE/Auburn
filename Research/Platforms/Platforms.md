@@ -12,11 +12,10 @@ Seeded by Stem's platform research — see [Origin](Origin.md). Stem's conclusio
 - Android-only is v1's scope, not something the stack may lock in. Reaching other platforms later stays cheap.
 - Cardio is recorded on a Suunto watch, not on the phone. Auburn does not track activity live.
 - **The stack is Flutter.** Promoted to Spec/Architecture.
+- **Offline and local, no sync in v1.** Promoted to Spec/Architecture.
 
 ## Open questions
 
-- **Offline.** Gyms are often where signal is worst. Whether a session must log fully offline, and what happens when it ends without a connection.
-- **Sync.** Whether records sync across devices from v1, and through what.
 - **Health platforms.** Whether Auburn reads from or writes to Apple HealthKit or Android Health Connect, and what for.
 
 ## Findings
