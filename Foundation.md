@@ -22,6 +22,8 @@ The goal is lifelong: to get stronger, stay mobile, and keep good endurance with
 
 Which exercises are done, and when in a year, changes with life circumstances. Auburn follows that change. It never groups the three kinds of training into phases of their own, and it adds structure only where the structure brings a direct benefit.
 
+Training happens on the gym floor. Auburn is used between sets, in one hand, with attention on the body.
+
 ---
 
 ## The problem

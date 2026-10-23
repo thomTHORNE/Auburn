@@ -19,13 +19,6 @@ Resolved tasks are removed from TASKS.md.
 
 ## Alignment 1 — Spec top level
 
-::: toggle `#3` Design Principles
-[Spec/Design Principles.md](Spec/Design%20Principles.md)
-- - -
-- [ ] `#3.1` `BLOCKER` **No principles are specified**
-    Each traces to a Foundation pillar.
-:::
-
 ::: toggle `#4` Data Model
 [Spec/Data Model.md](Spec/Data%20Model.md)
 - - -
@@ -43,5 +36,5 @@ Resolved tasks are removed from TASKS.md.
 ::: toggle `#6` Visual Design
 [Spec/Visual Design.md](Spec/Visual%20Design.md)
 - - -
-- [ ] `#6.1` `MINOR` `Deps: #3.1` **No visual values are specified**
+- [ ] `#6.1` `MINOR` **No visual values are specified**
 :::
