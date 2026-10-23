@@ -3,11 +3,15 @@
 // Question: can Flutter run a custom fragment shader over the whole rendered
 // screen on the Fold 8 while taps still answer within one frame?
 //
-// Three modes, cycled from the readout:
+// Modes, cycled from the readout:
 //   OFF      no shader — the baseline.
 //   FILTER   path A: ImageFilter.shader over the screen (Impeller only).
+//   LITE     path A with a cheaper shader: half the bloom taps, one-octave smudge.
+//   STILL    path A, nothing animated: the clock stops and frames are drawn only
+//            when something changes, as on a real logging screen.
 //   SAMPLER  path B: flutter_shaders' AnimatedSampler — snapshot, then shade.
 
+import 'dart:developer' show Timeline;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -22,7 +26,7 @@ const _text = Color(0xFFC8C3B0);
 const _bright = Color(0xFFECE8DA);
 const _obsidian = Color(0xFF121215);
 
-enum Mode { off, filter, sampler }
+enum Mode { off, filter, lite, still, sampler }
 
 class ProbeApp extends StatelessWidget {
   const ProbeApp({super.key});
@@ -43,20 +47,29 @@ class Stats {
   final total = <double>[];
   final raster = <double>[];
   final taps = <double>[];
-  int? firstUs;
-  int? lastUs;
+
+  // Frame rate counts only the mode's current run, so time spent in other
+  // modes does not dilute it.
+  int? runFirstUs;
+  int? runLastUs;
+  int runFrames = 0;
+
+  void startRun() {
+    runFirstUs = null;
+    runLastUs = null;
+    runFrames = 0;
+  }
 
   void clear() {
     total.clear();
     raster.clear();
     taps.clear();
-    firstUs = null;
-    lastUs = null;
+    startRun();
   }
 
   double get fps {
-    if (firstUs == null || lastUs == null || lastUs == firstUs) return 0;
-    return (total.length - 1) / ((lastUs! - firstUs!) / 1e6);
+    if (runFirstUs == null || runLastUs == null || runLastUs == runFirstUs) return 0;
+    return (runFrames - 1) / ((runLastUs! - runFirstUs!) / 1e6);
   }
 
   static double pct(List<double> xs, double p) {
@@ -75,12 +88,19 @@ class ProbeScreen extends StatefulWidget {
 
 class _ProbeScreenState extends State<ProbeScreen> with SingleTickerProviderStateMixin {
   ui.FragmentProgram? _program;
+  ui.FragmentProgram? _lite;
   Mode _mode = Mode.off;
-  double _strength = 1.0;
+  static const _strengths = [0.3, 0.6, 1.0];
+  int _strengthIndex = 2;
+  double get _strength => _strengths[_strengthIndex];
   final _stats = {for (final m in Mode.values) m: Stats()};
 
-  /// Tap start, keyed by the build-start timestamp of the frame that shows it.
-  final _pendingTaps = <int, int>{};
+  /// Per tap, keyed by the build-start timestamp of the frame that shows it:
+  /// milliseconds from the tap handler to that frame's build finishing, on the
+  /// app's own clock. The raster part is added from the frame's own timings.
+  final _pendingTaps = <int, double>{};
+  int _tapsSent = 0;
+  int _tapsMatched = 0;
 
   late final Ticker _ticker;
   Duration _elapsed = Duration.zero;
@@ -93,6 +113,7 @@ class _ProbeScreenState extends State<ProbeScreen> with SingleTickerProviderStat
   void initState() {
     super.initState();
     ui.FragmentProgram.fromAsset('shaders/crt.frag').then((p) => setState(() => _program = p));
+    ui.FragmentProgram.fromAsset('shaders/crt_lite.frag').then((p) => setState(() => _lite = p));
     SchedulerBinding.instance.addTimingsCallback(_onTimings);
     // A running clock keeps frames flowing in every mode, so modes compare fairly.
     _ticker = createTicker((d) => setState(() => _elapsed = d))..start();
@@ -111,24 +132,27 @@ class _ProbeScreenState extends State<ProbeScreen> with SingleTickerProviderStat
       s.total.add(t.totalSpan.inMicroseconds / 1000);
       s.raster.add(t.rasterDuration.inMicroseconds / 1000);
       final finish = t.timestampInMicroseconds(ui.FramePhase.rasterFinish);
-      s.firstUs ??= finish;
-      s.lastUs = finish;
-      final start = _pendingTaps.remove(t.timestampInMicroseconds(ui.FramePhase.buildStart));
-      if (start != null) {
-        // Pointer timestamps and frame timestamps share the monotonic clock on
-        // Android; a negative or absurd value means they do not on this device.
-        final ms = (finish - start) / 1000;
-        if (ms > 0 && ms < 1000) s.taps.add(ms);
+      s.runFirstUs ??= finish;
+      s.runLastUs = finish;
+      s.runFrames++;
+      final toBuild = _pendingTaps.remove(t.timestampInMicroseconds(ui.FramePhase.buildStart));
+      if (toBuild != null) {
+        // Tap handler → build done (app clock) + build done → raster done (frame clock).
+        final ms = toBuild + (finish - t.timestampInMicroseconds(ui.FramePhase.buildFinish)) / 1000;
+        s.taps.add(ms);
+        _tapsMatched++;
       }
     }
   }
 
   /// Grades log on pointer down and record when the tap landed.
   void _logSet(PointerDownEvent e, String grade) {
-    final start = e.timeStamp.inMicroseconds;
+    final start = Timeline.now;
+    _tapsSent++;
     setState(() => _today.add((_total, grade)));
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      _pendingTaps[SchedulerBinding.instance.currentSystemFrameTimeStamp.inMicroseconds] = start;
+      _pendingTaps[SchedulerBinding.instance.currentSystemFrameTimeStamp.inMicroseconds] =
+          (Timeline.now - start) / 1000;
     });
   }
 
@@ -136,20 +160,31 @@ class _ProbeScreenState extends State<ProbeScreen> with SingleTickerProviderStat
 
   void _cycleMode() => setState(() {
         _mode = Mode.values[(_mode.index + 1) % Mode.values.length];
-        if (_mode == Mode.filter && !ui.ImageFilter.isShaderFilterSupported) _mode = Mode.sampler;
+        if (_mode != Mode.off && _mode != Mode.sampler && !ui.ImageFilter.isShaderFilterSupported) {
+          _mode = Mode.sampler;
+        }
+        _stats[_mode]!.startRun();
+        // STILL stops the clock, so frames are drawn only when something changes.
+        if (_mode == Mode.still) {
+          _ticker.stop();
+        } else if (!_ticker.isActive) {
+          _ticker.start();
+        }
       });
 
   @override
   Widget build(BuildContext context) {
     final screen = _standIn();
-    final program = _program;
+    final program = _mode == Mode.lite ? _lite : _program;
     final time = _elapsed.inMicroseconds / 1e6;
+    final animate = _mode == Mode.still ? 0.0 : 1.0;
 
     Widget shaded = screen;
-    if (program != null && _mode == Mode.filter) {
+    if (program != null && (_mode == Mode.filter || _mode == Mode.lite || _mode == Mode.still)) {
       final shader = program.fragmentShader()
         ..setFloat(2, time)
-        ..setFloat(3, _strength);
+        ..setFloat(3, _strength)
+        ..setFloat(4, animate);
       shaded = ImageFiltered(imageFilter: ui.ImageFilter.shader(shader), child: screen);
     } else if (program != null && _mode == Mode.sampler) {
       shaded = AnimatedSampler((image, size, canvas) {
@@ -158,6 +193,7 @@ class _ProbeScreenState extends State<ProbeScreen> with SingleTickerProviderStat
           ..setFloat(1, size.height)
           ..setFloat(2, time)
           ..setFloat(3, _strength)
+          ..setFloat(4, animate)
           ..setImageSampler(0, image);
         canvas.drawRect(Offset.zero & size, Paint()..shader = shader);
       }, child: screen);
@@ -190,11 +226,13 @@ class _ProbeScreenState extends State<ProbeScreen> with SingleTickerProviderStat
           final s = _stats[m]!;
           final avg = s.taps.isEmpty ? 0.0 : s.taps.reduce((a, b) => a + b) / s.taps.length;
           final max = s.taps.isEmpty ? 0.0 : s.taps.reduce((a, b) => a > b ? a : b);
-          return '${m.name.padRight(8)} ${s.fps.round().toString().padLeft(3)}  '
+          final fps = m == Mode.still ? '  —' : s.fps.round().toString().padLeft(3);
+          return '${m.name.padRight(8)} $fps  '
               '${f(Stats.pct(s.total, .5)).padLeft(5)}/${f(Stats.pct(s.total, .95)).padRight(5)}  '
               '${f(Stats.pct(s.raster, .95)).padLeft(6)}      '
               '${f(avg).padLeft(5)}/${f(max).padRight(5)} ${s.taps.length}';
         }(),
+      'TAPS sent $_tapsSent · measured $_tapsMatched',
     ];
     return Container(
       color: Colors.black,
@@ -207,11 +245,13 @@ class _ProbeScreenState extends State<ProbeScreen> with SingleTickerProviderStat
           Row(
             children: [
               _small('MODE', _cycleMode),
-              _small('STRENGTH', () => setState(() => _strength = _strength >= 1.0 ? 0.3 : _strength + 0.35)),
+              _small('STRENGTH', () => setState(() => _strengthIndex = (_strengthIndex + 1) % _strengths.length)),
               _small('RESET', () => setState(() {
                     for (final s in _stats.values) {
                       s.clear();
                     }
+                    _tapsSent = 0;
+                    _tapsMatched = 0;
                   })),
             ],
           ),

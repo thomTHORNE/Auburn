@@ -10,9 +10,11 @@
 uniform vec2 u_size;
 uniform sampler2D u_texture;
 
-// Float uniforms 2 and 3.
+// Float uniforms 2, 3, and 4.
 uniform float u_time;
 uniform float u_strength;
+// 1 runs the time-based effects (rolling band, grain); 0 holds the picture still.
+uniform float u_animate;
 
 out vec4 frag_color;
 
@@ -57,8 +59,8 @@ void main() {
   // Curvature: sample further out toward the edges, so the picture bulges.
   vec2 buv = 0.5 + cc * (1.0 + 0.06 * s * r2);
 
-  // Chromatic aberration, growing toward the edges.
-  vec2 dir = cc * 0.007 * s;
+  // Chromatic aberration: half the first pass, and none in the middle where values sit.
+  vec2 dir = cc * 0.0035 * s * smoothstep(0.15, 0.5, length(ccA));
   vec3 col = vec3(texture(u_texture, buv + dir).r,
                   texture(u_texture, buv).g,
                   texture(u_texture, buv - dir).b);
@@ -79,7 +81,7 @@ void main() {
 
   // A slow rolling band.
   float band = exp(-pow((fract(uv.y * 0.5 - u_time * 0.05) - 0.5) * 12.0, 2.0));
-  col += band * 0.02 * s;
+  col += band * 0.02 * s * u_animate;
 
   // Vignette.
   float vig = smoothstep(0.85, 0.25, length(ccA));
@@ -95,7 +97,7 @@ void main() {
   col += vec3(0.80, 0.85, 0.80) * smudge * edge * 0.05 * s;
 
   // Grain.
-  col += (hash(FlutterFragCoord().xy + fract(u_time) * 100.0) - 0.5) * 0.03 * s;
+  col += (hash(FlutterFragCoord().xy + fract(u_time) * 100.0) - 0.5) * 0.03 * s * u_animate;
 
   // Black beyond the tube's curved edge.
   vec2 inside = step(vec2(0.0), buv) * step(buv, vec2(1.0));

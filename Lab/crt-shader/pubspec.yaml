@@ -60,6 +60,7 @@ flutter:
 
   shaders:
     - shaders/crt.frag
+    - shaders/crt_lite.frag
 
   # To add assets to your application, add an assets section, like this:
   # assets:
