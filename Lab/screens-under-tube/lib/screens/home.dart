@@ -271,8 +271,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Widget _controls(_Widget w) {
     final full = _full.contains(w);
+    // The whole key answers a tap, not only its label.
     Widget key(String label, VoidCallback onTap) => Expanded(
           child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: onTap,
             child: Container(
               height: 44,
@@ -284,6 +286,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         );
     Widget seg(String label, bool on, VoidCallback onTap) => Expanded(
           child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: onTap,
             child: Container(
               alignment: Alignment.center,
