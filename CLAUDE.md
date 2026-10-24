@@ -131,6 +131,8 @@ Boards are clean: the tube — curvature, scanlines, glass — and any other ren
 
 A board with tweakable values carries its controls on the board, with two resets: a hold-to-preview that shows the starting values for as long as it is held and cannot be changed while held, and a reset that returns every value to the start. Each control shows its starting value. A value shared across screens, such as the hierarchy levels, is tuned on one board that shows every screen using it, so one change is seen everywhere at once.
 
+Once a screen's values are approved, the canvas carries its value manifest: a board beside the screen listing every value it uses. A manifest is reference — what worked for that screen — and becomes a basic only once it holds across screens.
+
 ---
 
 ## Research
