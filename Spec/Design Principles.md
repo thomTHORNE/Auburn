@@ -74,7 +74,7 @@ Not everything on a screen matters equally, and the screen says so. What the use
 
 When everything is equally loud, the eye reads the whole screen to find the one thing it needs. On the gym floor that turns a glance into a read, and the read is attention taken from the body.
 
-> In practice: on the main menu, the destinations are at full strength, their numbers and the status lines a step back, and the rules between rows barely there.
+> In practice: on the main menu, the destinations are at full strength, the status lines a step back, and the numbers and the rules between rows further back still.
 
 *Derives from: Training.*
 
