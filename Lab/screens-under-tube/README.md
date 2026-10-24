@@ -43,7 +43,7 @@ A second attempt sharing this app; its entry is in the log. `lib/sounds.dart` pl
 - **Boot** plays with the boot screen, from the start on every replay.
 - **Ambience** loops from the moment the boot ends, under every screen. Opening a screen without a boot fades it in over 0.5 s. It fades out over 0.5 s when the app leaves the screen, and back in on return.
 - **Power-down** plays when the hold fills; the ambience fades out as it starts. Leaving its stand-in brings the ambience back, since the Lab does not quit.
-- **SOUND ON / OFF** in the long-press menu stands in for the Settings toggle. The phone's silent and vibrate modes mute all three, read once a second from the ringer mode.
+- **SOUND ON / OFF** and **VOLUME** in the long-press menu stand in for Settings' sound toggle and Auburn's own volume, which scales every sound within the phone's media volume. The phone's silent and vibrate modes mute all three, read once a second from the ringer mode.
 
 ## Known limits
 

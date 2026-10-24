@@ -44,6 +44,9 @@ class Sounds {
   Timer? _fader;
   Timer? _bootEnd;
 
+  /// Auburn's own volume, from Settings: it scales every sound within the phone's media volume.
+  double volume = 1;
+
   /// For checking: play even when the phone is on silent or vibrate.
   bool ignoreSilent = false;
 
@@ -54,7 +57,7 @@ class Sounds {
   bool get _audible => soundOn && (ignoreSilent || !_silent);
 
   String get status => 'RINGER $_ringerSeen · ${_audible ? 'AUDIBLE' : 'MUTED'} · AMBIENCE ${_ambience.state.name.toUpperCase()} '
-      '${_volume.toStringAsFixed(1)} · ERROR $lastError';
+      '${_volume.toStringAsFixed(1)} · VOLUME ${(volume * 100).round()}% · ERROR $lastError';
 
   /// Runs a player call and keeps its failure for the readout instead of losing it.
   Future<void> _guard(String what, Future<void> call) async {
@@ -81,6 +84,13 @@ class Sounds {
     }
   }
 
+  void setVolume(double v) {
+    volume = v;
+    _guard('volume', _boot.setVolume(volume));
+    _guard('volume', _powerDown.setVolume(volume));
+    _guard('volume', _ambience.setVolume(_volume * volume));
+  }
+
   void setIgnoreSilent(bool on) {
     ignoreSilent = on;
     _update();
@@ -101,14 +111,14 @@ class Sounds {
     _ambienceWanted = false;
     _ambience.stop();
     _volume = 0;
-    if (_audible) _guard('boot', _boot.play(AssetSource('sounds/auburn-boot.wav')));
+    if (_audible) _guard('boot', _boot.play(AssetSource('sounds/auburn-boot.wav'), volume: volume));
     _bootEnd?.cancel();
     _bootEnd = Timer(bootLength, () {
       _ambienceWanted = true;
       // Its last 0.6 s is the ambience's last 0.6 s, so the loop follows on at full level.
       if (_audible && _foreground) {
         _volume = 1;
-        _guard('ambience', _ambience.play(AssetSource('sounds/auburn-ambience.wav'), volume: 1));
+        _guard('ambience', _ambience.play(AssetSource('sounds/auburn-ambience.wav'), volume: volume));
       }
     });
   }
@@ -124,7 +134,7 @@ class Sounds {
   void powerDown() {
     _ambienceWanted = false;
     _fadeTo(0);
-    if (_audible) _guard('power-down', _powerDown.play(AssetSource('sounds/auburn-power-down.wav')));
+    if (_audible) _guard('power-down', _powerDown.play(AssetSource('sounds/auburn-power-down.wav'), volume: volume));
   }
 
   /// In the app Auburn quits here; in the Lab the ambience comes back.
@@ -146,7 +156,7 @@ class Sounds {
   Future<void> _fadeTo(double target) async {
     _fader?.cancel();
     if (target > 0 && _ambience.state != PlayerState.playing) {
-      await _guard('ambience', _ambience.play(AssetSource('sounds/auburn-ambience.wav'), volume: _volume));
+      await _guard('ambience', _ambience.play(AssetSource('sounds/auburn-ambience.wav'), volume: _volume * volume));
     }
     const steps = 20;
     final from = _volume;
@@ -154,7 +164,7 @@ class Sounds {
     _fader = Timer.periodic(_fade ~/ steps, (t) {
       i++;
       _volume = from + (target - from) * i / steps;
-      _ambience.setVolume(_volume);
+      _ambience.setVolume(_volume * volume);
       if (i == steps) {
         t.cancel();
         if (target == 0) _ambience.pause();

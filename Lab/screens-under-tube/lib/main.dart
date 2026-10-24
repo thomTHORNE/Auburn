@@ -166,6 +166,26 @@ class _ScreenRunnerState extends State<ScreenRunner> {
     );
   }
 
+  // Stands in for the volume in Settings.
+  Widget _volumeSlider() => Container(
+        margin: const EdgeInsets.all(3),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        color: Colors.black.withValues(alpha: 0.85),
+        child: Row(children: [
+          const Text('VOLUME', style: TextStyle(fontFamily: 'monospace', color: cyanWhite, fontSize: 12, letterSpacing: 1)),
+          Expanded(
+            child: Slider(
+              value: Sounds.instance.volume,
+              divisions: 20,
+              activeColor: cyanWhite,
+              onChanged: (v) => setState(() => Sounds.instance.setVolume(v)),
+            ),
+          ),
+          Text('${(Sounds.instance.volume * 100).round()}%',
+              style: const TextStyle(fontFamily: 'monospace', color: cyanWhite, fontSize: 12)),
+        ]),
+      );
+
   Widget _bar(bool dark) {
     Widget key(String label, VoidCallback onTap) => Expanded(
           child: Padding(
@@ -207,6 +227,7 @@ class _ScreenRunnerState extends State<ScreenRunner> {
           key(Sounds.instance.ignoreSilent ? 'SILENT IGNORED' : 'SILENT MUTES',
               () => setState(() => Sounds.instance.setIgnoreSilent(!Sounds.instance.ignoreSilent))),
         ]),
+        _volumeSlider(),
         const _SoundReadout(),
         if (widget.screen.variants.length > 1)
           Row(children: [
