@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'basics.dart';
 import 'screens/boot.dart';
 import 'screens/home.dart';
+import 'perf.dart';
 import 'sounds.dart';
 import 'tube.dart';
 
@@ -157,6 +158,8 @@ class _ScreenRunnerState extends State<ScreenRunner> {
               travel: _travels[_travel].$2,
               centers: _centers,
               readout: _controls,
+              rate: Perf.instance.rate == 0 ? -1 : (Perf.instance.rate >= 120 ? 0 : Perf.instance.rate),
+              sensorInterval: Perf.sensors[Perf.instance.sensor].$2,
               child: widget.screen.build(dark, _replays, _variant),
             ),
             if (_controls) Align(alignment: Alignment.topCenter, child: SafeArea(child: _bar(dark))),
@@ -224,6 +227,18 @@ class _ScreenRunnerState extends State<ScreenRunner> {
           key('CENTER', () => setState(() => _centers++)),
         ]),
         Row(children: [
+          key('TUBE ${Perf.instance.rate == 0 ? 'STILL' : '${Perf.instance.rate} FPS'}', () => setState(() {
+                final r = Perf.rates;
+                Perf.instance.rate = r[(r.indexOf(Perf.instance.rate) + 1) % r.length];
+              })),
+          key('TILT ${Perf.sensors[Perf.instance.sensor].$1}', () => setState(() => Perf.instance.sensor = (Perf.instance.sensor + 1) % Perf.sensors.length)),
+          key('DISPLAY ${Perf.instance.refresh == 0 ? 'SYSTEM' : '${Perf.instance.refresh} HZ'}', () => setState(() {
+                final r = Perf.refreshes;
+                Perf.instance.setRefresh(r[(r.indexOf(Perf.instance.refresh) + 1) % r.length]);
+              })),
+          key('RESTART RUN', () => setState(Perf.instance.restartRun)),
+        ]),
+        Row(children: [
           key(Sounds.instance.ignoreSilent ? 'SILENT IGNORED' : 'SILENT MUTES',
               () => setState(() => Sounds.instance.setIgnoreSilent(!Sounds.instance.ignoreSilent))),
         ]),
@@ -247,7 +262,10 @@ class _SoundReadout extends StatefulWidget {
 }
 
 class _SoundReadoutState extends State<_SoundReadout> {
-  late final Timer _tick = Timer.periodic(const Duration(milliseconds: 500), (_) => setState(() {}));
+  late final Timer _tick = Timer.periodic(const Duration(milliseconds: 500), (_) {
+    Perf.instance.read();
+    setState(() {});
+  });
 
   @override
   void dispose() {
@@ -263,7 +281,7 @@ class _SoundReadoutState extends State<_SoundReadout> {
       margin: const EdgeInsets.all(3),
       padding: const EdgeInsets.all(8),
       color: Colors.black.withValues(alpha: 0.85),
-      child: Text(Sounds.instance.status,
+      child: Text('${Sounds.instance.status}\n${Perf.instance.status}',
           style: const TextStyle(fontFamily: 'monospace', color: cyanWhite, fontSize: 10, height: 1.4)),
     );
   }

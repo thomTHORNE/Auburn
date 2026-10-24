@@ -45,6 +45,17 @@ A second attempt sharing this app; its entry is in the log. `lib/sounds.dart` pl
 - **Power-down** plays when the hold fills; the ambience fades out as it starts. Leaving its stand-in brings the ambience back, since the Lab does not quit.
 - **SOUND ON / OFF** and **VOLUME** in the long-press menu stand in for Settings' sound toggle and Auburn's own volume, which scales every sound within the phone's media volume. The phone's silent and vibrate modes mute all three, read once a second from the ringer mode.
 
+### The tube's frame rate
+
+A third attempt sharing this app; its entry is in the log. Four keys in the long-press menu, and a second readout line:
+
+- **TUBE 30 FPS** — how often the tube redraws its band, grain and glass: 30, 60, 120 (every frame), or STILL. Starts at 30.
+- **TILT UI** — how often the tilt sensor reads: UI, NORMAL (slowest), or GAME (fastest, the old setting). Starts at UI.
+- **DISPLAY 75 HZ** — the refresh rate asked of the display: 75, 60, 120, or SYSTEM. Android picks the supported mode closest to it, and may pick another; the readout shows the rate it actually runs at and the modes it offers.
+- **RESTART RUN** — measures time and the battery temperature's rise from now. Start each 20-minute run with it, the phone at room temperature.
+
+The battery temperature is read every 10 s from the start, so a run is measured with the controls closed.
+
 ## Known limits
 
 - Taps land on the undistorted layout; near the edges the shader's curvature moves the picture a few pixels.

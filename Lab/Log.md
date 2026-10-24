@@ -38,6 +38,21 @@ Screen 01, navigation round 2: pass. Rebuilt from the round 2 boards, it handles
 
 ---
 
+## The tube's frame rate
+
+Probe · running
+
+Question: at what rate can the tube redraw — 120, 60, or 30 frames a second, with the tilt sensor at game or normal speed — and keep the Fold cool through a 20-minute session, while the band, grain, and glass still look smooth?
+Pass: a rate where the battery temperature rises no more than 5 °C over 20 minutes on home with the ambience playing, and the tube's motion shows no stutter in the hand.
+Timebox: half a day.
+Needs: a build on the Fold; the phone at room temperature before each run.
+Feeds: Spec/Architecture, Spec/Visual Design (the tube).
+Code: Lab/screens-under-tube/ — the tube under the real screens.
+Stakes: if no rate keeps the phone cool, the tube's animated effects are cut back.
+Notes: the first run starts at the tube redrawing 30 times a second, the tilt read at UI speed, and the display asked for 75 Hz.
+
+---
+
 ## Sound in the hand
 
 Sketch · running
