@@ -26,13 +26,13 @@ Notes: the code was never run. Kept as reference for reading Health Connect.
 
 Sketch · running
 
-Question: does each screen approved on the canvas, rebuilt in Flutter, look and read as intended on the Fold under the tube — CRT strength 0.6, glass LOW, travel SMALL — in each of its themes?
-Pass: per screen, the layout matches its screen.html, every text and mark reads through the shader, and the look agrees with its approved images.
+Question: does each screen brought for approval on the canvas, rebuilt in Flutter, look, read and handle as intended on the Fold under the tube — CRT strength 0.6, glass LOW, travel SMALL — in each of its themes?
+Pass: per screen, the layout matches its canvas boards, every text and mark reads through the shader, every control on the screen works in the hand, and the look agrees with the boards.
 Timebox: half a day for the app and screen 00; an hour or two for each screen after.
 Needs: a build on the Fold.
 Feeds: Spec/Visual Design.
 Code: Lab/screens-under-tube/
-Stakes: a screen that fails goes back to the canvas.
+Stakes: a screen that fails goes back to the canvas before it is approved.
 Screen 00, boot: pass. Rebuilt from its screen.html, it matches the approved board; the mark, wordmark, and line read through the tube, and the tilt-driven glass runs. At the approved glass LOW the glass is barely visible on the boot; HIGH (1.2) with travel SMALL fits it better.
 
 ---

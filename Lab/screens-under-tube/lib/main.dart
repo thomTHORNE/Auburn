@@ -1,23 +1,25 @@
 // Lab sketch: Approved screens under the tube. Throwaway code — see Lab/Log.md.
 //
-// Question: does each screen approved on the canvas, rebuilt in Flutter, look
-// and read as intended on the Fold under the tube, in each of its themes?
+// Question: does each screen brought for approval on the canvas, rebuilt in
+// Flutter, look, read and handle as intended on the Fold under the tube, in
+// each of its themes?
 //
-// A standing attempt: each newly approved screen joins the list in _screens.
+// A standing attempt: each screen brought for approval joins the list in _screens.
 
 import 'package:flutter/material.dart';
 
 import 'basics.dart';
 import 'screens/boot.dart';
+import 'screens/home.dart';
 import 'tube.dart';
 
 void main() => runApp(const LabApp());
 
 enum ThemeChoice { system, dark, light }
 
-/// One approved screen: its number, name, whether it has a light theme, and how to build it.
+/// One screen: its number, name, whether it has a light theme, and how to build it.
 class ApprovedScreen {
-  const ApprovedScreen(this.number, this.name, this.hasLight, this.build, {this.glassHigh = false});
+  const ApprovedScreen(this.number, this.name, this.hasLight, this.build, {this.glassHigh = false, this.variants = const []});
 
   final String number;
   final String name;
@@ -25,11 +27,16 @@ class ApprovedScreen {
 
   /// The screen's glass level in Visual Design's basics: Low unless the screen opts into High.
   final bool glassHigh;
-  final Widget Function(bool dark, int replays) build;
+  /// States the controls can switch between, such as a workout in progress.
+  final List<String> variants;
+  final Widget Function(bool dark, int replays, int variant) build;
 }
 
 final _screens = <ApprovedScreen>[
-  ApprovedScreen('00', 'BOOT', true, (dark, replays) => BootScreen(dark: dark, replays: replays), glassHigh: true),
+  ApprovedScreen('00', 'BOOT', true, (dark, replays, _) => BootScreen(dark: dark, replays: replays), glassHigh: true),
+  ApprovedScreen('01', 'NAVIGATION · ROUND 2, FOR APPROVAL', false,
+      (dark, replays, variant) => HomeScreen(key: ValueKey(replays), workoutInProgress: variant == 1),
+      variants: const ['NO WORKOUT', 'IN WORKOUT']),
 ];
 
 class LabApp extends StatelessWidget {
@@ -57,7 +64,7 @@ class ScreenList extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            const Text('APPROVED SCREENS', style: TextStyle(fontFamily: 'monospace', color: ember, fontSize: 13, letterSpacing: 2)),
+            const Text('SCREENS', style: TextStyle(fontFamily: 'monospace', color: ember, fontSize: 13, letterSpacing: 2)),
             const SizedBox(height: 4),
             const Text('Long-press a running screen for its controls.', style: TextStyle(fontFamily: 'monospace', color: Color(0xFF8A8676), fontSize: 11)),
             const SizedBox(height: 16),
@@ -92,6 +99,7 @@ class _ScreenRunnerState extends State<ScreenRunner> {
   bool _tubeOn = true;
   bool _controls = false;
   int _replays = 0;
+  int _variant = 0;
 
   // For checking the glass; each screen starts at its own level from the basics.
   static const _glassLevels = [('LOW', 0.6), ('HIGH', 1.2), ('OFF', 0.0)];
@@ -124,7 +132,7 @@ class _ScreenRunnerState extends State<ScreenRunner> {
               travel: _travels[_travel].$2,
               centers: _centers,
               readout: _controls,
-              child: widget.screen.build(dark, _replays),
+              child: widget.screen.build(dark, _replays, _variant),
             ),
             if (_controls) Align(alignment: Alignment.topCenter, child: SafeArea(child: _bar(dark))),
           ],
@@ -169,6 +177,10 @@ class _ScreenRunnerState extends State<ScreenRunner> {
           key('TRAVEL ${_travels[_travel].$1}', () => setState(() => _travel = (_travel + 1) % _travels.length)),
           key('CENTER', () => setState(() => _centers++)),
         ]),
+        if (widget.screen.variants.length > 1)
+          Row(children: [
+            key(widget.screen.variants[_variant], () => setState(() => _variant = (_variant + 1) % widget.screen.variants.length)),
+          ]),
       ]),
     );
   }
