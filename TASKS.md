@@ -98,6 +98,8 @@ Resolved tasks are removed from TASKS.md.
 
     Runs, treadmill sessions, and hikes from the watch. Waits on Research/Suunto for what Auburn shows, history, when data arrives, and notes.
 
+    Cardio is reached from navigation. Whether it opens a screen of its own, and what that screen lists, is not yet decided.
+
 - [ ] **`#7.11` The Notion import is not specified**
     `BLOCKER`
 
