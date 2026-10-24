@@ -31,7 +31,6 @@ Resolved tasks are removed from TASKS.md.
 
     Front and back plates from Albinus's Tabulae sceleti et musculorum (1747), engraved by Jan Wandelaar, traced into one region per muscle group from a public-domain scan. Refined placeholder shapes stand in until it is done.
 
-
 - [ ] **`#6.5` Screen 02, rest at a glance, is not specified**
     `GAP`
 
