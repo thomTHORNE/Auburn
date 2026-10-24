@@ -102,7 +102,7 @@ Auburn/
 ### How a screen gets agreed
 
 1. **Explain it first.** Before any design, Claude states the screen's purpose, why it earns its place, and what it must carry. The user confirms it is understood, or the screen is cut or merged. A screen that cannot say why it exists is not designed.
-2. **Wireframe the information.** On the screen's wireframe page in the canvas, every piece of information that could appear is laid out and weighed, and only what earns its place stays. Wireframes carry no look.
+2. **Wireframe the information.** On the screen's page in the canvas, every piece of information that could appear is laid out and weighed, and only what earns its place stays. Wireframes carry no look.
 3. **Iterate on the design canvas**, round by round, until the user approves a version.
 4. **Save the approved version**: the section, the screen's HTML, and an image per state, as below.
 5. **Remove its TASKS.md item.**
@@ -127,6 +127,8 @@ Its folder, `Spec/Visual Design/<nn-screen>/`, holds `screen.html` — the appro
 - Images only illustrate.
 
 Where two disagree, the owner holds and the other is fixed in the same edit. A change to a screen is not done until its section, HTML, and images all agree.
+
+Each screen has its own canvas page, named by its number and name, holding everything for that screen: its wireframes, its design rounds, its tuning boards, and its value manifest.
 
 Boards are clean: the tube — curvature, scanlines, glass — and any other render effect, such as glow, flicker, or bloom, is never faked in the canvas. The canvas judges layout, design, flow, and use. The tube's values are in the basics, and its look is checked on the device.
 
