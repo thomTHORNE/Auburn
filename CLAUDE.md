@@ -97,19 +97,19 @@ Auburn/
 
 ## Visual design process
 
-`Spec/Visual Design.md` holds the basics — the frame, palette, type, spacing, grade marks, rest band colours, the tube, the muscle figure's style — and a section per screen. A screen is either agreed or stated as not yet specified, with a TASKS.md item for each screen still open. The screens are agreed one at a time.
+`Spec/Visual Design.md` holds the basics — the frame, palette, type, spacing, grade marks, rest band colours, the tube, the muscle figure's style — and the screens table. Each agreed screen has its own document in its folder, linked from the table. A screen is either agreed or stated as not yet specified, with a TASKS.md item for each screen still open. The screens are agreed one at a time.
 
 ### How a screen gets agreed
 
 1. **Explain it first.** Before any design, Claude states the screen's purpose, why it earns its place, and what it must carry. The user confirms it is understood, or the screen is cut or merged. A screen that cannot say why it exists is not designed.
 2. **Wireframe the information.** On the screen's page in the canvas, every piece of information that could appear is laid out and weighed, and only what earns its place stays. Wireframes carry no look.
 3. **Iterate on the design canvas**, round by round, until the user approves a version.
-4. **Save the approved version**: the section, the screen's HTML, and an image per state, as below.
+4. **Save the approved version**: the screen's document, its HTML, and an image per state, as below.
 5. **Remove its TASKS.md item.**
 
 ### An agreed screen
 
-Its section in `Visual Design.md` has five parts:
+Its folder, `Spec/Visual Design/<nn-screen>/`, holds `<nn-screen>.md`, `screen.html` and the state images. The document opens with **Why it is shaped this way**: the reasoning from the explanation, the wireframe and the rounds — what the screen had to carry, what was weighed and set aside, and why — written in the spec's voice and kept in step with the rules below it. Then five parts:
 
 - **Purpose.** One sentence: what the user comes here to do.
 - **Earns its place.** What would break or be worse without it, and why it is not folded into another screen.
@@ -117,16 +117,16 @@ Its section in `Visual Design.md` has five parts:
 - **Controls.** Every tap and what it does.
 - **Images.** One per state that matters, embedded from the screen's folder.
 
-Its folder, `Spec/Visual Design/<nn-screen>/`, holds `screen.html` — the approved board as one standalone file, using only the basics' values, named as CSS variables — and the state images as PNGs at cover-screen size.
+`screen.html` is the approved board as one standalone file, using only the basics' values, named as CSS variables; the state images are PNGs at cover-screen size.
 
 ### What owns what
 
 - The basics own every value. A screen never introduces one; a value it needs is added to the basics first.
-- The section owns behaviour and contents.
+- The screen's document owns behaviour and contents.
 - `screen.html` owns layout: sizes, gaps, positions. Canvas pixels are Flutter logical pixels.
 - Images only illustrate.
 
-Where two disagree, the owner holds and the other is fixed in the same edit. A change to a screen is not done until its section, HTML, and images all agree.
+Where two disagree, the owner holds and the other is fixed in the same edit. A change to a screen is not done until its document, HTML, and images all agree.
 
 Each screen has its own canvas page, named by its number and name, holding everything for that screen: its wireframes, its design rounds, its tuning boards, and its value manifest.
 

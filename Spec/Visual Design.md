@@ -70,8 +70,8 @@ Each screen is agreed one at a time, as the project's visual design process sets
 
 | # | Screen | Covers | Status |
 |---|---|---|---|
-| 00 | Boot | The brand, for the moment the app takes to open | Agreed |
-| 01 | Navigation | How the screens connect, and what opening Auburn shows | Agreed |
+| 00 | [Boot](Visual%20Design/00-boot/00-boot.md) | The brand, for the moment the app takes to open | Agreed |
+| 01 | [Navigation](Visual%20Design/01-navigation/01-navigation.md) | How the screens connect, and what opening Auburn shows | Agreed |
 | 02 | Rest at a glance | Every tracked group's rest, on the figure and in a list, with cardio | Not yet specified |
 | 03 | The overdue prompt | Asking why training did not happen | Not yet specified |
 | 04 | Starting a workout | Choosing the gym, then the kind | Not yet specified |
@@ -87,70 +87,3 @@ Each screen is agreed one at a time, as the project's visual design process sets
 | 14 | The overdue log | Every answer, newest first | Not yet specified |
 | 15 | Settings | The theme mode, sound and its volume, and credits | Not yet specified |
 | 16 | Power down | The tube switching off while the power-down plays | Not yet specified |
-
-### 00 · Boot
-
-**Purpose.** Shows Auburn's mark, its name, and a line for the moment the app takes to start, then fades into the first screen.
-
-**Earns its place.** It costs about eight seconds a few times a day and nothing more. It plays only when Auburn starts cold — never when it returns from the background, and never while a workout is in progress, when Auburn opens straight to the workout. It is the one place the brand is shown whole.
-
-**Contents.** Centred, top to bottom:
-
-- **The mark:** an Ember plate, 220 × 264, with a double Obsidian rule inside it. Within the rule, three Obsidian pillars 5 apart, lettered at their feet in Saira light — H, C, M: hypertrophy, cardio, mobility. Beneath them a rule, and under it the line, in Saira uppercase on one row.
-- **AUBURN** in Gelasio, 14 below the mark, spread to the mark's visible width.
-- **The line**, one of nine, picked at random each boot and never the same twice running, shown bare: "More human than human.", "Introducing, the new You.", "Human, improved.", "Built better. By you.", "Engineered to endure.", "Strength is a protocol.", "Advancement is mandatory.", "Obsolescence is optional.", "Flesh: the first machine." A line is at most 26 characters.
-- **A 9 px dot grid** across the screen.
-
-The themes differ in three things only:
-
-| | Dark | Light |
-|---|---|---|
-| Screen | Tube, Ember dots | Ember, Obsidian dots |
-| Wordmark | Ember, 220 wide: the plate's edge | Obsidian, 200 wide: the outer rule's edge, since the plate merges with the screen |
-
-**The sequence**, 8 s: a Cyan White line across the middle, the picture opening from it, the plate, the pillars rising one after another, the wordmark settling, the line flickering in, a hold, then the fade into the first screen. The timeline is in `screen.html`.
-
-**Controls.** None. The boot ignores taps and plays to the end.
-
-**Images.**
-
-![Boot, dark](Visual%20Design/00-boot/dark.png) ![Boot, light](Visual%20Design/00-boot/light.png)
-
-### 01 · Navigation
-
-**Purpose.** Home: shows where training stands at a glance and leads to every other screen.
-
-**Earns its place.** Every screen is reached from here, by one tap on a widget or an entry, so there is one predictable way around. It is not folded into rest at a glance, because it also carries goals, cardio, the list and power down.
-
-**Opening Auburn.** A cold start plays the boot and then shows home; with a workout in progress there is no boot, and Auburn opens straight to the workout. Returning from the background shows wherever Auburn was left. When an overdue answer is owed, the prompt opens over home. Android's back gesture on home sends Auburn to the background.
-
-**Contents.** Three layers: the content, the list over it, and Power down over both. Top to bottom:
-
-- **AUBURN**, in Gelasio 700, with an Ember cursor blinking once every 1.1 s, always on home.
-- **The status**: the last workout, when and where — "LAST WORKOUT · 2 DAYS AGO · CITY GYM" — at the secondary level.
-- **The widgets**, in the order and widths the user sets; a full-width widget takes a row and half-width widgets pair up, in reading order. They start as Rest at a glance at full width, then Goals and Cardio at half width. Each has its cover — 96 at full width, 72 at half — its name on an Ember fill in Obsidian, its information at the secondary level, and an EDIT key. The area scrolls under the list.
-
-  | Widget | Information |
-  |---|---|
-  | Rest at a glance | How many groups are in Train and Overdue; which groups are overdue |
-  | Goals | How many goals; the latest progress |
-  | Cardio | Days since the last activity; the last run |
-
-- **The list**, on Graphite, edged at the secondary level: a handle reading "3 MORE" or "HIDE", then the entries, each with the entry glyph — Start workout (Resume workout while one is in progress), Past workouts, Exercises, Splits and gyms, Overdue log, Settings. Down, it shows the first three; raised, it rises to just below the status.
-- **Power down**, fixed at the bottom edge on Tube, in Cyan White, always visible.
-
-**Controls.**
-
-| Tap | Does |
-|---|---|
-| A widget | Opens its screen: Rest at a glance, Goals, Cardio |
-| EDIT | Opens the widget's controls: ▲ and ▼ move it one place in reading order, HALF and FULL set its width, DONE closes them. The other widgets step back to 42% |
-| The list's handle, tap or drag | Raises or lowers the list |
-| An entry | Opens its screen |
-| Power down, press and hold | Plays the power-down, then Auburn quits |
-
-Every key's tap area is at least 44 px.
-
-**Images.**
-
-![Home](Visual%20Design/01-navigation/home.png) ![List raised](Visual%20Design/01-navigation/raised.png) ![Workout in progress](Visual%20Design/01-navigation/workout.png) ![Editing a widget](Visual%20Design/01-navigation/editing.png) ![Power down, held](Visual%20Design/01-navigation/power-down.png)
