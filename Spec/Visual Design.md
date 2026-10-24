@@ -48,7 +48,7 @@ An action that cannot be taken back is pressed and held. The control fills with 
 
 ### Covers and icons
 
-A square on a 200-unit grid: a 7-unit Ember frame and, inside it, a solid Ember object turned 45° and clipped by the frame, its details cut in the screen colour. An icon crosses its object with a dark band carrying its short name in Gelasio 700, ruled 1 px above and below. A widget's cover has no band. The art is in [Visual Design/covers/](Visual%20Design/covers/).
+A square on a 200-unit grid: a 7-unit Ember frame and, inside it, a solid Ember object turned 45° and clipped by the frame, its details cut in the screen colour. An icon crosses its object with a dark band carrying its short name in Gelasio 700, ruled 1 px above and below. A widget's cover has no band. The widget covers are in [Visual Design/covers/](Visual%20Design/covers/); the icon set is in [Visual Design/icons/](Visual%20Design/icons/), each icon taken up by the screen that first uses it.
 
 ### The tube
 
