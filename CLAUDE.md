@@ -102,9 +102,10 @@ Auburn/
 ### How a screen gets agreed
 
 1. **Explain it first.** Before any design, Claude states the screen's purpose, why it earns its place, and what it must carry. The user confirms it is understood, or the screen is cut or merged. A screen that cannot say why it exists is not designed.
-2. **Iterate on the design canvas**, round by round, until the user approves a version.
-3. **Save the approved version**: the section, the screen's HTML, and an image per state, as below.
-4. **Remove its TASKS.md item.**
+2. **Wireframe the information.** On the screen's wireframe page in the canvas, every piece of information that could appear is laid out and weighed, and only what earns its place stays. Wireframes carry no look.
+3. **Iterate on the design canvas**, round by round, until the user approves a version.
+4. **Save the approved version**: the section, the screen's HTML, and an image per state, as below.
+5. **Remove its TASKS.md item.**
 
 ### An agreed screen
 
