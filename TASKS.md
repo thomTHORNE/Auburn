@@ -26,16 +26,11 @@ Resolved tasks are removed from TASKS.md.
 
     The values on the design canvas and the Lab verdicts: CRT strength 0.6, glass LOW, travel SMALL. The rest bands' red reads weakly on the ember plate. The muscle figure's engraving, lit and band colours, source plates, and asset format: one shape per muscle group per view, named after the group.
 
-- [ ] **`#6.2` The muscle figure's art is not traced, and the widget covers are not drawn**
+- [ ] **`#6.2` The muscle figure's art is not traced**
     `MINOR`
 
     Front and back plates from Albinus's Tabulae sceleti et musculorum (1747), engraved by Jan Wandelaar, traced into one region per muscle group from a public-domain scan. Refined placeholder shapes stand in until it is done.
 
-    Home's widgets — Rest at a glance, Goals, Cardio — each carry a cover drawn for it.
-
-
-- [ ] **`#6.4` Screen 01, navigation, is not specified**
-    `GAP`
 
 - [ ] **`#6.5` Screen 02, rest at a glance, is not specified**
     `GAP`

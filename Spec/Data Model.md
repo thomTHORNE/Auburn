@@ -186,11 +186,19 @@ class OverdueEntry {
 ```dart
 enum ThemeMode { system, dark, light }
 
+enum HomeWidgetKind { rest, goals, cardio }
+
+class HomeWidget {
+  final HomeWidgetKind kind;
+  final bool fullWidth;
+}
+
 /// One exists.
 class Settings {
   final ThemeMode themeMode; // default system
   final bool sound; // default true
   final int soundVolume; // percent, 0–100, default 100
+  final List<HomeWidget> homeWidgets; // in reading order; default rest full, goals half, cardio half
 }
 ```
 

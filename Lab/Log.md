@@ -34,6 +34,7 @@ Feeds: Spec/Visual Design.
 Code: Lab/screens-under-tube/
 Stakes: a screen that fails goes back to the canvas before it is approved.
 Screen 00, boot: pass. Rebuilt from its screen.html, it matches the approved board; the mark, wordmark, and line read through the tube, and the tilt-driven glass runs. At the approved glass LOW the glass is barely visible on the boot; HIGH (1.2) with travel SMALL fits it better.
+Screen 01, navigation round 2: pass. Rebuilt from the round 2 boards, it handles as drawn on the Fold; approved after the run. The widget's ▲ ▼ and HALF / FULL keys first answered only on their labels and were fixed before approval.
 
 ---
 
