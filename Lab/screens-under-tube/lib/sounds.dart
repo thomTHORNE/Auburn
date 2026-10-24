@@ -17,9 +17,9 @@ final _context = AudioContext(
 class Sounds {
   Sounds._() {
     for (final p in [_boot, _ambience, _powerDown]) {
-      p.setAudioContext(_context);
+      _guard('context', p.setAudioContext(_context));
     }
-    _ambience.setReleaseMode(ReleaseMode.loop);
+    _guard('loop', _ambience.setReleaseMode(ReleaseMode.loop));
     Timer.periodic(const Duration(seconds: 1), (_) => _checkRinger());
     _checkRinger();
   }
@@ -44,19 +44,46 @@ class Sounds {
   Timer? _fader;
   Timer? _bootEnd;
 
-  bool get _audible => soundOn && !_silent;
+  /// For checking: play even when the phone is on silent or vibrate.
+  bool ignoreSilent = false;
+
+  // What the Lab's readout shows: the ringer as read, and the last thing that went wrong.
+  String _ringerSeen = 'NOT READ YET';
+  String lastError = 'NONE';
+
+  bool get _audible => soundOn && (ignoreSilent || !_silent);
+
+  String get status => 'RINGER $_ringerSeen · ${_audible ? 'AUDIBLE' : 'MUTED'} · AMBIENCE ${_ambience.state.name.toUpperCase()} '
+      '${_volume.toStringAsFixed(1)} · ERROR $lastError';
+
+  /// Runs a player call and keeps its failure for the readout instead of losing it.
+  Future<void> _guard(String what, Future<void> call) async {
+    try {
+      await call;
+    } catch (e) {
+      lastError = '$what: $e';
+    }
+  }
 
   Future<void> _checkRinger() async {
     try {
       final mode = await _ringer.invokeMethod<int>('ringerMode');
+      _ringerSeen = switch (mode) { 0 => 'SILENT', 1 => 'VIBRATE', 2 => 'NORMAL', _ => '$mode' };
       final silent = mode != null && mode != 2; // AudioManager.RINGER_MODE_NORMAL
       if (silent != _silent) {
         _silent = silent;
         _update();
       }
-    } on PlatformException {
-      // No ringer on this platform: treat it as normal.
+    } catch (e) {
+      // No ringer answer: treat it as normal, and say so in the readout.
+      _ringerSeen = 'UNREAD';
+      lastError = 'ringer: $e';
     }
+  }
+
+  void setIgnoreSilent(bool on) {
+    ignoreSilent = on;
+    _update();
   }
 
   void setSoundOn(bool on) {
@@ -74,14 +101,14 @@ class Sounds {
     _ambienceWanted = false;
     _ambience.stop();
     _volume = 0;
-    if (_audible) _boot.play(AssetSource('sounds/auburn-boot.wav'));
+    if (_audible) _guard('boot', _boot.play(AssetSource('sounds/auburn-boot.wav')));
     _bootEnd?.cancel();
     _bootEnd = Timer(bootLength, () {
       _ambienceWanted = true;
       // Its last 0.6 s is the ambience's last 0.6 s, so the loop follows on at full level.
       if (_audible && _foreground) {
         _volume = 1;
-        _ambience.play(AssetSource('sounds/auburn-ambience.wav'), volume: 1);
+        _guard('ambience', _ambience.play(AssetSource('sounds/auburn-ambience.wav'), volume: 1));
       }
     });
   }
@@ -97,7 +124,7 @@ class Sounds {
   void powerDown() {
     _ambienceWanted = false;
     _fadeTo(0);
-    if (_audible) _powerDown.play(AssetSource('sounds/auburn-power-down.wav'));
+    if (_audible) _guard('power-down', _powerDown.play(AssetSource('sounds/auburn-power-down.wav')));
   }
 
   /// In the app Auburn quits here; in the Lab the ambience comes back.
@@ -119,7 +146,7 @@ class Sounds {
   Future<void> _fadeTo(double target) async {
     _fader?.cancel();
     if (target > 0 && _ambience.state != PlayerState.playing) {
-      await _ambience.play(AssetSource('sounds/auburn-ambience.wav'), volume: _volume);
+      await _guard('ambience', _ambience.play(AssetSource('sounds/auburn-ambience.wav'), volume: _volume));
     }
     const steps = 20;
     final from = _volume;

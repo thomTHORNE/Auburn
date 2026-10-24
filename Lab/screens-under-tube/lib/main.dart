@@ -6,6 +6,8 @@
 //
 // A standing attempt: each screen brought for approval joins the list in _screens.
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'basics.dart';
@@ -201,11 +203,47 @@ class _ScreenRunnerState extends State<ScreenRunner> {
           key('TRAVEL ${_travels[_travel].$1}', () => setState(() => _travel = (_travel + 1) % _travels.length)),
           key('CENTER', () => setState(() => _centers++)),
         ]),
+        Row(children: [
+          key(Sounds.instance.ignoreSilent ? 'SILENT IGNORED' : 'SILENT MUTES',
+              () => setState(() => Sounds.instance.setIgnoreSilent(!Sounds.instance.ignoreSilent))),
+        ]),
+        const _SoundReadout(),
         if (widget.screen.variants.length > 1)
           Row(children: [
             key(widget.screen.variants[_variant], () => setState(() => _variant = (_variant + 1) % widget.screen.variants.length)),
           ]),
       ]),
+    );
+  }
+}
+
+/// The sound engine's state, refreshed twice a second while the controls are open.
+class _SoundReadout extends StatefulWidget {
+  const _SoundReadout();
+
+  @override
+  State<_SoundReadout> createState() => _SoundReadoutState();
+}
+
+class _SoundReadoutState extends State<_SoundReadout> {
+  late final Timer _tick = Timer.periodic(const Duration(milliseconds: 500), (_) => setState(() {}));
+
+  @override
+  void dispose() {
+    _tick.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _tick;
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.all(3),
+      padding: const EdgeInsets.all(8),
+      color: Colors.black.withValues(alpha: 0.85),
+      child: Text(Sounds.instance.status,
+          style: const TextStyle(fontFamily: 'monospace', color: cyanWhite, fontSize: 10, height: 1.4)),
     );
   }
 }
