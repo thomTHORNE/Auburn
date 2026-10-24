@@ -37,6 +37,7 @@ dependencies:
   google_fonts: ^9.0.0
   sensors_plus: ^7.1.1
   flutter_svg: ^2.3.0
+  audioplayers: ^6.8.1
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +66,7 @@ flutter:
 
   assets:
     - assets/bust-ember.png
+    - assets/sounds/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

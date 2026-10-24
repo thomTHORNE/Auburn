@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../basics.dart';
+import '../sounds.dart';
 
 const bootDuration = Duration(seconds: 8);
 
@@ -57,6 +58,7 @@ class _BootScreenState extends State<BootScreen> with SingleTickerProviderStateM
     if (next == _line) next = (next + 1) % _lines.length;
     setState(() => _line = next);
     _t.forward(from: 0);
+    Sounds.instance.boot(bootDuration);
   }
 
   @override

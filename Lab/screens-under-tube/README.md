@@ -36,6 +36,15 @@ Use the cover screen. Fonts (Gelasio, Saira) load from Google Fonts the first ti
 - **Replay** rebuilds the screen from its start: widgets back in their first order and widths.
 3. For each screen and theme, judge: does the layout match its `screen.html`, does every text and mark read through the shader, does it look like its approved images?
 
+### Sound in the hand
+
+A second attempt sharing this app; its entry is in the log. `lib/sounds.dart` plays the approved WAVs from `Spec/Sound Design/`, copied to `assets/sounds/`, through `audioplayers` with no audio focus requested, so other apps' audio keeps playing.
+
+- **Boot** plays with the boot screen, from the start on every replay.
+- **Ambience** loops from the moment the boot ends, under every screen. Opening a screen without a boot fades it in over 0.5 s. It fades out over 0.5 s when the app leaves the screen, and back in on return.
+- **Power-down** plays when the hold fills; the ambience fades out as it starts. Leaving its stand-in brings the ambience back, since the Lab does not quit.
+- **SOUND ON / OFF** in the long-press menu stands in for the Settings toggle. The phone's silent and vibrate modes mute all three, read once a second from the ringer mode.
+
 ## Known limits
 
 - Taps land on the undistorted layout; near the edges the shader's curvature moves the picture a few pixels.

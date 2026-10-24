@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../basics.dart';
+import '../sounds.dart';
 import 'covers.dart';
 
 // The palette roles from the palette board.
@@ -57,6 +58,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final _full = {_Widget.rest};
 
   @override
+  void initState() {
+    super.initState();
+    Sounds.instance.ensureAmbience();
+  }
+
+  @override
   void dispose() {
     _cursor.dispose();
     _hold.dispose();
@@ -65,6 +72,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   void _held(AnimationStatus status) {
     if (status != AnimationStatus.completed) return;
+    Sounds.instance.powerDown();
     setState(() => _standIn = 'POWER DOWN\nSCREEN 16 IS NOT DESIGNED.\nAUBURN WOULD QUIT HERE.');
     Future.delayed(const Duration(milliseconds: 600), () {
       if (mounted) _hold.value = 0;
@@ -425,7 +433,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   // Where a tap would go: the screen it opens is not designed yet.
   Widget _standInScreen() {
     return GestureDetector(
-      onTap: () => setState(() => _standIn = null),
+      onTap: () {
+        if (_standIn!.startsWith('POWER DOWN')) Sounds.instance.afterPowerDown();
+        setState(() => _standIn = null);
+      },
       child: Container(
         color: _screen,
         padding: const EdgeInsets.all(24),

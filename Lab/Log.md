@@ -37,6 +37,20 @@ Screen 00, boot: pass. Rebuilt from its screen.html, it matches the approved boa
 
 ---
 
+## Sound in the hand
+
+Sketch · running
+
+Question: on the Fold, do the boot, the ambience, and the power-down play as Sound Design specifies — the boot with the boot screen, the ambience looping from the boot's end without a seam, the power-down when it is held full, and all three over other audio without pausing or lowering it — and do they sit right with the screens?
+Pass: each sound starts and stops where Sound Design says; the ambience loops with no audible seam or gap; music playing in another app keeps playing at full volume alongside; silent mode and the sound setting mute them; and the sounds feel like part of the screens, not over them.
+Timebox: half a day.
+Needs: a build on the Fold, earphones and the speaker, and a music app.
+Feeds: Spec/Sound Design.
+Code: Lab/screens-under-tube/ — shares the screens app, so the sounds play against the real boot and home.
+Stakes: a sound that fails goes back to the sound work; a fail on playing over other audio needs a different way of playing sound on Android, noted in Architecture.
+
+---
+
 ## Muscle figure regions
 
 Sketch · done

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'basics.dart';
 import 'screens/boot.dart';
 import 'screens/home.dart';
+import 'sounds.dart';
 import 'tube.dart';
 
 void main() => runApp(const LabApp());
@@ -39,8 +40,30 @@ final _screens = <ApprovedScreen>[
       variants: const ['NO WORKOUT', 'IN WORKOUT']),
 ];
 
-class LabApp extends StatelessWidget {
+class LabApp extends StatefulWidget {
   const LabApp({super.key});
+
+  @override
+  State<LabApp> createState() => _LabAppState();
+}
+
+// The ambience fades out when Auburn leaves the screen and back in when it returns.
+class _LabAppState extends State<LabApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) =>
+      Sounds.instance.setForeground(state == AppLifecycleState.resumed);
 
   @override
   Widget build(BuildContext context) {
@@ -170,6 +193,7 @@ class _ScreenRunnerState extends State<ScreenRunner> {
             key(themeLabel, () => setState(() => _theme = ThemeChoice.values[(_theme.index + 1) % ThemeChoice.values.length])),
           key(_tubeOn ? 'TUBE ON' : 'TUBE OFF', () => setState(() => _tubeOn = !_tubeOn)),
           key('REPLAY', () => setState(() => _replays++)),
+          key(Sounds.instance.soundOn ? 'SOUND ON' : 'SOUND OFF', () => setState(() => Sounds.instance.setSoundOn(!Sounds.instance.soundOn))),
           key('BACK', () => Navigator.of(context).pop()),
         ]),
         Row(children: [
