@@ -127,7 +127,9 @@ Its folder, `Spec/Visual Design/<nn-screen>/`, holds `screen.html` — the appro
 
 Where two disagree, the owner holds and the other is fixed in the same edit. A change to a screen is not done until its section, HTML, and images all agree.
 
-The tube — curvature, scanlines, glass — is not in the canvas. Its values are in the basics, and its look is checked on the device.
+Boards are clean: the tube — curvature, scanlines, glass — and any other render effect, such as glow, flicker, or bloom, is never faked in the canvas. The canvas judges layout, design, flow, and use. The tube's values are in the basics, and its look is checked on the device.
+
+A board with tweakable values carries its controls on the board, with two resets: a hold-to-preview that shows the starting values for as long as it is held and cannot be changed while held, and a reset that returns every value to the start. Each control shows its starting value. A value shared across screens, such as the hierarchy levels, is tuned on one board that shows every screen using it, so one change is seen everywhere at once.
 
 ---
 
