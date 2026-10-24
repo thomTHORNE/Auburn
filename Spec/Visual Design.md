@@ -55,7 +55,7 @@ Each screen is agreed one at a time, as the project's visual design process sets
 | 06 | Logging a set | Load, grade, reps when counted, the modality, and the notes | Not yet specified |
 | 07 | A mobility workout | Mobility exercises and their optional grades | Not yet specified |
 | 08 | Past workouts | Past workouts, and one opened for corrections | Not yet specified |
-| 09 | An exercise | Its notes, progress, past sets, and figure | Not yet specified |
+| 09 | Exercises | The list, and one exercise with its notes, progress, past sets, and figure | Not yet specified |
 | 10 | Creating or editing an exercise | Its fields, and ticking muscle groups on the figure | Not yet specified |
 | 11 | Goals | Goals, and one goal with its progress | Not yet specified |
 | 12 | A muscle group | Its rest and its band settings | Not yet specified |

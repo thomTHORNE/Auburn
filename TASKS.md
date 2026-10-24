@@ -56,7 +56,7 @@ Resolved tasks are removed from TASKS.md.
 - [ ] **`#6.11` Screen 08, past workouts, is not specified**
     `GAP`
 
-- [ ] **`#6.12` Screen 09, an exercise, is not specified**
+- [ ] **`#6.12` Screen 09, exercises, is not specified**
     `GAP`
 
 - [ ] **`#6.13` Screen 10, creating or editing an exercise, is not specified**
