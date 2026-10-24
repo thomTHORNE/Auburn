@@ -68,6 +68,18 @@ The gym floor is a divided-attention context. A control that needs aiming pulls 
 
 ---
 
+## Hierarchy says what matters
+
+Not everything on a screen matters equally, and the screen says so. What the user came for is the most prominent; what informs it steps back; what only holds the screen together steps back further. Every element sits on one of those levels, and balancing them is the core of every screen's design.
+
+When everything is equally loud, the eye reads the whole screen to find the one thing it needs. On the gym floor that turns a glance into a read, and the read is attention taken from the body.
+
+> In practice: on the main menu, the destinations are at full strength, their numbers and the status lines a step back, and the rules between rows barely there.
+
+*Derives from: Training.*
+
+---
+
 ## Every input answers at once
 
 A tap registers the moment it lands, on screen and in the hand, before anything behind it completes.
