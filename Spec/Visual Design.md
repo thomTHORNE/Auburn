@@ -61,7 +61,8 @@ Each screen is agreed one at a time, as the project's visual design process sets
 | 12 | A muscle group | Its rest and its band settings | Not yet specified |
 | 13 | Splits and gyms | Managing splits and gyms | Not yet specified |
 | 14 | The overdue log | Every answer, newest first | Not yet specified |
-| 15 | Settings | The theme mode | Not yet specified |
+| 15 | Settings | The theme mode, sound, and credits | Not yet specified |
+| 16 | Power down | The tube switching off while the power-down plays | Not yet specified |
 
 ### 00 · Boot
 

@@ -77,6 +77,9 @@ Resolved tasks are removed from TASKS.md.
 - [ ] **`#6.18` Screen 15, settings, is not specified**
     `GAP`
 
+- [ ] **`#6.19` Screen 16, power down, is not specified**
+    `GAP`
+
 ### `#9` Architecture · [Spec/Architecture/Architecture.md](Spec/Architecture/Architecture.md)
 
 - [ ] **`#9.1` The storage engine is not specified**

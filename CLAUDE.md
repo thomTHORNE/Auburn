@@ -59,6 +59,7 @@ Auburn/
     ├── Data Model.md       ← source of truth for every training record
     ├── Design Principles.md
     ├── Visual Design.md
+    ├── Sound Design.md
     ├── Features/
     ├── Architecture/
     │   └── Architecture.md
@@ -79,6 +80,7 @@ Auburn/
 | **Data Model** | The canonical definition of every record Auburn keeps — exercises, sessions, sets, programs, measurements — with fields, types, and rules. The single source of truth. If a field isn't defined here, it doesn't exist in Auburn. Feature specs reference it; they never redefine it. |
 | **Design Principles** | The principles that govern every decision, each tracing to the Foundation section it derives from. A lens applied to every feature — not a spec in its own right. |
 | **Visual Design** | Concrete values: palette, type, spacing, radii. Where Design Principles holds the reasoning, this holds the numbers. |
+| **Sound Design** | The sounds, when each plays, and when Auburn is silent. Where Visual Design holds the picture, this holds the sound. |
 | **Features/** | Behavioral specifications — what each feature does, the rules governing it, its states, constraints, and edge cases. No implementation detail lives here; that belongs in Architecture or Integrations. |
 | **Architecture/** | Structural and technical decisions: stack, persistence, sync, build sequencing. Records the why behind major choices. |
 | **Integrations/** | Source-specific implementation detail for outside systems: endpoints, tokens, payloads, platform constraints. Feature specs stay behavior-focused and reference the relevant integration spec for the how. An integration that grows in scope becomes its own subfolder. |

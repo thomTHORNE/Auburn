@@ -189,6 +189,7 @@ enum ThemeMode { system, dark, light }
 /// One exists.
 class Settings {
   final ThemeMode themeMode; // default system
+  final bool sound; // default true
 }
 ```
 
