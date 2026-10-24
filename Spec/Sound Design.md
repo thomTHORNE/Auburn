@@ -10,7 +10,7 @@ Auburn's sounds are the machine behind the tube: one machine starting, running, 
 | Ambience | `auburn-ambience.wav` | 63.0 s, looping | From the boot's end, while Auburn is on screen |
 | Power-down | `auburn-power-down.wav` | 11.4 s | Once, when Auburn is powered down |
 
-The files are 44.1 kHz, 16-bit stereo, in [Sound Design/](Sound%20Design/). Volume is the phone's media volume.
+The files are 44.1 kHz, 16-bit stereo, in [Sound Design/](Sound%20Design/). Auburn has its own volume, set in Settings from 0 to 100%, 100% by default. It scales all three sounds within the phone's media volume, so 100% plays them as mixed.
 
 ### Boot
 
@@ -50,5 +50,6 @@ Startup P6 227's licence requires credit. Settings shows it: "Startup P6 227" by
 | Another app plays audio while a sound plays | Both play |
 | Sound turned off while the ambience plays | It fades out over 0.5 s |
 | The phone set to silent while the ambience plays | It fades out over 0.5 s |
+| The volume is changed while the ambience plays | The ambience follows at once |
 | Powered down during a workout | The workout stays in progress. Auburn opens straight to it next time, without the boot |
 | Powered down with sound off | The power-down runs its 11.4 s in silence, then Auburn quits |

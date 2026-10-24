@@ -190,6 +190,7 @@ enum ThemeMode { system, dark, light }
 class Settings {
   final ThemeMode themeMode; // default system
   final bool sound; // default true
+  final int soundVolume; // percent, 0–100, default 100
 }
 ```
 

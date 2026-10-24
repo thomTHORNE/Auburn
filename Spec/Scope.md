@@ -31,7 +31,7 @@ A version may withhold a pillar of Foundation, but never break one of its refusa
 | **Cardio** | Runs, treadmill sessions, and hikes recorded on the Suunto watch, read from intervals.icu, which syncs them from the Suunto app. |
 | **Notion history** | A one-time import of Training '26: exercises and their notes, workouts, and sets. Its goals are rebuilt by hand as muscle groups and goals. |
 | **Sound** | The boot, the ambience, and the power-down. |
-| **Settings** | The theme: dark, light, or following the device. Sound, on or off. The credit a sound's licence requires. |
+| **Settings** | The theme: dark, light, or following the device. Sound, on or off, and its volume. The credit a sound's licence requires. |
 
 ### Excluded
 
