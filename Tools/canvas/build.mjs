@@ -26,7 +26,11 @@ const TRIALS = [
     ['--text-3', '16px'], ['--text-3-tracking', '1.5px'], ['--text-3-leading', '20px'],
     ['--text-4', '22px'], ['--text-4-tracking', '6px'], ['--text-4-leading', '24px'],
   ]],
-  // Each emphasis level's text takes its colour from the palette, by name; its opacity stays the level's.
+  // Named colours to try anything with. Never basics: a swatch that is kept joins the palette under a name first.
+  ['Swatches', [
+    ['--trial-a', '#76DA84'], ['--trial-b', '#D9573B'], ['--trial-c', '#D9573B'], ['--trial-d', '#D9573B'],
+  ]],
+  // Each emphasis level's text takes its colour from the palette or a swatch, by name; its opacity stays the level's.
   ['Text colour', [
     ['--primary-text-color', 'var(--ember)'], ['--secondary-text-color', 'var(--ember)'], ['--supporting-text-color', 'var(--ember)'],
   ]],
@@ -58,8 +62,8 @@ const key = (css) => css.slice(2).replace(/-([a-z0-9])/g, (_, c) => c.toUpperCas
 // A token's Tweaks editor, its value as the editor holds it, and how that value is written back as CSS.
 function editorFor(css, value, section) {
   const ref = value.match(/^var\(--([a-z-]+)\)$/);
-  // A palette colour by name: every colour is a palette colour.
-  if (ref) return { meta: { editor: 'enum', options: PALETTE, default: ref[1], section }, unit: '', ref: true };
+  // A colour choice: a palette colour or a swatch, by name.
+  if (ref) return { meta: { editor: 'enum', options: [...PALETTE, ...SWATCHES], default: ref[1], section }, unit: '', ref: true };
   if (/^#[0-9a-f]{6}$/i.test(value)) return { meta: { editor: 'color', default: value.toUpperCase(), section }, unit: '' };
   if (/-weight$/.test(css)) return { meta: { editor: 'enum', options: ['400', '700'], default: value, section }, unit: '' };
   let m = value.match(/^([\d.]+)%$/);
@@ -77,6 +81,7 @@ function editorFor(css, value, section) {
 
 const basics = parseBasics(`${SPEC}/basics.css`).filter((g) => !/tube/i.test(g.name));
 const PALETTE = basics.find((g) => g.name === 'Palette').tokens.map(([css]) => css.slice(2));
+const SWATCHES = TRIALS.find(([name]) => name === 'Swatches')[1].map(([css]) => css.slice(2));
 const tokens = [];
 for (const g of basics) for (const [css, v] of g.tokens) tokens.push({ css, start: v, trial: false, ...editorFor(css, v, g.name) });
 for (const [name, list] of TRIALS) for (const [css, v] of list) tokens.push({ css, start: v, trial: true, ...editorFor(css, v, `${name} · trial`) });
