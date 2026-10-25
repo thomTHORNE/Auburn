@@ -1,14 +1,15 @@
 // Builds the canvas boards that are generated rather than drawn, into the mirror at Canvas/project/.
 //
-//   Basics-Theme.dc.html     the Theme board: a tweak for every basic except the tube's, and for every trial below;
-//                            the changed list, hold-to-preview, the change log, and every screen it shows.
+//   Theme.dc.html            the Theme board: every agreed screen, a tweak for every basic except the tube's,
+//                            and the swatches; the changed list, hold-to-preview and the change log.
+//   S01-R3-Round.dc.html     screen 01's round 3 board: the same, for round 3's states, plus the trials below.
 //   S00-Dark, S00-Light      the agreed boot (Spec/Visual Design/00-boot/screen.html), held frame, line 0.
-//   S01-R3-<state>           screen 01, round 3: the agreed screen (Spec/Visual Design/01-navigation/screen.html)
-//                            moved onto the trial type and spacing scales.
+//   S01-<state>              the agreed screen 01 (Spec/Visual Design/01-navigation/screen.html).
+//   S01-R3-<state>           screen 01, round 3: the agreed screen moved onto the trial scales and text colours.
 //   basics.css               a copy of Spec/Visual Design/basics.css.
 //
-// Values the user has set in the Theme board's Tweaks tab are read from the mirror and kept.
-// It also updates Canvas/project/canvas.json: the Basics page, each board's entry (a board the user moved keeps
+// Values the user has set in a board's Tweaks tab are read from the mirror and kept. A change stays on its board.
+// It also updates Canvas/project/canvas.json: the Theme page, each board's entry (a board the user moved keeps
 // its place), and the order. Run from the repository root: node Tools/canvas/build.mjs
 // Then commit and publish the changed files as CLAUDE.md's The canvas says.
 
@@ -18,17 +19,17 @@ const SPEC = 'Spec/Visual Design';
 const OUT = 'Canvas/project';
 const BUST = '/_blob/8dc69cd32a565ee54c5606a82fce2b14'; // the traced bust, uploaded to the canvas
 
-// Trials: values the canvas is trying that are not basics yet. Each is listed on the boards that use it.
+// Named colours to try anything with, on every board with tweaks. Never basics: a swatch that is kept joins the
+// palette under a name first.
+const SWATCH_LIST = [['--trial-a', '#76DA84'], ['--trial-b', '#D9573B'], ['--trial-c', '#D9573B'], ['--trial-d', '#D9573B']];
+
+// Round 3's trials: values screen 01's round 3 is trying that are not basics yet.
 const TRIALS = [
   ['Type scale', [
     ['--text-1', '11px'], ['--text-1-tracking', '0.5px'], ['--text-1-leading', '15px'],
     ['--text-2', '13px'], ['--text-2-tracking', '2px'], ['--text-2-leading', '11px'],
     ['--text-3', '16px'], ['--text-3-tracking', '1.5px'], ['--text-3-leading', '20px'],
     ['--text-4', '22px'], ['--text-4-tracking', '6px'], ['--text-4-leading', '24px'],
-  ]],
-  // Named colours to try anything with. Never basics: a swatch that is kept joins the palette under a name first.
-  ['Swatches', [
-    ['--trial-a', '#76DA84'], ['--trial-b', '#D9573B'], ['--trial-c', '#D9573B'], ['--trial-d', '#D9573B'],
   ]],
   // Each emphasis level's text takes its colour from the palette or a swatch, by name; its opacity stays the level's.
   ['Text colour', [
@@ -81,10 +82,12 @@ function editorFor(css, value, section) {
 
 const basics = parseBasics(`${SPEC}/basics.css`).filter((g) => !/tube/i.test(g.name));
 const PALETTE = basics.find((g) => g.name === 'Palette').tokens.map(([css]) => css.slice(2));
-const SWATCHES = TRIALS.find(([name]) => name === 'Swatches')[1].map(([css]) => css.slice(2));
-const tokens = [];
-for (const g of basics) for (const [css, v] of g.tokens) tokens.push({ css, start: v, trial: false, ...editorFor(css, v, g.name) });
-for (const [name, list] of TRIALS) for (const [css, v] of list) tokens.push({ css, start: v, trial: true, ...editorFor(css, v, `${name} · trial`) });
+const SWATCHES = SWATCH_LIST.map(([css]) => css.slice(2));
+const basicTokens = [];
+for (const g of basics) for (const [css, v] of g.tokens) basicTokens.push({ css, start: v, trial: false, ...editorFor(css, v, g.name) });
+const swatchTokens = SWATCH_LIST.map(([css, v]) => ({ css, start: v, trial: true, ...editorFor(css, v, 'Swatches · trial') }));
+const roundTokens = [];
+for (const [name, list] of TRIALS) for (const [css, v] of list) roundTokens.push({ css, start: v, trial: true, ...editorFor(css, v, `${name} · trial`) });
 
 // ---- the mirror ----
 
@@ -135,7 +138,7 @@ return { theme: this.props.theme != null ? this.props.theme : ${JSON.stringify(d
 }
 }`;
 
-const trialVars = tokens.filter((t) => t.trial).map((t) => `${t.css}: ${t.start}`).join('; ');
+const vars = (list) => list.map((t) => `${t.css}: ${t.start}`).join('; ');
 
 // ---- screen 00, the boot: agreed, held frame ----
 
@@ -209,7 +212,7 @@ function onScales(style) {
   return s;
 }
 
-function navigationBoards() {
+function navigationBoards(round) {
   const src = readFileSync(`${SPEC}/01-navigation/screen.html`, 'utf8');
   const roles = src.match(/:root\s*\{([^}]*)\}/)[1].replace(/\/\*[\s\S]*?\*\//g, '').split('\n').map((l) => l.trim()).filter(Boolean).join(' ');
   const names = { home: 'Home', raised: 'Raised', workout: 'Workout', editing: 'Editing', 'power-down': 'Power' };
@@ -218,33 +221,35 @@ function navigationBoards() {
   for (const m of src.matchAll(/<section class="state" id="([a-z-]+)">\s*<h2>[^<]*<\/h2>\s*([\s\S]*?)<\/section>/g)) {
     let html = m[2].trim()
       .replace(/<img class="bust" src="[^"]*" alt="" style="([^"]*)">/g, '<div class="bust" aria-hidden="true" style="$1"></div>')
-      .replace(/style="([^"]*)"/g, (_, st) => `style="${onScales(st)}"`);
+      .replace(/style="([^"]*)"/g, (_, st) => `style="${round ? onScales(st) : st}"`);
     // The screen's root: its roles, then whatever the Theme board passes in.
     html = html.replace(/^<div style="([^"]*)">/, (_, st) => `<div style="${st.replace(/;?\s*$/, '')}; ${roles} {{theme}}">`);
-    out[`S01-R3-${names[m[1]]}.dc.html`] = board({
-      title: `Round 3 · ${titles[m[1]]} · on the scales`,
+    out[`S01-${round ? 'R3-' : ''}${names[m[1]]}.dc.html`] = board({
+      title: round ? `Round 3 · ${titles[m[1]]} · on the scales` : `Navigation · ${titles[m[1]]} · agreed`,
       fonts: 'family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700',
       helmet: `@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}\n.bust{background: var(--ember); -webkit-mask: url(${BUST}) center top / contain no-repeat; mask: url(${BUST}) center top / contain no-repeat}\na{color:inherit}`,
       body: html,
-      script: screenScript(trialVars),
+      script: screenScript(round ? vars([...roundTokens, ...swatchTokens]) : ''),
       props: { theme: { editor: null }, $preview: { width: 400, height: 640 } },
     });
   }
   return out;
 }
 
-// ---- the Theme board ----
+// ---- boards with tweaks: the Theme board and round boards ----
 
-function themeBoard(rows) {
-  const kept = readProps(`${OUT}/Basics-Theme.dc.html`);
+function controlBoard({ file, seedFrom, title, heading, note, toks, rows, width, height }) {
+  // The user's values on this board; a new board takes them from the board it replaces, if any.
+  const kept = existsSync(`${OUT}/${file}`) ? readProps(`${OUT}/${file}`) : readProps(`${OUT}/${seedFrom}`);
   const props = {};
+  const tokens = toks;
   for (const t of tokens) {
     const k = key(t.css);
     props[k] = { ...t.meta };
     // The user's value stays, unless it is no longer one of the choices.
     if (kept[k] && kept[k].default !== undefined && (!t.meta.options || t.meta.options.includes(kept[k].default))) props[k].default = kept[k].default;
   }
-  props.$preview = { width: 2652, height: 1456 };
+  props.$preview = { width, height };
   const list = tokens.map((t) => ({ k: key(t.css), css: t.css, unit: t.unit, start: t.meta.default, trial: t.trial, ref: !!t.ref }));
   const imports = rows.map((r) => `<div style="display: flex; flex-direction: column; gap: 12px">
 <div style="font-size: 13px; font-weight: 700; letter-spacing: 2px">${r.label}</div>
@@ -252,10 +257,10 @@ function themeBoard(rows) {
 ${r.boards.map((b) => `<dc-import name="${b.replace('.dc.html', '')}" theme="{{theme}}" hint-size="400px,640px"></dc-import>`).join('\n')}
 </div>
 </div>`).join('\n');
-  const body = `<div style="width: 2652px; height: 1456px; box-sizing: border-box; padding: 32px; background: var(--obsidian); color: var(--cyan-white); font-family: var(--font-interface); font-size: 12px; letter-spacing: 1px; display: flex; gap: 48px">
+  const body = `<div style="width: ${width}px; height: ${height}px; box-sizing: border-box; padding: 32px; background: var(--obsidian); color: var(--cyan-white); font-family: var(--font-interface); font-size: 12px; letter-spacing: 1px; display: flex; gap: 48px">
 <div style="width: 380px; flex: none; display: flex; flex-direction: column; gap: 16px; overflow: hidden">
-<div style="font-size: 16px; font-weight: 700; letter-spacing: 2px">THEME</div>
-<div style="opacity: 0.7; line-height: 17px">Tune every value in this board's Tweaks tab. Ctrl+Z steps back until the page is switched; the log below keeps every change since. Reset all: ask Claude.</div>
+<div style="font-size: 16px; font-weight: 700; letter-spacing: 2px">${heading}</div>
+<div style="opacity: 0.7; line-height: 17px">${note} Tune every value in this board's Tweaks tab; a change stays on this board until it is persisted. Ctrl+Z steps back until the page is switched; the log below keeps every change since. Reset all: ask Claude.</div>
 <button type="button" onPointerDown="{{holdOn}}" onPointerUp="{{holdOff}}" onPointerLeave="{{holdOff}}" onPointerCancel="{{holdOff}}" style="{{holdStyle}}">HOLD · PREVIEW START</button>
 <div style="font-weight: 700">{{status}}</div>
 <div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; margin-top: 8px">CHANGED · {{changedCount}}</div>
@@ -277,7 +282,7 @@ super(props);
 // Every tweak: its CSS name, its unit, and its start (the basic, or the trial's first value).
 this.tokens = ${JSON.stringify(list)};
 var log = [];
-try { log = JSON.parse(window.localStorage.getItem('auburn.theme.log') || '[]'); } catch (e) {}
+try { log = JSON.parse(window.localStorage.getItem(${JSON.stringify(`auburn.log.${file}`)}) || '[]'); } catch (e) {}
 this.state = { holding: false, log: log };
 }
 value(t, props) {
@@ -302,7 +307,7 @@ if (a !== b) added.push({ at: at, css: t.css, from: a, to: b });
 });
 if (!added.length) return;
 var log = added.concat(this.state.log).slice(0, 40);
-try { window.localStorage.setItem('auburn.theme.log', JSON.stringify(log)); } catch (e) {}
+try { window.localStorage.setItem(${JSON.stringify(`auburn.log.${file}`)}, JSON.stringify(log)); } catch (e) {}
 this.setState({ log: log });
 }
 renderVals() {
@@ -324,7 +329,7 @@ holdStyle: 'height: 44px; padding: 0 14px; font-family: inherit; font-size: 13px
 }
 }`;
   return board({
-    title: 'Theme',
+    title,
     fonts: 'family=Gelasio:wght@700&amp;family=Saira:wght@300;600&amp;family=Courier+Prime:wght@400;700',
     body, script, props,
   });
@@ -333,28 +338,51 @@ holdStyle: 'height: 44px; padding: 0 14px; font-family: inherit; font-size: 13px
 // ---- write ----
 
 const boot = bootBoards();
-const nav = navigationBoards();
-const rows = [
-  { label: 'SCREEN 01 · ROUND 3 · ON THE SCALES', boards: Object.keys(nav) },
-  { label: 'SCREEN 00 · BOOT · AGREED', boards: Object.keys(boot) },
-];
-const files = { ...nav, ...boot, 'Basics-Theme.dc.html': themeBoard(rows) };
+const agreed = navigationBoards(false);
+const round3 = navigationBoards(true);
+const W = 2652;
+const files = {
+  ...boot, ...agreed, ...round3,
+  'Theme.dc.html': controlBoard({
+    file: 'Theme.dc.html', title: 'Theme', heading: 'THEME', note: 'Every agreed screen.',
+    toks: [...basicTokens, ...swatchTokens], width: W, height: 1456,
+    rows: [
+      { label: 'SCREEN 01 · NAVIGATION · AGREED', boards: Object.keys(agreed) },
+      { label: 'SCREEN 00 · BOOT · AGREED', boards: Object.keys(boot) },
+    ],
+  }),
+  'S01-R3-Round.dc.html': controlBoard({
+    // Round 3 takes the values tuned while it sat on the old Basics page.
+    file: 'S01-R3-Round.dc.html', seedFrom: 'Basics-Theme.dc.html', title: 'Round 3 · screen 01', heading: 'ROUND 3 · SCREEN 01',
+    note: 'Screen 01 on the type and spacing scales, with text colours.',
+    toks: [...basicTokens, ...roundTokens, ...swatchTokens], width: W, height: 760,
+    rows: [{ label: 'SCREEN 01 · ROUND 3 · ON THE SCALES', boards: Object.keys(round3) }],
+  }),
+};
 for (const [name, text] of Object.entries(files)) writeFileSync(`${OUT}/${name}`, text);
 copyFileSync(`${SPEC}/basics.css`, `${OUT}/basics.css`);
 
-// canvas.json: the Basics page first, an entry per board (a board already placed keeps its place), the order.
+// canvas.json: the Theme page first, an entry per board (a board already placed keeps its place), the order.
 const index = JSON.parse(readFileSync(`${OUT}/canvas.json`, 'utf8'));
-if (!index.pages.some((p) => p.id === 'basics')) index.pages.unshift({ id: 'basics', name: 'Basics' });
+const themePage = index.pages.find((p) => p.id === 'basics');
+if (themePage) themePage.name = 'Theme'; else index.pages.unshift({ id: 'basics', name: 'Theme' });
 index.launch = { view: 'canvas', page: 'basics' };
+for (const gone of ['Basics-Theme.dc.html']) { delete index.boards[gone]; index.order = index.order.filter((o) => o !== gone); }
 const place = (name, entry) => {
   index.boards[name] = { ...entry, ...(index.boards[name] ? { x: index.boards[name].x, y: index.boards[name].y } : {}) };
   if (!index.order.includes(name)) index.order.push(name);
 };
-place('Basics-Theme.dc.html', { page: 'basics', title: 'Theme · tune in the Tweaks tab', w: 2652, h: 1456, x: 0, y: 0, is_interactive: true });
-Object.keys(nav).forEach((n, i) => place(n, { page: 's01', title: `Round 3 · ${n.replace('S01-R3-', '').replace('.dc.html', '').toLowerCase()} · on the scales`, w: 400, h: 640, x: i * 480, y: 10560 }));
+const label = (n) => n.replace(/^S01-(R3-)?/, '').replace('.dc.html', '').toLowerCase();
+place('Theme.dc.html', { page: 'basics', title: 'Theme · tune in the Tweaks tab', w: W, h: 1456, x: 0, y: 0, is_interactive: true });
+place('S01-R3-Round.dc.html', { page: 's01', title: 'Round 3 · tune in the Tweaks tab', w: W, h: 760, x: 0, y: 11480, is_interactive: true });
+Object.keys(round3).forEach((n, i) => place(n, { page: 's01', title: `Round 3 · ${label(n)} · on the scales`, w: 400, h: 640, x: i * 480, y: 10560 }));
+Object.keys(agreed).forEach((n, i) => place(n, { page: 's01', title: `Navigation · ${label(n)} · agreed`, w: 400, h: 640, x: i * 480, y: 12620 }));
 Object.keys(boot).forEach((n, i) => place(n, { page: 's00', title: `Boot · ${i ? 'light' : 'dark'} · agreed`, w: 400, h: 640, x: i * 480, y: 7460 }));
-index.notes.basics = index.notes.basics || { kind: 'title1', maxW: 2652, page: 'basics', text: 'Basics — the theme, tuned on every screen at once', w: 240, x: 0, y: -300 };
+delete index.notes.basics;
+index.notes.theme = index.notes.theme || { kind: 'title1', maxW: W, page: 'basics', text: 'Theme — every agreed screen, tuned at once', w: 240, x: 0, y: -300 };
 index.notes.s01r3 = index.notes.s01r3 || { kind: 'title1', maxW: 2320, page: 's01', text: 'Round 3 — screen 01 on the type and spacing scales', w: 240, x: 0, y: 10280 };
+index.notes.s01r3board = index.notes.s01r3board || { kind: 'title1', maxW: W, page: 's01', text: 'Round 3 — tune here; changes stay on this board', w: 240, x: 0, y: 11200 };
+index.notes.s01agreed = index.notes.s01agreed || { kind: 'title1', maxW: 2320, page: 's01', text: 'Screen 01 — agreed', w: 240, x: 0, y: 12340 };
 index.notes.s00agreed = index.notes.s00agreed || { kind: 'title1', maxW: 880, page: 's00', text: 'Boot · agreed', w: 240, x: 0, y: 7180 };
 writeFileSync(`${OUT}/canvas.json`, `${JSON.stringify(index, null, 2)}\n`);
 

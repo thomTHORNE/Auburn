@@ -150,17 +150,25 @@ is its history. A publish, every time:
 
 A publish is undone by publishing the files from the commit before it.
 
-**Pages.** Basics first, then Components, then one page per screen named by its number and
+**Pages.** Theme first, then Components, then one page per screen named by its number and
 name (its wireframes and rounds), then Explorations.
 
 **Values.** `project/basics.css` is a copy of `Spec/Visual Design/basics.css`, and every board
 links it. A board never declares a value. A screen board declares only its roles. Sizes and
 gaps are steps of the basics' type and spacing scales; only a position on one screen is that
-screen's own. A board trying a value overrides the basic by name and lists its trials as
-`name start → now`.
+screen's own.
 
-The Theme board, on Basics, shows every agreed screen and every round in progress. It has
-a tweak for every basic except the tube's, and lists each changed value as `name start → now`.
+**Boards with tweaks.** Each has a tweak for every basic except the tube's, starting from the
+basics, and lists what it changed as `name start → now`. A change stays on its board until it
+is persisted; nothing reaches from one board to another.
+
+- The Theme board, alone on the Theme page, shows every agreed screen. A change there shows
+  on all of them at once.
+- A round board, on its screen's page, shows every state of one round. A value that is not
+  yet a basic, such as a new scale, is tried on the round that needs it.
+
+Each board with tweaks has four named swatches, Trial A to D, that any colour choice on it
+can use. A swatch is never persisted as it is: it joins the palette under a name first.
 
 **Tuning.** Values are tuned in the editor's Tweaks tab, which saves them in the board's
 file: ctrl+Z undoes them until the page is switched, and Claude reads them from the file.

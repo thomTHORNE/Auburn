@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Theme</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="basics.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&amp;family=Saira:wght@300;600&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+
+</style>
+</helmet>
+<div style="width: 2652px; height: 1456px; box-sizing: border-box; padding: 32px; background: var(--obsidian); color: var(--cyan-white); font-family: var(--font-interface); font-size: 12px; letter-spacing: 1px; display: flex; gap: 48px">
+<div style="width: 380px; flex: none; display: flex; flex-direction: column; gap: 16px; overflow: hidden">
+<div style="font-size: 16px; font-weight: 700; letter-spacing: 2px">THEME</div>
+<div style="opacity: 0.7; line-height: 17px">Every agreed screen. Tune every value in this board's Tweaks tab; a change stays on this board until it is persisted. Ctrl+Z steps back until the page is switched; the log below keeps every change since. Reset all: ask Claude.</div>
+<button type="button" onPointerDown="{{holdOn}}" onPointerUp="{{holdOff}}" onPointerLeave="{{holdOff}}" onPointerCancel="{{holdOff}}" style="{{holdStyle}}">HOLD · PREVIEW START</button>
+<div style="font-weight: 700">{{status}}</div>
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; margin-top: 8px">CHANGED · {{changedCount}}</div>
+<sc-if value="{{noChanges}}" hint-placeholder-val="{{true}}"><div style="opacity: 0.55">Nothing changed from the start.</div></sc-if>
+<sc-for list="{{changed}}" as="c" hint-placeholder-count="3"><div style="display: flex; gap: 8px"><span style="flex: 1; font-weight: 700">{{c.css}}</span><span style="opacity: 0.55">{{c.from}}</span><span>→ {{c.to}}</span></div></sc-for>
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; margin-top: 8px">TRIALS · NOT YET BASICS</div>
+<div style="opacity: 0.7; line-height: 17px">{{trialNames}}</div>
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; margin-top: 8px">LOG · ON THIS COMPUTER</div>
+<sc-if value="{{noLog}}" hint-placeholder-val="{{true}}"><div style="opacity: 0.55">No changes seen yet.</div></sc-if>
+<sc-for list="{{log}}" as="e" hint-placeholder-count="3"><div style="display: flex; gap: 8px"><span style="opacity: 0.55">{{e.at}}</span><span style="flex: 1; font-weight: 700">{{e.css}}</span><span style="opacity: 0.55">{{e.from}}</span><span>→ {{e.to}}</span></div></sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px">SCREEN 01 · NAVIGATION · AGREED</div>
+<div style="display: flex; gap: 40px; align-items: flex-start">
+<dc-import name="S01-Home" theme="{{theme}}" hint-size="400px,640px"></dc-import>
+<dc-import name="S01-Raised" theme="{{theme}}" hint-size="400px,640px"></dc-import>
+<dc-import name="S01-Workout" theme="{{theme}}" hint-size="400px,640px"></dc-import>
+<dc-import name="S01-Editing" theme="{{theme}}" hint-size="400px,640px"></dc-import>
+<dc-import name="S01-Power" theme="{{theme}}" hint-size="400px,640px"></dc-import>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px">SCREEN 00 · BOOT · AGREED</div>
+<div style="display: flex; gap: 40px; align-items: flex-start">
+<dc-import name="S00-Dark" theme="{{theme}}" hint-size="400px,640px"></dc-import>
+<dc-import name="S00-Light" theme="{{theme}}" hint-size="400px,640px"></dc-import>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"tube":{"editor":"color","default":"#1A1D1A","section":"Palette"},"obsidian":{"editor":"color","default":"#121215","section":"Palette"},"ember":{"editor":"color","default":"#D9573B","section":"Palette"},"cyanWhite":{"editor":"color","default":"#DDF7F5","section":"Palette"},"graphite":{"editor":"color","default":"#212220","section":"Palette"},"fontWordmark":{"editor":"text","default":"Gelasio, Georgia, serif","section":"Faces"},"fontMark":{"editor":"text","default":"Saira, sans-serif","section":"Faces"},"fontInterface":{"editor":"text","default":"&#39;Courier Prime&#39;, monospace","section":"Faces"},"primaryText":{"editor":"range","default":90,"min":0,"max":100,"step":1,"unit":"%","section":"Emphasis"},"primaryTextWeight":{"editor":"enum","options":["400","700"],"default":"400","section":"Emphasis"},"secondaryText":{"editor":"range","default":62,"min":0,"max":100,"step":1,"unit":"%","section":"Emphasis"},"secondaryTextWeight":{"editor":"enum","options":["400","700"],"default":"700","section":"Emphasis"},"supportingText":{"editor":"range","default":42,"min":0,"max":100,"step":1,"unit":"%","section":"Emphasis"},"supportingTextWeight":{"editor":"enum","options":["400","700"],"default":"700","section":"Emphasis"},"primaryLine":{"editor":"range","default":90,"min":0,"max":100,"step":1,"unit":"%","section":"Emphasis"},"primaryLineWidth":{"editor":"range","default":2,"min":1,"max":6,"step":1,"unit":"px","section":"Emphasis"},"secondaryLine":{"editor":"range","default":55,"min":0,"max":100,"step":1,"unit":"%","section":"Emphasis"},"secondaryLineWidth":{"editor":"range","default":2,"min":1,"max":6,"step":1,"unit":"px","section":"Emphasis"},"supportingLine":{"editor":"range","default":12,"min":0,"max":100,"step":1,"unit":"%","section":"Emphasis"},"supportingLineWidth":{"editor":"range","default":3,"min":1,"max":6,"step":1,"unit":"px","section":"Emphasis"},"holdFill":{"editor":"range","default":1.5,"min":0.1,"max":5,"step":0.1,"unit":"s","section":"Press and hold"},"holdDrain":{"editor":"range","default":0.3,"min":0.1,"max":5,"step":0.1,"unit":"s","section":"Press and hold"},"trialA":{"editor":"color","default":"#76DA84","section":"Swatches · trial"},"trialB":{"editor":"color","default":"#D9573B","section":"Swatches · trial"},"trialC":{"editor":"color","default":"#D9573B","section":"Swatches · trial"},"trialD":{"editor":"color","default":"#D9573B","section":"Swatches · trial"},"$preview":{"width":2652,"height":1456}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+// Every tweak: its CSS name, its unit, and its start (the basic, or the trial's first value).
+this.tokens = [{"k":"tube","css":"--tube","unit":"","start":"#1A1D1A","trial":false,"ref":false},{"k":"obsidian","css":"--obsidian","unit":"","start":"#121215","trial":false,"ref":false},{"k":"ember","css":"--ember","unit":"","start":"#D9573B","trial":false,"ref":false},{"k":"cyanWhite","css":"--cyan-white","unit":"","start":"#DDF7F5","trial":false,"ref":false},{"k":"graphite","css":"--graphite","unit":"","start":"#212220","trial":false,"ref":false},{"k":"fontWordmark","css":"--font-wordmark","unit":"","start":"Gelasio, Georgia, serif","trial":false,"ref":false},{"k":"fontMark","css":"--font-mark","unit":"","start":"Saira, sans-serif","trial":false,"ref":false},{"k":"fontInterface","css":"--font-interface","unit":"","start":"'Courier Prime', monospace","trial":false,"ref":false},{"k":"primaryText","css":"--primary-text","unit":"%","start":90,"trial":false,"ref":false},{"k":"primaryTextWeight","css":"--primary-text-weight","unit":"","start":"400","trial":false,"ref":false},{"k":"secondaryText","css":"--secondary-text","unit":"%","start":62,"trial":false,"ref":false},{"k":"secondaryTextWeight","css":"--secondary-text-weight","unit":"","start":"700","trial":false,"ref":false},{"k":"supportingText","css":"--supporting-text","unit":"%","start":42,"trial":false,"ref":false},{"k":"supportingTextWeight","css":"--supporting-text-weight","unit":"","start":"700","trial":false,"ref":false},{"k":"primaryLine","css":"--primary-line","unit":"%","start":90,"trial":false,"ref":false},{"k":"primaryLineWidth","css":"--primary-line-width","unit":"px","start":2,"trial":false,"ref":false},{"k":"secondaryLine","css":"--secondary-line","unit":"%","start":55,"trial":false,"ref":false},{"k":"secondaryLineWidth","css":"--secondary-line-width","unit":"px","start":2,"trial":false,"ref":false},{"k":"supportingLine","css":"--supporting-line","unit":"%","start":12,"trial":false,"ref":false},{"k":"supportingLineWidth","css":"--supporting-line-width","unit":"px","start":3,"trial":false,"ref":false},{"k":"holdFill","css":"--hold-fill","unit":"s","start":1.5,"trial":false,"ref":false},{"k":"holdDrain","css":"--hold-drain","unit":"s","start":0.3,"trial":false,"ref":false},{"k":"trialA","css":"--trial-a","unit":"","start":"#76DA84","trial":true,"ref":false},{"k":"trialB","css":"--trial-b","unit":"","start":"#D9573B","trial":true,"ref":false},{"k":"trialC","css":"--trial-c","unit":"","start":"#D9573B","trial":true,"ref":false},{"k":"trialD","css":"--trial-d","unit":"","start":"#D9573B","trial":true,"ref":false}];
+var log = [];
+try { log = JSON.parse(window.localStorage.getItem("auburn.log.Theme.dc.html") || '[]'); } catch (e) {}
+this.state = { holding: false, log: log };
+}
+value(t, props) {
+var v = props[t.k];
+return v == null ? t.start : v;
+}
+// As CSS: a palette name becomes a reference to that colour.
+show(t, v) {
+return t.ref ? 'var(--' + v + ')' : String(v) + t.unit;
+}
+// As read on the board.
+label(t, v) {
+return t.ref ? String(v) : String(v) + t.unit;
+}
+// Every change the board sees is logged, newest first, and kept on this computer.
+componentDidUpdate(prev) {
+var self = this, added = [];
+var now = new Date(), at = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
+this.tokens.forEach(function (t) {
+var a = self.label(t, self.value(t, prev), prev), b = self.label(t, self.value(t, self.props), self.props);
+if (a !== b) added.push({ at: at, css: t.css, from: a, to: b });
+});
+if (!added.length) return;
+var log = added.concat(this.state.log).slice(0, 40);
+try { window.localStorage.setItem("auburn.log.Theme.dc.html", JSON.stringify(log)); } catch (e) {}
+this.setState({ log: log });
+}
+renderVals() {
+var self = this, holding = this.state.holding, props = this.props;
+// While held, the screens show the start and nothing is changed.
+var theme = this.tokens.map(function (t) { return t.css + ': ' + (holding ? self.show(t, t.start, null) : self.show(t, self.value(t, props), props)); }).join('; ');
+var changed = this.tokens.map(function (t) { return { css: t.css, from: self.label(t, t.start, null), to: self.label(t, self.value(t, props), props) }; })
+.filter(function (c) { return c.from !== c.to; });
+return {
+theme: theme,
+changed: changed, changedCount: changed.length, noChanges: changed.length === 0,
+trialNames: this.tokens.filter(function (t) { return t.trial; }).map(function (t) { return t.css; }).join(' · '),
+log: this.state.log.slice(0, 20), noLog: this.state.log.length === 0,
+status: holding ? 'SHOWING THE START' : 'SHOWING YOUR VALUES',
+holdOn: function () { self.setState({ holding: true }); },
+holdOff: function () { if (self.state.holding) self.setState({ holding: false }); },
+holdStyle: 'height: 44px; padding: 0 14px; font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: 1.5px; cursor: pointer; touch-action: none; user-select: none; border: 2px solid var(--cyan-white); background: ' + (holding ? 'var(--cyan-white)' : 'transparent') + '; color: ' + (holding ? 'var(--obsidian)' : 'var(--cyan-white)')
+};
+}
+}
+</script>
+</body>
+</html>

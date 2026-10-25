@@ -432,15 +432,6 @@
       "x": 960,
       "y": 0
     },
-    "Basics-Theme.dc.html": {
-      "page": "basics",
-      "title": "Theme · tune in the Tweaks tab",
-      "w": 2652,
-      "h": 1456,
-      "x": 0,
-      "y": 0,
-      "is_interactive": true
-    },
     "S01-R3-Home.dc.html": {
       "page": "s01",
       "title": "Round 3 · home · on the scales",
@@ -496,6 +487,64 @@
       "h": 640,
       "x": 480,
       "y": 7460
+    },
+    "Theme.dc.html": {
+      "page": "basics",
+      "title": "Theme · tune in the Tweaks tab",
+      "w": 2652,
+      "h": 1456,
+      "x": 0,
+      "y": 0,
+      "is_interactive": true
+    },
+    "S01-R3-Round.dc.html": {
+      "page": "s01",
+      "title": "Round 3 · tune in the Tweaks tab",
+      "w": 2652,
+      "h": 760,
+      "x": 0,
+      "y": 11480,
+      "is_interactive": true
+    },
+    "S01-Home.dc.html": {
+      "page": "s01",
+      "title": "Navigation · home · agreed",
+      "w": 400,
+      "h": 640,
+      "x": 0,
+      "y": 12620
+    },
+    "S01-Raised.dc.html": {
+      "page": "s01",
+      "title": "Navigation · raised · agreed",
+      "w": 400,
+      "h": 640,
+      "x": 480,
+      "y": 12620
+    },
+    "S01-Workout.dc.html": {
+      "page": "s01",
+      "title": "Navigation · workout · agreed",
+      "w": 400,
+      "h": 640,
+      "x": 960,
+      "y": 12620
+    },
+    "S01-Editing.dc.html": {
+      "page": "s01",
+      "title": "Navigation · editing · agreed",
+      "w": 400,
+      "h": 640,
+      "x": 1440,
+      "y": 12620
+    },
+    "S01-Power.dc.html": {
+      "page": "s01",
+      "title": "Navigation · power · agreed",
+      "w": 400,
+      "h": 640,
+      "x": 1920,
+      "y": 12620
     }
   },
   "createdOnFiles": {
@@ -660,15 +709,6 @@
       "x": 2400,
       "y": 0
     },
-    "basics": {
-      "kind": "title1",
-      "maxW": 2652,
-      "page": "basics",
-      "text": "Basics — the theme, tuned on every screen at once",
-      "w": 240,
-      "x": 0,
-      "y": -300
-    },
     "s01r3": {
       "kind": "title1",
       "maxW": 2320,
@@ -686,6 +726,33 @@
       "w": 240,
       "x": 0,
       "y": 7180
+    },
+    "theme": {
+      "kind": "title1",
+      "maxW": 2652,
+      "page": "basics",
+      "text": "Theme — every agreed screen, tuned at once",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "s01r3board": {
+      "kind": "title1",
+      "maxW": 2652,
+      "page": "s01",
+      "text": "Round 3 — tune here; changes stay on this board",
+      "w": 240,
+      "x": 0,
+      "y": 11200
+    },
+    "s01agreed": {
+      "kind": "title1",
+      "maxW": 2320,
+      "page": "s01",
+      "text": "Screen 01 — agreed",
+      "w": 240,
+      "x": 0,
+      "y": 12340
     }
   },
   "order": [
@@ -742,19 +809,25 @@
     "S01-R2-Workout.dc.html",
     "S01-R2-Edit.dc.html",
     "S01-R2-Power.dc.html",
-    "Basics-Theme.dc.html",
     "S01-R3-Home.dc.html",
     "S01-R3-Raised.dc.html",
     "S01-R3-Workout.dc.html",
     "S01-R3-Editing.dc.html",
     "S01-R3-Power.dc.html",
     "S00-Dark.dc.html",
-    "S00-Light.dc.html"
+    "S00-Light.dc.html",
+    "Theme.dc.html",
+    "S01-R3-Round.dc.html",
+    "S01-Home.dc.html",
+    "S01-Raised.dc.html",
+    "S01-Workout.dc.html",
+    "S01-Editing.dc.html",
+    "S01-Power.dc.html"
   ],
   "pages": [
     {
       "id": "basics",
-      "name": "Basics"
+      "name": "Theme"
     },
     {
       "id": "s00",
