@@ -58,7 +58,8 @@ const key = (css) => css.slice(2).replace(/-([a-z0-9])/g, (_, c) => c.toUpperCas
 // A token's Tweaks editor, its value as the editor holds it, and how that value is written back as CSS.
 function editorFor(css, value, section) {
   const ref = value.match(/^var\(--([a-z-]+)\)$/);
-  if (ref) return { meta: { editor: 'enum', options: PALETTE, default: ref[1], section }, unit: '', ref: true };
+  // A palette colour by name, or a colour of the user's own from the companion picker.
+  if (ref) return { meta: { editor: 'enum', options: [...PALETTE, 'custom'], default: ref[1], section }, unit: '', ref: true };
   if (/^#[0-9a-f]{6}$/i.test(value)) return { meta: { editor: 'color', default: value.toUpperCase(), section }, unit: '' };
   if (/-weight$/.test(css)) return { meta: { editor: 'enum', options: ['400', '700'], default: value, section }, unit: '' };
   let m = value.match(/^([\d.]+)%$/);
@@ -75,7 +76,8 @@ function editorFor(css, value, section) {
 }
 
 const basics = parseBasics(`${SPEC}/basics.css`).filter((g) => !/tube/i.test(g.name));
-const PALETTE = basics.find((g) => g.name === 'Palette').tokens.map(([css]) => css.slice(2));
+const PALETTE_HEX = Object.fromEntries(basics.find((g) => g.name === 'Palette').tokens.map(([css, v]) => [css.slice(2), v.toUpperCase()]));
+const PALETTE = Object.keys(PALETTE_HEX);
 const tokens = [];
 for (const g of basics) for (const [css, v] of g.tokens) tokens.push({ css, start: v, trial: false, ...editorFor(css, v, g.name) });
 for (const [name, list] of TRIALS) for (const [css, v] of list) tokens.push({ css, start: v, trial: true, ...editorFor(css, v, `${name} · trial`) });
@@ -236,9 +238,14 @@ function themeBoard(rows) {
     const k = key(t.css);
     props[k] = { ...t.meta };
     if (kept[k] && kept[k].default !== undefined) props[k].default = kept[k].default; // the user's value stays
+    if (t.ref) {
+      // The colour used when the choice is custom; it starts as the palette colour the trial starts on.
+      props[`${k}Custom`] = { editor: 'color', default: kept[`${k}Custom`]?.default ?? PALETTE_HEX[t.meta.default], section: t.meta.section };
+    }
   }
   props.$preview = { width: 2652, height: 1456 };
-  const list = tokens.map((t) => ({ k: key(t.css), css: t.css, unit: t.unit, start: t.meta.default, trial: t.trial, ref: !!t.ref }));
+  const list = tokens.map((t) => ({ k: key(t.css), css: t.css, unit: t.unit, start: t.meta.default, trial: t.trial, ref: !!t.ref,
+    ...(t.ref ? { custom: `${key(t.css)}Custom`, customStart: PALETTE_HEX[t.meta.default] } : {}) }));
   const imports = rows.map((r) => `<div style="display: flex; flex-direction: column; gap: 12px">
 <div style="font-size: 13px; font-weight: 700; letter-spacing: 2px">${r.label}</div>
 <div style="display: flex; gap: 40px; align-items: flex-start">
@@ -277,21 +284,28 @@ value(t, props) {
 var v = props[t.k];
 return v == null ? t.start : v;
 }
-// As CSS: a palette name becomes a reference to that colour.
-show(t, v) {
-return t.ref ? 'var(--' + v + ')' : String(v) + t.unit;
+// The custom colour a palette choice falls back to; at the start, the palette colour it began on.
+hex(t, props) {
+var c = props && props[t.custom];
+return c == null ? t.customStart : c;
+}
+// As CSS: a palette name becomes a reference to that colour; custom is the picked colour.
+show(t, v, props) {
+if (!t.ref) return String(v) + t.unit;
+return v === 'custom' ? this.hex(t, props) : 'var(--' + v + ')';
 }
 // As read on the board.
-label(t, v) {
-return t.ref ? String(v) : String(v) + t.unit;
+label(t, v, props) {
+if (!t.ref) return String(v) + t.unit;
+return v === 'custom' ? 'custom ' + this.hex(t, props) : String(v);
 }
 // Every change the board sees is logged, newest first, and kept on this computer.
 componentDidUpdate(prev) {
 var self = this, added = [];
 var now = new Date(), at = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
 this.tokens.forEach(function (t) {
-var a = self.value(t, prev), b = self.value(t, self.props);
-if (String(a) !== String(b)) added.push({ at: at, css: t.css, from: self.label(t, a), to: self.label(t, b) });
+var a = self.label(t, self.value(t, prev), prev), b = self.label(t, self.value(t, self.props), self.props);
+if (a !== b) added.push({ at: at, css: t.css, from: a, to: b });
 });
 if (!added.length) return;
 var log = added.concat(this.state.log).slice(0, 40);
@@ -301,9 +315,9 @@ this.setState({ log: log });
 renderVals() {
 var self = this, holding = this.state.holding, props = this.props;
 // While held, the screens show the start and nothing is changed.
-var theme = this.tokens.map(function (t) { return t.css + ': ' + self.show(t, holding ? t.start : self.value(t, props)); }).join('; ');
-var changed = this.tokens.filter(function (t) { return String(self.value(t, props)) !== String(t.start); })
-.map(function (t) { return { css: t.css, from: self.label(t, t.start), to: self.label(t, self.value(t, props)) }; });
+var theme = this.tokens.map(function (t) { return t.css + ': ' + (holding ? self.show(t, t.start, null) : self.show(t, self.value(t, props), props)); }).join('; ');
+var changed = this.tokens.map(function (t) { return { css: t.css, from: self.label(t, t.start, null), to: self.label(t, self.value(t, props), props) }; })
+.filter(function (c) { return c.from !== c.to; });
 return {
 theme: theme,
 changed: changed, changedCount: changed.length, noChanges: changed.length === 0,
