@@ -63,3 +63,13 @@ Each screen is agreed one at a time, as the project's visual design process sets
 | 14 | The overdue log | Every answer, newest first | Not yet specified |
 | 15 | Settings | The theme mode, sound and its volume, and credits | Not yet specified |
 | 16 | Power down | The tube switching off while the power-down plays | Not yet specified |
+
+## Components
+
+| Component | Used on | Status |
+|---|---|---|
+| [Header](Visual%20Design/components/header/header.md) | 01 | Agreed |
+| [Widget](Visual%20Design/components/widget/widget.md) | 01 | Agreed |
+| [List entry](Visual%20Design/components/entry/entry.md) | 01 | Agreed |
+| [List sheet](Visual%20Design/components/list/list.md) | 01 | Agreed |
+| [Hold key](Visual%20Design/components/hold/hold.md) | 01 | Agreed |

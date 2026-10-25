@@ -31,6 +31,7 @@ A cold start plays the boot and then shows home; with a workout in progress ther
 
 ## Rules
 
+- Its parts are the header, the widgets, the list sheet with its list entries, and a hold key for Power down. Their own rules are in their documents.
 - Three layers: the content, the list over it, and Power down over both.
 - AUBURN is always on home.
 - The status is the last workout: when and where.
@@ -49,11 +50,8 @@ A cold start plays the boot and then shows home; with a workout in progress ther
 
 | Tap | Does |
 |---|---|
-| A widget | Opens its screen: Rest at a glance, Goals, Cardio |
-| EDIT | Opens the widget's controls: ▲ and ▼ move it one place in reading order, HALF and FULL set its width, DONE closes them. The other widgets step back while one is edited |
-| The list's handle, tap or drag | Raises or lowers the list |
-| An entry | Opens its screen |
-| Power down, press and hold | Plays the power-down, then Auburn quits |
+| A widget, its keys, the list and its entries | As their component documents say |
+| Power down, held to the end | Plays the power-down, then Auburn quits |
 
 Every key's tap area is at least 44 px.
 
