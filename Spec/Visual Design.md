@@ -10,6 +10,8 @@ The rules every screen follows, and the index of screens. Every value is in [bas
 
 Every colour, face, level, and timing a screen uses is in [basics.css](Visual%20Design/basics.css). A screen never introduces a value; a value it needs is added there first.
 
+Every colour is a palette colour, named for what it is. A new colour joins the palette, with its name, before anything uses it; nothing takes a colour from outside the palette.
+
 ### Themes
 
 Auburn has a dark and a light theme. It follows the device unless Settings sets dark or light. In v1 the theme changes the boot screen only; every other screen is the same in both.
