@@ -239,15 +239,6 @@
       "x": 2400,
       "y": 1040
     },
-    "S01-Hierarchy.dc.html": {
-      "h": 1000,
-      "is_interactive": true,
-      "page": "s01",
-      "title": "Visual hierarchy · controls apply to every screen here",
-      "w": 1360,
-      "x": 0,
-      "y": 5500
-    },
     "S01-Nav-A1.dc.html": {
       "h": 640,
       "page": "s01",
@@ -320,15 +311,6 @@
       "w": 400,
       "x": 960,
       "y": 4680
-    },
-    "S01-Palette.dc.html": {
-      "h": 880,
-      "is_interactive": true,
-      "page": "s01",
-      "title": "Palette · applies to every screen here",
-      "w": 2620,
-      "x": 0,
-      "y": 9100
     },
     "S01-R1-Edit.dc.html": {
       "h": 640,
@@ -748,7 +730,6 @@
     "S01-Nav-C1.dc.html",
     "S01-Nav-C2.dc.html",
     "S01-Nav-C3.dc.html",
-    "S01-Hierarchy.dc.html",
     "S01-Covers-R1.dc.html",
     "S01-Covers-R2.dc.html",
     "S01-R1-Home.dc.html",
@@ -761,7 +742,6 @@
     "S01-R2-Workout.dc.html",
     "S01-R2-Edit.dc.html",
     "S01-R2-Power.dc.html",
-    "S01-Palette.dc.html",
     "Basics-Theme.dc.html",
     "S01-R3-Home.dc.html",
     "S01-R3-Raised.dc.html",

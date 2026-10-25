@@ -26,6 +26,10 @@ const TRIALS = [
     ['--text-3', '16px'], ['--text-3-tracking', '1.5px'], ['--text-3-leading', '20px'],
     ['--text-4', '22px'], ['--text-4-tracking', '6px'], ['--text-4-leading', '24px'],
   ]],
+  // Each emphasis level's text takes its colour from the palette, by name; its opacity stays the level's.
+  ['Text colour', [
+    ['--primary-text-color', 'var(--ember)'], ['--secondary-text-color', 'var(--ember)'], ['--supporting-text-color', 'var(--ember)'],
+  ]],
   ['Spacing scale', [
     ['--space-1', '2px'], ['--space-2', '4px'], ['--space-3', '8px'],
     ['--space-4', '12px'], ['--space-5', '16px'], ['--space-6', '24px'],
@@ -53,6 +57,8 @@ const key = (css) => css.slice(2).replace(/-([a-z0-9])/g, (_, c) => c.toUpperCas
 
 // A token's Tweaks editor, its value as the editor holds it, and how that value is written back as CSS.
 function editorFor(css, value, section) {
+  const ref = value.match(/^var\(--([a-z-]+)\)$/);
+  if (ref) return { meta: { editor: 'enum', options: PALETTE, default: ref[1], section }, unit: '', ref: true };
   if (/^#[0-9a-f]{6}$/i.test(value)) return { meta: { editor: 'color', default: value.toUpperCase(), section }, unit: '' };
   if (/-weight$/.test(css)) return { meta: { editor: 'enum', options: ['400', '700'], default: value, section }, unit: '' };
   let m = value.match(/^([\d.]+)%$/);
@@ -69,6 +75,7 @@ function editorFor(css, value, section) {
 }
 
 const basics = parseBasics(`${SPEC}/basics.css`).filter((g) => !/tube/i.test(g.name));
+const PALETTE = basics.find((g) => g.name === 'Palette').tokens.map(([css]) => css.slice(2));
 const tokens = [];
 for (const g of basics) for (const [css, v] of g.tokens) tokens.push({ css, start: v, trial: false, ...editorFor(css, v, g.name) });
 for (const [name, list] of TRIALS) for (const [css, v] of list) tokens.push({ css, start: v, trial: true, ...editorFor(css, v, `${name} · trial`) });
@@ -77,9 +84,10 @@ for (const [name, list] of TRIALS) for (const [css, v] of list) tokens.push({ cs
 
 function readProps(path) {
   if (!existsSync(path)) return {};
-  const m = readFileSync(path, 'utf8').match(/data-props='([^']*)'/);
+  // The editor may save the attribute double-quoted, with its quotes as entities.
+  const m = readFileSync(path, 'utf8').match(/data-props=(?:'([^']*)'|"([^"]*)")/);
   if (!m) return {};
-  return JSON.parse(m[1].replace(/&#39;/g, "'").replace(/&amp;/g, '&'));
+  return JSON.parse((m[1] ?? m[2]).replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&'));
 }
 
 const attr = (obj) => JSON.stringify(obj).replace(/&/g, '&amp;').replace(/'/g, '&#39;');
@@ -174,6 +182,8 @@ function onScales(style) {
   // Weight follows the emphasis level of the element's own colour.
   const lvl = s.match(/color: color-mix\(in srgb, var\(--ember\) var\(--(primary|secondary|supporting)-text\)/);
   if (lvl) s = s.replace(/font-weight: \d+/, `font-weight: var(--${lvl[1]}-text-weight)`);
+  // Text takes its level's colour.
+  s = s.replace(/var\(--ember\) var\(--(primary|secondary|supporting)-text\)/g, 'var(--$1-text-color) var(--$1-text)');
   // Lines take their level's width.
   s = s.replace(/(border(?:-top|-bottom|-left|-right)?): \d+px solid (color-mix\(in srgb, var\(--ember\) var\(--(primary|secondary|supporting)-line\))/g,
     (_, p, mix, l) => `${p}: var(--${l}-line-width) solid ${mix}`);
@@ -228,7 +238,7 @@ function themeBoard(rows) {
     if (kept[k] && kept[k].default !== undefined) props[k].default = kept[k].default; // the user's value stays
   }
   props.$preview = { width: 2652, height: 1456 };
-  const list = tokens.map((t) => ({ k: key(t.css), css: t.css, unit: t.unit, start: t.meta.default, trial: t.trial }));
+  const list = tokens.map((t) => ({ k: key(t.css), css: t.css, unit: t.unit, start: t.meta.default, trial: t.trial, ref: !!t.ref }));
   const imports = rows.map((r) => `<div style="display: flex; flex-direction: column; gap: 12px">
 <div style="font-size: 13px; font-weight: 700; letter-spacing: 2px">${r.label}</div>
 <div style="display: flex; gap: 40px; align-items: flex-start">
@@ -267,8 +277,13 @@ value(t, props) {
 var v = props[t.k];
 return v == null ? t.start : v;
 }
+// As CSS: a palette name becomes a reference to that colour.
 show(t, v) {
-return String(v) + t.unit;
+return t.ref ? 'var(--' + v + ')' : String(v) + t.unit;
+}
+// As read on the board.
+label(t, v) {
+return t.ref ? String(v) : String(v) + t.unit;
 }
 // Every change the board sees is logged, newest first, and kept on this computer.
 componentDidUpdate(prev) {
@@ -276,7 +291,7 @@ var self = this, added = [];
 var now = new Date(), at = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
 this.tokens.forEach(function (t) {
 var a = self.value(t, prev), b = self.value(t, self.props);
-if (String(a) !== String(b)) added.push({ at: at, css: t.css, from: self.show(t, a), to: self.show(t, b) });
+if (String(a) !== String(b)) added.push({ at: at, css: t.css, from: self.label(t, a), to: self.label(t, b) });
 });
 if (!added.length) return;
 var log = added.concat(this.state.log).slice(0, 40);
@@ -288,7 +303,7 @@ var self = this, holding = this.state.holding, props = this.props;
 // While held, the screens show the start and nothing is changed.
 var theme = this.tokens.map(function (t) { return t.css + ': ' + self.show(t, holding ? t.start : self.value(t, props)); }).join('; ');
 var changed = this.tokens.filter(function (t) { return String(self.value(t, props)) !== String(t.start); })
-.map(function (t) { return { css: t.css, from: self.show(t, t.start), to: self.show(t, self.value(t, props)) }; });
+.map(function (t) { return { css: t.css, from: self.label(t, t.start), to: self.label(t, self.value(t, props)) }; });
 return {
 theme: theme,
 changed: changed, changedCount: changed.length, noChanges: changed.length === 0,
