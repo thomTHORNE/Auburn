@@ -248,14 +248,6 @@
       "x": 0,
       "y": 5500
     },
-    "S01-Manifest.dc.html": {
-      "h": 960,
-      "page": "s01",
-      "title": "Screen 01 · value manifest",
-      "w": 400,
-      "x": -619,
-      "y": 9100
-    },
     "S01-Nav-A1.dc.html": {
       "h": 640,
       "page": "s01",
@@ -457,6 +449,71 @@
       "w": 400,
       "x": 960,
       "y": 0
+    },
+    "Basics-Theme.dc.html": {
+      "page": "basics",
+      "title": "Theme · tune in the Tweaks tab",
+      "w": 2652,
+      "h": 1456,
+      "x": 0,
+      "y": 0,
+      "is_interactive": true
+    },
+    "S01-R3-Home.dc.html": {
+      "page": "s01",
+      "title": "Round 3 · home · on the scales",
+      "w": 400,
+      "h": 640,
+      "x": 0,
+      "y": 10560
+    },
+    "S01-R3-Raised.dc.html": {
+      "page": "s01",
+      "title": "Round 3 · raised · on the scales",
+      "w": 400,
+      "h": 640,
+      "x": 480,
+      "y": 10560
+    },
+    "S01-R3-Workout.dc.html": {
+      "page": "s01",
+      "title": "Round 3 · workout · on the scales",
+      "w": 400,
+      "h": 640,
+      "x": 960,
+      "y": 10560
+    },
+    "S01-R3-Editing.dc.html": {
+      "page": "s01",
+      "title": "Round 3 · editing · on the scales",
+      "w": 400,
+      "h": 640,
+      "x": 1440,
+      "y": 10560
+    },
+    "S01-R3-Power.dc.html": {
+      "page": "s01",
+      "title": "Round 3 · power · on the scales",
+      "w": 400,
+      "h": 640,
+      "x": 1920,
+      "y": 10560
+    },
+    "S00-Dark.dc.html": {
+      "page": "s00",
+      "title": "Boot · dark · agreed",
+      "w": 400,
+      "h": 640,
+      "x": 0,
+      "y": 7460
+    },
+    "S00-Light.dc.html": {
+      "page": "s00",
+      "title": "Boot · light · agreed",
+      "w": 400,
+      "h": 640,
+      "x": 480,
+      "y": 7460
     }
   },
   "createdOnFiles": {
@@ -465,7 +522,8 @@
   },
   "designSystems": [],
   "launch": {
-    "view": "canvas"
+    "view": "canvas",
+    "page": "basics"
   },
   "notes": {
     "round1": {
@@ -619,6 +677,33 @@
       "w": 560,
       "x": 2400,
       "y": 0
+    },
+    "basics": {
+      "kind": "title1",
+      "maxW": 2652,
+      "page": "basics",
+      "text": "Basics — the theme, tuned on every screen at once",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "s01r3": {
+      "kind": "title1",
+      "maxW": 2320,
+      "page": "s01",
+      "text": "Round 3 — screen 01 on the type and spacing scales",
+      "w": 240,
+      "x": 0,
+      "y": 10280
+    },
+    "s00agreed": {
+      "kind": "title1",
+      "maxW": 880,
+      "page": "s00",
+      "text": "Boot · agreed",
+      "w": 240,
+      "x": 0,
+      "y": 7180
     }
   },
   "order": [
@@ -664,7 +749,6 @@
     "S01-Nav-C2.dc.html",
     "S01-Nav-C3.dc.html",
     "S01-Hierarchy.dc.html",
-    "S01-Manifest.dc.html",
     "S01-Covers-R1.dc.html",
     "S01-Covers-R2.dc.html",
     "S01-R1-Home.dc.html",
@@ -677,9 +761,21 @@
     "S01-R2-Workout.dc.html",
     "S01-R2-Edit.dc.html",
     "S01-R2-Power.dc.html",
-    "S01-Palette.dc.html"
+    "S01-Palette.dc.html",
+    "Basics-Theme.dc.html",
+    "S01-R3-Home.dc.html",
+    "S01-R3-Raised.dc.html",
+    "S01-R3-Workout.dc.html",
+    "S01-R3-Editing.dc.html",
+    "S01-R3-Power.dc.html",
+    "S00-Dark.dc.html",
+    "S00-Light.dc.html"
   ],
   "pages": [
+    {
+      "id": "basics",
+      "name": "Basics"
+    },
     {
       "id": "s00",
       "name": "00 Boot"

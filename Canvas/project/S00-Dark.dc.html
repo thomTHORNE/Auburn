@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Boot · dark · agreed</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="basics.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&amp;family=Saira:wght@300;600&amp;display=swap">
+<style>
+body{margin:0}
+.b00{
+--boot-duration: 8s;
+--dot-size: 9px;
+}
+.b00-dark  { --screen: var(--tube);  --wordmark: var(--ember);    --dot: rgba(217,87,59,0.14); --wordmark-width: 220px; }
+.b00-light { --screen: var(--ember); --wordmark: var(--obsidian); --dot: rgba(18,18,21,0.10);  --wordmark-width: 200px; }
+.b00-screen { width: 400px; height: 640px; position: relative; overflow: hidden; background: var(--screen); }
+.b00-power-line { position: absolute; left: 0; right: 0; top: 319px; height: 2px; background: var(--cyan-white);  }
+.b00-picture { position: absolute; inset: 0;  }
+.b00-dots { position: absolute; inset: 0; background-image: radial-gradient(var(--dot) 1px, transparent 1.4px); background-size: var(--dot-size) var(--dot-size); opacity: 0.7; }
+.b00-stack { position: relative; height: 100%; box-sizing: border-box; padding: 0 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+.b00-plate { width: 220px; height: 264px; box-sizing: border-box; background: var(--ember); padding: 10px;  }
+.b00-rule-outer { height: 100%; box-sizing: border-box; border: 2px solid var(--obsidian); padding: 4px; }
+.b00-rule-inner { height: 100%; box-sizing: border-box; border: 1px solid var(--obsidian); padding: 12px 14px 10px; display: flex; flex-direction: column; }
+.b00-pillars { flex: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+.b00-pillar { display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; background: var(--obsidian); transform-origin: bottom; font-family: var(--font-mark); font-weight: 300; font-size: 28px; line-height: 1; color: var(--ember); }
+.b00-pillar:nth-child(1) {  }
+.b00-pillar:nth-child(2) {  }
+.b00-pillar:nth-child(3) {  }
+.b00-line { height: 26px; margin-top: 10px; border-top: 1px solid var(--obsidian); display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; font-family: var(--font-mark); font-weight: 600; font-size: 8px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--obsidian); }
+.b00-line span {  }
+.b00-wordmark { margin: 0; width: var(--wordmark-width); display: flex; justify-content: space-between; font-family: var(--font-wordmark); font-weight: 700; font-size: 34px; line-height: 1; color: var(--wordmark);  }
+.b00-still * {  }
+</style>
+</helmet>
+<div class="b00 b00-dark b00-screen" style="{{theme}}">
+  
+  <div class="b00-picture">
+    <div class="b00-dots" aria-hidden="true"></div>
+    <div class="b00-stack">
+      <div class="b00-plate" role="img" aria-label="Auburn mark: three pillars lettered H, C, M, with the line beneath">
+        <div class="b00-rule-outer"><div class="b00-rule-inner">
+          <div class="b00-pillars"><span class="b00-pillar">H</span><span class="b00-pillar">C</span><span class="b00-pillar">M</span></div>
+          <div class="b00-line"><span>More human than human.</span></div>
+        </div></div>
+      </div>
+      <h1 class="b00-wordmark" aria-label="Auburn"><span>A</span><span>U</span><span>B</span><span>U</span><span>R</span><span>N</span></h1>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":null},"$preview":{"width":400,"height":640}}'>
+class Component extends DCLogic {
+renderVals() {
+// Values passed in by the Theme board; on its own, the board's trials over basics.css.
+return { theme: this.props.theme != null ? this.props.theme : "" };
+}
+}
+</script>
+</body>
+</html>

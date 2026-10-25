@@ -1,0 +1,33 @@
+/* Auburn's basics: every value a screen may use. Screens link this file; they never copy it.
+   The rules for using these values are in Spec/Visual Design.md. */
+:root {
+  /* Palette */
+  --tube: #1A1D1A;
+  --obsidian: #121215;
+  --ember: #D9573B;
+  --cyan-white: #DDF7F5;
+  --graphite: #212220;
+
+  /* Faces */
+  --font-wordmark: Gelasio, Georgia, serif;        /* 700 */
+  --font-mark: Saira, sans-serif;                  /* 300, 600 */
+  --font-interface: 'Courier Prime', monospace;    /* 400, 700 */
+
+  /* Emphasis: Ember at an opacity, for text and for lines */
+  --primary-text: 90%;      --primary-text-weight: 400;
+  --secondary-text: 62%;    --secondary-text-weight: 700;
+  --supporting-text: 42%;   --supporting-text-weight: 700;
+  --primary-line: 90%;      --primary-line-width: 2px;
+  --secondary-line: 55%;    --secondary-line-width: 2px;
+  --supporting-line: 12%;   --supporting-line-width: 3px;
+
+  /* Press and hold */
+  --hold-fill: 1.5s;
+  --hold-drain: 0.3s;
+
+  /* The tube (read by the app's shader; the canvas never draws it) */
+  --tube-strength: 0.6;
+  --tube-glass-low: 0.6;
+  --tube-glass-high: 1.2;
+  --tube-travel: 0.35;
+}
