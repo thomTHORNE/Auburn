@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Palette</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+:root{--sec-text:62%;--screen:#1A1D1A;--list:#212220;--power:#1A1D1A;--ember:#D9573B;--ink:#121215;--light:#DDF7F5;--cut:#1A1D1A}
+.bust{background: var(--ember); -webkit-mask: url(/_blob/8dc69cd32a565ee54c5606a82fce2b14) center top / contain no-repeat; mask: url(/_blob/8dc69cd32a565ee54c5606a82fce2b14) center top / contain no-repeat}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+</style>
+</helmet>
+<div style="width: 2620px; height: 880px; box-sizing: border-box; padding: 32px; background: #121215; color: #DDF7F5; font-family: 'Courier Prime', 'Courier New', monospace; font-size: 12px; letter-spacing: 1px; display: flex; gap: 40px">
+<div style="width: 380px; flex: none; display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 16px; font-weight: 700; letter-spacing: 2px">PALETTE</div>
+<sc-for list="{{slots}}" as="s" hint-placeholder-count="6">
+<label style="display: flex; align-items: center; gap: 10px"><input type="color" value="{{s.hex}}" onChange="{{s.set}}" disabled="{{holding}}" style="width: 44px; height: 32px; padding: 0; border: 1px solid rgba(221,247,245,0.4); background: transparent"><span style="width: 110px; font-weight: 700">{{s.label}}</span><span style="width: 70px">{{s.hex}}</span><span style="opacity: 0.55">{{s.start}}</span></label>
+</sc-for>
+<div style="font-size: 16px; font-weight: 700; letter-spacing: 2px; margin-top: 10px">HIERARCHY</div>
+<label style="display: flex; align-items: center; gap: 10px"><span style="width: 150px; font-weight: 700">SECONDARY TEXT</span><input type="range" min="0" max="100" step="1" value="{{secText}}" onChange="{{setSecText}}" disabled="{{holding}}" style="flex: 1; accent-color: #DDF7F5"><span style="width: 40px; text-align: right">{{secText}}%</span><span style="opacity: 0.55">START {{secStart}}%</span></label>
+<div style="font-size: 16px; font-weight: 700; letter-spacing: 2px; margin-top: 10px">ROLES</div>
+<sc-for list="{{roles}}" as="r" hint-placeholder-count="7">
+<div style="display: flex; flex-direction: column; gap: 4px"><div style="display: flex; justify-content: space-between"><span style="font-weight: 700">{{r.label}}</span><span style="opacity: 0.55">{{r.start}}</span></div>
+<div style="display: flex; gap: 4px"><sc-for list="{{r.opts}}" as="o" hint-placeholder-count="6"><button type="button" aria-label="{{o.name}}" onClick="{{o.pick}}" style="{{o.style}}"></button></sc-for></div></div>
+</sc-for>
+<div style="display: flex; gap: 10px; margin-top: 8px">
+<button type="button" onPointerDown="{{holdOn}}" onPointerUp="{{holdOff}}" onPointerLeave="{{holdOff}}" onPointerCancel="{{holdOff}}" style="{{holdStyle}}">HOLD · PREVIEW START</button>
+<button type="button" onClick="{{resetAll}}" style="height: 36px; padding: 0 10px; border: 1px solid #DDF7F5; background: transparent; color: #DDF7F5; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">RESET ALL TO START</button>
+</div>
+</div>
+<div style="display: flex; gap: 40px; align-items: flex-start">
+<dc-import name="S01-R2-Home" vars="{{vars}}" hint-size="400px,640px"></dc-import>
+<dc-import name="S01-R2-Raised" vars="{{vars}}" hint-size="400px,640px"></dc-import>
+<dc-import name="S01-R2-Workout" vars="{{vars}}" hint-size="400px,640px"></dc-import>
+<dc-import name="S01-R2-Edit" vars="{{vars}}" hint-size="400px,640px"></dc-import>
+<dc-import name="S01-R2-Power" vars="{{vars}}" hint-size="400px,640px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 2620, "height": 880}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+// The four basics, two free slots to try colours in, and which colour plays each role.
+this.start = { slots: {"tube": "#1A1D1A", "obsidian": "#121215", "ember": "#D9573B", "cyan": "#DDF7F5", "trialA": "#212220", "trialB": "#2A1B17"}, roles: {"screen": "tube", "list": "trialA", "power": "tube", "ember": "ember", "ink": "obsidian", "light": "cyan", "cut": "tube"}, secText: 62 };
+var kept = null;
+try { kept = JSON.parse(window.localStorage.getItem('auburn.palette') || 'null'); } catch (e) {}
+// Values saved before a control existed take its starting value.
+this.state = { vals: Object.assign(JSON.parse(JSON.stringify(this.start)), kept || {}), holding: false };
+}
+keep(vals) {
+this.setState({ vals: vals });
+try { window.localStorage.setItem('auburn.palette', JSON.stringify(vals)); } catch (e) {}
+}
+renderVals() {
+var self = this, s = this.start, holding = this.state.holding;
+// While held, the screens show the start and nothing can change it.
+var v = holding ? s : this.state.vals;
+var labels = {"tube": "TUBE", "obsidian": "OBSIDIAN", "ember": "EMBER", "cyan": "CYAN WHITE", "trialA": "TRIAL A", "trialB": "TRIAL B"}, roleLabels = {"screen": "SCREEN", "list": "LIST", "power": "POWER DOWN", "ember": "ACCENT", "ink": "INK", "light": "LIGHT", "cut": "ICON CUTS"};
+var slots = Object.keys(s.slots).map(function (k) {
+return { label: labels[k], hex: v.slots[k], start: 'START ' + s.slots[k], set: function (e) {
+if (self.state.holding) return; var vals = JSON.parse(JSON.stringify(self.state.vals)); vals.slots[k] = e.target.value; self.keep(vals); } };
+});
+var roles = Object.keys(s.roles).map(function (r) {
+return { label: roleLabels[r], start: 'START ' + labels[s.roles[r]], opts: Object.keys(s.slots).map(function (k) {
+var on = v.roles[r] === k;
+return { name: labels[k], style: 'width: 44px; height: 32px; cursor: pointer; background: ' + v.slots[k] + '; border: ' + (on ? '3px solid #DDF7F5' : '1px solid rgba(221,247,245,0.3)'),
+pick: function () { if (self.state.holding) return; var vals = JSON.parse(JSON.stringify(self.state.vals)); vals.roles[r] = k; self.keep(vals); } };
+}) };
+});
+var vars = Object.keys(v.roles).map(function (r) { return '--' + r + ': ' + v.slots[v.roles[r]]; }).join('; ') + '; --sec-text: ' + v.secText + '%';
+return {
+slots: slots, roles: roles, vars: vars, holding: holding, secText: v.secText, secStart: s.secText,
+setSecText: function (e) { if (self.state.holding) return; var vals = JSON.parse(JSON.stringify(self.state.vals)); vals.secText = Number(e.target.value); self.keep(vals); },
+holdOn: function () { self.setState({ holding: true }); },
+holdOff: function () { if (self.state.holding) self.setState({ holding: false }); },
+holdStyle: 'height: 36px; padding: 0 10px; border: 1px solid #DDF7F5; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer; touch-action: none; user-select: none; background: ' + (holding ? '#DDF7F5' : 'transparent') + '; color: ' + (holding ? '#121215' : '#DDF7F5'),
+resetAll: function () { self.keep(JSON.parse(JSON.stringify(s))); }
+};
+}
+}
+</script>
+</body>
+</html>

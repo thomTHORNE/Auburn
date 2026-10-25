@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Round 3 · Cover · Stack — Chest Press</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@600;700&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#D9573B}a:hover{color:#DDF7F5}
+.glow{text-shadow:0 0 1px rgba(217,87,59,0.9),0 0 8px rgba(217,87,59,0.5),0 0 20px rgba(217,87,59,0.22)}
+</style>
+</helmet>
+<div style="width: 400px; height: 640px; position: relative; overflow: hidden; background: #1A1D1A; color: #C8C3B0; font-family: 'Courier Prime', 'Courier New', monospace">
+<div aria-hidden="true" style="position: absolute; inset: 0; background-image: radial-gradient(rgba(217,87,59,0.14) 1px, transparent 1.4px); background-size: 9px 9px; opacity: {{texture}}"></div>
+<div style="position: relative; height: 100%; box-sizing: border-box; padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 7px">
+
+<header style="display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 1.5px">
+<span>10-23 · GYMS4YOU</span>
+<span>T+0:31 · ROLL OFF</span>
+</header>
+
+<section style="background: #D9573B; padding: 5px; box-shadow: 0 0 22px rgba(217,87,59,0.3)">
+<div style="border: 2px solid #121215; padding: 3px">
+<div style="border: 1px solid #121215; padding: 6px 9px 6px; display: flex; flex-direction: column; gap: 4px; color: #121215">
+<h1 style="margin: 0; font-family: Gelasio, Georgia, serif; font-weight: 700; font-size: 22px; line-height: 1.05; letter-spacing: 3px; text-transform: uppercase">Chest Press</h1>
+<div style="border-top: 1px solid #121215; padding-top: 3px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; letter-spacing: 1px">
+<span>PIN-MACHINE · CHEST STRICT</span>
+<span>EX 02</span>
+</div>
+</div>
+</div>
+</section>
+
+<section style="border: 1px solid rgba(217,87,59,0.75)">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr))">
+<sc-for list="{{tabs}}" as="tab" hint-placeholder-count="3">
+<button type="button" onClick="{{tab.pick}}" style="{{tab.style}}">{{tab.label}}</button>
+</sc-for>
+</div>
+<div style="height: 62px; overflow: auto; padding: 6px 9px; font-size: 13px; line-height: 1.35; box-sizing: border-box">
+<sc-if value="{{isForm}}" hint-placeholder-val="{{ true }}">
+<div>Stretch and relax legs, focus entirely on chest</div>
+<div>Shoulders may shift up slightly to push down, nullifying upward rotation</div>
+<div>Do not let scapula collapse inwards; keep tension with pecs</div>
+</sc-if>
+<sc-if value="{{isObs}}" hint-placeholder-val="{{ false }}">
+<div style="opacity: 0.55">No observations yet.</div>
+</sc-if>
+<sc-if value="{{isSet}}" hint-placeholder-val="{{ false }}">
+<div>Seat 4 · palms → furthest</div>
+<div>Iva · seat 3</div>
+</sc-if>
+</div>
+</section>
+
+<section style="border: 1px solid rgba(200,195,176,0.3); padding: 4px 8px">
+<div style="display: grid; grid-template-columns: 30px minmax(0, 1fr) minmax(0, 1fr); gap: 4px; font-size: 11px; letter-spacing: 1.5px; padding-bottom: 3px; border-bottom: 1px solid rgba(200,195,176,0.22)">
+<span>SET</span>
+<span>LAST · 10-02</span>
+<span>TODAY</span>
+</div>
+<sc-for list="{{rows}}" as="row" hint-placeholder-count="3">
+<div style="display: grid; grid-template-columns: 30px minmax(0, 1fr) minmax(0, 1fr); gap: 4px; align-items: center; height: 23px">
+<span style="font-size: 12px">{{row.n}}</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="{{row.lastMark}}"></span><b style="font-size: 15px; font-weight: 700">{{row.lastLoad}}</b><span style="font-size: 11px; letter-spacing: 1px">{{row.lastGrade}}</span></span>
+<span style="display: flex; align-items: center; gap: 6px">
+<sc-if value="{{row.hasToday}}" hint-placeholder-val="{{ true }}"><span style="{{row.todayMark}}"></span><b class="glow" style="font-size: 19px; font-weight: 700; color: #D9573B">{{row.todayLoad}}</b><span style="font-size: 11px; letter-spacing: 1px; color: #ECE8DA">{{row.todayGrade}}</span></sc-if>
+<sc-if value="{{row.isNow}}" hint-placeholder-val="{{ false }}"><span style="border: 1px dashed #DDF7F5; color: #DDF7F5; padding: 0 6px; font-size: 12px; letter-spacing: 1.5px">▸ NOW</span></sc-if>
+<sc-if value="{{row.isEmpty}}" hint-placeholder-val="{{ false }}"><span style="opacity: 0.4">—</span></sc-if>
+</span>
+</div>
+</sc-for>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 7px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<button type="button" onClick="{{down}}" aria-label="Move the pin down one plate, minus 7 kilograms" style="width: 76px; height: 64px; background: transparent; color: #ECE8DA; border: 2px solid #D9573B; font-family: inherit; font-size: 21px; font-weight: 700; clip-path: polygon(0 0, 100% 0, 100% 100%, 12px 100%, 0 calc(100% - 12px))">−7</button>
+<div style="display: flex; align-items: baseline; gap: 6px">
+<span class="glow" style="font-size: 56px; font-weight: 700; line-height: 1; color: #D9573B">{{load}}</span>
+<span style="font-size: 11px; letter-spacing: 1.5px">KG</span>
+</div>
+<button type="button" onClick="{{up}}" aria-label="Move the pin up one plate, plus 7 kilograms" style="width: 76px; height: 64px; background: transparent; color: #ECE8DA; border: 2px solid #D9573B; font-family: inherit; font-size: 21px; font-weight: 700; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)">+7</button>
+</div>
+<div style="display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 1px">
+<span>7</span>
+<div style="flex: 1; display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 3px; align-items: center">
+<sc-for list="{{stack}}" as="s" hint-placeholder-count="14">
+<span style="{{s.style}}"></span>
+</sc-for>
+</div>
+<span>98</span>
+</div>
+</section>
+
+<section style="margin-top: auto; display: flex; flex-direction: column; gap: 5px">
+<button type="button" onClick="{{logIdeal}}" style="height: 54px; background: #D9573B; color: #121215; border: none; font-family: Gelasio, Georgia, serif; font-size: 22px; font-weight: 700; letter-spacing: 4px; box-shadow: 0 0 18px rgba(217,87,59,0.45); clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)">IDEAL</button>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px">
+<button type="button" onClick="{{logAcceptable}}" style="height: 46px; background: transparent; color: #ECE8DA; border: 2px solid #D9573B; font-family: inherit; font-size: 12.5px; font-weight: 700; letter-spacing: 0.5px">ACCEPTABLE</button>
+<button type="button" onClick="{{logLight}}" style="height: 46px; background: transparent; color: #ECE8DA; border: 2px solid #D9573B; font-family: inherit; font-size: 12.5px; font-weight: 700; letter-spacing: 0.5px">LIGHT</button>
+<button type="button" onClick="{{logYielding}}" style="height: 46px; background: transparent; color: #ECE8DA; border: 2px dashed #D9573B; font-family: inherit; font-size: 12.5px; font-weight: 700; letter-spacing: 0.5px">YIELDING</button>
+<button type="button" onClick="{{logWarmup}}" style="height: 46px; background: transparent; color: #C8C3B0; border: 2px dotted #C8C3B0; font-family: inherit; font-size: 12.5px; font-weight: 700; letter-spacing: 0.5px">WARMUP</button>
+</div>
+</section>
+
+</div>
+<div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.26) 0px, rgba(0,0,0,0.26) 1px, transparent 1px, transparent 3px); opacity: {{texture}}"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;texture&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.45,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;section&quot;:&quot;Atmosphere&quot;},&quot;$preview&quot;:{&quot;width&quot;:400,&quot;height&quot;:640}}">
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { load: 56, tab: 'form', today: [{ w: 56, g: 'IDEAL' }] };
+}
+mark(g) {
+var base = 'display: inline-block; width: 9px; height: 9px; box-sizing: border-box; flex: none; ';
+if (g === 'IDEAL') return base + 'background: #D9573B; box-shadow: 0 0 6px rgba(217,87,59,0.7)';
+if (g === 'ACCEPTABLE') return base + 'border: 1px solid #D9573B; background: linear-gradient(90deg, #D9573B 50%, transparent 50%)';
+if (g === 'LIGHT') return base + 'border: 1px solid #D9573B';
+if (g === 'YIELDING') return base + 'border: 1px solid #D9573B; background: repeating-linear-gradient(45deg, #D9573B 0 1px, transparent 1px 3px)';
+return base + 'border: 1px dotted #C8C3B0';
+}
+renderVals() {
+var self = this;
+var load = this.state.load;
+var today = this.state.today;
+var last = [[56, 'IDEAL'], [56, 'IDEAL'], [56, 'ACCEPTABLE']];
+var n = Math.max(last.length, today.length + 1);
+var rows = [];
+for (var i = 0; i < n; i++) {
+var l = last[i];
+var t = today[i];
+rows.push({
+n: 'S' + (i + 1),
+lastLoad: l ? String(l[0]) : '—',
+lastGrade: l ? l[1] : '',
+lastMark: l ? this.mark(l[1]) : 'display: none',
+hasToday: !!t,
+isNow: !t && i === today.length,
+isEmpty: !t && i !== today.length,
+todayLoad: t ? String(t.w) : '',
+todayGrade: t ? t.g : '',
+todayMark: t ? this.mark(t.g) : 'display: none'
+});
+}
+var tabDefs = [['form', 'FORM'], ['obs', 'OBSERVATIONS'], ['set', 'SETTINGS']];
+var tabs = tabDefs.map(function (d) {
+var on = self.state.tab === d[0];
+return {
+label: d[1],
+pick: function () { self.setState({ tab: d[0] }); },
+style: 'height: 34px; border: none; border-bottom: 1px solid rgba(217,87,59,0.75); font-family: inherit; font-size: 11px; font-weight: 700; letter-spacing: 1px; ' + (on ? 'background: #D9573B; color: #121215' : 'background: transparent; color: #C8C3B0')
+};
+});
+var stack = [];
+for (var k = 1; k <= 14; k++) {
+var w = k * 7;
+var on = w <= load;
+var pin = w === load;
+stack.push({ style: 'height: ' + (pin ? 20 : 14) + 'px; box-sizing: border-box; ' + (pin ? 'background: #DDF7F5; box-shadow: 0 0 8px rgba(221,247,245,0.55)' : on ? 'background: #D9573B; box-shadow: 0 0 5px rgba(217,87,59,0.45)' : 'border: 1px solid rgba(200,195,176,0.35)') });
+}
+var log = function (g) { return function () { self.setState({ today: self.state.today.concat([{ w: self.state.load, g: g }]) }); }; };
+return {
+texture: this.props.texture ?? 0.7,
+tabs: tabs,
+isForm: this.state.tab === 'form',
+isObs: this.state.tab === 'obs',
+isSet: this.state.tab === 'set',
+rows: rows,
+load: String(load),
+stack: stack,
+down: function () { self.setState({ load: Math.max(7, self.state.load - 7) }); },
+up: function () { self.setState({ load: Math.min(98, self.state.load + 7) }); },
+logIdeal: log('IDEAL'),
+logAcceptable: log('ACCEPTABLE'),
+logLight: log('LIGHT'),
+logYielding: log('YIELDING'),
+logWarmup: log('WARMUP')
+};
+}
+}
+</script>
+</body>
+</html>

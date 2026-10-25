@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Navigation · B2 · Menu key, the index</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.glow{text-shadow:0 0 1px rgba(217,87,59,0.9),0 0 8px rgba(217,87,59,0.45)}
+.cur{animation:blink 1.1s steps(1) infinite}
+</style>
+</helmet>
+<div style="width: 400px; height: 640px; position: relative; overflow: hidden; background: #1A1D1A; color: #D9573B; font-family: 'Courier Prime', 'Courier New', monospace">
+<div aria-hidden="true" style="position: absolute; inset: 0; background-image: radial-gradient(rgba(217,87,59,0.10) 1px, transparent 1.4px); background-size: 9px 9px"></div>
+<div style="position: absolute; top: 28px; left: 16px; font-size: 11px; letter-spacing: 2px; color: rgba(217,87,59,0.42)">AUBURN · INDEX</div>
+<button type="button" aria-label="Close the index" style="position: absolute; top: 16px; right: 16px; width: 56px; height: 56px; box-sizing: border-box; border: 2px solid #D9573B; background: #1A1D1A; color: #D9573B; display: flex; align-items: center; justify-content: center; padding: 0; font-family: inherit"><span style="font-size: 26px; line-height: 1">×</span></button>
+<div style="position: absolute; left: 16px; right: 16px; bottom: 20px">
+<div class="glow" style="height: 46px; display: flex; align-items: center; font-size: 16px; font-weight: 700; letter-spacing: 1.5px; color: #D9573B; border-bottom: 1px solid rgba(217,87,59,0.12)"><span style="width: 34px; color: rgba(217,87,59,0.42)">01</span><span>REST AT A GLANCE</span><span class="cur" style="margin-left: 8px">▌</span><span style="margin-left: auto; font-size: 10px; letter-spacing: 1.5px; color: rgba(217,87,59,0.42)">HERE</span></div>
+<div class="" style="height: 46px; display: flex; align-items: center; font-size: 16px; font-weight: 700; letter-spacing: 1.5px; color: #D9573B; border-bottom: 1px solid rgba(217,87,59,0.12)"><span style="width: 34px; color: rgba(217,87,59,0.42)">02</span><span>PAST WORKOUTS</span></div>
+<div class="" style="height: 46px; display: flex; align-items: center; font-size: 16px; font-weight: 700; letter-spacing: 1.5px; color: #D9573B; border-bottom: 1px solid rgba(217,87,59,0.12)"><span style="width: 34px; color: rgba(217,87,59,0.42)">03</span><span>EXERCISES</span></div>
+<div class="" style="height: 46px; display: flex; align-items: center; font-size: 16px; font-weight: 700; letter-spacing: 1.5px; color: #D9573B; border-bottom: 1px solid rgba(217,87,59,0.12)"><span style="width: 34px; color: rgba(217,87,59,0.42)">04</span><span>GOALS</span></div>
+<div class="" style="height: 46px; display: flex; align-items: center; font-size: 16px; font-weight: 700; letter-spacing: 1.5px; color: #D9573B; border-bottom: 1px solid rgba(217,87,59,0.12)"><span style="width: 34px; color: rgba(217,87,59,0.42)">05</span><span>CARDIO</span></div>
+<div class="" style="height: 46px; display: flex; align-items: center; font-size: 16px; font-weight: 700; letter-spacing: 1.5px; color: #D9573B; border-bottom: 1px solid rgba(217,87,59,0.12)"><span style="width: 34px; color: rgba(217,87,59,0.42)">06</span><span>SPLITS AND GYMS</span></div>
+<div class="" style="height: 46px; display: flex; align-items: center; font-size: 16px; font-weight: 700; letter-spacing: 1.5px; color: #D9573B; border-bottom: 1px solid rgba(217,87,59,0.12)"><span style="width: 34px; color: rgba(217,87,59,0.42)">07</span><span>OVERDUE LOG</span></div>
+<div class="" style="height: 46px; display: flex; align-items: center; font-size: 16px; font-weight: 700; letter-spacing: 1.5px; color: #D9573B; border-bottom: 1px solid rgba(217,87,59,0.12)"><span style="width: 34px; color: rgba(217,87,59,0.42)">08</span><span>SETTINGS</span></div>
+<div style="height: 1px; background: rgba(217,87,59,0.35); margin: 6px 0"></div>
+<div class="" style="height: 46px; display: flex; align-items: center; font-size: 16px; font-weight: 700; letter-spacing: 1.5px; color: #DDF7F5; border-bottom: 1px solid rgba(217,87,59,0.12)"><span style="width: 34px"></span><span>POWER DOWN</span></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":400,"height":640}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

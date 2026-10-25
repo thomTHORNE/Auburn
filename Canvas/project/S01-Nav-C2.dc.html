@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Navigation · C2 · Main menu, rest opened</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 400px; height: 640px; position: relative; overflow: hidden; background: #1A1D1A; color: #D9573B; font-family: 'Courier Prime', 'Courier New', monospace">
+<div style="position: absolute; top: 76px; bottom: 20px; left: 16px; right: 16px; color: #D9573B">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px">REST</div>
+<div style="display: flex; gap: 16px">
+<div style="width: 118px; height: 330px; border: 1px dashed #D9573B; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; letter-spacing: 1.5px">FIGURE</div>
+<div style="flex: 1"><div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; margin: 8px 0 3px">UPPER</div><div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 18px"><span>Chest</span><span>3d</span></div><div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 18px"><span>Front delts</span><span>3d</span></div><div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 18px"><span>Side delts</span><span>1d</span></div><div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 18px"><span>Triceps</span><span>3d</span></div><div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 18px"><span>Lats</span><span>4d</span></div><div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 18px"><span>Upper back</span><span>4d</span></div><div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; margin: 8px 0 3px">LEG DAY</div><div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 18px"><span>Quads</span><span>5d</span></div><div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 18px"><span>Hamstrings</span><span>5d</span></div><div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 18px"><span>Glutes</span><span>5d</span></div><div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 18px"><span>Calves</span><span>2d</span></div><div style="height: 1px; background: #D9573B; margin: 9px 0 6px"></div><div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 18px"><span>Abs</span><span>0d</span></div><div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 18px"><span>Cardio</span><span>2d</span></div></div>
+</div>
+</div>
+<div style="position: absolute; top: 32px; right: 16px; font-size: 11px; font-weight: 700; letter-spacing: 1.2px; color: #D9573B">SCREEN 02 · NOT YET DESIGNED</div>
+<button type="button" style="position: absolute; top: 16px; left: 16px; height: 44px; padding: 0 12px; border: {{pLW}} solid {{pL}}; background: #1A1D1A; color: {{pT}}; font-family: inherit; font-size: 13px; font-weight: {{pTW}}; letter-spacing: 1.5px">◂ MENU</button>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"primaryTextOpacity": {"editor": null}, "primaryTextWeight": {"editor": null}, "primaryLineOpacity": {"editor": null}, "primaryLineWidth": {"editor": null}, "secondaryTextOpacity": {"editor": null}, "secondaryTextWeight": {"editor": null}, "secondaryLineOpacity": {"editor": null}, "secondaryLineWidth": {"editor": null}, "supportingTextOpacity": {"editor": null}, "supportingTextWeight": {"editor": null}, "supportingLineOpacity": {"editor": null}, "supportingLineWidth": {"editor": null}, "$preview": {"width": 400, "height": 640}}'>
+class Component extends DCLogic {
+// Each level has a text value and a line value; the hierarchy board, which imports this screen, sets them.
+renderVals() {
+var p = this.props, d = {"primaryTextOpacity": 90, "primaryTextWeight": "400", "primaryLineOpacity": 90, "primaryLineWidth": 2, "secondaryTextOpacity": 55, "secondaryTextWeight": "700", "secondaryLineOpacity": 55, "secondaryLineWidth": 2, "supportingTextOpacity": 42, "supportingTextWeight": "700", "supportingLineOpacity": 12, "supportingLineWidth": 3};
+var get = function (k) { return p[k] ?? d[k]; };
+var ember = function (k) { return 'rgba(217,87,59,' + get(k) / 100 + ')'; };
+return {
+pT: ember('primaryTextOpacity'), pCyan: 'rgba(221,247,245,' + get('primaryTextOpacity') / 100 + ')', pTW: get('primaryTextWeight'), pL: ember('primaryLineOpacity'), pLW: get('primaryLineWidth') + 'px',
+sT: ember('secondaryTextOpacity'), sTW: get('secondaryTextWeight'), sL: ember('secondaryLineOpacity'), sLW: get('secondaryLineWidth') + 'px',
+uT: ember('supportingTextOpacity'), uTW: get('supportingTextWeight'), uL: ember('supportingLineOpacity'), uLW: get('supportingLineWidth') + 'px'
+};
+}
+}
+</script>
+</body>
+</html>

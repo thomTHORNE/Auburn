@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Navigation · C3 · Main menu, in a workout</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 400px; height: 640px; position: relative; overflow: hidden; background: #1A1D1A; color: #D9573B; font-family: 'Courier Prime', 'Courier New', monospace">
+<div style="position: absolute; top: 76px; left: 16px; right: 16px; color: #D9573B">
+<div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px">CITY GYM · 3 OF 4</div>
+<div style="font-size: 20px; font-weight: 700; letter-spacing: 1px; margin-top: 4px">BENCH PRESS</div>
+<div style="display: flex; gap: 14px; font-size: 10px; letter-spacing: 1px; margin-top: 10px; border-bottom: 1px solid #D9573B; padding-bottom: 5px"><span style="text-decoration: underline">OBSERVATIONS</span><span>SETTINGS</span><span>FORM</span></div>
+<div style="font-size: 12px; line-height: 17px; margin-top: 6px">Bench at notch 4 · pause on the chest</div>
+<div style="display: flex; align-items: baseline; gap: 6px; margin-top: 16px"><span style="font-size: 44px; font-weight: 700; line-height: 1">100</span><span style="font-size: 11px; letter-spacing: 1.5px">KG</span><span style="margin-left: auto; font-size: 11px">BY FEEL</span></div>
+<div style="font-size: 11px; margin-top: 10px">1 · 100 IDEAL &nbsp; 2 · 100 ACCEPTABLE</div>
+</div>
+<div style="position: absolute; top: 32px; right: 16px; font-size: 11px; font-weight: 700; letter-spacing: 1.2px; color: #D9573B">SCREEN 06 · NOT YET DESIGNED</div>
+<div style="position: absolute; left: 16px; right: 16px; bottom: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+<div style="grid-column: 1 / -1; height: 64px; background: #D9573B; color: #121215; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; letter-spacing: 3px">IDEAL</div>
+<div style="height: 48px; border: 1px solid #D9573B; color: #D9573B; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 1px">ACCEPT.</div><div style="height: 48px; border: 1px solid #D9573B; color: #D9573B; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 1px">LIGHT</div><div style="height: 48px; border: 1px solid #D9573B; color: #D9573B; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 1px">YIELD.</div><div style="height: 48px; border: 1px solid #D9573B; color: #D9573B; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 1px">WARMUP</div></div>
+<button type="button" style="position: absolute; top: 16px; left: 16px; height: 44px; padding: 0 12px; border: {{pLW}} solid {{pL}}; background: #1A1D1A; color: {{pT}}; font-family: inherit; font-size: 13px; font-weight: {{pTW}}; letter-spacing: 1.5px">◂ MENU</button>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"primaryTextOpacity": {"editor": null}, "primaryTextWeight": {"editor": null}, "primaryLineOpacity": {"editor": null}, "primaryLineWidth": {"editor": null}, "secondaryTextOpacity": {"editor": null}, "secondaryTextWeight": {"editor": null}, "secondaryLineOpacity": {"editor": null}, "secondaryLineWidth": {"editor": null}, "supportingTextOpacity": {"editor": null}, "supportingTextWeight": {"editor": null}, "supportingLineOpacity": {"editor": null}, "supportingLineWidth": {"editor": null}, "$preview": {"width": 400, "height": 640}}'>
+class Component extends DCLogic {
+// Each level has a text value and a line value; the hierarchy board, which imports this screen, sets them.
+renderVals() {
+var p = this.props, d = {"primaryTextOpacity": 90, "primaryTextWeight": "400", "primaryLineOpacity": 90, "primaryLineWidth": 2, "secondaryTextOpacity": 55, "secondaryTextWeight": "700", "secondaryLineOpacity": 55, "secondaryLineWidth": 2, "supportingTextOpacity": 42, "supportingTextWeight": "700", "supportingLineOpacity": 12, "supportingLineWidth": 3};
+var get = function (k) { return p[k] ?? d[k]; };
+var ember = function (k) { return 'rgba(217,87,59,' + get(k) / 100 + ')'; };
+return {
+pT: ember('primaryTextOpacity'), pCyan: 'rgba(221,247,245,' + get('primaryTextOpacity') / 100 + ')', pTW: get('primaryTextWeight'), pL: ember('primaryLineOpacity'), pLW: get('primaryLineWidth') + 'px',
+sT: ember('secondaryTextOpacity'), sTW: get('secondaryTextWeight'), sL: ember('secondaryLineOpacity'), sLW: get('secondaryLineWidth') + 'px',
+uT: ember('supportingTextOpacity'), uTW: get('supportingTextWeight'), uL: ember('supportingLineOpacity'), uLW: get('supportingLineWidth') + 'px'
+};
+}
+}
+</script>
+</body>
+</html>

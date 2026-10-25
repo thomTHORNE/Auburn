@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Navigation · C1 · Main menu, home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+</style>
+</helmet>
+<div style="width: 400px; height: 640px; position: relative; overflow: hidden; background: #1A1D1A; color: #D9573B; font-family: 'Courier Prime', 'Courier New', monospace">
+<div style="position: absolute; top: 22px; left: 16px; right: 16px">
+<div style="font-family: Gelasio, Georgia, serif; font-weight: 700; font-size: 22px; letter-spacing: 6px; display: flex; align-items: center">AUBURN<span aria-hidden="true" style="display: inline-block; width: 11px; height: 20px; margin-left: 2px; background: #D9573B; animation: blink 1.1s steps(1) infinite"></span></div>
+<div style="font-size: 11px; line-height: 17px; margin-top: 10px; color: {{sT}}; font-weight: {{sTW}}">LAST WORKOUT · 2 DAYS AGO · CITY GYM<br>OVERDUE · NONE</div>
+</div>
+<div style="position: absolute; left: 16px; right: 16px; bottom: 16px">
+<div style="height: 42px; display: flex; align-items: center; font-size: 16px; font-weight: {{pTW}}; letter-spacing: 1.5px; color: {{pT}}; border-bottom: {{uLW}} solid {{uL}}"><span style="width: 34px; color: {{uT}}; font-weight: {{uTW}}">01</span><span>START WORKOUT</span></div>
+<div style="height: 42px; display: flex; align-items: center; font-size: 16px; font-weight: {{pTW}}; letter-spacing: 1.5px; color: {{pT}}; border-bottom: {{uLW}} solid {{uL}}"><span style="width: 34px; color: {{uT}}; font-weight: {{uTW}}">02</span><span>REST AT A GLANCE</span></div>
+<div style="height: 42px; display: flex; align-items: center; font-size: 16px; font-weight: {{pTW}}; letter-spacing: 1.5px; color: {{pT}}; border-bottom: {{uLW}} solid {{uL}}"><span style="width: 34px; color: {{uT}}; font-weight: {{uTW}}">03</span><span>PAST WORKOUTS</span></div>
+<div style="height: 42px; display: flex; align-items: center; font-size: 16px; font-weight: {{pTW}}; letter-spacing: 1.5px; color: {{pT}}; border-bottom: {{uLW}} solid {{uL}}"><span style="width: 34px; color: {{uT}}; font-weight: {{uTW}}">04</span><span>EXERCISES</span></div>
+<div style="height: 42px; display: flex; align-items: center; font-size: 16px; font-weight: {{pTW}}; letter-spacing: 1.5px; color: {{pT}}; border-bottom: {{uLW}} solid {{uL}}"><span style="width: 34px; color: {{uT}}; font-weight: {{uTW}}">05</span><span>GOALS</span></div>
+<div style="height: 42px; display: flex; align-items: center; font-size: 16px; font-weight: {{pTW}}; letter-spacing: 1.5px; color: {{pT}}; border-bottom: {{uLW}} solid {{uL}}"><span style="width: 34px; color: {{uT}}; font-weight: {{uTW}}">06</span><span>CARDIO</span></div>
+<div style="height: 42px; display: flex; align-items: center; font-size: 16px; font-weight: {{pTW}}; letter-spacing: 1.5px; color: {{pT}}; border-bottom: {{uLW}} solid {{uL}}"><span style="width: 34px; color: {{uT}}; font-weight: {{uTW}}">07</span><span>SPLITS AND GYMS</span></div>
+<div style="height: 42px; display: flex; align-items: center; font-size: 16px; font-weight: {{pTW}}; letter-spacing: 1.5px; color: {{pT}}; border-bottom: {{uLW}} solid {{uL}}"><span style="width: 34px; color: {{uT}}; font-weight: {{uTW}}">08</span><span>OVERDUE LOG</span></div>
+<div style="height: 42px; display: flex; align-items: center; font-size: 16px; font-weight: {{pTW}}; letter-spacing: 1.5px; color: {{pT}}; border-bottom: {{uLW}} solid {{uL}}"><span style="width: 34px; color: {{uT}}; font-weight: {{uTW}}">09</span><span>SETTINGS</span></div>
+<div style="height: {{sLW}}; background: {{sL}}; margin: 6px 0"></div>
+<button type="button" aria-label="Power down: press and hold" onPointerDown="{{pdStart}}" onPointerUp="{{pdStop}}" onPointerLeave="{{pdStop}}" onPointerCancel="{{pdStop}}" style="position: relative; width: 100%; height: 42px; padding: 0; border: none; border-bottom: {{uLW}} solid {{uL}}; background: transparent; display: flex; align-items: center; font-family: inherit; font-size: 16px; font-weight: {{pTW}}; letter-spacing: 1.5px; text-align: left; cursor: pointer; touch-action: none; user-select: none">
+<span aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: {{pdFill}}; background: #D9573B"></span>
+<span style="position: relative; width: 34px; flex: none"></span>
+<sc-for list="{{pdChars}}" as="c" hint-placeholder-count="10"><span style="position: relative; white-space: pre; color: {{c.color}}">{{c.ch}}</span></sc-for>
+</button>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"primaryTextOpacity": {"editor": null}, "primaryTextWeight": {"editor": null}, "primaryLineOpacity": {"editor": null}, "primaryLineWidth": {"editor": null}, "secondaryTextOpacity": {"editor": null}, "secondaryTextWeight": {"editor": null}, "secondaryLineOpacity": {"editor": null}, "secondaryLineWidth": {"editor": null}, "supportingTextOpacity": {"editor": null}, "supportingTextWeight": {"editor": null}, "supportingLineOpacity": {"editor": null}, "supportingLineWidth": {"editor": null}, "$preview": {"width": 400, "height": 640}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { pd: 0 };
+}
+componentWillUnmount() {
+cancelAnimationFrame(this.frame); clearTimeout(this.after);
+}
+// Power down fills while held: 1.5 s to full. Let go early and it drains back.
+run(dir) {
+var self = this, last = performance.now();
+cancelAnimationFrame(this.frame); clearTimeout(this.after);
+var step = function (now) {
+var pd = Math.max(0, Math.min(1, self.state.pd + dir * (now - last) / (dir > 0 ? 1500 : 300)));
+last = now;
+self.setState({ pd: pd });
+if (dir > 0 && pd >= 1) { self.after = setTimeout(function () { self.setState({ pd: 0 }); }, 1500); return; }
+if (pd > 0 && pd < 1) self.frame = requestAnimationFrame(step);
+};
+this.frame = requestAnimationFrame(step);
+}
+renderVals() {
+var self = this;
+var p = this.props, d = {"primaryTextOpacity": 90, "primaryTextWeight": "400", "primaryLineOpacity": 90, "primaryLineWidth": 2, "secondaryTextOpacity": 55, "secondaryTextWeight": "700", "secondaryLineOpacity": 55, "secondaryLineWidth": 2, "supportingTextOpacity": 42, "supportingTextWeight": "700", "supportingLineOpacity": 12, "supportingLineWidth": 3};
+var get = function (k) { return p[k] ?? d[k]; };
+var ember = function (k) { return 'rgba(217,87,59,' + get(k) / 100 + ')'; };
+var r = {
+pT: ember('primaryTextOpacity'), pCyan: 'rgba(221,247,245,' + get('primaryTextOpacity') / 100 + ')', pTW: get('primaryTextWeight'), pL: ember('primaryLineOpacity'), pLW: get('primaryLineWidth') + 'px',
+sT: ember('secondaryTextOpacity'), sTW: get('secondaryTextWeight'), sL: ember('secondaryLineOpacity'), sLW: get('secondaryLineWidth') + 'px',
+uT: ember('supportingTextOpacity'), uTW: get('supportingTextWeight'), uL: ember('supportingLineOpacity'), uLW: get('supportingLineWidth') + 'px'
+};
+// Each character inverts to Obsidian as the fill passes its centre; Courier Prime advances 0.6 em, plus the tracking.
+var pd = this.state.pd, row = 368, fillPx = pd * row, adv = 16 * 0.6 + 1.5;
+r.pdFill = (pd * 100) + '%';
+r.pdChars = 'POWER DOWN'.split('').map(function (ch, i) { return { ch: ch, color: fillPx >= 34 + (i + 0.5) * adv ? '#121215' : r.pCyan }; });
+r.pdStart = function () { if (self.state.pd < 1) self.run(1); };
+r.pdStop = function () { if (self.state.pd < 1) self.run(-1); };
+return r;
+}
+}
+</script>
+</body>
+</html>

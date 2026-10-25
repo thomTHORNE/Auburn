@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Boot · M · L, ember screen</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@600;700&amp;family=Courier+Prime:wght@400;700&amp;family=Saira:wght@300;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#D9573B}a:hover{color:#DDF7F5}
+@keyframes bootLine{0%{transform:scaleX(0);opacity:1}4%{transform:scaleX(1);opacity:1}8%{transform:scaleX(1);opacity:0}100%{transform:scaleX(1);opacity:0}}
+@keyframes bootOpen{0%,4%{clip-path:inset(50% 0 50% 0);opacity:1}10%{clip-path:inset(0 0 0 0);opacity:1}57%{clip-path:inset(0 0 0 0);opacity:1}67%,100%{clip-path:inset(0 0 0 0);opacity:0}}
+@keyframes bar1{0%,10%{transform:scaleY(0)}18%,100%{transform:scaleY(1)}}
+@keyframes bar2{0%,14%{transform:scaleY(0)}22%,100%{transform:scaleY(1)}}
+@keyframes bar3{0%,18%{transform:scaleY(0)}26%,100%{transform:scaleY(1)}}
+@keyframes plateIn{0%,6%{opacity:0}10%,100%{opacity:1}}
+@keyframes wordIn{0%,24%{opacity:0;letter-spacing:26px}34%,100%{opacity:1;letter-spacing:12px}}
+@keyframes wordFade{0%,24%{opacity:0;transform:scaleX(1.12)}34%,100%{opacity:1;transform:scaleX(1)}}
+@keyframes lineIn{0%,30%{opacity:0}32%{opacity:.6}33%{opacity:.15}36%,100%{opacity:1}}
+.glow{text-shadow:0 0 1px rgba(217,87,59,0.9),0 0 8px rgba(217,87,59,0.5),0 0 20px rgba(217,87,59,0.22)}
+</style>
+</helmet>
+<div style="width: 400px; height: 640px; position: relative; overflow: hidden; background: #D9573B; color: #121215; font-family: 'Courier Prime', 'Courier New', monospace">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 319px; height: 2px; background: #DDF7F5; box-shadow: 0 0 12px #DDF7F5; transform-origin: center; animation: bootLine {{dur}}s linear infinite"></div>
+<div style="position: absolute; inset: 0; animation: bootOpen {{dur}}s linear infinite">
+<div aria-hidden="true" style="position: absolute; inset: 0; background-image: radial-gradient(rgba(18,18,21,0.10) 1px, transparent 1.4px); background-size: 9px 9px; opacity: 0.7"></div>
+<div style="position: relative; height: 100%; box-sizing: border-box; padding: 0 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px">
+<div role="img" aria-label="Auburn mark: three pillars cut through a framed ember block, lettered H, C, M, the line beneath a rule" style="width: 220px; height: 264px; box-sizing: border-box; background: #D9573B; padding: 10px; animation: plateIn {{dur}}s linear infinite">
+<div style="height: 100%; box-sizing: border-box; border: 2px solid #121215; padding: 4px">
+<div style="height: 100%; box-sizing: border-box; border: 1px solid #121215; padding: 12px 14px 10px; display: flex; flex-direction: column">
+<div style="flex: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px">
+<span style="display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; background: #121215; transform-origin: bottom; animation: bar1 {{dur}}s ease-out infinite; font-family: Saira, sans-serif; font-weight: 300; font-size: 28px; line-height: 1; color: #D9573B">H</span><span style="display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; background: #121215; transform-origin: bottom; animation: bar2 {{dur}}s ease-out infinite; font-family: Saira, sans-serif; font-weight: 300; font-size: 28px; line-height: 1; color: #D9573B">C</span><span style="display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; background: #121215; transform-origin: bottom; animation: bar3 {{dur}}s ease-out infinite; font-family: Saira, sans-serif; font-weight: 300; font-size: 28px; line-height: 1; color: #D9573B">M</span>
+</div>
+<div style="height: 26px; display: flex; align-items: center; justify-content: center; border-top: 1px solid #121215; margin-top: 10px; white-space: nowrap; overflow: hidden; font-family: Saira, sans-serif; font-size: 8px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: #121215"><span style="animation: lineIn {{dur}}s linear infinite">{{line}}</span></div>
+</div>
+</div>
+</div>
+<h1 class="" aria-label="Auburn" style="margin: 0; width: 200px; display: flex; justify-content: space-between; font-family: Gelasio, Georgia, serif; font-weight: 700; font-size: 34px; line-height: 1; color: #121215; animation: wordFade {{dur}}s ease-out infinite"><span>A</span><span>U</span><span>B</span><span>U</span><span>R</span><span>N</span></h1>
+</div>
+</div>
+<div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0px, rgba(0,0,0,0.12) 1px, transparent 1px, transparent 3px); opacity: 0.7"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;duration&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:8.5,&quot;min&quot;:2,&quot;max&quot;:12,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;s&quot;,&quot;section&quot;:&quot;Animation&quot;},&quot;$preview&quot;:{&quot;width&quot;:400,&quot;height&quot;:640}}">
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.lines = ['More human than human.', 'Building Better Worlds.', 'Introducing, the new You.'];
+this.state = { i: Math.floor(Math.random() * this.lines.length) };
+}
+duration() {
+return this.props.duration ?? 6;
+}
+componentDidMount() {
+this.schedule();
+}
+componentWillUnmount() {
+clearTimeout(this.timer);
+}
+// A new line each loop, never the same twice running; the wait follows the duration tweak.
+schedule() {
+var self = this;
+this.timer = setTimeout(function () {
+var n = self.lines.length;
+var next = (self.state.i + 1 + Math.floor(Math.random() * (n - 1))) % n;
+self.setState({ i: next });
+self.schedule();
+}, this.duration() * 1000);
+}
+renderVals() {
+return { line: this.lines[this.state.i], dur: this.duration() };
+}
+}
+</script>
+</body>
+</html>

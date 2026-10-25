@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Round 3 · Signal red candidates</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@600;700&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#E9643A}a:hover{color:#DDF7F5}
+</style>
+</helmet>
+<div style="width: 1272px; height: 720px; box-sizing: border-box; padding: 32px 40px; background: #0C0C0E; color: #C8C3B0; font-family: 'Courier Prime', 'Courier New', monospace; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; letter-spacing: 1.5px">
+<span>SIGNAL CANDIDATES × TWO SCREEN GROUNDS</span>
+<span>TOP ROW: OBSIDIAN #121215 · BOTTOM ROW: TUBE #1A1D1A</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px">
+<sc-for list="{{cells}}" as="c" hint-placeholder-count="8">
+<div style="{{c.cell}}">
+<div style="display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 1.2px">
+<span>{{c.name}}</span>
+<span>{{c.hex}}</span>
+</div>
+<div style="{{c.plate}}">
+<div style="border: 2px solid #121215; padding: 3px">
+<div style="border: 1px solid #121215; padding: 6px 8px; font-family: Gelasio, Georgia, serif; font-weight: 700; font-size: 17px; letter-spacing: 2.5px; color: #121215">ROMANIAN DEADLIFT</div>
+</div>
+</div>
+<div style="display: flex; align-items: baseline; gap: 6px">
+<span style="{{c.load}}">100</span>
+<span style="font-size: 11px; letter-spacing: 1.5px">KG</span>
+<span style="{{c.small}}">IMPORTANT: deload by 10</span>
+</div>
+<div style="font-size: 12.5px">Pull on the bar · twist elbows in</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<button type="button" style="{{c.ideal}}">IDEAL</button>
+<button type="button" style="{{c.light}}">LIGHT</button>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1272,"height":720}}'>
+class Component extends DCLogic {
+rgb(hex) {
+var n = parseInt(hex.slice(1), 16);
+return ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255);
+}
+renderVals() {
+var self = this;
+var reds = [['VERMILION · NOW', '#FF3B26'], ['PHOSPHOR ORANGE', '#E9643A'], ['EMBER', '#D9573B'], ['CORAL SIGNAL', '#EE7552']];
+var grounds = ['#121215', '#1A1D1A'];
+var cells = [];
+grounds.forEach(function (g) {
+reds.forEach(function (r) {
+var c = r[1];
+var rgb = self.rgb(c);
+cells.push({
+name: r[0],
+hex: c,
+cell: 'height: 280px; box-sizing: border-box; padding: 14px; background: ' + g + '; border: 1px solid rgba(' + rgb + ',0.35); display: flex; flex-direction: column; gap: 10px',
+plate: 'background: ' + c + '; padding: 5px; box-shadow: 0 0 20px rgba(' + rgb + ',0.3)',
+load: 'font-size: 46px; font-weight: 700; line-height: 1; color: ' + c + '; text-shadow: 0 0 1px rgba(' + rgb + ',0.9), 0 0 9px rgba(' + rgb + ',0.5), 0 0 22px rgba(' + rgb + ',0.22)',
+small: 'margin-left: auto; font-size: 11px; font-weight: 700; color: ' + c,
+ideal: 'height: 44px; background: ' + c + '; color: #121215; border: none; font-family: Gelasio, Georgia, serif; font-size: 17px; font-weight: 700; letter-spacing: 3px; box-shadow: 0 0 14px rgba(' + rgb + ',0.4)',
+light: 'height: 44px; background: transparent; color: ' + c + '; border: 2px solid ' + c + '; font-family: inherit; font-size: 15px; font-weight: 700; letter-spacing: 1.5px'
+});
+});
+});
+return { cells: cells };
+}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,697 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Bezel.dc.html": {
+      "h": 844,
+      "page": "design",
+      "title": "C · Bezel",
+      "w": 390,
+      "x": 940,
+      "y": 0
+    },
+    "Instrument.dc.html": {
+      "h": 844,
+      "page": "design",
+      "title": "B · Instrument",
+      "w": 390,
+      "x": 470,
+      "y": 0
+    },
+    "Main.dc.html": {
+      "h": 844,
+      "page": "design",
+      "title": "A · Phosphor",
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "R2-Plates.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "design",
+      "title": "Plates · Romanian Deadlift",
+      "w": 390,
+      "x": 0,
+      "y": 1264
+    },
+    "R2-Stack.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "design",
+      "title": "Stack · Chest Press",
+      "w": 390,
+      "x": 470,
+      "y": 1264
+    },
+    "R3-Plates.dc.html": {
+      "h": 640,
+      "is_interactive": true,
+      "page": "design",
+      "title": "Cover · Plates · Romanian Deadlift",
+      "w": 400,
+      "x": 1352,
+      "y": 2528
+    },
+    "R3-Signal.dc.html": {
+      "h": 720,
+      "page": "design",
+      "title": "Signal red candidates",
+      "w": 1272,
+      "x": 0,
+      "y": 2528
+    },
+    "R3-Stack.dc.html": {
+      "h": 640,
+      "is_interactive": true,
+      "page": "design",
+      "title": "Cover · Stack · Chest Press",
+      "w": 400,
+      "x": 1832,
+      "y": 2528
+    },
+    "S00-Boot-A.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · A · Framed pillars",
+      "w": 400,
+      "x": 0,
+      "y": 300
+    },
+    "S00-Boot-B.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · B · Three heights",
+      "w": 400,
+      "x": 480,
+      "y": 300
+    },
+    "S00-Boot-C.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · C · Cut from the plate",
+      "w": 400,
+      "x": 960,
+      "y": 300
+    },
+    "S00-Boot-D.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · D · Cut, framed, named",
+      "w": 400,
+      "x": 0,
+      "y": 1260
+    },
+    "S00-Boot-E.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · E · Cut and framed",
+      "w": 400,
+      "x": 480,
+      "y": 1260
+    },
+    "S00-Boot-F.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · F · Two frames, three pillars",
+      "w": 400,
+      "x": 0,
+      "y": 2320
+    },
+    "S00-Boot-G.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · G · Unequal pillars",
+      "w": 400,
+      "x": 480,
+      "y": 2320
+    },
+    "S00-Boot-H.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · H · Ember screen",
+      "w": 400,
+      "x": 960,
+      "y": 2320
+    },
+    "S00-Boot-I.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · I · F reworked",
+      "w": 400,
+      "x": 0,
+      "y": 3380
+    },
+    "S00-Boot-J.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · J · Unequal, clipped",
+      "w": 400,
+      "x": 480,
+      "y": 3380
+    },
+    "S00-Boot-K.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · K · F reworked, ember screen",
+      "w": 400,
+      "x": 960,
+      "y": 3380
+    },
+    "S00-Boot-L.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · L · D, lettered, the line inside",
+      "w": 400,
+      "x": 0,
+      "y": 4440
+    },
+    "S00-Boot-M.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · M · L, ember screen",
+      "w": 400,
+      "x": 480,
+      "y": 4440
+    },
+    "S00-Boot-N.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · N · L, the line on a dark band",
+      "w": 400,
+      "x": 960,
+      "y": 4440
+    },
+    "S00-Boot-O.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · O · M, outlined plate",
+      "w": 400,
+      "x": 1440,
+      "y": 4440
+    },
+    "S00-Boot-P.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · P · Clean, tube",
+      "w": 400,
+      "x": 0,
+      "y": 5500
+    },
+    "S00-Boot-Q.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · Q · Clean, ember",
+      "w": 400,
+      "x": 480,
+      "y": 5500
+    },
+    "S00-Boot-R.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · R · Effects, tube",
+      "w": 400,
+      "x": 0,
+      "y": 6260
+    },
+    "S00-Boot-S.dc.html": {
+      "h": 640,
+      "page": "s00",
+      "title": "Boot · S · Effects, ember",
+      "w": 400,
+      "x": 480,
+      "y": 6260
+    },
+    "S01-Covers-R1.dc.html": {
+      "h": 420,
+      "page": "s01",
+      "title": "Widget covers · round 1",
+      "w": 880,
+      "x": 2400,
+      "y": 520
+    },
+    "S01-Covers-R2.dc.html": {
+      "h": 700,
+      "is_interactive": true,
+      "page": "s01",
+      "title": "Covers and icons · round 2",
+      "w": 1280,
+      "x": 2400,
+      "y": 1040
+    },
+    "S01-Hierarchy.dc.html": {
+      "h": 1000,
+      "is_interactive": true,
+      "page": "s01",
+      "title": "Visual hierarchy · controls apply to every screen here",
+      "w": 1360,
+      "x": 0,
+      "y": 5500
+    },
+    "S01-Manifest.dc.html": {
+      "h": 960,
+      "page": "s01",
+      "title": "Screen 01 · value manifest",
+      "w": 400,
+      "x": -619,
+      "y": 9100
+    },
+    "S01-Nav-A1.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Navigation · A1 · Bottom bar, home",
+      "w": 400,
+      "x": 0,
+      "y": 2800
+    },
+    "S01-Nav-A2.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Navigation · A2 · Bottom bar, more open",
+      "w": 400,
+      "x": 480,
+      "y": 2800
+    },
+    "S01-Nav-A3.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Navigation · A3 · Bottom bar, in a workout",
+      "w": 400,
+      "x": 960,
+      "y": 2800
+    },
+    "S01-Nav-B1.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Navigation · B1 · Menu key, home",
+      "w": 400,
+      "x": 0,
+      "y": 3740
+    },
+    "S01-Nav-B2.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Navigation · B2 · Menu key, the index",
+      "w": 400,
+      "x": 480,
+      "y": 3740
+    },
+    "S01-Nav-B3.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Navigation · B3 · Menu key, in a workout",
+      "w": 400,
+      "x": 960,
+      "y": 3740
+    },
+    "S01-Nav-C1.dc.html": {
+      "h": 640,
+      "is_interactive": true,
+      "page": "s01",
+      "title": "Navigation · C1 · Main menu, home",
+      "w": 400,
+      "x": 0,
+      "y": 4680
+    },
+    "S01-Nav-C2.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Navigation · C2 · Main menu, rest opened",
+      "w": 400,
+      "x": 480,
+      "y": 4680
+    },
+    "S01-Nav-C3.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Navigation · C3 · Main menu, in a workout",
+      "w": 400,
+      "x": 960,
+      "y": 4680
+    },
+    "S01-Palette.dc.html": {
+      "h": 880,
+      "is_interactive": true,
+      "page": "s01",
+      "title": "Palette · applies to every screen here",
+      "w": 2620,
+      "x": 0,
+      "y": 9100
+    },
+    "S01-R1-Edit.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Round 1 · editing the Goals widget",
+      "w": 400,
+      "x": 1440,
+      "y": 7160
+    },
+    "S01-R1-Home.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Round 1 · home",
+      "w": 400,
+      "x": 0,
+      "y": 7160
+    },
+    "S01-R1-Power.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Round 1 · power down, held",
+      "w": 400,
+      "x": 1920,
+      "y": 7160
+    },
+    "S01-R1-Raised.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Round 1 · list raised",
+      "w": 400,
+      "x": 480,
+      "y": 7160
+    },
+    "S01-R1-Workout.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Round 1 · workout in progress",
+      "w": 400,
+      "x": 960,
+      "y": 7160
+    },
+    "S01-R2-Edit.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Round 2 · editing the Goals widget",
+      "w": 400,
+      "x": 1440,
+      "y": 8200
+    },
+    "S01-R2-Home.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Round 2 · home",
+      "w": 400,
+      "x": 0,
+      "y": 8200
+    },
+    "S01-R2-Power.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Round 2 · power down, held",
+      "w": 400,
+      "x": 1920,
+      "y": 8200
+    },
+    "S01-R2-Raised.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Round 2 · list raised",
+      "w": 400,
+      "x": 480,
+      "y": 8200
+    },
+    "S01-R2-Workout.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Round 2 · workout in progress",
+      "w": 400,
+      "x": 960,
+      "y": 8200
+    },
+    "W01-Glyphs.dc.html": {
+      "h": 820,
+      "page": "s01",
+      "title": "Glyphs · A enter, B prompt, C prompt without frame",
+      "w": 400,
+      "x": 1920,
+      "y": 0
+    },
+    "W01-Home-B.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Home · list down",
+      "w": 400,
+      "x": 0,
+      "y": 0
+    },
+    "W01-Home-Edit.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Home · editing the Goals widget",
+      "w": 400,
+      "x": 1440,
+      "y": 0
+    },
+    "W01-Home-Raised.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Home · list raised",
+      "w": 400,
+      "x": 480,
+      "y": 0
+    },
+    "W01-Home-Workout.dc.html": {
+      "h": 640,
+      "page": "s01",
+      "title": "Home · workout in progress",
+      "w": 400,
+      "x": 960,
+      "y": 0
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-23T12:00:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "round1": {
+      "kind": "title1",
+      "maxW": 1330,
+      "page": "design",
+      "text": "Round 1 — Log a set",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "round2": {
+      "kind": "title1",
+      "maxW": 860,
+      "page": "design",
+      "text": "Round 2 — Two loads, one look",
+      "w": 240,
+      "x": 0,
+      "y": 964
+    },
+    "round3": {
+      "kind": "title1",
+      "maxW": 2232,
+      "page": "design",
+      "text": "Round 3 — Ember on Tube, cover screen",
+      "w": 240,
+      "x": 0,
+      "y": 2228
+    },
+    "s00": {
+      "kind": "title1",
+      "maxW": 1360,
+      "page": "s00",
+      "text": "Screen 00 — Boot",
+      "w": 240,
+      "x": 0,
+      "y": 0
+    },
+    "s00r2": {
+      "kind": "title1",
+      "maxW": 880,
+      "page": "s00",
+      "text": "Boot · Round 2 — C, framed",
+      "w": 240,
+      "x": 0,
+      "y": 980
+    },
+    "s00r3": {
+      "kind": "title1",
+      "maxW": 1360,
+      "page": "s00",
+      "text": "Boot · Round 3 — closer, unequal, all ember",
+      "w": 240,
+      "x": 0,
+      "y": 2020
+    },
+    "s00r4": {
+      "kind": "title1",
+      "maxW": 1360,
+      "page": "s00",
+      "text": "Boot · Round 4 — F reworked",
+      "w": 240,
+      "x": 0,
+      "y": 3080
+    },
+    "s00r5": {
+      "kind": "title1",
+      "maxW": 1840,
+      "page": "s00",
+      "text": "Boot · Round 5 — back to D",
+      "w": 240,
+      "x": 0,
+      "y": 4140
+    },
+    "s00r6": {
+      "kind": "title1",
+      "maxW": 880,
+      "page": "s00",
+      "text": "Boot · Round 6 — L and M, clean, then with effects",
+      "w": 240,
+      "x": 0,
+      "y": 5200
+    },
+    "s01": {
+      "kind": "title1",
+      "maxW": 1360,
+      "page": "s01",
+      "text": "Screen 01 — Navigation",
+      "w": 240,
+      "x": 0,
+      "y": 2400
+    },
+    "s01A": {
+      "kind": "title1",
+      "maxW": 1360,
+      "page": "s01",
+      "text": "Option A — a bottom bar",
+      "w": 240,
+      "x": 0,
+      "y": 2540
+    },
+    "s01B": {
+      "kind": "title1",
+      "maxW": 1360,
+      "page": "s01",
+      "text": "Option B — one menu key, rest as home",
+      "w": 240,
+      "x": 0,
+      "y": 3480
+    },
+    "s01C": {
+      "kind": "title1",
+      "maxW": 1360,
+      "page": "s01",
+      "text": "Option C — a main menu as home",
+      "w": 240,
+      "x": 0,
+      "y": 4420
+    },
+    "s01r1": {
+      "kind": "title1",
+      "maxW": 2320,
+      "page": "s01",
+      "text": "Round 1 — the home, from the wireframe",
+      "w": 240,
+      "x": 0,
+      "y": 6880
+    },
+    "s01r2": {
+      "kind": "title1",
+      "maxW": 2320,
+      "page": "s01",
+      "text": "Round 2 — named titles, covers without bands, a palette",
+      "w": 240,
+      "x": 0,
+      "y": 7920
+    },
+    "w01": {
+      "kind": "title1",
+      "maxW": 2320,
+      "page": "s01",
+      "text": "01 Navigation — what information earns its place",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "w01n12": {
+      "fill": "gray",
+      "page": "s01",
+      "text": "SETTLED\nMain menu as home · Auburn always on home · status: last workout · list: Start workout, Past workouts, Exercises, Splits and gyms, Overdue log, Settings; three show while down; RESUME WORKOUT while one is in progress · glyph C on every entry · widgets: Rest at a glance, Goals, Cardio; each a cover, its name, basic info and an Edit button, and opens its screen; Edit gives up, down (one place in reading order), and half or full width · the widget area scrolls under the list · covers are drawn per widget, after your cleaned-up terminal icons; Rest's cover is your traced bust; the tinted figure lives on the Rest screen only · no overdue, workout-in-progress or date line on home · layers: content, then list, then power down on top, fixed at the bottom edge · Power down by press and hold · the overdue prompt opens over this screen · widget info: Rest — how many groups are in Train or Overdue, what is overdue; Goals — how many goals, the latest progress; Cardio — days since the last activity, the last run · covers and icons: Gelasio 700, short names, 1 px title rules · palette roles: screen Tube, list Trial A #212220, power down Tube, accent Ember, ink Obsidian, light Cyan White · widget titles on an Ember fill in ink",
+      "w": 560,
+      "x": 2400,
+      "y": 0
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Instrument.dc.html",
+    "Bezel.dc.html",
+    "R2-Plates.dc.html",
+    "R2-Stack.dc.html",
+    "R3-Signal.dc.html",
+    "R3-Plates.dc.html",
+    "R3-Stack.dc.html",
+    "S00-Boot-A.dc.html",
+    "S00-Boot-B.dc.html",
+    "S00-Boot-C.dc.html",
+    "S00-Boot-D.dc.html",
+    "S00-Boot-E.dc.html",
+    "S00-Boot-F.dc.html",
+    "S00-Boot-G.dc.html",
+    "S00-Boot-H.dc.html",
+    "S00-Boot-I.dc.html",
+    "S00-Boot-J.dc.html",
+    "S00-Boot-K.dc.html",
+    "S00-Boot-L.dc.html",
+    "S00-Boot-M.dc.html",
+    "S00-Boot-N.dc.html",
+    "S00-Boot-O.dc.html",
+    "S00-Boot-P.dc.html",
+    "S00-Boot-Q.dc.html",
+    "S00-Boot-R.dc.html",
+    "S00-Boot-S.dc.html",
+    "W01-Home-B.dc.html",
+    "W01-Home-Raised.dc.html",
+    "W01-Home-Edit.dc.html",
+    "W01-Glyphs.dc.html",
+    "W01-Home-Workout.dc.html",
+    "S01-Nav-A1.dc.html",
+    "S01-Nav-A2.dc.html",
+    "S01-Nav-A3.dc.html",
+    "S01-Nav-B1.dc.html",
+    "S01-Nav-B2.dc.html",
+    "S01-Nav-B3.dc.html",
+    "S01-Nav-C1.dc.html",
+    "S01-Nav-C2.dc.html",
+    "S01-Nav-C3.dc.html",
+    "S01-Hierarchy.dc.html",
+    "S01-Manifest.dc.html",
+    "S01-Covers-R1.dc.html",
+    "S01-Covers-R2.dc.html",
+    "S01-R1-Home.dc.html",
+    "S01-R1-Raised.dc.html",
+    "S01-R1-Workout.dc.html",
+    "S01-R1-Edit.dc.html",
+    "S01-R1-Power.dc.html",
+    "S01-R2-Home.dc.html",
+    "S01-R2-Raised.dc.html",
+    "S01-R2-Workout.dc.html",
+    "S01-R2-Edit.dc.html",
+    "S01-R2-Power.dc.html",
+    "S01-Palette.dc.html"
+  ],
+  "pages": [
+    {
+      "id": "s00",
+      "name": "00 Boot"
+    },
+    {
+      "id": "s01",
+      "name": "01 Navigation"
+    },
+    {
+      "id": "design",
+      "name": "Explorations"
+    }
+  ],
+  "title": "Auburn Visual Direction"
+}
