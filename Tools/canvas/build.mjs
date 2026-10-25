@@ -9,7 +9,8 @@
 //   S01-<state>              the agreed screen 01 (Spec/Visual Design/01-navigation/screen.html), importing the
 //                            component boards.
 //   S01-R3-<state>           screen 01, round 3: its own copy of the agreed screen and its components, flattened,
-//                            moved onto the trial scales and text colours.
+//                            moved onto the trial scales and text colours, with 44 px tap areas on the widget's
+//                            editing keys.
 //   basics.css               a copy of Spec/Visual Design/basics.css.
 //
 // Values the user has set in a board's Tweaks tab are read from the mirror and kept. A change stays on its board.
@@ -232,6 +233,18 @@ function onScales(style) {
   return s;
 }
 
+// The widget's editing keys take a 44 px tap area, the way EDIT does: an invisible button around the key it shows,
+// its overhang taken back by a negative margin, so the key looks and sits as before.
+function tapAreas(html) {
+  return html
+    .replace(/<button (aria-label="Move (?:up|down)") style="height: 30px; (border: [^;]+); background: transparent; (color: [^;]+); font-family: inherit; ([^"]+)" type="button">(.)<\/button>/g,
+      (_, label, border, color, type, key) => `<button ${label} style="height: 44px; margin: -7px 0; padding: 0; border: none; background: transparent; display: flex; align-items: center; font-family: inherit" type="button">`
+        + `<span style="flex: 1; height: 30px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; ${border}; ${color}; ${type}">${key}</span></button>`)
+    .replace(/<span class="seg seg-(half|full)" style="([^"]+)">(HALF|FULL)<\/span>/g,
+      (_, w, st, key) => `<button aria-label="${cap(w)} width" style="flex: 1; height: 44px; margin: -9px 0; padding: 0; border: none; background: transparent; display: flex; align-items: center; font: inherit; color: inherit; letter-spacing: inherit" type="button">`
+        + `<span class="seg seg-${w}" style="${st}; height: 26px">${key}</span></button>`);
+}
+
 // ---- components ----
 
 const COMPONENTS = components();
@@ -350,7 +363,7 @@ function navigationBoards(round) {
   for (const m of src.matchAll(/<section class="state" id="([a-z-]+)">\s*<h2>[^<]*<\/h2>\s*([\s\S]*?)<\/section>/g)) {
     let html = m[2].trim();
     // The agreed screen imports the component boards; a round works on its own copy, flattened.
-    html = round ? bustToMask(expand(html)).replace(/style="([^"]*)"/g, (_, st) => `style="${onScales(st)}"`) : toImports(html);
+    html = round ? tapAreas(bustToMask(expand(html))).replace(/style="([^"]*)"/g, (_, st) => `style="${onScales(st)}"`) : toImports(html);
     // The screen's root takes whatever the Theme or round board passes in.
     html = html.replace(/^<div style="([^"]*)">/, (_, st) => `<div style="${st.replace(/;?\s*$/, '')}; {{theme}}">`);
     out[`S01-${round ? 'R3-' : ''}${names[m[1]]}.dc.html`] = board({
