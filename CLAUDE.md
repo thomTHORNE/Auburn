@@ -175,7 +175,7 @@ A publish is undone by publishing the files from the commit before it.
 name (its wireframes and rounds), then Explorations.
 
 **Values.** `project/basics.css` is a copy of `Spec/Visual Design/basics.css`, and every board
-links it. A board never declares a value. A screen board declares only its roles. Sizes and
+links it. A board never declares a value. A screen board declares no values. Sizes and
 gaps are steps of the basics' type and spacing scales; only a position on one screen is that
 screen's own.
 

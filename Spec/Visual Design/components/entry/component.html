@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=400">
+<title>Auburn · Component · List entry</title>
+<!-- An entry in the list: the entry glyph and its label.
+     The template below is the component: its markup, a hole for each piece of text it is given, and a data attribute for
+     each property that changes its look. Tools/build-components.mjs builds ../../components.js from it. The values come
+     from ../../basics.css. The sections after it are the states to render. -->
+<meta name="images" content="entry: | #entry > .frame">
+<link rel="stylesheet" href="../../basics.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&family=Courier+Prime:wght@400;700&display=swap">
+<script src="../../components.js"></script>
+<style>
+body { margin: 0; padding: 24px; background: #000; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; font-family: var(--font-interface); }
+h2 { margin: 0 0 8px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #8A8A8A; text-transform: uppercase; }
+.frame { position: relative; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface); }
+</style>
+</head>
+<body>
+<template id="auburn-entry" data-props="" data-text="label">
+<style>
+.auburn-entry { display: contents; }
+</style>
+<a href="#" style="height: 42px; box-sizing: border-box; display: flex; align-items: center; gap: 16px; border-bottom: 3px solid color-mix(in srgb, var(--color-accent) var(--supporting-line), transparent); text-decoration: none; font-size: 16px; font-weight: 400; letter-spacing: 1.5px; color: color-mix(in srgb, var(--color-accent) var(--primary-text), transparent)"><svg aria-hidden="true" fill="none" height="18" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" style="flex: none; stroke: color-mix(in srgb, var(--color-accent) var(--supporting-text), transparent)" viewbox="0 0 24 24" width="18"><path d="M4 7 L9 12 L4 17 M12 17 H20"></path></svg><span>{{label}}</span></a>
+</template>
+<section id="entry">
+<h2>Entry</h2>
+<div class="frame" style="width: 368px; padding: 0 16px; background: var(--list-color-ground)"><auburn-entry data-label="START WORKOUT"></auburn-entry></div>
+</section>
+</body>
+</html>

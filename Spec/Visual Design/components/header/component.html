@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=400">
+<title>Auburn · Component · Header</title>
+<!-- The header: the wordmark with its cursor, and the status line.
+     The template below is the component: its markup, a hole for each piece of text it is given, and a data attribute for
+     each property that changes its look. Tools/build-components.mjs builds ../../components.js from it. The values come
+     from ../../basics.css. The sections after it are the states to render. -->
+<meta name="images" content="header: | #header > .frame">
+<link rel="stylesheet" href="../../basics.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&family=Courier+Prime:wght@400;700&display=swap">
+<script src="../../components.js"></script>
+<style>
+body { margin: 0; padding: 24px; background: #000; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; font-family: var(--font-interface); }
+h2 { margin: 0 0 8px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #8A8A8A; text-transform: uppercase; }
+.frame { position: relative; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface); }
+</style>
+</head>
+<body>
+<template id="auburn-header" data-props="" data-text="status">
+<style>
+.auburn-header { display: contents; }
+@keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+</style>
+<div style="display: flex; align-items: center; font-family: var(--font-wordmark); font-weight: 700; font-size: 22px; letter-spacing: 6px; color: var(--color-accent)">AUBURN<span aria-hidden="true" style="display: inline-block; width: 11px; height: 20px; margin-left: 2px; background: var(--color-accent); animation: blink var(--duration-cursor-blink) steps(1) infinite"></span></div>
+<div style="font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: color-mix(in srgb, var(--color-accent) var(--secondary-text), transparent)">{{status}}</div>
+</template>
+<section id="header">
+<h2>Header</h2>
+<div class="frame" style="width: 368px; padding: 18px 16px; display: flex; flex-direction: column; gap: 10px"><auburn-header data-status="LAST WORKOUT · 2 DAYS AGO · CITY GYM"></auburn-header></div>
+</section>
+</body>
+</html>

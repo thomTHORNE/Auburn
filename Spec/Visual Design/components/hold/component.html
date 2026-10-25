@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=400">
+<title>Auburn · Component · Hold key</title>
+<!-- A key pressed and held: the fill grows from the left and each letter inverts as the fill reaches it.
+     The template below is the component: its markup, a hole for each piece of text it is given, and a data attribute for
+     each property that changes its look. Tools/build-components.mjs builds ../../components.js from it. The values come
+     from ../../basics.css. The sections after it are the states to render. -->
+<meta name="images" content="idle: | #idle > .frame; held: | #held > .frame">
+<link rel="stylesheet" href="../../basics.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&family=Courier+Prime:wght@400;700&display=swap">
+<script src="../../components.js"></script>
+<style>
+body { margin: 0; padding: 24px; background: #000; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; font-family: var(--font-interface); }
+h2 { margin: 0 0 8px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #8A8A8A; text-transform: uppercase; }
+.frame { position: relative; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface); }
+</style>
+</head>
+<body>
+<template id="auburn-hold" data-props="fill: 0-100; inverted: 0-n" data-text="label">
+<style>
+.auburn-hold { display: block; }
+.auburn-hold .hold-letter[data-state="idle"] { color: color-mix(in srgb, var(--hold-color-text) var(--primary-text), transparent); }
+.auburn-hold .hold-letter[data-state="filled"] { color: var(--hold-color-text-filled); }
+</style>
+<script type="text/x-logic">
+function (d) {
+  // The label as letters; the first `inverted` letters have been reached by the fill.
+  var n = Number(d.inverted) || 0;
+  return { letters: String(d.label || '').split('').map(function (c, i) { return { c: c, state: i < n ? 'filled' : 'idle' }; }) };
+}
+</script>
+<button type="button" aria-label="{{label}}, press and hold" style="position: relative; width: 100%; height: 52px; padding: 0 16px 0 50px; border: none; border-top: 2px solid color-mix(in srgb, var(--color-accent) var(--secondary-line), transparent); background: var(--hold-color-ground); display: flex; align-items: center; font-family: inherit; font-size: 16px; font-weight: 400; letter-spacing: 1.5px; text-align: left">
+<span aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: {{fill}}%; background: var(--hold-color-fill)"></span>
+<span style="position: relative; display: flex"><template data-each="letters"><span class="hold-letter" data-state="{{item.state}}" style="white-space: pre">{{item.c}}</span></template></span></button>
+</template>
+<section id="idle">
+<h2>Idle</h2>
+<div class="frame" style="width: 400px; height: 52px"><auburn-hold data-label="POWER DOWN" data-fill="0" data-inverted="0" style="position: absolute; inset: 0"></auburn-hold></div>
+</section>
+<section id="held">
+<h2>Held</h2>
+<div class="frame" style="width: 400px; height: 52px"><auburn-hold data-label="POWER DOWN" data-fill="60" data-inverted="10" style="position: absolute; inset: 0"></auburn-hold></div>
+</section>
+</body>
+</html>

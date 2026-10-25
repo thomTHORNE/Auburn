@@ -20,7 +20,7 @@ Auburn has a dark and a light theme. It follows the device unless Settings sets 
 
 ### Emphasis
 
-Every element sits on one of three levels — primary, secondary, supporting — for its text and for its lines: Ember at the level's opacity on the screen colour, or Cyan White where a screen sets an element apart.
+Every element sits on one of three levels — primary, secondary, supporting — for its text and for its lines: the accent at the level's opacity on the ground, or the set-apart colour where a screen sets an element apart.
 
 ### Lists
 
