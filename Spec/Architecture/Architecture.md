@@ -12,6 +12,7 @@ Mechanics that follow from those choices are split into their own documents in t
 
 - **Rendering.** Flutter draws every pixel itself through its Impeller engine, so one full-screen shader runs over the whole interface: the CRT tube and the glass on it. Impeller is required. Without it, Flutter cannot run a shader over the rendered screen. On the Fold 8 cover screen the full effect holds 120 Hz with about a millisecond to spare.
 - **Theme values.** Every colour, opacity, weight, size and timing the interface uses comes from `Spec/Visual Design/basics.css`. A script in `Tools/` generates Dart from it at build time and keeps its three tiers: primitives become constants, and each semantic and component value refers to the value it refers to in the CSS. A change to a primitive therefore reaches everything built on it, and the app uses the same names as the screens. The app declares no value of its own, never uses a primitive directly, and never reads CSS. A hex colour becomes a `Color`, an emphasis level its colour at the level's opacity, `px` logical pixels, and `s` a `Duration`. The light theme is a second set of semantic values, chosen by the theme setting.
+- **Components.** Each component in `Spec/Visual Design/components/` is one Flutter widget; its properties are the widget's parameters, and its component values are used only inside it.
 - **Cardio import.** Authenticated HTTPS requests and FIT parsing, both proven in Dart.
 - **Version.** The probes ran on Flutter 3.47.7 with Dart 3.13.5.
 

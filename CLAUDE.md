@@ -121,10 +121,29 @@ Its folder, `Spec/Visual Design/<nn-screen>/`, holds `<nn-screen>.md`, `screen.h
 
 `screen.html` is the approved board as one file that links `basics.css` and uses only its values, and lists the states to render.
 
+### An agreed component
+
+Its folder, `Spec/Visual Design/components/<name>/`, holds `<name>.md`, `component.html`
+and the state images. The document follows a screen's, without **Earns its place**: **Why it
+is shaped this way**, then **Purpose**, **Rules** (what each property changes, and what holds
+in every state), **Controls** and **Images**. A screen's document names the components it
+uses and never repeats their rules.
+
+`component.html` is the agreed component as one template: its markup, a hole for each piece
+of text it is given, and a data attribute for each property that changes its look. It links
+`basics.css`, uses only semantic and component values, and lists the states to render.
+`Tools/` builds `Spec/Visual Design/components.js` from every `component.html`; a screen's
+`screen.html` loads it and places each component as an element, never a copy of its markup.
+`components.js` is generated and never edited.
+
+On the canvas, a component's board is generated from its `component.html`, with a tweak for
+each property, and every screen board that uses it imports it.
+
 ### What owns what
 
 - `basics.css` owns every value. A screen never introduces one; a value it needs is added there first.
 - `screen.html` owns the look and layout: sizes, gaps, positions. Canvas pixels are Flutter logical pixels. The art files own the art.
+- `component.html` owns a component's look and layout. A screen's `screen.html` owns where each component sits and which properties and text it is given.
 - The screen's document owns reasoning, behaviour, rules, and data.
 - Images are rendered, never edited.
 
