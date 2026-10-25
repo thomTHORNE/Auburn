@@ -76,6 +76,13 @@ Resolved tasks are removed from TASKS.md.
 - [ ] **`#6.19` Screen 16, power down, is not specified**
     `GAP`
 
+- [ ] **`#6.20` Screen 01's round 3 is not approved**
+    `MINOR`
+
+    Screen 01 on the type and spacing scales, with text colours, a 48 px tap area, two rows of editing keys at half width, and a full-width widget edited. Entries are as tall as the tap area and the list sits lower by their growth; the handle keeps its look and its tap area reaches up over the screen; tapping EDIT scrolls the widgets until the edited one is clear of the list. Approving it persists the scales, the text colours and the tap area into basics.css, replaces screen 01's screen.html, document and images, and the widget, list entry and list sheet components with their round copies.
+
+    The tap area lands as agreed. Visual Design.md gains, after Press and hold: "### Tap areas — Every key's tap area is at least the tap area value in each direction. A key drawn smaller keeps its look and takes the rest as an invisible margin; keys closer together than that are set apart until their areas do not overlap." Its Values section reads: "Semantic values say what a value is for — roles, emphasis levels, faces by job, timings, the tap area — and refer only to primitives, except a measure no scale holds, such as the tap area." basics.css gains, in the semantic tier, `/* Tap area: Android's least touch target */ --tap-area: 48px;`. 01-navigation.md drops "Every key's tap area is at least 44 px."
+
 ### `#9` Architecture · [Spec/Architecture/Architecture.md](Spec/Architecture/Architecture.md)
 
 - [ ] **`#9.1` The storage engine is not specified**

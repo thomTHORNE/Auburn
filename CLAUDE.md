@@ -156,7 +156,8 @@ https://claude.ai/artifact/GrWcshpnyMBXD5XAPsxaQp. Its format rules are in its `
 read with the Artifact tool.
 
 **The mirror.** `Canvas/project/` holds the canvas's `project/` folder file for file, and git
-is its history. At the start of every turn where the canvas's edit count has gone up since
+is its history. A session's first turn on the canvas reads every file, since it has no
+earlier read to compare with. At the start of every turn where the canvas's edit count has gone up since
 Claude last read it, Claude reads every file on the canvas and commits whatever differs from
 the mirror as the user's edits, whether or not a publish follows. A publish, every time:
 
@@ -168,6 +169,9 @@ the mirror as the user's edits, whether or not a publish follows. A publish, eve
 3. Commit with a message starting `Canvas:`, push, then publish only the changed files,
    with `Canvas/` as the root. A refused publish means the user saved meanwhile: start
    again at 1.
+
+A publish that changes a script in `Tools/canvas/` is looked at in the artifact emulator
+before it goes out.
 
 A publish is undone by publishing the files from the commit before it.
 
@@ -229,6 +233,11 @@ flow and use; the tube's look is checked on the device.
 **Known traps.** A `{{hole}}` is a dotted lookup only, never an expression. Text inside an
 SVG takes no holes: put it in HTML over the SVG. An uploaded image is used in CSS only from
 a `<helmet>` rule. Editing a `.dc.html` with `\u00b7`-style escapes fails: edit the parsed text.
+The canvas ignores `style` on a `dc-import`: a placed import sits in a div that carries the
+placing. A board shown inside another takes only the outer board's helmet rules, so every
+board carries every component's CSS. A publish of supporting files still needs a
+`file_path`: one of the changed files, with `Canvas/` as the root. The artifact emulator does
+not load uploaded images; the bust missing there is not a fault.
 
 ---
 
@@ -349,6 +358,7 @@ Past the range is the walking skeleton: thin, end to end, and kept. That is deve
 - **The verdict is what counts.** It is written into the log entry and, as a finding, into the Research topic or spec item that asked the question.
 - **The code is never built on.** Product code may borrow from it as a reference, never extend it.
 - **Kept until superseded.** An attempt's code stays in `Lab/<attempt>/` until product code covers the same ground, then it is deleted and the entry is marked retired.
+- **Attempts run on the user's phone.** A cloud session has no Flutter SDK: it clones Flutter's stable branch into its scratchpad to analyse and compile an attempt, and loses it with the container.
 
 ---
 

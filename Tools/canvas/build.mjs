@@ -250,7 +250,24 @@ function tapAreas(html) {
       (_, w, st, key) => `<button aria-label="${cap(w)} width" style="flex: 1; height: var(--tap-area); margin: ${overhang('26px')} 0; padding: 0; border: none; background: transparent; display: flex; align-items: center; font: inherit; color: inherit; letter-spacing: inherit" type="button">`
         + `<span class="seg seg-${w}" style="${st}; height: 26px">${key}</span></button>`)
     .replace(/(class="widget w-half"[\s\S]*?class="edit-controls" style="display: grid; grid-template-columns: )repeat\(4, minmax\(0, 1fr\)\); gap: 6px/g,
-      '$1repeat(2, minmax(0, 1fr)); gap: 24px 6px');
+      '$1repeat(2, minmax(0, 1fr)); gap: 24px 6px')
+    // An entry is a key of the tap area's height. The handle keeps its look; its tap area reaches up over the screen.
+    .replace(/<a href="#" style="height: 42px;/g, '<a href="#" style="height: var(--tap-area);')
+    .replace(/(<div style="height: 30px; display: flex; align-items: center; justify-content: center; gap: 10px; [^"]*)">(<span style="width: 40px; height: 3px;[^>]*><\/span>[^<]*)<\/div>/g,
+      '$1; position: relative">$2<button aria-label="Raise or lower the list" style="position: absolute; left: 0; right: 0; bottom: 0; height: var(--tap-area); padding: 0; border: none; background: transparent" type="button"></button></div>');
+}
+
+// Round 3's screen, before its components are filled in. The list sits lower than the agreed screen's by its three
+// entries' growth, so the same three show. While a widget is edited, the widgets scroll until it is clear of the list.
+// At a 48 px tap area: the edited widget ends 8 px above the handle's tap area.
+const EDIT_SCROLL = 78;
+function roundScreen(id, html) {
+  html = html.replace(/top: 432px/g, 'top: calc(432px - 3 * (var(--tap-area) - 42px))');
+  if (id !== 'editing') return html;
+  return html
+    .replace('top: 18px; display: flex; flex-direction: column; gap: 10px">', 'top: 18px; bottom: 52px; display: flex; flex-direction: column; gap: 10px">')
+    .replace(/<div style="display: grid; grid-template-columns: repeat\(2, minmax\(0, 1fr\)\); gap: 8px; margin-top: 4px">([\s\S]*?<\/div>)\n<\/div>/,
+      `<div style="flex: 1; min-height: 0; overflow: hidden; margin-top: 4px"><div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: -${EDIT_SCROLL}px">$1\n</div></div>`);
 }
 
 // ---- components ----
@@ -378,7 +395,7 @@ function navigationBoards(round) {
   }
   for (let [id, html] of states) {
     // The agreed screen imports the component boards; a round works on its own copy, flattened.
-    html = round ? tapAreas(bustToMask(expand(html))).replace(/style="([^"]*)"/g, (_, st) => `style="${onScales(st)}"`) : toImports(html);
+    html = round ? tapAreas(bustToMask(expand(roundScreen(id, html)))).replace(/style="([^"]*)"/g, (_, st) => `style="${onScales(st)}"`) : toImports(html);
     // The screen's root takes whatever the Theme or round board passes in.
     html = html.replace(/^<div style="([^"]*)">/, (_, st) => `<div style="${st.replace(/;?\s*$/, '')}; {{theme}}">`);
     out[`S01-${round ? 'R3-' : ''}${names[id]}.dc.html`] = board({
