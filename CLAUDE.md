@@ -137,10 +137,12 @@ https://claude.ai/artifact/GrWcshpnyMBXD5XAPsxaQp. Its format rules are in its `
 read with the Artifact tool.
 
 **The mirror.** `Canvas/project/` holds the canvas's `project/` folder file for file, and git
-is its history. A publish, every time:
+is its history. At the start of every turn where the canvas's edit count has gone up since
+Claude last read it, Claude reads every file on the canvas and commits whatever differs from
+the mirror as the user's edits, whether or not a publish follows. A publish, every time:
 
-1. Read the live `canvas.json` and every file about to change. Where any differs from the
-   mirror, write it in and commit it as the user's edits.
+1. Read every file on the canvas. Where any differs from the mirror, write it in and commit
+   it as the user's edits.
 2. Make the change in the mirror. A board built by a script in `Tools/canvas/` is changed
    through its script, with any edit the user made to it carried into the script first.
    Each script's header says what it builds and how to run it.

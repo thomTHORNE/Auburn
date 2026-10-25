@@ -10,6 +10,8 @@ The rules every screen follows, and the index of screens. Every value is in [bas
 
 Every colour, face, level, and timing a screen uses is in [basics.css](Visual%20Design/basics.css). A screen never introduces a value; a value it needs is added there first.
 
+basics.css holds three tiers. Primitives have no context: the palette, the font families, the steps of each scale. Semantic values say what a value is for — roles, emphasis levels, faces by job, timings — and refer only to primitives. Component values belong to one part and refer only to semantic values. Screens and components use semantic and component values, never a primitive.
+
 Every colour is a palette colour, named for what it is. A new colour joins the palette, with its name, before anything uses it; nothing takes a colour from outside the palette.
 
 ### Themes
