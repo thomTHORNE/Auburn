@@ -9,8 +9,8 @@
 //   S01-<state>              the agreed screen 01 (Spec/Visual Design/01-navigation/screen.html), importing the
 //                            component boards.
 //   S01-R3-<state>           screen 01, round 3: its own copy of the agreed screen and its components, flattened,
-//                            moved onto the trial scales and text colours, with 44 px tap areas on the widget's
-//                            editing keys.
+//                            moved onto the trial scales and text colours, with tap areas of the trial's height,
+//                            and a state of its own: a full-width widget edited.
 //   basics.css               a copy of Spec/Visual Design/basics.css.
 //
 // Values the user has set in a board's Tweaks tab are read from the mirror and kept. A change stays on its board.
@@ -48,6 +48,8 @@ const TRIALS = [
     ['--space-1', '2px'], ['--space-2', '4px'], ['--space-3', '8px'],
     ['--space-4', '12px'], ['--space-5', '16px'], ['--space-6', '24px'],
   ]],
+  // The least height a key's tap area takes, Android's 48 dp.
+  ['Tap area', [['--tap-area', '48px']]],
 ];
 
 // Screen 01's sizes, as they were before the scales, and the step each moves to.
@@ -219,7 +221,7 @@ function onScales(style) {
     (_, p, mix, l) => `${p}: var(--${l}-line-width) solid ${mix}`);
   // Gaps, padding and margins take steps of the spacing scale; negative margins stay as they are.
   s = s.replace(/\b((?:row-|column-)?gap|padding(?:-[a-z]+)?|margin(?:-[a-z]+)?): ([^;"]+)/g, (all, p, v) => {
-    if (/-\d/.test(v)) return all;
+    if (/-\d|--tap-area/.test(v)) return all;
     return `${p}: ${v.replace(/(?<![\d.])(\d+)px\b/g, (px, n) => {
       // The power key's text lines up with the entries' text: the margin, the glyph, the glyph's gap.
       if (p === 'padding' && n === '50') return 'calc(var(--space-5) + 18px + var(--space-5))';
@@ -233,16 +235,22 @@ function onScales(style) {
   return s;
 }
 
-// The widget's editing keys take a 44 px tap area, the way EDIT does: an invisible button around the key it shows,
-// its overhang taken back by a negative margin, so the key looks and sits as before.
+// Every key takes a tap area of the trial's height, the way EDIT does: an invisible button around the key it shows,
+// its overhang taken back by a negative margin, so the key looks and sits as before. At half width the editing keys
+// take two rows, ▲ ▼ over HALF FULL, each key wide enough to tap; the rows sit far enough apart that their tap
+// areas do not overlap.
+const overhang = (key) => `calc((${key} - var(--tap-area)) / 2)`;
 function tapAreas(html) {
   return html
+    .replace(/height: 44px; margin: -9px -8px -9px 0;/g, `height: var(--tap-area); margin: ${overhang('26px')} -8px ${overhang('26px')} 0;`)
     .replace(/<button (aria-label="Move (?:up|down)") style="height: 30px; (border: [^;]+); background: transparent; (color: [^;]+); font-family: inherit; ([^"]+)" type="button">(.)<\/button>/g,
-      (_, label, border, color, type, key) => `<button ${label} style="height: 44px; margin: -7px 0; padding: 0; border: none; background: transparent; display: flex; align-items: center; font-family: inherit" type="button">`
+      (_, label, border, color, type, key) => `<button ${label} style="height: var(--tap-area); margin: ${overhang('30px')} 0; padding: 0; border: none; background: transparent; display: flex; align-items: center; font-family: inherit" type="button">`
         + `<span style="flex: 1; height: 30px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; ${border}; ${color}; ${type}">${key}</span></button>`)
     .replace(/<span class="seg seg-(half|full)" style="([^"]+)">(HALF|FULL)<\/span>/g,
-      (_, w, st, key) => `<button aria-label="${cap(w)} width" style="flex: 1; height: 44px; margin: -9px 0; padding: 0; border: none; background: transparent; display: flex; align-items: center; font: inherit; color: inherit; letter-spacing: inherit" type="button">`
-        + `<span class="seg seg-${w}" style="${st}; height: 26px">${key}</span></button>`);
+      (_, w, st, key) => `<button aria-label="${cap(w)} width" style="flex: 1; height: var(--tap-area); margin: ${overhang('26px')} 0; padding: 0; border: none; background: transparent; display: flex; align-items: center; font: inherit; color: inherit; letter-spacing: inherit" type="button">`
+        + `<span class="seg seg-${w}" style="${st}; height: 26px">${key}</span></button>`)
+    .replace(/(class="widget w-half"[\s\S]*?class="edit-controls" style="display: grid; grid-template-columns: )repeat\(4, minmax\(0, 1fr\)\); gap: 6px/g,
+      '$1repeat(2, minmax(0, 1fr)); gap: 24px 6px');
 }
 
 // ---- components ----
@@ -357,17 +365,24 @@ return d;
 
 function navigationBoards(round) {
   const src = readFileSync(`${SPEC}/01-navigation/screen.html`, 'utf8');
-  const names = { home: 'Home', raised: 'Raised', workout: 'Workout', editing: 'Editing', 'power-down': 'Power' };
-  const titles = { home: 'home', raised: 'list raised', workout: 'workout in progress', editing: 'editing the Goals widget', 'power-down': 'power down, held' };
+  const names = { home: 'Home', raised: 'Raised', workout: 'Workout', editing: 'Editing', 'editing-full': 'Editing-Full', 'power-down': 'Power' };
+  const titles = { home: 'home', raised: 'list raised', workout: 'workout in progress', editing: 'editing the Goals widget', 'editing-full': 'editing the Rest widget, full width', 'power-down': 'power down, held' };
   const out = {};
-  for (const m of src.matchAll(/<section class="state" id="([a-z-]+)">\s*<h2>[^<]*<\/h2>\s*([\s\S]*?)<\/section>/g)) {
-    let html = m[2].trim();
+  const states = [...src.matchAll(/<section class="state" id="([a-z-]+)">\s*<h2>[^<]*<\/h2>\s*([\s\S]*?)<\/section>/g)].map((m) => [m[1], m[2].trim()]);
+  // Round 3 also edits a full-width widget: the editing state, with Rest edited and the others stepped back.
+  if (round) {
+    const at = states.findIndex(([id]) => id === 'editing');
+    const full = states[at][1].replace(/data-state="editing"/, 'data-state="stepped-back"')
+      .replace(/(data-kind="rest" data-width="full" data-state=")stepped-back"/, '$1editing"');
+    states.splice(at + 1, 0, ['editing-full', full]);
+  }
+  for (let [id, html] of states) {
     // The agreed screen imports the component boards; a round works on its own copy, flattened.
     html = round ? tapAreas(bustToMask(expand(html))).replace(/style="([^"]*)"/g, (_, st) => `style="${onScales(st)}"`) : toImports(html);
     // The screen's root takes whatever the Theme or round board passes in.
     html = html.replace(/^<div style="([^"]*)">/, (_, st) => `<div style="${st.replace(/;?\s*$/, '')}; {{theme}}">`);
-    out[`S01-${round ? 'R3-' : ''}${names[m[1]]}.dc.html`] = board({
-      title: round ? `Round 3 · ${titles[m[1]]} · on the scales · in progress` : `Navigation · ${titles[m[1]]} · agreed`,
+    out[`S01-${round ? 'R3-' : ''}${names[id]}.dc.html`] = board({
+      title: round ? `Round 3 · ${titles[id]} · on the scales · in progress` : `Navigation · ${titles[id]} · agreed`,
       fonts: 'family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700',
       helmet: '',
       body: html,
@@ -489,6 +504,8 @@ const boot = bootBoards();
 const agreed = navigationBoards(false);
 const round3 = navigationBoards(true);
 const W = 2652;
+// A row of n screens: the padding, the side column and its gap, then each screen and the gap after it.
+const rowWidth = (n) => 452 + 440 * n;
 const files = {
   ...parts, ...boot, ...agreed, ...round3,
   'Theme.dc.html': controlBoard({
@@ -503,7 +520,7 @@ const files = {
     // Round 3 takes the values tuned while it sat on the old Basics page.
     file: 'S01-R3-Round.dc.html', seedFrom: 'Basics-Theme.dc.html', title: 'Round 3 · screen 01 · in progress', heading: 'ROUND 3 · SCREEN 01 · IN PROGRESS',
     note: 'Screen 01 on the type and spacing scales, with text colours.',
-    toks: [...basicTokens, ...roundTokens, ...swatchTokens], width: W, height: 760,
+    toks: [...basicTokens, ...roundTokens, ...swatchTokens], width: rowWidth(Object.keys(round3).length), height: 760,
     rows: [{ label: 'SCREEN 01 · ROUND 3 · ON THE SCALES', boards: Object.keys(round3) }],
   }),
 };
@@ -523,7 +540,7 @@ const place = (name, entry) => {
 };
 const label = (n) => n.replace(/^S01-(R3-)?/, '').replace('.dc.html', '').toLowerCase();
 place('Theme.dc.html', { page: 'basics', title: 'Theme · tune in the Tweaks tab', w: W, h: 1456, x: 0, y: 0, is_interactive: true });
-place('S01-R3-Round.dc.html', { page: 's01', title: 'Round 3 · in progress · tune in the Tweaks tab', w: W, h: 760, x: 0, y: 11480, is_interactive: true });
+place('S01-R3-Round.dc.html', { page: 's01', title: 'Round 3 · in progress · tune in the Tweaks tab', w: rowWidth(Object.keys(round3).length), h: 760, x: 0, y: 11480, is_interactive: true });
 Object.keys(round3).forEach((n, i) => place(n, { page: 's01', title: `Round 3 · ${label(n)} · on the scales · in progress`, w: 400, h: 640, x: i * 480, y: 10560 }));
 Object.keys(agreed).forEach((n, i) => place(n, { page: 's01', title: `Navigation · ${label(n)} · agreed`, w: 400, h: 640, x: i * 480, y: 12620 }));
 // Components: each one's states board, then the component's own board beside it.

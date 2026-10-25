@@ -469,7 +469,7 @@
       "title": "Round 3 · power · on the scales · in progress",
       "w": 400,
       "h": 640,
-      "x": 1920,
+      "x": 2400,
       "y": 10560
     },
     "S00-Dark.dc.html": {
@@ -500,7 +500,7 @@
     "S01-R3-Round.dc.html": {
       "page": "s01",
       "title": "Round 3 · in progress · tune in the Tweaks tab",
-      "w": 2652,
+      "w": 3092,
       "h": 760,
       "x": 0,
       "y": 11480,
@@ -630,6 +630,14 @@
       "x": 1172,
       "y": 1535,
       "is_interactive": true
+    },
+    "S01-R3-Editing-Full.dc.html": {
+      "page": "s01",
+      "title": "Round 3 · editing-full · on the scales · in progress",
+      "w": 400,
+      "h": 640,
+      "x": 1920,
+      "y": 10560
     }
   },
   "createdOnFiles": {
@@ -926,7 +934,8 @@
     "C-List-States.dc.html",
     "C-List.dc.html",
     "C-Widget-States.dc.html",
-    "C-Widget.dc.html"
+    "C-Widget.dc.html",
+    "S01-R3-Editing-Full.dc.html"
   ],
   "pages": [
     {
