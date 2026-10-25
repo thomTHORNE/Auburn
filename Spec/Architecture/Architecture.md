@@ -11,6 +11,7 @@ Mechanics that follow from those choices are split into their own documents in t
 **Flutter, written in Dart.** One codebase builds the Android app for v1 and keeps iOS within reach later.
 
 - **Rendering.** Flutter draws every pixel itself through its Impeller engine, so one full-screen shader runs over the whole interface: the CRT tube and the glass on it. Impeller is required. Without it, Flutter cannot run a shader over the rendered screen. On the Fold 8 cover screen the full effect holds 120 Hz with about a millisecond to spare.
+- **Theme values.** Every colour, opacity, weight, size and timing the interface uses comes from `Spec/Visual Design/basics.css`. A script in `Tools/` generates a Dart file of constants from it at build time; the app declares no value of its own and never reads CSS. A hex colour becomes a `Color`, an emphasis percentage Ember's alpha, `px` logical pixels, and `s` a `Duration`.
 - **Cardio import.** Authenticated HTTPS requests and FIT parsing, both proven in Dart.
 - **Version.** The probes ran on Flutter 3.47.7 with Dart 3.13.5.
 

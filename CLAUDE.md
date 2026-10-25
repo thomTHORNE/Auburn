@@ -54,6 +54,7 @@ Auburn/
 ├── Lab/                    ← throwaway code that answers questions. See Lab below.
 │   └── Log.md              ← every attempt and where it stands
 ├── Tools/                  ← scripts that maintain the repo, such as rendering the screen images
+├── Canvas/                 ← mirror of the design canvas, history in git
 ├── .claude/skills/         ← project skills. /sitrep prints a conversation checkpoint.
 └── Spec/
     ├── Scope.md            ← what each version includes and excludes
@@ -129,13 +130,60 @@ Its folder, `Spec/Visual Design/<nn-screen>/`, holds `<nn-screen>.md`, `screen.h
 
 Where two disagree, the owner holds and the other is fixed in the same edit. A change to a screen is not done until its document, HTML, and images all agree.
 
-Each screen has its own canvas page, named by its number and name, holding everything for that screen: its wireframes, its design rounds, its tuning boards, and its value manifest.
+### The canvas
 
-Boards are clean: the tube — curvature, scanlines, glass — and any other render effect, such as glow, flicker, or bloom, is never faked in the canvas. The canvas judges layout, design, flow, and use. The tube's values are in the basics, and its look is checked on the device.
+Design work happens on the canvas: the Claude Design artifact "Auburn Visual Direction",
+https://claude.ai/artifact/GrWcshpnyMBXD5XAPsxaQp. Its format rules are in its `SKILL.md`,
+read with the Artifact tool.
 
-A board with tweakable values carries its controls on the board, with two resets: a hold-to-preview that shows the starting values for as long as it is held and cannot be changed while held, and a reset that returns every value to the start. Each control shows its starting value. A value shared across screens, such as the hierarchy levels, is tuned on one board that shows every screen using it, so one change is seen everywhere at once.
+**The mirror.** `Canvas/project/` holds the canvas's `project/` folder file for file, and git
+is its history. A publish, every time:
 
-Once a screen's values are approved, the canvas carries its value manifest: a board beside the screen listing every value it uses. A manifest is reference — what worked for that screen — and becomes a basic only once it holds across screens.
+1. Read the live `canvas.json` and every file about to change. Where any differs from the
+   mirror, write it in and commit it as the user's edits.
+2. Make the change in the mirror. A board built by a script in `Tools/canvas/` is changed
+   through its script, with any edit the user made to it carried into the script first.
+   Each script's header says what it builds and how to run it.
+3. Commit with a message starting `Canvas:`, push, then publish only the changed files,
+   with `Canvas/` as the root. A refused publish means the user saved meanwhile: start
+   again at 1.
+
+A publish is undone by publishing the files from the commit before it.
+
+**Pages.** Basics first, then Components, then one page per screen named by its number and
+name (its wireframes and rounds), then Explorations.
+
+**Values.** `project/basics.css` is a copy of `Spec/Visual Design/basics.css`, and every board
+links it. A board never declares a value. A screen board declares only its roles. Sizes and
+gaps are steps of the basics' type and spacing scales; only a position on one screen is that
+screen's own. A board trying a value overrides the basic by name and lists its trials as
+`name start → now`.
+
+The Theme board, on Basics, shows every agreed screen and every round in progress. It has
+a tweak for every basic except the tube's, and lists each changed value as `name start → now`.
+
+**Tuning.** Values are tuned in the editor's Tweaks tab, which saves them in the board's
+file: ctrl+Z undoes them until the page is switched, and Claude reads them from the file.
+Each board shows each value's start, has a hold-to-preview showing every start for as long
+as it is held, and keeps a change log: every value change it has seen, newest first, kept
+on the user's computer. An earlier value is read from the log and set back in the Tweaks tab.
+Reset all is Claude republishing the board from the basics.
+
+**Persisting.** The user says which trials persist. Claude writes those into
+`Spec/Visual Design/basics.css`, copies it to the canvas, and removes the persisted and the
+dropped trials from the boards, all in one commit.
+
+**Components.** A part used on more than one screen is a component: its own board on the
+Components page, showing each of its states, imported by every screen that uses it, and
+changed only on its own board.
+
+**Clean boards.** The tube — curvature, scanlines, glass — and any other render effect, such
+as glow, flicker or bloom, is never faked on the canvas. The canvas judges layout, design,
+flow and use; the tube's look is checked on the device.
+
+**Known traps.** A `{{hole}}` is a dotted lookup only, never an expression. Text inside an
+SVG takes no holes: put it in HTML over the SVG. An uploaded image is used in CSS only from
+a `<helmet>` rule. Editing a `.dc.html` with `\u00b7`-style escapes fails: edit the parsed text.
 
 ---
 
