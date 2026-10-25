@@ -225,7 +225,7 @@ function navigationBoards(round) {
     // The screen's root: its roles, then whatever the Theme board passes in.
     html = html.replace(/^<div style="([^"]*)">/, (_, st) => `<div style="${st.replace(/;?\s*$/, '')}; ${roles} {{theme}}">`);
     out[`S01-${round ? 'R3-' : ''}${names[m[1]]}.dc.html`] = board({
-      title: round ? `Round 3 · ${titles[m[1]]} · on the scales` : `Navigation · ${titles[m[1]]} · agreed`,
+      title: round ? `Round 3 · ${titles[m[1]]} · on the scales · in progress` : `Navigation · ${titles[m[1]]} · agreed`,
       fonts: 'family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700',
       helmet: `@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}\n.bust{background: var(--ember); -webkit-mask: url(${BUST}) center top / contain no-repeat; mask: url(${BUST}) center top / contain no-repeat}\na{color:inherit}`,
       body: html,
@@ -353,7 +353,7 @@ const files = {
   }),
   'S01-R3-Round.dc.html': controlBoard({
     // Round 3 takes the values tuned while it sat on the old Basics page.
-    file: 'S01-R3-Round.dc.html', seedFrom: 'Basics-Theme.dc.html', title: 'Round 3 · screen 01', heading: 'ROUND 3 · SCREEN 01',
+    file: 'S01-R3-Round.dc.html', seedFrom: 'Basics-Theme.dc.html', title: 'Round 3 · screen 01 · in progress', heading: 'ROUND 3 · SCREEN 01 · IN PROGRESS',
     note: 'Screen 01 on the type and spacing scales, with text colours.',
     toks: [...basicTokens, ...roundTokens, ...swatchTokens], width: W, height: 760,
     rows: [{ label: 'SCREEN 01 · ROUND 3 · ON THE SCALES', boards: Object.keys(round3) }],
@@ -374,8 +374,8 @@ const place = (name, entry) => {
 };
 const label = (n) => n.replace(/^S01-(R3-)?/, '').replace('.dc.html', '').toLowerCase();
 place('Theme.dc.html', { page: 'basics', title: 'Theme · tune in the Tweaks tab', w: W, h: 1456, x: 0, y: 0, is_interactive: true });
-place('S01-R3-Round.dc.html', { page: 's01', title: 'Round 3 · tune in the Tweaks tab', w: W, h: 760, x: 0, y: 11480, is_interactive: true });
-Object.keys(round3).forEach((n, i) => place(n, { page: 's01', title: `Round 3 · ${label(n)} · on the scales`, w: 400, h: 640, x: i * 480, y: 10560 }));
+place('S01-R3-Round.dc.html', { page: 's01', title: 'Round 3 · in progress · tune in the Tweaks tab', w: W, h: 760, x: 0, y: 11480, is_interactive: true });
+Object.keys(round3).forEach((n, i) => place(n, { page: 's01', title: `Round 3 · ${label(n)} · on the scales · in progress`, w: 400, h: 640, x: i * 480, y: 10560 }));
 Object.keys(agreed).forEach((n, i) => place(n, { page: 's01', title: `Navigation · ${label(n)} · agreed`, w: 400, h: 640, x: i * 480, y: 12620 }));
 Object.keys(boot).forEach((n, i) => place(n, { page: 's00', title: `Boot · ${i ? 'light' : 'dark'} · agreed`, w: 400, h: 640, x: i * 480, y: 7460 }));
 delete index.notes.basics;

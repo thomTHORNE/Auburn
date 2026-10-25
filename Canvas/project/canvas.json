@@ -73,7 +73,7 @@
     "S00-Boot-A.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · A · Framed pillars",
+      "title": "Boot · A · Framed pillars · set aside",
       "w": 400,
       "x": 0,
       "y": 300
@@ -81,7 +81,7 @@
     "S00-Boot-B.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · B · Three heights",
+      "title": "Boot · B · Three heights · set aside",
       "w": 400,
       "x": 480,
       "y": 300
@@ -89,7 +89,7 @@
     "S00-Boot-C.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · C · Cut from the plate",
+      "title": "Boot · C · Cut from the plate · set aside",
       "w": 400,
       "x": 960,
       "y": 300
@@ -97,7 +97,7 @@
     "S00-Boot-D.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · D · Cut, framed, named",
+      "title": "Boot · D · Cut, framed, named · set aside",
       "w": 400,
       "x": 0,
       "y": 1260
@@ -105,7 +105,7 @@
     "S00-Boot-E.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · E · Cut and framed",
+      "title": "Boot · E · Cut and framed · set aside",
       "w": 400,
       "x": 480,
       "y": 1260
@@ -113,7 +113,7 @@
     "S00-Boot-F.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · F · Two frames, three pillars",
+      "title": "Boot · F · Two frames, three pillars · set aside",
       "w": 400,
       "x": 0,
       "y": 2320
@@ -121,7 +121,7 @@
     "S00-Boot-G.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · G · Unequal pillars",
+      "title": "Boot · G · Unequal pillars · set aside",
       "w": 400,
       "x": 480,
       "y": 2320
@@ -129,7 +129,7 @@
     "S00-Boot-H.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · H · Ember screen",
+      "title": "Boot · H · Ember screen · set aside",
       "w": 400,
       "x": 960,
       "y": 2320
@@ -137,7 +137,7 @@
     "S00-Boot-I.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · I · F reworked",
+      "title": "Boot · I · F reworked · set aside",
       "w": 400,
       "x": 0,
       "y": 3380
@@ -145,7 +145,7 @@
     "S00-Boot-J.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · J · Unequal, clipped",
+      "title": "Boot · J · Unequal, clipped · set aside",
       "w": 400,
       "x": 480,
       "y": 3380
@@ -153,7 +153,7 @@
     "S00-Boot-K.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · K · F reworked, ember screen",
+      "title": "Boot · K · F reworked, ember screen · set aside",
       "w": 400,
       "x": 960,
       "y": 3380
@@ -161,7 +161,7 @@
     "S00-Boot-L.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · L · D, lettered, the line inside",
+      "title": "Boot · L · D, lettered, the line inside · set aside",
       "w": 400,
       "x": 0,
       "y": 4440
@@ -169,7 +169,7 @@
     "S00-Boot-M.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · M · L, ember screen",
+      "title": "Boot · M · L, ember screen · set aside",
       "w": 400,
       "x": 480,
       "y": 4440
@@ -177,7 +177,7 @@
     "S00-Boot-N.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · N · L, the line on a dark band",
+      "title": "Boot · N · L, the line on a dark band · set aside",
       "w": 400,
       "x": 960,
       "y": 4440
@@ -185,7 +185,7 @@
     "S00-Boot-O.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · O · M, outlined plate",
+      "title": "Boot · O · M, outlined plate · set aside",
       "w": 400,
       "x": 1440,
       "y": 4440
@@ -193,7 +193,7 @@
     "S00-Boot-P.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · P · Clean, tube",
+      "title": "Boot · P · Clean, tube · approved",
       "w": 400,
       "x": 0,
       "y": 5500
@@ -201,7 +201,7 @@
     "S00-Boot-Q.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · Q · Clean, ember",
+      "title": "Boot · Q · Clean, ember · approved",
       "w": 400,
       "x": 480,
       "y": 5500
@@ -209,7 +209,7 @@
     "S00-Boot-R.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · R · Effects, tube",
+      "title": "Boot · R · Effects, tube · set aside",
       "w": 400,
       "x": 0,
       "y": 6260
@@ -217,7 +217,7 @@
     "S00-Boot-S.dc.html": {
       "h": 640,
       "page": "s00",
-      "title": "Boot · S · Effects, ember",
+      "title": "Boot · S · Effects, ember · set aside",
       "w": 400,
       "x": 480,
       "y": 6260
@@ -225,7 +225,7 @@
     "S01-Covers-R1.dc.html": {
       "h": 420,
       "page": "s01",
-      "title": "Widget covers · round 1",
+      "title": "Widget covers · round 1 · set aside",
       "w": 880,
       "x": 2400,
       "y": 520
@@ -234,7 +234,7 @@
       "h": 700,
       "is_interactive": true,
       "page": "s01",
-      "title": "Covers and icons · round 2",
+      "title": "Covers and icons · round 2 · approved",
       "w": 1280,
       "x": 2400,
       "y": 1040
@@ -242,7 +242,7 @@
     "S01-Nav-A1.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Navigation · A1 · Bottom bar, home",
+      "title": "Navigation · A1 · Bottom bar, home · set aside",
       "w": 400,
       "x": 0,
       "y": 2800
@@ -250,7 +250,7 @@
     "S01-Nav-A2.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Navigation · A2 · Bottom bar, more open",
+      "title": "Navigation · A2 · Bottom bar, more open · set aside",
       "w": 400,
       "x": 480,
       "y": 2800
@@ -258,7 +258,7 @@
     "S01-Nav-A3.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Navigation · A3 · Bottom bar, in a workout",
+      "title": "Navigation · A3 · Bottom bar, in a workout · set aside",
       "w": 400,
       "x": 960,
       "y": 2800
@@ -266,7 +266,7 @@
     "S01-Nav-B1.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Navigation · B1 · Menu key, home",
+      "title": "Navigation · B1 · Menu key, home · set aside",
       "w": 400,
       "x": 0,
       "y": 3740
@@ -274,7 +274,7 @@
     "S01-Nav-B2.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Navigation · B2 · Menu key, the index",
+      "title": "Navigation · B2 · Menu key, the index · set aside",
       "w": 400,
       "x": 480,
       "y": 3740
@@ -282,7 +282,7 @@
     "S01-Nav-B3.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Navigation · B3 · Menu key, in a workout",
+      "title": "Navigation · B3 · Menu key, in a workout · set aside",
       "w": 400,
       "x": 960,
       "y": 3740
@@ -291,7 +291,7 @@
       "h": 640,
       "is_interactive": true,
       "page": "s01",
-      "title": "Navigation · C1 · Main menu, home",
+      "title": "Navigation · C1 · Main menu, home · approved",
       "w": 400,
       "x": 0,
       "y": 4680
@@ -299,7 +299,7 @@
     "S01-Nav-C2.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Navigation · C2 · Main menu, rest opened",
+      "title": "Navigation · C2 · Main menu, rest opened · approved",
       "w": 400,
       "x": 480,
       "y": 4680
@@ -307,7 +307,7 @@
     "S01-Nav-C3.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Navigation · C3 · Main menu, in a workout",
+      "title": "Navigation · C3 · Main menu, in a workout · approved",
       "w": 400,
       "x": 960,
       "y": 4680
@@ -315,7 +315,7 @@
     "S01-R1-Edit.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Round 1 · editing the Goals widget",
+      "title": "Round 1 · editing the Goals widget · set aside",
       "w": 400,
       "x": 1440,
       "y": 7160
@@ -323,7 +323,7 @@
     "S01-R1-Home.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Round 1 · home",
+      "title": "Round 1 · home · set aside",
       "w": 400,
       "x": 0,
       "y": 7160
@@ -331,7 +331,7 @@
     "S01-R1-Power.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Round 1 · power down, held",
+      "title": "Round 1 · power down, held · set aside",
       "w": 400,
       "x": 1920,
       "y": 7160
@@ -339,7 +339,7 @@
     "S01-R1-Raised.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Round 1 · list raised",
+      "title": "Round 1 · list raised · set aside",
       "w": 400,
       "x": 480,
       "y": 7160
@@ -347,7 +347,7 @@
     "S01-R1-Workout.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Round 1 · workout in progress",
+      "title": "Round 1 · workout in progress · set aside",
       "w": 400,
       "x": 960,
       "y": 7160
@@ -355,7 +355,7 @@
     "S01-R2-Edit.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Round 2 · editing the Goals widget",
+      "title": "Round 2 · editing the Goals widget · approved",
       "w": 400,
       "x": 1440,
       "y": 8200
@@ -363,7 +363,7 @@
     "S01-R2-Home.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Round 2 · home",
+      "title": "Round 2 · home · approved",
       "w": 400,
       "x": 0,
       "y": 8200
@@ -371,7 +371,7 @@
     "S01-R2-Power.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Round 2 · power down, held",
+      "title": "Round 2 · power down, held · approved",
       "w": 400,
       "x": 1920,
       "y": 8200
@@ -379,7 +379,7 @@
     "S01-R2-Raised.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Round 2 · list raised",
+      "title": "Round 2 · list raised · approved",
       "w": 400,
       "x": 480,
       "y": 8200
@@ -387,7 +387,7 @@
     "S01-R2-Workout.dc.html": {
       "h": 640,
       "page": "s01",
-      "title": "Round 2 · workout in progress",
+      "title": "Round 2 · workout in progress · approved",
       "w": 400,
       "x": 960,
       "y": 8200
@@ -434,7 +434,7 @@
     },
     "S01-R3-Home.dc.html": {
       "page": "s01",
-      "title": "Round 3 · home · on the scales",
+      "title": "Round 3 · home · on the scales · in progress",
       "w": 400,
       "h": 640,
       "x": 0,
@@ -442,7 +442,7 @@
     },
     "S01-R3-Raised.dc.html": {
       "page": "s01",
-      "title": "Round 3 · raised · on the scales",
+      "title": "Round 3 · raised · on the scales · in progress",
       "w": 400,
       "h": 640,
       "x": 480,
@@ -450,7 +450,7 @@
     },
     "S01-R3-Workout.dc.html": {
       "page": "s01",
-      "title": "Round 3 · workout · on the scales",
+      "title": "Round 3 · workout · on the scales · in progress",
       "w": 400,
       "h": 640,
       "x": 960,
@@ -458,7 +458,7 @@
     },
     "S01-R3-Editing.dc.html": {
       "page": "s01",
-      "title": "Round 3 · editing · on the scales",
+      "title": "Round 3 · editing · on the scales · in progress",
       "w": 400,
       "h": 640,
       "x": 1440,
@@ -466,7 +466,7 @@
     },
     "S01-R3-Power.dc.html": {
       "page": "s01",
-      "title": "Round 3 · power · on the scales",
+      "title": "Round 3 · power · on the scales · in progress",
       "w": 400,
       "h": 640,
       "x": 1920,
@@ -499,7 +499,7 @@
     },
     "S01-R3-Round.dc.html": {
       "page": "s01",
-      "title": "Round 3 · tune in the Tweaks tab",
+      "title": "Round 3 · in progress · tune in the Tweaks tab",
       "w": 2652,
       "h": 760,
       "x": 0,
@@ -588,7 +588,7 @@
       "kind": "title1",
       "maxW": 1360,
       "page": "s00",
-      "text": "Screen 00 — Boot",
+      "text": "Screen 00 — Boot · round 1 set aside",
       "w": 240,
       "x": 0,
       "y": 0
@@ -597,7 +597,7 @@
       "kind": "title1",
       "maxW": 880,
       "page": "s00",
-      "text": "Boot · Round 2 — C, framed",
+      "text": "Boot · Round 2 — C, framed · set aside",
       "w": 240,
       "x": 0,
       "y": 980
@@ -606,7 +606,7 @@
       "kind": "title1",
       "maxW": 1360,
       "page": "s00",
-      "text": "Boot · Round 3 — closer, unequal, all ember",
+      "text": "Boot · Round 3 — closer, unequal, all ember · set aside",
       "w": 240,
       "x": 0,
       "y": 2020
@@ -615,7 +615,7 @@
       "kind": "title1",
       "maxW": 1360,
       "page": "s00",
-      "text": "Boot · Round 4 — F reworked",
+      "text": "Boot · Round 4 — F reworked · set aside",
       "w": 240,
       "x": 0,
       "y": 3080
@@ -624,7 +624,7 @@
       "kind": "title1",
       "maxW": 1840,
       "page": "s00",
-      "text": "Boot · Round 5 — back to D",
+      "text": "Boot · Round 5 — back to D · set aside",
       "w": 240,
       "x": 0,
       "y": 4140
@@ -633,7 +633,7 @@
       "kind": "title1",
       "maxW": 880,
       "page": "s00",
-      "text": "Boot · Round 6 — L and M, clean, then with effects",
+      "text": "Boot · Round 6 — L and M, clean, then with effects · P and Q approved, R and S set aside",
       "w": 240,
       "x": 0,
       "y": 5200
@@ -651,7 +651,7 @@
       "kind": "title1",
       "maxW": 1360,
       "page": "s01",
-      "text": "Option A — a bottom bar",
+      "text": "Option A — a bottom bar · set aside",
       "w": 240,
       "x": 0,
       "y": 2540
@@ -660,7 +660,7 @@
       "kind": "title1",
       "maxW": 1360,
       "page": "s01",
-      "text": "Option B — one menu key, rest as home",
+      "text": "Option B — one menu key, rest as home · set aside",
       "w": 240,
       "x": 0,
       "y": 3480
@@ -669,7 +669,7 @@
       "kind": "title1",
       "maxW": 1360,
       "page": "s01",
-      "text": "Option C — a main menu as home",
+      "text": "Option C — a main menu as home · approved",
       "w": 240,
       "x": 0,
       "y": 4420
@@ -678,7 +678,7 @@
       "kind": "title1",
       "maxW": 2320,
       "page": "s01",
-      "text": "Round 1 — the home, from the wireframe",
+      "text": "Round 1 — the home, from the wireframe · set aside",
       "w": 240,
       "x": 0,
       "y": 6880
@@ -687,7 +687,7 @@
       "kind": "title1",
       "maxW": 2320,
       "page": "s01",
-      "text": "Round 2 — named titles, covers without bands, a palette",
+      "text": "Round 2 — named titles, covers without bands, a palette · approved",
       "w": 240,
       "x": 0,
       "y": 7920
@@ -713,7 +713,7 @@
       "kind": "title1",
       "maxW": 2320,
       "page": "s01",
-      "text": "Round 3 — screen 01 on the type and spacing scales",
+      "text": "Round 3 — screen 01 on the type and spacing scales · in progress",
       "w": 240,
       "x": 0,
       "y": 10280
