@@ -58,8 +58,8 @@ const key = (css) => css.slice(2).replace(/-([a-z0-9])/g, (_, c) => c.toUpperCas
 // A token's Tweaks editor, its value as the editor holds it, and how that value is written back as CSS.
 function editorFor(css, value, section) {
   const ref = value.match(/^var\(--([a-z-]+)\)$/);
-  // A palette colour by name, or a colour of the user's own from the companion picker.
-  if (ref) return { meta: { editor: 'enum', options: [...PALETTE, 'custom'], default: ref[1], section }, unit: '', ref: true };
+  // A palette colour by name: every colour is a palette colour.
+  if (ref) return { meta: { editor: 'enum', options: PALETTE, default: ref[1], section }, unit: '', ref: true };
   if (/^#[0-9a-f]{6}$/i.test(value)) return { meta: { editor: 'color', default: value.toUpperCase(), section }, unit: '' };
   if (/-weight$/.test(css)) return { meta: { editor: 'enum', options: ['400', '700'], default: value, section }, unit: '' };
   let m = value.match(/^([\d.]+)%$/);
@@ -76,8 +76,7 @@ function editorFor(css, value, section) {
 }
 
 const basics = parseBasics(`${SPEC}/basics.css`).filter((g) => !/tube/i.test(g.name));
-const PALETTE_HEX = Object.fromEntries(basics.find((g) => g.name === 'Palette').tokens.map(([css, v]) => [css.slice(2), v.toUpperCase()]));
-const PALETTE = Object.keys(PALETTE_HEX);
+const PALETTE = basics.find((g) => g.name === 'Palette').tokens.map(([css]) => css.slice(2));
 const tokens = [];
 for (const g of basics) for (const [css, v] of g.tokens) tokens.push({ css, start: v, trial: false, ...editorFor(css, v, g.name) });
 for (const [name, list] of TRIALS) for (const [css, v] of list) tokens.push({ css, start: v, trial: true, ...editorFor(css, v, `${name} · trial`) });
@@ -237,15 +236,11 @@ function themeBoard(rows) {
   for (const t of tokens) {
     const k = key(t.css);
     props[k] = { ...t.meta };
-    if (kept[k] && kept[k].default !== undefined) props[k].default = kept[k].default; // the user's value stays
-    if (t.ref) {
-      // The colour used when the choice is custom; it starts as the palette colour the trial starts on.
-      props[`${k}Custom`] = { editor: 'color', default: kept[`${k}Custom`]?.default ?? PALETTE_HEX[t.meta.default], section: t.meta.section };
-    }
+    // The user's value stays, unless it is no longer one of the choices.
+    if (kept[k] && kept[k].default !== undefined && (!t.meta.options || t.meta.options.includes(kept[k].default))) props[k].default = kept[k].default;
   }
   props.$preview = { width: 2652, height: 1456 };
-  const list = tokens.map((t) => ({ k: key(t.css), css: t.css, unit: t.unit, start: t.meta.default, trial: t.trial, ref: !!t.ref,
-    ...(t.ref ? { custom: `${key(t.css)}Custom`, customStart: PALETTE_HEX[t.meta.default] } : {}) }));
+  const list = tokens.map((t) => ({ k: key(t.css), css: t.css, unit: t.unit, start: t.meta.default, trial: t.trial, ref: !!t.ref }));
   const imports = rows.map((r) => `<div style="display: flex; flex-direction: column; gap: 12px">
 <div style="font-size: 13px; font-weight: 700; letter-spacing: 2px">${r.label}</div>
 <div style="display: flex; gap: 40px; align-items: flex-start">
@@ -284,20 +279,13 @@ value(t, props) {
 var v = props[t.k];
 return v == null ? t.start : v;
 }
-// The custom colour a palette choice falls back to; at the start, the palette colour it began on.
-hex(t, props) {
-var c = props && props[t.custom];
-return c == null ? t.customStart : c;
-}
-// As CSS: a palette name becomes a reference to that colour; custom is the picked colour.
-show(t, v, props) {
-if (!t.ref) return String(v) + t.unit;
-return v === 'custom' ? this.hex(t, props) : 'var(--' + v + ')';
+// As CSS: a palette name becomes a reference to that colour.
+show(t, v) {
+return t.ref ? 'var(--' + v + ')' : String(v) + t.unit;
 }
 // As read on the board.
-label(t, v, props) {
-if (!t.ref) return String(v) + t.unit;
-return v === 'custom' ? 'custom ' + this.hex(t, props) : String(v);
+label(t, v) {
+return t.ref ? String(v) : String(v) + t.unit;
 }
 // Every change the board sees is logged, newest first, and kept on this computer.
 componentDidUpdate(prev) {
