@@ -1,6 +1,10 @@
-/* Auburn's basics: every value a screen may use. Screens link this file; they never copy it.
-   The rules for using these values are in Spec/Visual Design.md. */
+/* Auburn's basics: every value a screen may use, in three tiers. Screens link this file; they never copy it.
+   Primitives have no context; semantic values say what a value is for and refer only to primitives;
+   component values belong to one part and refer only to semantic values. Screens and components use
+   semantic and component values, never a primitive. The rules are in Spec/Visual Design.md. */
 :root {
+  /* ---- Primitive: values with no context ---- */
+
   /* Palette */
   --tube: #1A1D1A;
   --obsidian: #121215;
@@ -8,12 +12,26 @@
   --cyan-white: #DDF7F5;
   --graphite: #212220;
 
-  /* Faces */
-  --font-wordmark: Gelasio, Georgia, serif;        /* 700 */
-  --font-mark: Saira, sans-serif;                  /* 300, 600 */
-  --font-interface: 'Courier Prime', monospace;    /* 400, 700 */
+  /* Font families */
+  --gelasio: Gelasio, Georgia, serif;           /* 700 */
+  --saira: Saira, sans-serif;                   /* 300, 600 */
+  --courier-prime: 'Courier Prime', monospace;  /* 400, 700 */
 
-  /* Emphasis: Ember at an opacity, for text and for lines */
+  /* ---- Semantic: what a value is for ---- */
+
+  /* Colour */
+  --color-ground: var(--tube);             /* the screen behind everything */
+  --color-ground-raised: var(--graphite);  /* a layer over the screen */
+  --color-accent: var(--ember);            /* text, lines and marks, at every level */
+  --color-ink: var(--obsidian);            /* text on an accent fill */
+  --color-apart: var(--cyan-white);        /* an element a screen sets apart */
+
+  /* Font */
+  --font-wordmark: var(--gelasio);
+  --font-mark: var(--saira);
+  --font-interface: var(--courier-prime);
+
+  /* Emphasis: the accent at the level's opacity, for text and for lines */
   --primary-text: 90%;      --primary-text-weight: 400;
   --secondary-text: 62%;    --secondary-text-weight: 700;
   --supporting-text: 42%;   --supporting-text-weight: 700;
@@ -21,13 +39,44 @@
   --secondary-line: 55%;    --secondary-line-width: 2px;
   --supporting-line: 12%;   --supporting-line-width: 3px;
 
-  /* Press and hold */
-  --hold-fill: 1.5s;
-  --hold-drain: 0.3s;
+  /* Duration */
+  --duration-hold-fill: 1.5s;
+  --duration-hold-drain: 0.3s;
+  --duration-cursor-blink: 1.1s;
+  --duration-boot: 8s;
+
+  /* ---- Component: one part's own values ---- */
+
+  /* Widget */
+  --widget-color-title-ground: var(--color-accent);
+  --widget-color-title-ink: var(--color-ink);
+  --widget-stepped-back: var(--supporting-text);   /* the other widgets, while one is edited */
+  --cover-color-cut: var(--color-ground);          /* the cut-outs in a cover's art */
+
+  /* List sheet */
+  --list-color-ground: var(--color-ground-raised);
+
+  /* Hold key */
+  --hold-color-ground: var(--color-ground);
+  --hold-color-fill: var(--color-accent);
+  --hold-color-text: var(--color-apart);
+  --hold-color-text-filled: var(--color-ink);
+
+  /* Boot */
+  --boot-color-ground: var(--color-ground);
+  --boot-color-wordmark: var(--color-accent);
+  --boot-color-dot: color-mix(in srgb, var(--color-accent) 14%, transparent);
 
   /* The tube (read by the app's shader; the canvas never draws it) */
   --tube-strength: 0.6;
   --tube-glass-low: 0.6;
   --tube-glass-high: 1.2;
   --tube-travel: 0.35;
+}
+
+/* The light theme. In v1 it changes the boot only. */
+[data-theme="light"] {
+  --boot-color-ground: var(--color-accent);
+  --boot-color-wordmark: var(--color-ink);
+  --boot-color-dot: color-mix(in srgb, var(--color-ink) 10%, transparent);
 }

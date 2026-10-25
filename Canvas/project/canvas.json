@@ -545,6 +545,91 @@
       "h": 640,
       "x": 1920,
       "y": 12620
+    },
+    "C-Entry-States.dc.html": {
+      "page": "components",
+      "title": "Entry · states · agreed",
+      "w": 464,
+      "h": 134,
+      "x": 0,
+      "y": 0
+    },
+    "C-Entry.dc.html": {
+      "page": "components",
+      "title": "Entry · the component · tune its properties in the Tweaks tab",
+      "w": 400,
+      "h": 42,
+      "x": 544,
+      "y": 0,
+      "is_interactive": true
+    },
+    "C-Header-States.dc.html": {
+      "page": "components",
+      "title": "Header · states · agreed",
+      "w": 464,
+      "h": 179,
+      "x": 0,
+      "y": 254
+    },
+    "C-Header.dc.html": {
+      "page": "components",
+      "title": "Header · the component · tune its properties in the Tweaks tab",
+      "w": 400,
+      "h": 87,
+      "x": 544,
+      "y": 254,
+      "is_interactive": true
+    },
+    "C-Hold-States.dc.html": {
+      "page": "components",
+      "title": "Hold · states · agreed",
+      "w": 904,
+      "h": 144,
+      "x": 0,
+      "y": 553
+    },
+    "C-Hold.dc.html": {
+      "page": "components",
+      "title": "Hold · the component · tune its properties in the Tweaks tab",
+      "w": 400,
+      "h": 52,
+      "x": 984,
+      "y": 553,
+      "is_interactive": true
+    },
+    "C-List-States.dc.html": {
+      "page": "components",
+      "title": "List · states · agreed",
+      "w": 904,
+      "h": 598,
+      "x": 0,
+      "y": 817
+    },
+    "C-List.dc.html": {
+      "page": "components",
+      "title": "List · the component · tune its properties in the Tweaks tab",
+      "w": 400,
+      "h": 156,
+      "x": 984,
+      "y": 817,
+      "is_interactive": true
+    },
+    "C-Widget-States.dc.html": {
+      "page": "components",
+      "title": "Widget · states · agreed",
+      "w": 1092,
+      "h": 293,
+      "x": 0,
+      "y": 1535
+    },
+    "C-Widget.dc.html": {
+      "page": "components",
+      "title": "Widget · the component · tune its properties in the Tweaks tab",
+      "w": 368,
+      "h": 118,
+      "x": 1172,
+      "y": 1535,
+      "is_interactive": true
     }
   },
   "createdOnFiles": {
@@ -753,6 +838,15 @@
       "w": 240,
       "x": 0,
       "y": 12340
+    },
+    "components": {
+      "kind": "title1",
+      "maxW": 2400,
+      "page": "components",
+      "text": "Components — agreed",
+      "w": 240,
+      "x": 0,
+      "y": -300
     }
   },
   "order": [
@@ -822,12 +916,26 @@
     "S01-Raised.dc.html",
     "S01-Workout.dc.html",
     "S01-Editing.dc.html",
-    "S01-Power.dc.html"
+    "S01-Power.dc.html",
+    "C-Entry-States.dc.html",
+    "C-Entry.dc.html",
+    "C-Header-States.dc.html",
+    "C-Header.dc.html",
+    "C-Hold-States.dc.html",
+    "C-Hold.dc.html",
+    "C-List-States.dc.html",
+    "C-List.dc.html",
+    "C-Widget-States.dc.html",
+    "C-Widget.dc.html"
   ],
   "pages": [
     {
       "id": "basics",
       "name": "Theme"
+    },
+    {
+      "id": "components",
+      "name": "Components"
     },
     {
       "id": "s00",
