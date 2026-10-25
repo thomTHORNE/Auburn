@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Component round · hold · for screen 01's round 3 · in progress</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="basics.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+
+.auburn-entry { display: contents; }
+.auburn-header { display: contents; }
+@keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+.auburn-hold { display: block; }
+.auburn-hold .hold-letter[data-state="idle"] { color: color-mix(in srgb, var(--hold-color-text) var(--primary-text), transparent); }
+.auburn-hold .hold-letter[data-state="filled"] { color: var(--hold-color-text-filled); }
+.auburn-list { display: block; }
+.auburn-widget { display: contents; }
+.auburn-widget[data-width="full"] .w-half, .auburn-widget[data-width="half"] .w-full { display: none !important; }
+.auburn-widget .cover { display: none; }
+.auburn-widget[data-kind="rest"] .cover-rest, .auburn-widget[data-kind="goals"] .cover-goals, .auburn-widget[data-kind="cardio"] .cover-cardio { display: block; }
+.auburn-widget .widget { border: 3px solid color-mix(in srgb, var(--color-accent) var(--supporting-line), transparent); }
+.auburn-widget[data-state="editing"] .widget { border: 2px solid color-mix(in srgb, var(--color-accent) var(--primary-line), transparent); }
+.auburn-widget[data-state="stepped-back"] .widget { opacity: var(--widget-stepped-back); }
+.auburn-widget:not([data-state="editing"]) .edit-done, .auburn-widget[data-state="editing"] .edit-idle, .auburn-widget:not([data-state="editing"]) .edit-controls { display: none !important; }
+.auburn-widget .seg { background: transparent; color: color-mix(in srgb, var(--color-accent) var(--secondary-text), transparent); }
+.auburn-widget[data-width="half"] .seg-half, .auburn-widget[data-width="full"] .seg-full { background: var(--color-accent); color: var(--color-ink); }
+.bust{background: var(--color-accent); -webkit-mask: url(/_blob/8dc69cd32a565ee54c5606a82fce2b14) center top / contain no-repeat; mask: url(/_blob/8dc69cd32a565ee54c5606a82fce2b14) center top / contain no-repeat}
+a{color:inherit}
+.sc-host:has(> .auburn-entry), .sc-host:has(> .auburn-header), .sc-host:has(> .auburn-widget) { display: contents; }
+.sc-host:has(> .auburn-hold), .sc-host > .auburn-hold, .sc-host:has(> .auburn-list), .sc-host > .auburn-list { height: 100%; }
+#dc-root > .sc-host:has(> [class^="auburn-"]) { background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface); overflow: hidden; }
+#dc-root > .sc-host:has(> .round-3) { --text-1: 11px; --text-1-tracking: 0.5px; --text-1-leading: 15px; --text-2: 13px; --text-2-tracking: 2px; --text-2-leading: 11px; --text-3: 16px; --text-3-tracking: 1.5px; --text-3-leading: 20px; --text-4: 22px; --text-4-tracking: 6px; --text-4-leading: 24px; --color-primary-text: var(--ember); --color-secondary-text: var(--ember); --color-supporting-text: var(--ember); --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px; --space-5: 16px; --space-6: 24px; --tap-area: 48px }
+</style>
+</helmet>
+<div class="auburn-hold round-3" data-fill="{{fill}}" data-inverted="{{inverted}}">
+<button type="button" aria-label="{{label}}, press and hold" style="position: relative; width: 100%; height: 52px; padding: 0 var(--space-5) 0 calc(var(--space-5) + 18px + var(--space-5)); border: none; border-top: var(--secondary-line-width) solid color-mix(in srgb, var(--color-accent) var(--secondary-line), transparent); background: var(--hold-color-ground); display: flex; align-items: center; font-family: inherit; font-size: var(--text-3); font-weight: 400; text-align: left; letter-spacing: var(--text-3-tracking); line-height: var(--text-3-leading)">
+<span aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: {{fill}}%; background: var(--hold-color-fill)"></span>
+<span style="position: relative; display: flex"><sc-for list="{{letters}}" as="item" hint-placeholder-count="3"><span class="hold-letter" data-state="{{item.state}}" style="white-space: pre">{{item.c}}</span></sc-for></span></button>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"fill":{"editor":"range","default":0,"min":0,"max":100,"step":1,"section":"Properties"},"inverted":{"editor":"range","default":0,"min":0,"max":20,"step":1,"section":"Properties"},"label":{"editor":"text","default":"POWER DOWN","section":"Text"},"$preview":{"width":400,"height":112}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+// Ids inside the component, unique to this one.
+var k = this.constructor;
+this.uid = 'u' + (k.count = (k.count || 0) + 1);
+}
+renderVals() {
+var p = this.props, defaults = {"label":"POWER DOWN","fill":"0","inverted":"0"}, d = { uid: this.uid };
+Object.keys(defaults).forEach(function (k) { d[k] = p[k] != null ? p[k] : defaults[k]; });
+Object.assign(d, (function (d) {
+  // The label as letters; the first `inverted` letters have been reached by the fill.
+  var n = Number(d.inverted) || 0;
+  return { letters: String(d.label || '').split('').map(function (c, i) { return { c: c, state: i < n ? 'filled' : 'idle' }; }) };
+})(d));
+["letters"].forEach(function (k) { if (typeof d[k] === 'string') d[k] = d[k] ? d[k].split('|') : []; });
+return d;
+}
+}
+</script>
+</body>
+</html>

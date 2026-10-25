@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Component round · header · states · in progress</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="basics.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+
+.auburn-entry { display: contents; }
+.auburn-header { display: contents; }
+@keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+.auburn-hold { display: block; }
+.auburn-hold .hold-letter[data-state="idle"] { color: color-mix(in srgb, var(--hold-color-text) var(--primary-text), transparent); }
+.auburn-hold .hold-letter[data-state="filled"] { color: var(--hold-color-text-filled); }
+.auburn-list { display: block; }
+.auburn-widget { display: contents; }
+.auburn-widget[data-width="full"] .w-half, .auburn-widget[data-width="half"] .w-full { display: none !important; }
+.auburn-widget .cover { display: none; }
+.auburn-widget[data-kind="rest"] .cover-rest, .auburn-widget[data-kind="goals"] .cover-goals, .auburn-widget[data-kind="cardio"] .cover-cardio { display: block; }
+.auburn-widget .widget { border: 3px solid color-mix(in srgb, var(--color-accent) var(--supporting-line), transparent); }
+.auburn-widget[data-state="editing"] .widget { border: 2px solid color-mix(in srgb, var(--color-accent) var(--primary-line), transparent); }
+.auburn-widget[data-state="stepped-back"] .widget { opacity: var(--widget-stepped-back); }
+.auburn-widget:not([data-state="editing"]) .edit-done, .auburn-widget[data-state="editing"] .edit-idle, .auburn-widget:not([data-state="editing"]) .edit-controls { display: none !important; }
+.auburn-widget .seg { background: transparent; color: color-mix(in srgb, var(--color-accent) var(--secondary-text), transparent); }
+.auburn-widget[data-width="half"] .seg-half, .auburn-widget[data-width="full"] .seg-full { background: var(--color-accent); color: var(--color-ink); }
+.bust{background: var(--color-accent); -webkit-mask: url(/_blob/8dc69cd32a565ee54c5606a82fce2b14) center top / contain no-repeat; mask: url(/_blob/8dc69cd32a565ee54c5606a82fce2b14) center top / contain no-repeat}
+a{color:inherit}
+.sc-host:has(> .auburn-entry), .sc-host:has(> .auburn-header), .sc-host:has(> .auburn-widget) { display: contents; }
+.sc-host:has(> .auburn-hold), .sc-host > .auburn-hold, .sc-host:has(> .auburn-list), .sc-host > .auburn-list { height: 100%; }
+#dc-root > .sc-host:has(> [class^="auburn-"]) { background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface); overflow: hidden; }
+#dc-root > .sc-host:has(> .round-3) { --text-1: 11px; --text-1-tracking: 0.5px; --text-1-leading: 15px; --text-2: 13px; --text-2-tracking: 2px; --text-2-leading: 11px; --text-3: 16px; --text-3-tracking: 1.5px; --text-3-leading: 20px; --text-4: 22px; --text-4-tracking: 6px; --text-4-leading: 24px; --color-primary-text: var(--ember); --color-secondary-text: var(--ember); --color-supporting-text: var(--ember); --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px; --space-5: 16px; --space-6: 24px; --tap-area: 48px }
+</style>
+</helmet>
+<div style="width: 464px; height: 239px; box-sizing: border-box; padding: 32px; background: #000; font-family: var(--font-interface); display: flex; gap: 40px; align-items: flex-start; --text-1: 11px; --text-1-tracking: 0.5px; --text-1-leading: 15px; --text-2: 13px; --text-2-tracking: 2px; --text-2-leading: 11px; --text-3: 16px; --text-3-tracking: 1.5px; --text-3-leading: 20px; --text-4: 22px; --text-4-tracking: 6px; --text-4-leading: 24px; --color-primary-text: var(--ember); --color-secondary-text: var(--ember); --color-supporting-text: var(--ember); --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px; --space-5: 16px; --space-6: 24px; --tap-area: 48px">
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #8A8A8A; text-transform: uppercase">Header</div>
+<div style="position: relative; width: 368px; padding: 18px 16px; display: flex; flex-direction: column; gap: 10px; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface)"><dc-import name="C-R3-Header" status="LAST WORKOUT · 2 DAYS AGO · CITY GYM" hint-size="100%,40px"></dc-import></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":464,"height":239}}'>
+class Component extends DCLogic {
+renderVals() {
+// Values passed in by the Theme board; on its own, the board's trials over basics.css.
+return { theme: this.props.theme != null ? this.props.theme : "" };
+}
+}
+</script>
+</body>
+</html>

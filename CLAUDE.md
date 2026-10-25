@@ -223,8 +223,10 @@ images; a component's board; and the values the user keeps, into `basics.css`.
 and used wherever it appears. The Components page holds the agreed components, each its own
 board showing each of its states and imported by every agreed screen that uses it, with
 component rounds below them. A component reaches the page when the round that introduces it
-is approved. A screen round that changes a component works on its own copy; when the round is
-approved, the copy replaces the agreed component, and every screen that uses it changes with it.
+is approved. A component changes only through a component round on the Components page,
+showing its states with every agreed screen that uses it. A screen round that needs a component
+changed opens that component round and imports the component as the round has it; the two are
+approved together, and every screen that uses the component changes with it.
 
 **Clean boards.** The tube — curvature, scanlines, glass — and any other render effect, such
 as glow, flicker or bloom, is never faked on the canvas. The canvas judges layout, design,

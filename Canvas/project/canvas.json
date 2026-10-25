@@ -638,6 +638,99 @@
       "h": 640,
       "x": 1920,
       "y": 10560
+    },
+    "C-R3-Entry-States.dc.html": {
+      "page": "components",
+      "title": "Entry · states · round 3 · in progress",
+      "w": 464,
+      "h": 194,
+      "x": 0,
+      "y": 2248
+    },
+    "C-R3-Entry.dc.html": {
+      "page": "components",
+      "title": "Entry · round 3 · in progress · tune its properties in the Tweaks tab",
+      "w": 400,
+      "h": 102,
+      "x": 544,
+      "y": 2248,
+      "is_interactive": true
+    },
+    "C-R3-Header-States.dc.html": {
+      "page": "components",
+      "title": "Header · states · round 3 · in progress",
+      "w": 464,
+      "h": 239,
+      "x": 0,
+      "y": 2562
+    },
+    "C-R3-Header.dc.html": {
+      "page": "components",
+      "title": "Header · round 3 · in progress · tune its properties in the Tweaks tab",
+      "w": 400,
+      "h": 147,
+      "x": 544,
+      "y": 2562,
+      "is_interactive": true
+    },
+    "C-R3-Hold-States.dc.html": {
+      "page": "components",
+      "title": "Hold · states · round 3 · in progress",
+      "w": 904,
+      "h": 204,
+      "x": 0,
+      "y": 2921
+    },
+    "C-R3-Hold.dc.html": {
+      "page": "components",
+      "title": "Hold · round 3 · in progress · tune its properties in the Tweaks tab",
+      "w": 400,
+      "h": 112,
+      "x": 984,
+      "y": 2921,
+      "is_interactive": true
+    },
+    "C-R3-List-States.dc.html": {
+      "page": "components",
+      "title": "List · states · round 3 · in progress",
+      "w": 904,
+      "h": 658,
+      "x": 0,
+      "y": 3245
+    },
+    "C-R3-List.dc.html": {
+      "page": "components",
+      "title": "List · round 3 · in progress · tune its properties in the Tweaks tab",
+      "w": 400,
+      "h": 216,
+      "x": 984,
+      "y": 3245,
+      "is_interactive": true
+    },
+    "C-R3-Widget-States.dc.html": {
+      "page": "components",
+      "title": "Widget · states · round 3 · in progress",
+      "w": 1092,
+      "h": 353,
+      "x": 0,
+      "y": 4023
+    },
+    "C-R3-Widget.dc.html": {
+      "page": "components",
+      "title": "Widget · round 3 · in progress · tune its properties in the Tweaks tab",
+      "w": 368,
+      "h": 178,
+      "x": 1172,
+      "y": 4023,
+      "is_interactive": true
+    },
+    "C-R3-Screens.dc.html": {
+      "page": "components",
+      "title": "Component rounds · in screen 01, round 3 · in progress",
+      "w": 2680,
+      "h": 760,
+      "x": 0,
+      "y": 4496
     }
   },
   "createdOnFiles": {
@@ -855,6 +948,15 @@
       "w": 240,
       "x": 0,
       "y": -300
+    },
+    "componentsR3": {
+      "kind": "title1",
+      "maxW": 2400,
+      "page": "components",
+      "text": "Component rounds — for screen 01's round 3 · in progress",
+      "w": 240,
+      "x": 0,
+      "y": 1948
     }
   },
   "order": [
@@ -935,7 +1037,18 @@
     "C-List.dc.html",
     "C-Widget-States.dc.html",
     "C-Widget.dc.html",
-    "S01-R3-Editing-Full.dc.html"
+    "S01-R3-Editing-Full.dc.html",
+    "C-R3-Entry-States.dc.html",
+    "C-R3-Entry.dc.html",
+    "C-R3-Header-States.dc.html",
+    "C-R3-Header.dc.html",
+    "C-R3-Hold-States.dc.html",
+    "C-R3-Hold.dc.html",
+    "C-R3-List-States.dc.html",
+    "C-R3-List.dc.html",
+    "C-R3-Widget-States.dc.html",
+    "C-R3-Widget.dc.html",
+    "C-R3-Screens.dc.html"
   ],
   "pages": [
     {

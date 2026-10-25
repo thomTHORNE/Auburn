@@ -8,9 +8,10 @@
 //   S00-Dark, S00-Light      the agreed boot (Spec/Visual Design/00-boot/screen.html), held frame, line 0.
 //   S01-<state>              the agreed screen 01 (Spec/Visual Design/01-navigation/screen.html), importing the
 //                            component boards.
-//   S01-R3-<state>           screen 01, round 3: its own copy of the agreed screen and its components, flattened,
-//                            moved onto the trial scales and text colours, with tap areas of the trial's height,
-//                            and a state of its own: a full-width widget edited.
+//   C-R3-<Name>, -States     each component's round for screen 01's round 3: on the trial scales, with tap areas of
+//                            the trial's height. C-R3-Screens shows round 3's screens, which import them.
+//   S01-R3-<state>           screen 01, round 3: the agreed screen importing the component rounds, its own placing
+//                            on the scales, and a state of its own: a full-width widget edited.
 //   basics.css               a copy of Spec/Visual Design/basics.css.
 //
 // Values the user has set in a board's Tweaks tab are read from the mirror and kept. A change stays on its board.
@@ -274,7 +275,8 @@ function roundScreen(id, html) {
 
 const COMPONENTS = components();
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-const boardOf = (tag) => `C-${cap(tag.replace('auburn-', ''))}`;
+// A component's board, or its round 3 copy's.
+const boardOf = (tag, round) => `C-${round ? 'R3-' : ''}${cap(tag.replace('auburn-', ''))}`;
 const camel = (s) => s.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
 const attrsOf = (s) => Object.fromEntries([...s.matchAll(/([a-z0-9-]+)="([^"]*)"/g)].map(([, k, v]) => [k, v]));
 const ALL_CSS = COMPONENTS.map((c) => c.css).filter(Boolean).join('\n');
@@ -284,47 +286,30 @@ const CONTENTS = COMPONENTS.filter((c) => /display: contents/.test(c.css)).map((
 const FILLED = COMPONENTS.filter((c) => !/display: contents/.test(c.css)).map((c) => `.sc-host:has(> .${c.tag}), .sc-host > .${c.tag}`).join(', ');
 // A component's own board, shown alone, stands on the screen's ground as it would on a screen.
 const ALONE = '#dc-root > .sc-host:has(> [class^="auburn-"]) { background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface); overflow: hidden; }';
-COMPONENT_CSS = `${ALL_CSS}\n${MASK_CSS}\na{color:inherit}\n${CONTENTS} { display: contents; }\n${FILLED} { height: 100%; }\n${ALONE}`;
+// A round's copy shown on its own takes the round's trials at their start; inside a round's screen, the round board's.
+const ALONE_ROUND = `#dc-root > .sc-host:has(> .round-3) { ${vars(roundTokens)} }`;
+COMPONENT_CSS = `${ALL_CSS}\n${MASK_CSS}\na{color:inherit}\n${CONTENTS} { display: contents; }\n${FILLED} { height: 100%; }\n${ALONE}\n${ALONE_ROUND}`;
 const bustToMask = (html) => html.replace(/<img alt="" class="bust" src="[^"]*" style="([^"]*)"\/?>/g, '<div class="bust" aria-hidden="true" style="$1"></div>');
 
-// The same filling as components.js, for a round's flattened copy.
-function fill(html, data) {
-  const look = (path, d) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), d);
-  const esc = (v) => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  html = html.replace(/<template data-each="([a-z0-9]+)">([\s\S]*?)<\/template>/g, (_, name, inner) => {
-    let list = data[name];
-    if (typeof list === 'string') list = list ? list.split('|') : [];
-    return (list || []).map((item) => fill(inner, { ...data, item })).join('');
-  });
-  return html.replace(/\{\{([a-z0-9.]+)\}\}/g, (_, path) => esc(look(path, data)));
-}
-let uid = 0;
-function expand(html) {
-  return html.replace(/<(auburn-[a-z]+)((?:\s+[a-z0-9-]+="[^"]*")*)\s*><\/\1>/g, (_, tag, attrs) => {
-    const c = COMPONENTS.find((x) => x.tag === tag);
-    const a = attrsOf(attrs);
-    const data = { assets: '', uid: `r${++uid}` };
-    for (const [k, v] of Object.entries(a)) if (k.startsWith('data-')) data[camel(k.slice(5))] = v;
-    if (c.logic) Object.assign(data, new Function(`return (${c.logic})`)()(data));
-    return `<div class="${tag}"${attrs}>${expand(fill(c.html, data))}</div>`;
-  });
-}
+const onScalesAll = (html) => html.replace(/style="([^"]*)"/g, (_, st) => `style="${onScales(st)}"`);
 
-// An element placing a component becomes an import of its board; its data attributes become the board's props.
-function toImports(html) {
+// An element placing a component becomes an import of its board, or of its round 3 copy's; its data attributes
+// become the board's props.
+function toImports(html, round) {
   return html.replace(/<(auburn-[a-z]+)((?:\s+[a-z0-9-]+="[^"]*")*)\s*><\/\1>/g, (_, tag, attrs) => {
     const a = attrsOf(attrs);
     const props = Object.entries(a).filter(([k]) => k.startsWith('data-')).map(([k, v]) => `${k.slice(5)}="${v}"`).join(' ');
     // The canvas gives an import's host no style of its own: a placed component sits in a div that carries the placing.
-    const imp = `<dc-import name="${boardOf(tag)}" ${props} hint-size="100%,40px"></dc-import>`;
+    const imp = `<dc-import name="${boardOf(tag, round)}" ${props} hint-size="100%,40px"></dc-import>`;
     return a.style ? `<div style="${a.style}">${imp}</div>` : imp;
   });
 }
 
-function componentBoards() {
+// Each component's board and states board; with round, its round 3 copy: on the scales, with its tap areas.
+function componentBoards(round) {
   const out = {};
   for (const c of COMPONENTS) {
-    const Name = boardOf(c.tag);
+    const Name = boardOf(c.tag, round);
     const first = attrsOf(c.states[0].inst.match(/<auburn-[a-z]+((?:\s+[a-z0-9-]+="[^"]*")*)/)[1]);
     const defaults = Object.fromEntries(Object.entries(first).filter(([k]) => k.startsWith('data-')).map(([k, v]) => [camel(k.slice(5)), v]));
     const props = {};
@@ -334,14 +319,16 @@ function componentBoards() {
         : { editor: 'enum', options: values, default: defaults[camel(k)] || values[0], section: 'Properties' };
     }
     for (const k of c.text) props[camel(k)] = { editor: 'text', default: defaults[camel(k)] || '', section: 'Text' };
-    const size = (id) => { const s = readFileSync(`${SPEC}/components/${c.name}/${id}.png`); return { width: s.readUInt32BE(16), height: s.readUInt32BE(20) }; };
+    // The agreed images' sizes; a round's copy grows, so its boards take room to spare.
+    const grow = round ? 60 : 0;
+    const size = (id) => { const s = readFileSync(`${SPEC}/components/${c.name}/${id}.png`); return { width: s.readUInt32BE(16), height: s.readUInt32BE(20) + grow }; };
     props.$preview = size(c.states[0].id);
-    const template = bustToMask(c.html)
+    const template = (round ? onScalesAll(tapAreas(bustToMask(c.html))) : bustToMask(c.html))
       .replace(/<template data-each="([a-z0-9]+)">([\s\S]*?)<\/template>/g, '<sc-for list="{{$1}}" as="item" hint-placeholder-count="3">$2</sc-for>');
-    const root = `<div class="${c.tag}" ${Object.keys(c.props).map((k) => `data-${k}="{{${camel(k)}}}"`).join(' ')}>\n${toImports(template)}\n</div>`;
+    const root = `<div class="${c.tag}${round ? ' round-3' : ''}" ${Object.keys(c.props).map((k) => `data-${k}="{{${camel(k)}}}"`).join(' ')}>\n${toImports(template, round)}\n</div>`;
     const lists = [...c.html.matchAll(/<template data-each="([a-z0-9]+)">/g)].map((m) => m[1]);
     out[`${Name}.dc.html`] = board({
-      title: `Component · ${c.name} · agreed`,
+      title: round ? `Component round · ${c.name} · for screen 01's round 3 · in progress` : `Component · ${c.name} · agreed`,
       fonts: 'family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700',
       helmet: '',
       body: root,
@@ -363,16 +350,18 @@ return d;
     });
     // The states, each in its frame, as component.html lists them.
     const frames = c.states.map((s) => {
-      const sz = size(s.id);
+      // A round's list frame grows with its entries.
+      const entries = (s.inst.match(/data-entries="([^"]*)"/) || [, ''])[1].split('|').filter(Boolean).length;
+      const frame = round && entries ? s.frame.replace(/height: (\d+)px/, `height: calc($1px + ${entries} * (var(--tap-area) - 42px))`) : s.frame;
       return `<div style="display: flex; flex-direction: column; gap: 8px"><div style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #8A8A8A; text-transform: uppercase">${s.label}</div>
-<div style="position: relative; ${s.frame}; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface)">${toImports(s.inst)}</div></div>`;
+<div style="position: relative; ${frame}; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface)">${toImports(s.inst, round)}</div></div>`;
     }).join('\n');
     const w = 64 + c.states.reduce((a, s) => a + size(s.id).width + 40, -40);
     const h = 64 + 28 + Math.max(...c.states.map((s) => size(s.id).height));
     out[`${Name}-States.dc.html`] = board({
-      title: `Component · ${c.name} · states`,
+      title: round ? `Component round · ${c.name} · states · in progress` : `Component · ${c.name} · states`,
       fonts: 'family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700',
-      body: `<div style="width: ${w}px; height: ${h}px; box-sizing: border-box; padding: 32px; background: #000; font-family: var(--font-interface); display: flex; gap: 40px; align-items: flex-start">\n${frames}\n</div>`,
+      body: `<div style="width: ${w}px; height: ${h}px; box-sizing: border-box; padding: 32px; background: #000; font-family: var(--font-interface); display: flex; gap: 40px; align-items: flex-start${round ? `; ${vars(roundTokens)}` : ''}">\n${frames}\n</div>`,
       script: screenScript(''),
       props: { $preview: { width: w, height: h } },
     });
@@ -394,8 +383,9 @@ function navigationBoards(round) {
     states.splice(at + 1, 0, ['editing-full', full]);
   }
   for (let [id, html] of states) {
-    // The agreed screen imports the component boards; a round works on its own copy, flattened.
-    html = round ? tapAreas(bustToMask(expand(roundScreen(id, html)))).replace(/style="([^"]*)"/g, (_, st) => `style="${onScales(st)}"`) : toImports(html);
+    // The agreed screen imports the agreed components; round 3 imports their round copies, and puts its own
+    // placing on the scales.
+    html = round ? onScalesAll(toImports(roundScreen(id, html), true)) : toImports(html);
     // The screen's root takes whatever the Theme or round board passes in.
     html = html.replace(/^<div style="([^"]*)">/, (_, st) => `<div style="${st.replace(/;?\s*$/, '')}; {{theme}}">`);
     out[`S01-${round ? 'R3-' : ''}${names[id]}.dc.html`] = board({
@@ -516,7 +506,8 @@ holdStyle: 'height: 44px; padding: 0 14px; font-family: inherit; font-size: 13px
 
 // ---- write ----
 
-const parts = componentBoards();
+const parts = componentBoards(false);
+const partsRound = componentBoards(true);
 const boot = bootBoards();
 const agreed = navigationBoards(false);
 const round3 = navigationBoards(true);
@@ -524,7 +515,7 @@ const W = 2652;
 // A row of n screens: the padding, the side column and its gap, then each screen and the gap after it.
 const rowWidth = (n) => 452 + 440 * n;
 const files = {
-  ...parts, ...boot, ...agreed, ...round3,
+  ...parts, ...partsRound, ...boot, ...agreed, ...round3,
   'Theme.dc.html': controlBoard({
     file: 'Theme.dc.html', title: 'Theme', heading: 'THEME', note: 'Every agreed screen.',
     toks: [...basicTokens, ...swatchTokens], width: W, height: 1456,
@@ -532,6 +523,19 @@ const files = {
       { label: 'SCREEN 01 · NAVIGATION · AGREED', boards: Object.keys(agreed) },
       { label: 'SCREEN 00 · BOOT · AGREED', boards: Object.keys(boot) },
     ],
+  }),
+  // The component rounds with the screen that uses them: round 3's screens, at the round's starting values.
+  'C-R3-Screens.dc.html': board({
+    title: 'Component rounds · in screen 01, round 3',
+    fonts: 'family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700',
+    body: `<div style="width: ${rowWidth(Object.keys(round3).length) - 412}px; height: 760px; box-sizing: border-box; padding: 32px; background: #000; color: var(--cyan-white); font-family: var(--font-interface); display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px">SCREEN 01 · ROUND 3 · AT THE ROUND'S STARTING VALUES · TUNE ON THE 01 PAGE'S ROUND BOARD</div>
+<div style="display: flex; gap: 40px; align-items: flex-start">
+${Object.keys(round3).map((b) => `<dc-import name="${b.replace('.dc.html', '')}" hint-size="400px,640px"></dc-import>`).join('\n')}
+</div>
+</div>`,
+    script: screenScript(''),
+    props: { $preview: { width: rowWidth(Object.keys(round3).length) - 412, height: 760 } },
   }),
   'S01-R3-Round.dc.html': controlBoard({
     // Round 3 takes the values tuned while it sat on the old Basics page.
@@ -570,6 +574,17 @@ for (const c of COMPONENTS) {
   y += Math.max(+s[2], +p[2]) + 120;
 }
 index.notes.components = index.notes.components || { kind: 'title1', maxW: 2400, page: 'components', text: 'Components — agreed', w: 240, x: 0, y: -300 };
+// Component rounds, below the agreed components: round 3's copies, then the screens that use them.
+y += 300;
+index.notes.componentsR3 = index.notes.componentsR3 || { kind: 'title1', maxW: 2400, page: 'components', text: "Component rounds — for screen 01's round 3 · in progress", w: 240, x: 0, y: y - 300 };
+for (const c of COMPONENTS) {
+  const s = partsRound[`${boardOf(c.tag, true)}-States.dc.html`].match(/"\$preview":\{"width":(\d+),"height":(\d+)\}/);
+  const p = partsRound[`${boardOf(c.tag, true)}.dc.html`].match(/"\$preview":\{"width":(\d+),"height":(\d+)\}/);
+  place(`${boardOf(c.tag, true)}-States.dc.html`, { page: 'components', title: `${cap(c.name)} · states · round 3 · in progress`, w: +s[1], h: +s[2], x: 0, y });
+  place(`${boardOf(c.tag, true)}.dc.html`, { page: 'components', title: `${cap(c.name)} · round 3 · in progress · tune its properties in the Tweaks tab`, w: +p[1], h: +p[2], x: +s[1] + 80, y, is_interactive: true });
+  y += Math.max(+s[2], +p[2]) + 120;
+}
+place('C-R3-Screens.dc.html', { page: 'components', title: 'Component rounds · in screen 01, round 3 · in progress', w: rowWidth(Object.keys(round3).length) - 412, h: 760, x: 0, y });
 Object.keys(boot).forEach((n, i) => place(n, { page: 's00', title: `Boot · ${i ? 'light' : 'dark'} · agreed`, w: 400, h: 640, x: i * 480, y: 7460 }));
 delete index.notes.basics;
 index.notes.theme = index.notes.theme || { kind: 'title1', maxW: W, page: 'basics', text: 'Theme — every agreed screen, tuned at once', w: 240, x: 0, y: -300 };
