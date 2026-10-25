@@ -5,19 +5,15 @@
 <meta name="viewport" content="width=400">
 <title>Auburn · Screen 00 · Boot</title>
 <!-- Approved board for screen 00, Boot: Boot P (dark) and Boot Q (light) from the design canvas.
-     Layout reference only. The values are Visual Design's basics, as the CSS variables below. The tube's effects
+     Layout reference only. The values come from ../basics.css; only the boot's own timeline is set here. The tube's effects
      (scanlines, glow, curvature) are not drawn here; the app's shader adds them.
-     data-theme="dark" | "light" picks the version; #still on the URL shows the held frame. -->
+     data-theme="dark" | "light" picks the version; #still on the URL shows the held frame; ?line=n picks a line. -->
+<meta name="images" content="dark: ?theme=dark&amp;line=0#still | .screen; light: ?theme=light&amp;line=0#still | .screen">
+<link rel="stylesheet" href="../basics.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&family=Saira:wght@300;600&display=swap">
 <style>
 :root {
-  --tube: #1A1D1A;
-  --obsidian: #121215;
-  --ember: #D9573B;
-  --cyan-white: #DDF7F5;
-  --font-display: Gelasio, Georgia, serif;
-  --font-mark: Saira, sans-serif;
   --boot-duration: 8s;            /* power-on to the end of the fade */
   --dot-size: 9px;
 }
@@ -42,7 +38,7 @@ body { margin: 0; background: #000; }
 .pillar:nth-child(3) { animation: rise3 var(--boot-duration) ease-out both; }
 .line { height: 26px; margin-top: 10px; border-top: 1px solid var(--obsidian); display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; font-family: var(--font-mark); font-weight: 600; font-size: 8px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--obsidian); }
 .line span { animation: lineIn var(--boot-duration) linear both; }
-.wordmark { margin: 0; width: var(--wordmark-width); display: flex; justify-content: space-between; font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1; color: var(--wordmark); animation: wordIn var(--boot-duration) ease-out both; }
+.wordmark { margin: 0; width: var(--wordmark-width); display: flex; justify-content: space-between; font-family: var(--font-wordmark); font-weight: 700; font-size: 34px; line-height: 1; color: var(--wordmark); animation: wordIn var(--boot-duration) ease-out both; }
 
 /* Timeline, as fractions of --boot-duration: power-on 0–6%, picture opens 6–15%, plate 9–15%,
    pillars rise one after another 15–39%, wordmark 36–51%, line 45–54%, hold to 85%, fade 85–100%. */

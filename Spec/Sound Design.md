@@ -14,15 +14,15 @@ The files are 44.1 kHz, 16-bit stereo, in [Sound Design/](Sound%20Design/). Aubu
 
 ### Boot
 
-A power-on click, a drive spinning up, a chime as the wordmark settles at 2.9 s, and a second, heavier machine rising in from 5 s. Its last 0.6 s is the ambience's last 0.6 s, so the ambience follows on without a seam. It peaks at −1 dBFS and averages −17.5 dBFS.
+Its chime lands as the boot's wordmark settles, so a change to the boot's timing moves the chime with it. Its last 0.6 s is the ambience's last 0.6 s, so the ambience follows on without a seam.
 
 ### Ambience
 
-Both machines running, at an average of −24 dBFS. Its end runs into its start, so it repeats without a seam. It starts the moment the boot ends. When Auburn returns to the screen without a boot, it fades in over 0.5 s. When Auburn leaves the screen, it fades out over 0.5 s.
+Its end runs into its start, so it repeats without a seam. It starts the moment the boot ends. When Auburn returns to the screen without a boot, it fades in over 0.5 s. When Auburn leaves the screen, it fades out over 0.5 s.
 
 ### Power-down
 
-Relay clicks, the drive cranking down from 1.1 s, the fans winding down, and an off-thunk at 10.4 s. It starts at the ambience's level, and the ambience fades out over 0.5 s as it begins. Auburn quits when it ends. The power-down lasts 11.4 s whether sound is on or off.
+It starts at the ambience's level, and the ambience fades out over 0.5 s as it begins. Auburn quits when it ends. The power-down lasts 11.4 s whether sound is on or off.
 
 ## When Auburn plays
 

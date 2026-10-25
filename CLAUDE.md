@@ -53,6 +53,7 @@ Auburn/
 ├── Learning/               ← explainers. See Learning below.
 ├── Lab/                    ← throwaway code that answers questions. See Lab below.
 │   └── Log.md              ← every attempt and where it stands
+├── Tools/                  ← scripts that maintain the repo, such as rendering the screen images
 ├── .claude/skills/         ← project skills. /sitrep prints a conversation checkpoint.
 └── Spec/
     ├── Scope.md            ← what each version includes and excludes
@@ -97,7 +98,7 @@ Auburn/
 
 ## Visual design process
 
-`Spec/Visual Design.md` holds the basics — the frame, palette, type, spacing, grade marks, rest band colours, the tube, the muscle figure's style — and the screens table. Each agreed screen has its own document in its folder, linked from the table. A screen is either agreed or stated as not yet specified, with a TASKS.md item for each screen still open. The screens are agreed one at a time.
+`Spec/Visual Design.md` holds the rules every screen follows and the screens table; `Spec/Visual Design/basics.css` holds every value — palette, faces, emphasis, timings, the tube's numbers. Each agreed screen has its own document in its folder, linked from the table. A screen is either agreed or stated as not yet specified, with a TASKS.md item for each screen still open. The screens are agreed one at a time.
 
 ### How a screen gets agreed
 
@@ -109,22 +110,22 @@ Auburn/
 
 ### An agreed screen
 
-Its folder, `Spec/Visual Design/<nn-screen>/`, holds `<nn-screen>.md`, `screen.html` and the state images. The document opens with **Why it is shaped this way**: the reasoning from the explanation, the wireframe and the rounds — what the screen had to carry, what was weighed and set aside, and why — written in the spec's voice and kept in step with the rules below it. Then five parts:
+Its folder, `Spec/Visual Design/<nn-screen>/`, holds `<nn-screen>.md`, `screen.html` and the state images. The document opens with **Why it is shaped this way**: the reasoning from the explanation, the wireframe and the rounds — what the screen had to carry, what was weighed and set aside, and why — written in the spec's voice and kept in step with the rules below it. Then five parts. A document never describes what its design shows:
 
 - **Purpose.** One sentence: what the user comes here to do.
 - **Earns its place.** What would break or be worse without it, and why it is not folded into another screen.
-- **Contents.** Top to bottom, everything on it, and what is always visible.
-- **Controls.** Every tap and what it does.
-- **Images.** One per state that matters, embedded from the screen's folder.
+- **Rules.** What the design cannot show: the data each part carries, what varies and why, and what holds in every state.
+- **Controls.** Every tap and what it does, never how the key looks.
+- **Images.** One per state that matters, rendered from `screen.html` by `Tools/render-screens.mjs` and never edited by hand.
 
-`screen.html` is the approved board as one standalone file, using only the basics' values, named as CSS variables; the state images are PNGs at cover-screen size.
+`screen.html` is the approved board as one file that links `basics.css` and uses only its values, and lists the states to render.
 
 ### What owns what
 
-- The basics own every value. A screen never introduces one; a value it needs is added to the basics first.
-- The screen's document owns behaviour and contents.
-- `screen.html` owns layout: sizes, gaps, positions. Canvas pixels are Flutter logical pixels.
-- Images only illustrate.
+- `basics.css` owns every value. A screen never introduces one; a value it needs is added there first.
+- `screen.html` owns the look and layout: sizes, gaps, positions. Canvas pixels are Flutter logical pixels. The art files own the art.
+- The screen's document owns reasoning, behaviour, rules, and data.
+- Images are rendered, never edited.
 
 Where two disagree, the owner holds and the other is fixed in the same edit. A change to a screen is not done until its document, HTML, and images all agree.
 
@@ -366,6 +367,7 @@ Skills print what their skill file specifies. This section governs conversation.
 - Before drafting any spec section, check the item's `Deps:` field in TASKS.md. Surface all listed dependencies and propose batching them into the current work. Do not use an inline `[#N.N]` reference as a substitute for resolving a dependency.
 - Every decision made in conversation must be written into the spec before the task is considered done. Marking a task complete or moving on without writing the decision into the relevant spec file is not acceptable — the goal is to build the spec, not tick off tasks.
 - When an item is resolved, remove it from TASKS.md entirely. Do not leave completed items in TASKS.md.
+- **A document says what its artifact cannot.** Where a design, a sound file, or another asset exists, the document holds the reasons, rules, and behaviour around it, never a description of it.
 - Decisions recorded in the spec are settled. Reopen one when something new is known — not because it feels uncertain again.
 - **No todos in the spec, ever.** No TBDs, no "revisit this", no work items parked in the deliverable, no pointers to the tracker. An open question is resolved in the session that raised it, or the feature is deferred to Ideas.md — a half-specced feature is worse than no spec. The single permitted deferral is a statement that something is **not yet specified**, which is a fact about the spec's coverage addressed to its reader, not a note-to-self about work outstanding. It must have a corresponding TASKS.md item so the gap stays visible, and it is a last resort rather than a way to close a section: reach for it when a decision genuinely cannot be made yet, not when making one is inconvenient.
 - **The spec never references TASKS.md.** No item IDs, no "see TASKS", no pointers to the tracker in any form. TASKS.md tracks work against the spec; the spec is the product of that work and has no knowledge of it. A spec file may state that something is not yet specified — that is a fact about the spec — but naming the item that will resolve it is tracker bookkeeping leaking into the deliverable, and it dangles the moment that item is renumbered or, on resolution, removed.

@@ -29,13 +29,12 @@ Every screen is reached from here, by one tap on a widget or an entry, so there 
 
 A cold start plays the boot and then shows home; with a workout in progress there is no boot, and Auburn opens straight to the workout. Returning from the background shows wherever Auburn was left. When an overdue answer is owed, the prompt opens over home. Android's back gesture on home sends Auburn to the background.
 
-## Contents
+## Rules
 
-Three layers: the content, the list over it, and Power down over both. Top to bottom:
-
-- **AUBURN**, in Gelasio 700, with an Ember cursor blinking once every 1.1 s, always on home.
-- **The status**: the last workout, when and where — "LAST WORKOUT · 2 DAYS AGO · CITY GYM" — at the secondary level.
-- **The widgets**, in the order and widths the user sets; a full-width widget takes a row and half-width widgets pair up, in reading order. They start as Rest at a glance at full width, then Goals and Cardio at half width. Each has its cover — 96 at full width, 72 at half — its name on an Ember fill in Obsidian, its information at the secondary level, and an EDIT key. The area scrolls under the list.
+- Three layers: the content, the list over it, and Power down over both.
+- AUBURN is always on home.
+- The status is the last workout: when and where.
+- The widgets keep the order and widths the user sets, starting as Rest at a glance at full width, then Goals and Cardio at half width. A full-width widget takes a row; half-width widgets pair up in reading order. The widget area scrolls under the list.
 
   | Widget | Information |
   |---|---|
@@ -43,17 +42,15 @@ Three layers: the content, the list over it, and Power down over both. Top to bo
   | Goals | How many goals; the latest progress |
   | Cardio | Days since the last activity; the last run |
 
-- **The list**, on Graphite, edged at the secondary level: a handle reading "3 MORE" or "HIDE", then the entries, each with the entry glyph — Start workout (Resume workout while one is in progress), Past workouts, Exercises, Splits and gyms, Overdue log, Settings. Down, it shows the first three; raised, it rises to just below the status.
-- **Power down**, fixed at the bottom edge on Tube, in Cyan White, always visible.
+- The list holds, in order: Start workout (Resume workout while one is in progress), Past workouts, Exercises, Splits and gyms, Overdue log, Settings. Down, it shows the first three; raised, it rises to just below the status.
+- Power down is always visible.
 
 ## Controls
-
-
 
 | Tap | Does |
 |---|---|
 | A widget | Opens its screen: Rest at a glance, Goals, Cardio |
-| EDIT | Opens the widget's controls: ▲ and ▼ move it one place in reading order, HALF and FULL set its width, DONE closes them. The other widgets step back to 42% |
+| EDIT | Opens the widget's controls: ▲ and ▼ move it one place in reading order, HALF and FULL set its width, DONE closes them. The other widgets step back while one is edited |
 | The list's handle, tap or drag | Raises or lowers the list |
 | An entry | Opens its screen |
 | Power down, press and hold | Plays the power-down, then Auburn quits |
@@ -62,6 +59,6 @@ Every key's tap area is at least 44 px.
 
 ## Images
 
-
+Rendered from `screen.html`.
 
 ![Home](home.png) ![List raised](raised.png) ![Workout in progress](workout.png) ![Editing a widget](editing.png) ![Power down, held](power-down.png)

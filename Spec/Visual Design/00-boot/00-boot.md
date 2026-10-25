@@ -20,23 +20,10 @@ Shows Auburn's mark, its name, and a line for the moment the app takes to start,
 
 It costs about eight seconds a few times a day and nothing more. It plays only when Auburn starts cold — never when it returns from the background, and never while a workout is in progress, when Auburn opens straight to the workout. It is the one place the brand is shown whole.
 
-## Contents
+## Rules
 
-Centred, top to bottom:
-
-- **The mark:** an Ember plate, 220 × 264, with a double Obsidian rule inside it. Within the rule, three Obsidian pillars 5 apart, lettered at their feet in Saira light — H, C, M: hypertrophy, cardio, mobility. Beneath them a rule, and under it the line, in Saira uppercase on one row.
-- **AUBURN** in Gelasio, 14 below the mark, spread to the mark's visible width.
-- **The line**, one of nine, picked at random each boot and never the same twice running, shown bare: "More human than human.", "Introducing, the new You.", "Human, improved.", "Built better. By you.", "Engineered to endure.", "Strength is a protocol.", "Advancement is mandatory.", "Obsolescence is optional.", "Flesh: the first machine." A line is at most 26 characters.
-- **A 9 px dot grid** across the screen.
-
-The themes differ in three things only:
-
-| | Dark | Light |
-|---|---|---|
-| Screen | Tube, Ember dots | Ember, Obsidian dots |
-| Wordmark | Ember, 220 wide: the plate's edge | Obsidian, 200 wide: the outer rule's edge, since the plate merges with the screen |
-
-**The sequence**, 8 s: a Cyan White line across the middle, the picture opening from it, the plate, the pillars rising one after another, the wordmark settling, the line flickering in, a hold, then the fade into the first screen. The timeline is in `screen.html`.
+- The line under the mark is one of nine, picked at random each boot and never the same twice running: "More human than human.", "Introducing, the new You.", "Human, improved.", "Built better. By you.", "Engineered to endure.", "Strength is a protocol.", "Advancement is mandatory.", "Obsolescence is optional.", "Flesh: the first machine." A line is at most 26 characters.
+- The boot has both themes; the theme decides which version plays.
 
 ## Controls
 
@@ -44,6 +31,6 @@ None. The boot ignores taps and plays to the end.
 
 ## Images
 
-
+Rendered from `screen.html`.
 
 ![Boot, dark](dark.png) ![Boot, light](light.png)

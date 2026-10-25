@@ -1,66 +1,38 @@
 # Visual Design
 
-This document holds the concrete values — palette, type, spacing, radii — and every screen of the app. [Design Principles](Design%20Principles.md) holds the reasoning that produced them.
+The rules every screen follows, and the index of screens. Every value is in [basics.css](Visual%20Design/basics.css); each screen's look is its own `screen.html`. [Design Principles](Design%20Principles.md) holds the reasoning.
 
 ---
 
 ## Basics
 
+### Values
+
+Every colour, face, level, and timing a screen uses is in [basics.css](Visual%20Design/basics.css). A screen never introduces a value; a value it needs is added there first.
+
 ### Themes
 
 Auburn has a dark and a light theme. It follows the device unless Settings sets dark or light. In v1 the theme changes the boot screen only; every other screen is the same in both.
 
-### Palette
-
-| Name | Hex |
-|---|---|
-| Tube | `#1A1D1A` |
-| Obsidian | `#121215` |
-| Ember | `#D9573B` |
-| Cyan White | `#DDF7F5` |
-| Graphite | `#212220` |
-
-### Type
-
-| Face | Use |
-|---|---|
-| Gelasio 700 | The wordmark |
-| Saira 300 / 600 | The mark's letters and its line |
-| Courier Prime 400 / 700 | Interface text: labels, lists, status, and information |
-
 ### Emphasis
 
-Every element sits on one of three levels: Ember at an opacity on the screen colour, or Cyan White where a screen sets it apart.
+Every element sits on one of three levels — primary, secondary, supporting — for its text and for its lines: Ember at the level's opacity on the screen colour, or Cyan White where a screen sets an element apart.
 
-| Level | Text | Lines |
-|---|---|---|
-| Primary | 90%, Regular | 90%, 2 px |
-| Secondary | 62%, Bold | 55%, 2 px |
-| Supporting | 42%, Bold | 12%, 3 px |
+### Lists
 
-### The entry glyph
-
-A chevron and an underscore on a 24-unit grid, drawn with a 2-unit stroke, square ends and square corners: `M4 7 L9 12 L4 17 M12 17 H20`. It marks every entry in a list, at the supporting level.
+Every entry in a list is marked with the [entry glyph](Visual%20Design/entry-glyph.svg).
 
 ### Press and hold
 
-An action that cannot be taken back is pressed and held. The control fills with Ember from its leading edge over 1.5 s, and each character turns Obsidian as the fill passes it. Let go early and the fill drains in 0.3 s.
+An action that cannot be taken back is pressed and held. Let go before it fills, and it is not taken.
 
 ### Covers and icons
 
-A square on a 200-unit grid: a 7-unit Ember frame and, inside it, a solid Ember object turned 45° and clipped by the frame, its details cut in the screen colour. An icon crosses its object with a dark band carrying its short name in Gelasio 700, ruled 1 px above and below. A widget's cover has no band. The widget covers are in [Visual Design/covers/](Visual%20Design/covers/); the icon set is in [Visual Design/icons/](Visual%20Design/icons/), each icon taken up by the screen that first uses it.
+The widget covers are in [covers/](Visual%20Design/covers/); the icon set is in [icons/](Visual%20Design/icons/), each icon taken up by the screen that first uses it. A widget's cover carries no name band, since the widget names itself.
 
 ### The tube
 
-Every screen runs under one shader: curvature, chromatic aberration kept off the centre, bloom, scanlines, a vignette, a slow rolling band, grain, and glass that moves with the phone's tilt.
-
-| | |
-|---|---|
-| Strength | 0.6 |
-| Glass | Low (0.6); High (1.2) on the boot |
-| Glass travel with tilt | Small (0.35) |
-
-With the system's reduce-motion setting on, the band, the grain, and the glass hold still.
+Every screen runs under one shader: curvature, chromatic aberration kept off the centre, bloom, scanlines, a vignette, a slow rolling band, grain, and glass that moves with the phone's tilt. Its values are in basics.css; the boot runs its glass High, every other screen Low. With the system's reduce-motion setting on, the band, the grain, and the glass hold still.
 
 The rest of the basics are not yet specified.
 
