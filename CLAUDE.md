@@ -183,9 +183,25 @@ Reset all is Claude republishing the board from the basics.
 `Spec/Visual Design/basics.css`, copies it to the canvas, and removes the persisted and the
 dropped trials from the boards, all in one commit.
 
-**Components.** A part used on more than one screen is a component: its own board on the
-Components page, showing each of its states, imported by every screen that uses it, and
-changed only on its own board.
+**Rounds.** Every round has a status: in progress, approved, or set aside. It shows in the
+round's title on the canvas and in its round board's heading. An approved round is a record
+and is not changed again. Approved work changes through a new round, started from the agreed
+version:
+
+- the theme: tuned on the Theme board, then persisted, with no round;
+- a screen: a new round on its screen's page;
+- a component: a component round on the Components page, showing the component with every
+  agreed screen that uses it.
+
+Approving a round replaces the agreed version with it: a screen's `screen.html`, document and
+images; a component's board; and the values the user keeps, into `basics.css`.
+
+**Components.** A named part of the interface with its own states is a component, built once
+and used wherever it appears. The Components page holds the agreed components, each its own
+board showing each of its states and imported by every agreed screen that uses it, with
+component rounds below them. A component reaches the page when the round that introduces it
+is approved. A screen round that changes a component works on its own copy; when the round is
+approved, the copy replaces the agreed component, and every screen that uses it changes with it.
 
 **Clean boards.** The tube — curvature, scanlines, glass — and any other render effect, such
 as glow, flicker or bloom, is never faked on the canvas. The canvas judges layout, design,
