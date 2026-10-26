@@ -86,6 +86,20 @@ Auburn never names or diagnoses a weakness. Weaknesses are found by the user.
 
 ---
 
+## Two realms
+
+Auburn exists in two realms.
+
+In reality, it is the training app this document describes. A user who wants only that gets only that.
+
+In fiction, Auburn is a corporation that commercialises humanity. It sells a way of living that distances people from themselves and turns them into a loyal, dependent consumer base, and the body and the identity are its product. Its culture is warm on the surface and turns uncanny through its practices, its rules of behaviour, and its language. Its slogan is "Introducing, the new You."
+
+The fictional Auburn is what the real one refuses to be. The corporation prescribes the day; Auburn never does. The corporation sets the targets; Auburn never sets one. The corporation names what is wrong with you; Auburn never names a weakness. The corporation sells a new You; Auburn is built on reading the one you have. Every rule the user holds themselves to, the corporation claims as its own policy, and the user who notices sees whose discipline it was.
+
+The fiction changes what Auburn says, never what Auburn does. Every behaviour follows this document; the corporation only narrates it.
+
+---
+
 ## Terms
 
 - **Muscle group** — a part of the body rest is kept for, from a standard list: chest, front delts, side delts, rear delts, biceps, triceps, forearms, lats, upper back, traps, lower back, abs, obliques, quads, hamstrings, glutes, calves, adductors, abductors, neck. Cardio rests the same way, reset by runs, treadmill sessions, and hikes from the watch.
