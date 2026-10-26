@@ -99,6 +99,20 @@ Notes: fit_tool 1.0.5 throws on sport values newer than its profile. One activit
 
 ---
 
+## Suunto data through intervals.icu
+
+Probe · draft
+
+Question: beyond distance, duration, and heart rate, what does a Suunto FIT file from intervals.icu carry, and which wellness fields does intervals.icu hold from Suunto?
+Pass: every message type and field in one run, one treadmill session, and one hike is listed, along with the wellness fields present for the last 30 days.
+Timebox: two hours.
+Needs: wellness import turned on in intervals.icu's Suunto settings; a build run on the phone.
+Feeds: Research/Suunto.
+Code: Lab/suunto-intervals/, a second screen beside the done probe.
+Stakes: none for v1. What it finds decides what is worth parking in Ideas.md.
+
+---
+
 ## CRT shader over Flutter
 
 Probe · done

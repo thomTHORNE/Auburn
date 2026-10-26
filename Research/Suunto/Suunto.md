@@ -26,6 +26,10 @@ Bringing basic data for runs, treadmill sessions, and hikes recorded on a Suunto
 - **The FIT file carries the whole workout.** Session totals (distance, timer time, average heart rate) plus a heart-rate sample per record, and a sport and sub-sport that separate runs, treadmill sessions, and hikes. Lab: Suunto via intervals.icu.
 - **intervals.icu lists activities by date range.** The probe read 90 days in one request; no 30-day limit applies.
 - **Dart's fit_tool 1.0.5 throws on values newer than its profile.** Lab: Suunto via intervals.icu.
+- **intervals.icu also holds Suunto's wellness data.** Sleep, HRV, and resting heart rate sync from Suunto once wellness import is turned on in intervals.icu, and the same API key reads them by date range. Forum reports, not yet probed: sleep totals have arrived short, and the automatic sync has stalled for some accounts.
+- **intervals.icu calculates more than the FIT file carries.** Each activity also has heart-rate zone times, training load, a heart-rate curve, intervals, and its streams as JSON. These are intervals.icu's calculations, not the watch's.
+- **The watch's post-workout feeling reaches the FIT file**, on a 1–5 scale, and intervals.icu imports it as Feel. Forum report, not yet probed.
+- **intervals.icu can send planned workouts to the watch** as SuuntoPlus Guides. Outside v1.
 
 ## Dependencies
 
