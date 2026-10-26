@@ -34,10 +34,10 @@ Parked because v1 keeps only basic data for each activity.
 
 Worth revisiting once cardio has a screen of its own and what it lists is decided.
 
-## A goal reached
+## Phases
 
-A goal could state what reaching it looks like — 4 km under 20 minutes, a bodyweight pull-up for eight controlled reps — and be marked reached.
+A stretch of training lived under a circumstance of its own — a cut, a bulk, an injury, a running block, a busy quarter — stated so that progress across it reads with its reason. A strength drop in a cut is what the cut expected; the log shows the drop either way, and only the phase says why. Training facts alone cannot tell a cut from an illness, poor sleep, or overreaching: only the user's word, or body weight, can.
 
-Parked because goals are new and what they should show beyond their exercises' progress is unknown.
+Parked because no phase has been committed to in practice, and a phase cannot yet be defined in simple terms.
 
-Worth revisiting once goals have been used for a while.
+Worth revisiting if a stretch of training is planned around a circumstance, or if progress across one is misread without its reason. The cheapest form is Auburn asking why when many exercises drop at once, as it does for an overdue muscle group, and keeping the answer.
