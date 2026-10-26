@@ -39,6 +39,7 @@ None.
 - **A reps target needs the grade.** Progress's reps point is the most reps on any set, whatever its grade, so a target set on it alone would be crossed by a sloppy set.
 - **The roll paces a reps target's evidence.** Reps exist only on counted sets, about one commit in three, and a roll cannot be re-rolled.
 - **An imbalance is proven through an exercise of its own.** Levelling the left leg is a goal whose target sits on an exercise done with the left leg only. Nothing new is needed.
+- **A target is proven by one exercise or one activity kind, never several.** A run and a treadmill session could both prove "4 km under 20 minutes", but letting several sources share a target needs too many rules about when they are equal. It is not supported.
 
 ## Dependencies
 

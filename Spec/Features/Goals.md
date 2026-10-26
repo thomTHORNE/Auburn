@@ -89,6 +89,7 @@ A reached goal also shows the days from active to reached. An abandoned goal sho
 | The fact behind a kept target is deleted later | The target stays reached |
 | An exercise a target of an active goal sits on is archived | Refused until the goal ends |
 | Two goals' targets sit on the same exercise | Each is watched on its own; one set can reach both |
+| A target on runs, and a treadmill session meets it | It does not count; only the target's own kind does |
 | Sets imported from Notion, dated before a goal was made active | Never reach its targets |
 | A bodyweight exercise's load target | The added load counts; 0 when none |
 | A distance range lets no activity through | The chart is empty until one fits |
