@@ -456,20 +456,12 @@
       "x": 960,
       "y": 10560
     },
-    "S01-R3-Editing.dc.html": {
-      "page": "s01",
-      "title": "Round 3 · editing · on the scales · in progress",
-      "w": 400,
-      "h": 640,
-      "x": 1440,
-      "y": 10560
-    },
     "S01-R3-Power.dc.html": {
       "page": "s01",
       "title": "Round 3 · power · on the scales · in progress",
       "w": 400,
       "h": 640,
-      "x": 2400,
+      "x": 1440,
       "y": 10560
     },
     "S00-Dark.dc.html": {
@@ -500,7 +492,7 @@
     "S01-R3-Round.dc.html": {
       "page": "s01",
       "title": "Round 3 · in progress · tune in the Tweaks tab",
-      "w": 3092,
+      "w": 2212,
       "h": 760,
       "x": 0,
       "y": 11480,
@@ -631,14 +623,6 @@
       "y": 1535,
       "is_interactive": true
     },
-    "S01-R3-Editing-Full.dc.html": {
-      "page": "s01",
-      "title": "Round 3 · editing-full · on the scales · in progress",
-      "w": 400,
-      "h": 640,
-      "x": 1920,
-      "y": 10560
-    },
     "C-R3-Entry-States.dc.html": {
       "page": "components",
       "title": "Entry · states · round 3 · in progress",
@@ -710,8 +694,8 @@
     "C-R3-Widget-States.dc.html": {
       "page": "components",
       "title": "Widget · states · round 3 · in progress",
-      "w": 1092,
-      "h": 353,
+      "w": 652,
+      "h": 314,
       "x": 0,
       "y": 4023
     },
@@ -727,7 +711,7 @@
     "C-R3-Screens.dc.html": {
       "page": "components",
       "title": "Component rounds · in screen 01, round 3 · in progress",
-      "w": 2680,
+      "w": 1800,
       "h": 760,
       "x": 0,
       "y": 4496
@@ -1016,7 +1000,6 @@
     "S01-R3-Home.dc.html",
     "S01-R3-Raised.dc.html",
     "S01-R3-Workout.dc.html",
-    "S01-R3-Editing.dc.html",
     "S01-R3-Power.dc.html",
     "S00-Dark.dc.html",
     "S00-Light.dc.html",
@@ -1037,7 +1020,6 @@
     "C-List.dc.html",
     "C-Widget-States.dc.html",
     "C-Widget.dc.html",
-    "S01-R3-Editing-Full.dc.html",
     "C-R3-Entry-States.dc.html",
     "C-R3-Entry.dc.html",
     "C-R3-Header-States.dc.html",

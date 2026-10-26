@@ -9,9 +9,9 @@
 //   S01-<state>              the agreed screen 01 (Spec/Visual Design/01-navigation/screen.html), importing the
 //                            component boards.
 //   C-R3-<Name>, -States     each component's round for screen 01's round 3: on the trial scales, with tap areas of
-//                            the trial's height. C-R3-Screens shows round 3's screens, which import them.
+//                            the trial's height, and a widget with no EDIT. C-R3-Screens shows round 3's screens.
 //   S01-R3-<state>           screen 01, round 3: the agreed screen importing the component rounds, its own placing
-//                            on the scales, and a state of its own: a full-width widget edited.
+//                            on the scales, with no editing state.
 //   basics.css               a copy of Spec/Visual Design/basics.css.
 //
 // Values the user has set in a board's Tweaks tab are read from the mirror and kept. A change stays on its board.
@@ -238,40 +238,24 @@ function onScales(style) {
   return s;
 }
 
-// Every key takes a tap area of the trial's height, the way EDIT does: an invisible button around the key it shows,
-// its overhang taken back by a negative margin, so the key looks and sits as before. At half width the editing keys
-// take two rows, ▲ ▼ over HALF FULL, each key wide enough to tap; the rows sit far enough apart that their tap
-// areas do not overlap.
-const overhang = (key) => `calc((${key} - var(--tap-area)) / 2)`;
-function tapAreas(html) {
+// Round 3's component changes. Home carries no EDIT: the widget loses its key and its editing controls, and with
+// them its editing and stepped-back states. An entry is a key of the tap area's height. The handle keeps its look;
+// its tap area reaches up over the screen.
+function roundCopy(html) {
   return html
-    .replace(/height: 44px; margin: -9px -8px -9px 0;/g, `height: var(--tap-area); margin: ${overhang('26px')} -8px ${overhang('26px')} 0;`)
-    .replace(/<button (aria-label="Move (?:up|down)") style="height: 30px; (border: [^;]+); background: transparent; (color: [^;]+); font-family: inherit; ([^"]+)" type="button">(.)<\/button>/g,
-      (_, label, border, color, type, key) => `<button ${label} style="height: var(--tap-area); margin: ${overhang('30px')} 0; padding: 0; border: none; background: transparent; display: flex; align-items: center; font-family: inherit" type="button">`
-        + `<span style="flex: 1; height: 30px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; ${border}; ${color}; ${type}">${key}</span></button>`)
-    .replace(/<span class="seg seg-(half|full)" style="([^"]+)">(HALF|FULL)<\/span>/g,
-      (_, w, st, key) => `<button aria-label="${cap(w)} width" style="flex: 1; height: var(--tap-area); margin: ${overhang('26px')} 0; padding: 0; border: none; background: transparent; display: flex; align-items: center; font: inherit; color: inherit; letter-spacing: inherit" type="button">`
-        + `<span class="seg seg-${w}" style="${st}; height: 26px">${key}</span></button>`)
-    .replace(/(class="widget w-half"[\s\S]*?class="edit-controls" style="display: grid; grid-template-columns: )repeat\(4, minmax\(0, 1fr\)\); gap: 6px/g,
-      '$1repeat(2, minmax(0, 1fr)); gap: 24px 6px')
-    // An entry is a key of the tap area's height. The handle keeps its look; its tap area reaches up over the screen.
+    .replace(/<button style="height: 44px;[^"]*" type="button">[\s\S]*?<\/button>/g, '')
+    .replace(/\n?<div class="edit-controls"[^>]*>[\s\S]*?FULL<\/span><\/div><\/div>/g, '')
     .replace(/<a href="#" style="height: 42px;/g, '<a href="#" style="height: var(--tap-area);')
     .replace(/(<div style="height: 30px; display: flex; align-items: center; justify-content: center; gap: 10px; [^"]*)">(<span style="width: 40px; height: 3px;[^>]*><\/span>[^<]*)<\/div>/g,
       '$1; position: relative">$2<button aria-label="Raise or lower the list" style="position: absolute; left: 0; right: 0; bottom: 0; height: var(--tap-area); padding: 0; border: none; background: transparent" type="button"></button></div>');
 }
+// The properties and states a round's copy no longer has.
+const ROUND_DROPS = { 'auburn-widget': ['state'] };
+const roundStates = (c) => c.states.filter((s) => !/data-state="(editing|stepped-back)"/.test(s.inst));
 
 // Round 3's screen, before its components are filled in. The list sits lower than the agreed screen's by its three
-// entries' growth, so the same three show. While a widget is edited, the widgets scroll until it is clear of the list.
-// At a 48 px tap area: the edited widget ends 8 px above the handle's tap area.
-const EDIT_SCROLL = 78;
-function roundScreen(id, html) {
-  html = html.replace(/top: 432px/g, 'top: calc(432px - 3 * (var(--tap-area) - 42px))');
-  if (id !== 'editing') return html;
-  return html
-    .replace('top: 18px; display: flex; flex-direction: column; gap: 10px">', 'top: 18px; bottom: 52px; display: flex; flex-direction: column; gap: 10px">')
-    .replace(/<div style="display: grid; grid-template-columns: repeat\(2, minmax\(0, 1fr\)\); gap: 8px; margin-top: 4px">([\s\S]*?<\/div>)\n<\/div>/,
-      `<div style="flex: 1; min-height: 0; overflow: hidden; margin-top: 4px"><div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: -${EDIT_SCROLL}px">$1\n</div></div>`);
-}
+// entries' growth, so the same three show.
+const roundScreen = (html) => html.replace(/top: 432px/g, 'top: calc(432px - 3 * (var(--tap-area) - 42px))');
 
 // ---- components ----
 
@@ -315,7 +299,9 @@ function componentBoards(round) {
     const first = attrsOf(c.states[0].inst.match(/<auburn-[a-z]+((?:\s+[a-z0-9-]+="[^"]*")*)/)[1]);
     const defaults = Object.fromEntries(Object.entries(first).filter(([k]) => k.startsWith('data-')).map(([k, v]) => [camel(k.slice(5)), v]));
     const props = {};
-    for (const [k, values] of Object.entries(c.props)) {
+    const own = Object.keys(c.props).filter((k) => !(round && (ROUND_DROPS[c.tag] || []).includes(k)));
+    const states = round ? roundStates(c) : c.states;
+    for (const [k, values] of Object.entries(c.props).filter(([k]) => own.includes(k))) {
       const range = values[0].match(/^(\d+)-(\d+|n)$/);
       props[camel(k)] = range ? { editor: 'range', default: Number(defaults[camel(k)] || 0), min: +range[1], max: range[2] === 'n' ? 20 : +range[2], step: 1, section: 'Properties' }
         : { editor: 'enum', options: values, default: defaults[camel(k)] || values[0], section: 'Properties' };
@@ -329,10 +315,10 @@ function componentBoards(round) {
     // The agreed images' sizes; a round's copy grows, so its boards take room to spare.
     const grow = round ? 60 : 0;
     const size = (id) => { const s = readFileSync(`${SPEC}/components/${c.name}/${id}.png`); return { width: s.readUInt32BE(16), height: s.readUInt32BE(20) + grow }; };
-    props.$preview = size(c.states[0].id);
-    const template = (round ? onScalesAll(tapAreas(bustToMask(c.html))) : bustToMask(c.html))
+    props.$preview = size(states[0].id);
+    const template = (round ? onScalesAll(roundCopy(bustToMask(c.html))) : bustToMask(c.html))
       .replace(/<template data-each="([a-z0-9]+)">([\s\S]*?)<\/template>/g, '<sc-for list="{{$1}}" as="item" hint-placeholder-count="3">$2</sc-for>');
-    const root = `<div class="${c.tag}${round ? ' round-3' : ''}" ${Object.keys(c.props).map((k) => `data-${k}="{{${camel(k)}}}"`).join(' ')}>\n${toImports(template, round)}\n</div>`;
+    const root = `<div class="${c.tag}${round ? ' round-3' : ''}" ${own.map((k) => `data-${k}="{{${camel(k)}}}"`).join(' ')}>\n${toImports(template, round)}\n</div>`;
     const lists = [...c.html.matchAll(/<template data-each="([a-z0-9]+)">/g)].map((m) => m[1]);
     out[`${Name}.dc.html`] = board({
       title: round ? `Component round · ${c.name} · for screen 01's round 3 · in progress` : `Component · ${c.name} · agreed`,
@@ -356,15 +342,15 @@ return d;
       props,
     });
     // The states, each in its frame, as component.html lists them.
-    const frames = c.states.map((s) => {
+    const frames = states.map((s) => {
       // A round's list frame grows with its entries.
       const entries = (s.inst.match(/data-entries="([^"]*)"/) || [, ''])[1].split('|').filter(Boolean).length;
       const frame = round && entries ? s.frame.replace(/height: (\d+)px/, `height: calc($1px + ${entries} * (var(--tap-area) - 42px))`) : s.frame;
       return `<div style="display: flex; flex-direction: column; gap: 8px"><div style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #8A8A8A; text-transform: uppercase">${s.label}</div>
 <div style="position: relative; ${frame}; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface)">${toImports(s.inst, round)}</div></div>`;
     }).join('\n');
-    const w = 64 + c.states.reduce((a, s) => a + size(s.id).width + 40, -40);
-    const h = 64 + 28 + Math.max(...c.states.map((s) => size(s.id).height));
+    const w = 64 + states.reduce((a, s) => a + size(s.id).width + 40, -40);
+    const h = 64 + 28 + Math.max(...states.map((s) => size(s.id).height));
     out[`${Name}-States.dc.html`] = board({
       title: round ? `Component round · ${c.name} · states · in progress` : `Component · ${c.name} · states`,
       fonts: 'family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700',
@@ -378,21 +364,16 @@ return d;
 
 function navigationBoards(round) {
   const src = readFileSync(`${SPEC}/01-navigation/screen.html`, 'utf8');
-  const names = { home: 'Home', raised: 'Raised', workout: 'Workout', editing: 'Editing', 'editing-full': 'Editing-Full', 'power-down': 'Power' };
-  const titles = { home: 'home', raised: 'list raised', workout: 'workout in progress', editing: 'editing the Goals widget', 'editing-full': 'editing the Rest widget, full width', 'power-down': 'power down, held' };
+  const names = { home: 'Home', raised: 'Raised', workout: 'Workout', editing: 'Editing', 'power-down': 'Power' };
+  const titles = { home: 'home', raised: 'list raised', workout: 'workout in progress', editing: 'editing the Goals widget', 'power-down': 'power down, held' };
   const out = {};
-  const states = [...src.matchAll(/<section class="state" id="([a-z-]+)">\s*<h2>[^<]*<\/h2>\s*([\s\S]*?)<\/section>/g)].map((m) => [m[1], m[2].trim()]);
-  // Round 3 also edits a full-width widget: the editing state, with Rest edited and the others stepped back.
-  if (round) {
-    const at = states.findIndex(([id]) => id === 'editing');
-    const full = states[at][1].replace(/data-state="editing"/, 'data-state="stepped-back"')
-      .replace(/(data-kind="rest" data-width="full" data-state=")stepped-back"/, '$1editing"');
-    states.splice(at + 1, 0, ['editing-full', full]);
-  }
+  // Round 3 has no editing state: home carries no EDIT, and the layout is edited in Settings.
+  const states = [...src.matchAll(/<section class="state" id="([a-z-]+)">\s*<h2>[^<]*<\/h2>\s*([\s\S]*?)<\/section>/g)]
+    .map((m) => [m[1], m[2].trim()]).filter(([id]) => !(round && id === 'editing'));
   for (let [id, html] of states) {
     // The agreed screen imports the agreed components; round 3 imports their round copies, and puts its own
     // placing on the scales.
-    html = round ? onScalesAll(toImports(roundScreen(id, html), true)) : toImports(html);
+    html = round ? onScalesAll(toImports(roundScreen(html), true)) : toImports(html);
     // The screen's root takes whatever the Theme or round board passes in.
     html = html.replace(/^<div style="([^"]*)">/, (_, st) => `<div style="${st.replace(/;?\s*$/, '')}; {{theme}}">`);
     out[`S01-${round ? 'R3-' : ''}${names[id]}.dc.html`] = board({
