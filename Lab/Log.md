@@ -103,8 +103,8 @@ Notes: fit_tool 1.0.5 throws on sport values newer than its profile. One activit
 
 Probe · draft
 
-Question: beyond distance, duration, and heart rate, what does a Suunto FIT file from intervals.icu carry, and which wellness fields does intervals.icu hold from Suunto?
-Pass: every message type and field in one run, one treadmill session, and one hike is listed, along with the wellness fields present for the last 30 days.
+Question: beyond distance, duration, and heart rate, what does a Suunto FIT file from intervals.icu carry — its GPS track above all — and which wellness fields does intervals.icu hold from Suunto?
+Pass: every message type and field in one run, one treadmill session, and one hike is listed, along with the wellness fields present for the last 30 days. For the run and the hike, it shows how many records carry a position and the seconds between them.
 Timebox: two hours.
 Needs: wellness import turned on in intervals.icu's Suunto settings; a build run on the phone.
 Feeds: Research/Suunto.

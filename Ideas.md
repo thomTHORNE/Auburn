@@ -26,6 +26,14 @@ Parked because v1 reads only runs, treadmill sessions, and hikes, and what heart
 
 Worth revisiting if heart rate during a workout would change how rest or a grade is read.
 
+## A run's route
+
+The FIT file of a run or hike carries the watch's GPS track. Auburn could draw it on the activity, as a line in its own palette or over a map.
+
+Parked because v1 keeps only basic data for each activity.
+
+Worth revisiting once cardio has a screen of its own and what it lists is decided.
+
 ## A goal reached
 
 A goal could state what reaching it looks like — 4 km under 20 minutes, a bodyweight pull-up for eight controlled reps — and be marked reached.
