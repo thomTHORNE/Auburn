@@ -49,3 +49,4 @@ An archived exercise is offered nowhere new and stays in every workout it appear
 | An exercise's gym tie is removed while it has sets at that gym | Its history is kept; it is no longer offered there |
 | A stack exercise's step changes | Past loads are kept; the input steps by the new value |
 | A plate total below the bar | Not possible: the bar is the floor |
+| An exercise a target of an active goal sits on is archived | Refused, as specified in [Goals](Goals.md) |

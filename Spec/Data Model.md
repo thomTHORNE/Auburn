@@ -87,22 +87,47 @@ enum ExerciseParameter { load, reps }
 
 ```dart
 enum ActivityKind { run, treadmill, hike }
+enum GoalState { draft, active, reached, abandoned }
 
 class Goal {
   final String name;
   final String explanation;
-  final ActivityKind? cardioKind; // a cardio goal: measured against activities of this kind
-  final CardioParameter shownParameter; // cardio goals: what Progress plots; default pace
-  final double? minDistanceKm;    // cardio goals: only activities in this range count
-  final double? maxDistanceKm;
-  final bool archived;
+  final GoalState state;
+  final DateTime? activatedAt;           // set when made active
+  final DateTime? endedAt;               // reached or abandoned
+  final String? abandonedBecause;        // abandoned only
+  final String? fromGoalId;              // the goal this one was started from
+  final TargetParameter? shownParameter; // what the chart plots; null: the current target's parameter
 }
 
-enum CardioParameter { pace, duration, distance, averageHeartRate }
+enum TargetParameter { load, reps, pace, duration, distance, averageHeartRate }
+
+/// A step or a final target. A goal's targets are reached in position order; the last is the final target.
+class Target {
+  final String goalId;
+  final int position;               // from 1, without gaps
+  final String? exerciseId;         // one of the goal's exercises; or
+  final ActivityKind? activityKind; // an activity kind
+  final TargetParameter parameter;
+  final double value;               // kg, reps, seconds per km, seconds, km, or bpm
+  final Set<Grade> grades;          // targets on an exercise: the grades that count
+  final double? minLoadKg;          // reps targets: the least load that counts
+  final double? minDistanceKm;      // targets on an activity kind: only activities in this range count
+  final double? maxDistanceKm;
+  final DateTime? reachedAt;        // the date of the fact that reached it
+  final String? reachedById;        // that set or activity
+  final bool kept;                  // the user kept the mark
+  final DateTime? passedUntil;      // after an undo: facts up to here never reach it
+}
 ```
 
 - A goal's exercises are the exercises that name it.
-- `minDistanceKm ≤ maxDistanceKm` when both are set.
+- `activatedAt` is set exactly when the state is not draft; `endedAt` exactly when it is reached or abandoned; `abandonedBecause` exactly when abandoned, and never empty.
+- A goal that is not a draft has at least one target.
+- A target has exactly one of `exerciseId` and `activityKind`. On an exercise, its parameter is load or reps, the exercise names the goal, and it has at least one grade. On an activity kind, its parameter is pace, duration, distance, or average heart rate, and it has no grades.
+- `minLoadKg` is set only on a reps target. `minDistanceKm ≤ maxDistanceKm` when both are set.
+- `kept` is true only with `reachedAt`. A reached goal's targets are all kept.
+- A target's reach is stored, not derived: the user keeps or undoes it, and an ended goal never changes.
 
 ## Workouts
 
@@ -204,4 +229,4 @@ class Settings {
 
 ## Deleting
 
-Gyms, exercises, goals, and splits are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Overdue entries are never deleted.
+Gyms, exercises, and splits are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new. A draft goal is deleted outright with its targets, and its exercises stop naming it; a goal that has been active is never deleted. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Overdue entries are never deleted.

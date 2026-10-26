@@ -38,9 +38,9 @@ The rules are the user's, and Auburn holds the user to them. Where a rule exists
 
 A rule that bends whenever it is inconvenient stops being a rule. The value of being held to account is that it does not depend on how the user feels about it in the moment.
 
-> In practice: a roll stands. A muscle group appears only once an exercise resets it. An overdue muscle group asks why, and the answer is kept.
+> In practice: a roll stands. A muscle group appears only once an exercise resets it. An overdue muscle group asks why, and the answer is kept. An active goal's target holds, and an abandoned goal keeps why.
 
-*Derives from: Muscles set the pace; Rest and feel choose the training; Variety on purpose.*
+*Derives from: Muscles set the pace; Rest and feel choose the training; Variety on purpose; A goal says why.*
 
 ---
 

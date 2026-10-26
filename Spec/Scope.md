@@ -20,7 +20,7 @@ A version may withhold a pillar of Foundation, but never break one of its refusa
 | **Muscle groups** | The standard list, the exercises that work each group, and the AMAP rule. Every muscle group is owed. A muscle group may carry a split. |
 | **Rest** | Each muscle group's rest, rest bands, and overdue limit, set per group; cardio rests the same way. Every rest at a glance, as the basis for choosing the day's training. |
 | **The muscle figure** | A classical figure, engraved in the style of a terminal boot screen, shown front and back, with one region per muscle group. It lights the groups an exercise works, and tints every group by its rest band. |
-| **Goals** | Goals with the user's explanation and the exercises that work toward them, shown with those exercises' progress; for a cardio goal, its runs' times. Weaknesses are goals. |
+| **Goals** | Goals with the user's explanation, a target the facts prove — reached in steps when the user sets them — and the exercises that work toward it, shown with the gap to the target. A goal is drafted, made active, and ends reached or abandoned. Weaknesses are goals. |
 | **The overdue log** | The prompt when a muscle group or cardio falls overdue, and the log of answers. |
 | **Workouts** | Starting a workout by choosing the gym, which limits the exercises on offer to that gym's; committing exercises to it in order; its duration; and past workouts. |
 | **Sets** | Load and grade, plus reps when the modality counts them. |

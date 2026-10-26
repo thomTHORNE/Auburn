@@ -1,4 +1,6 @@
-Status: Open
+Status: Promoted
+
+Landed in Foundation and Spec/Features. This document is no longer the reference.
 
 # Targets
 

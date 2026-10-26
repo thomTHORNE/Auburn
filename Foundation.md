@@ -60,7 +60,11 @@ Every muscle group is owed. A group appears once an exercise resets it, and an A
 
 ### A goal says why
 
-A goal is something to reach: a movement mastered, an imbalance levelled, a time run. It holds the user's own explanation of what it is for and how it is meant to be achieved, and the exercises that work toward it. A goal is never owed. It shows progress, not rest.
+A goal is something to reach: a movement mastered, an imbalance levelled, a time run. It holds the user's own explanation of what it is for and how it is meant to be achieved, and the exercises that work toward it. A goal is never owed. It shows the gap to its target, not rest.
+
+Its target says what reaching it looks like, in the user's own rules, and only the facts prove it: a goal is reached by a set or an activity, never by being marked. A target committed to cannot be trusted unless it holds, so once a goal is active its target does not move. The goal is reached or abandoned, never paused, and an abandoned goal keeps the reason why.
+
+Auburn never sets a target, and never moves one.
 
 ### Variety on purpose
 
@@ -85,7 +89,8 @@ Auburn never names or diagnoses a weakness. Weaknesses are found by the user.
 ## Terms
 
 - **Muscle group** — a part of the body rest is kept for, from a standard list: chest, front delts, side delts, rear delts, biceps, triceps, forearms, lats, upper back, traps, lower back, abs, obliques, quads, hamstrings, glutes, calves, adductors, abductors, neck. Cardio rests the same way, reset by runs, treadmill sessions, and hikes from the watch.
-- **Goal** — something to reach: the user's explanation of what it is and how it is achieved, and the exercises that work toward it.
+- **Goal** — something to reach: the user's explanation of what it is and how it is achieved, its target, and the exercises that work toward it.
+- **Target** — what reaching a goal looks like: a value on one exercise's sets or one kind of activity, under the user's own rules. Steps are targets on the way to the final one.
 - **Exercise** — a movement, on specific equipment where it uses any. Works one or more muscle groups, may serve goals, may name alternates, and may be tied to the gyms it is done at. A mobility exercise works no muscle group and serves no goal.
 - **Alternate** — an exercise named on another as its stand-in, used when that one's equipment is taken.
 - **Workout** — one visit to train at a gym: the exercises committed to it, in order, and their sets. Titled by its date and gym. A workout is hypertrophy or mobility, never both.
