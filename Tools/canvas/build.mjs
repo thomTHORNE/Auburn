@@ -5,7 +5,7 @@
 //   C-<Name>, C-<Name>-States each agreed component (Spec/Visual Design/components/<name>/component.html), with a
 //                            tweak for each property, and a board showing its states.
 //   S01-R3-Round.dc.html     screen 01's round 3 board: the same, for round 3's states, plus the trials below.
-//   S00-Dark, S00-Light      the agreed boot (Spec/Visual Design/00-boot/screen.html), held frame, line 0.
+//   S00-Dark, S00-Light      the agreed boot (Spec/Visual Design/00-boot/screen.html), held frame.
 //   S01-<state>              the agreed screen 01 (Spec/Visual Design/01-navigation/screen.html), importing the
 //                            component boards.
 //   C-R3-<Name>, -States     each component's round for screen 01's round 3: on the trial scales, with tap areas of
@@ -183,8 +183,7 @@ function bootBoards() {
     .split('\n').map((l) => l.trim()).filter(Boolean).join('\n');
   const markup = src.match(/<div class="screen">([\s\S]*?)<\/div>\s*<script>/)[1]
     .replace(/<div class="power-line"[^>]*><\/div>/, '')
-    .replace(/class="([a-z-]+)"/g, (_, c) => `class="${c.split(' ').map((x) => `b00-${x}`).join(' ')}"`)
-    .replace('<span id="line"></span>', '<span>More human than human.</span>');
+    .replace(/class="([a-z-]+)"/g, (_, c) => `class="${c.split(' ').map((x) => `b00-${x}`).join(' ')}"`);
   const out = {};
   for (const theme of ['dark', 'light']) {
     out[`S00-${theme === 'dark' ? 'Dark' : 'Light'}.dc.html`] = board({
