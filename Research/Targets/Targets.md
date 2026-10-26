@@ -22,7 +22,8 @@ Whether a goal states what reaching it looks like, and how Auburn shows the way 
 - **A goal keeps its active date and its end date.** It is created as a draft and made active later. How long it took runs from the day it became active to the day it was reached or abandoned.
 - **A step keeps the day it was reached.** Its time runs from the day the step before it was reached, or from the goal's active date for the first step.
 - **Abandoning a goal asks why**, and the answer is kept on the goal.
-- **An active goal keeps the exercises its target and steps sit on.** Exercises that carry neither can be added and removed.
+- **One exercise proves a target; the others support it.** The target's ruleset names the exercise or activity kind whose facts can reach it. A goal's other exercises work toward it without proving it.
+- **An active goal keeps the exercises its target and steps sit on.** Its supporting exercises can be added and removed.
 
 ## Open questions
 
@@ -35,6 +36,7 @@ None.
 - **The Goals spec sets no target, deadline, or reached state.** Reopening it rests on the first finding, which was not known when that was decided.
 - **A reps target needs the grade.** Progress's reps point is the most reps on any set, whatever its grade, so a target set on it alone would be crossed by a sloppy set.
 - **The roll paces a reps target's evidence.** Reps exist only on counted sets, about one commit in three, and a roll cannot be re-rolled.
+- **An imbalance is proven through an exercise of its own.** Levelling the left leg is a goal whose target sits on an exercise done with the left leg only. Nothing new is needed.
 
 ## Dependencies
 
