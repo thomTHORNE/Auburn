@@ -7,14 +7,14 @@ Whether a goal states what reaching it looks like, and how Auburn shows the way 
 ## Settled
 
 - **A target is the user's.** Auburn shows how the facts move against it and never judges whether it is right.
-- **A target is optional.** A goal with nothing to measure is reached when the user marks it.
-- **A measured target is a ruleset the user writes:** an exercise or activity kind, a parameter, a value, and the conditions a fact must meet to count — for a set, the grades that count. Auburn defines none of them.
+- **Every goal has a target, and the facts prove it.** A goal is reached only by a fact that meets its target's ruleset; nothing is reached by being marked.
+- **A target is a ruleset the user writes:** an exercise or activity kind, a parameter, a value, and the conditions a fact must meet to count — for a set, the grades that count. Auburn defines none of them. A set and an imported activity are facts alike.
 - **A goal may have steps before its final target**, each a target of its own. The user chooses whether it has any.
 - **A goal is a draft, then active, then reached or abandoned.** Everything in a goal can change while it is a draft. Once active it is locked, its exercises aside, and it ends only by being reached or abandoned. It cannot be paused.
 - **An active goal's exercises can still change.** What serves a skill is learned along the way.
 - **A reached goal is frozen** as a permanent record. Reaching it asks the user how to proceed. A new target for the same skill is a new goal, which may start as a copy of the old one.
-- **Auburn marks a measured target reached** on the first fact that meets its ruleset. The mark can be undone, and the target then waits for the next fact that meets it.
-- **A frozen goal shows its progress up to the day it was reached.**
+- **Auburn marks a target reached** on the first fact that meets its ruleset. The mark can be undone, and the target then waits for the next fact that meets it.
+- **A frozen goal shows its progress up to the day it ended**, reached or abandoned. An abandoned goal is frozen like a reached one.
 - **A goal made from another keeps a link to it.**
 - **Auburn says, when a goal is made active, that nothing in it but its exercises can change after.**
 - **A goal's steps may sit on any of its exercises.**
@@ -22,10 +22,11 @@ Whether a goal states what reaching it looks like, and how Auburn shows the way 
 - **A goal keeps its active date and its end date.** It is created as a draft and made active later. How long it took runs from the day it became active to the day it was reached or abandoned.
 - **A step keeps the day it was reached.** Its time runs from the day the step before it was reached, or from the goal's active date for the first step.
 - **Abandoning a goal asks why**, and the answer is kept on the goal.
+- **An active goal keeps the exercises its target and steps sit on.** Exercises that carry neither can be added and removed.
 
 ## Open questions
 
-- **An abandoned goal's record.** Whether it shows its progress up to the day it was abandoned, as a reached goal does.
+None.
 
 ## Findings
 
