@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
 <style>
 body{margin:0}
+/* The phone's browser may enlarge text on a page it thinks is not built for it; the boards show text at its own size. */
+html, body{-webkit-text-size-adjust:100%; text-size-adjust:100%}
 
 .auburn-entry { display: contents; }
 .auburn-header { display: contents; }
@@ -54,7 +56,7 @@ a{color:inherit}
 </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;kind&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;rest&quot;,&quot;goals&quot;,&quot;cardio&quot;],&quot;default&quot;:&quot;rest&quot;,&quot;section&quot;:&quot;Properties&quot;},&quot;width&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;full&quot;,&quot;half&quot;],&quot;default&quot;:&quot;half&quot;,&quot;section&quot;:&quot;Properties&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;idle&quot;,&quot;editing&quot;,&quot;stepped-back&quot;],&quot;default&quot;:&quot;editing&quot;,&quot;section&quot;:&quot;Properties&quot;},&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;REST AT A GLANCE&quot;,&quot;section&quot;:&quot;Text&quot;},&quot;line1&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;4 IN TRAIN · 2 OVERDUE&quot;,&quot;section&quot;:&quot;Text&quot;},&quot;line2&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;OVERDUE · QUADS, HAMSTRINGS&quot;,&quot;section&quot;:&quot;Text&quot;},&quot;$preview&quot;:{&quot;width&quot;:368,&quot;height&quot;:178}}">
+<script type="text/x-dc" data-dc-script data-props='{"kind":{"editor":"enum","options":["rest","goals","cardio"],"default":"rest","section":"Properties"},"width":{"editor":"enum","options":["full","half"],"default":"half","section":"Properties"},"state":{"editor":"enum","options":["idle","editing","stepped-back"],"default":"editing","section":"Properties"},"title":{"editor":"text","default":"REST AT A GLANCE","section":"Text"},"line1":{"editor":"text","default":"4 IN TRAIN · 2 OVERDUE","section":"Text"},"line2":{"editor":"text","default":"OVERDUE · QUADS, HAMSTRINGS","section":"Text"},"$preview":{"width":368,"height":178}}'>
 class Component extends DCLogic {
 constructor(props) {
 super(props);

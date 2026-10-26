@@ -139,6 +139,8 @@ function board({ title, fonts, helmet = '', body, script, props }) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?${fonts}&amp;display=swap">
 <style>
 body{margin:0}
+/* The phone's browser may enlarge text on a page it thinks is not built for it; the boards show text at its own size. */
+html, body{-webkit-text-size-adjust:100%; text-size-adjust:100%}
 ${helmet}
 ${COMPONENT_CSS}
 </style>
@@ -319,6 +321,11 @@ function componentBoards(round) {
         : { editor: 'enum', options: values, default: defaults[camel(k)] || values[0], section: 'Properties' };
     }
     for (const k of c.text) props[camel(k)] = { editor: 'text', default: defaults[camel(k)] || '', section: 'Text' };
+    // The user's values on this board stay, unless one is no longer among the choices.
+    const kept = readProps(`${OUT}/${Name}.dc.html`);
+    for (const [k, meta] of Object.entries(props)) {
+      if (kept[k] && kept[k].default !== undefined && (!meta.options || meta.options.includes(kept[k].default))) meta.default = kept[k].default;
+    }
     // The agreed images' sizes; a round's copy grows, so its boards take room to spare.
     const grow = round ? 60 : 0;
     const size = (id) => { const s = readFileSync(`${SPEC}/components/${c.name}/${id}.png`); return { width: s.readUInt32BE(16), height: s.readUInt32BE(20) + grow }; };
