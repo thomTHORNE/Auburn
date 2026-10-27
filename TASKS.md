@@ -85,6 +85,11 @@ Resolved tasks are removed from TASKS.md.
 
     The tap area lands as agreed. Visual Design.md gains, after Press and hold: "### Tap areas — Every key's tap area is at least the tap area value in each direction. A key drawn smaller keeps its look and takes the rest as an invisible margin; keys closer together than that are set apart until their areas do not overlap." Its Values section reads: "Semantic values say what a value is for — roles, emphasis levels, faces by job, timings, the tap area — and refer only to primitives, except a measure no scale holds, such as the tap area." basics.css gains, in the semantic tier, `/* Tap area: Android's least touch target */ --tap-area: 48px;`. 01-navigation.md drops "Every key's tap area is at least 44 px."
 
+- [ ] **`#6.21` The widgets are reconsidered once Goals is agreed**
+    `MINOR` · `Deps: #6.14`
+
+    Agreeing screen 11, goals, shows what each widget must carry at a glance and how. Rest at a glance does not fit at half width: its name wraps to three lines and its lines are cut off.
+
 ### `#9` Architecture · [Spec/Architecture/Architecture.md](Spec/Architecture/Architecture.md)
 
 - [ ] **`#9.1` The storage engine is not specified**
