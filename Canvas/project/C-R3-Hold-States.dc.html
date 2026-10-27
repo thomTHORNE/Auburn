@@ -37,7 +37,7 @@ html, body{-webkit-text-size-adjust:100%; text-size-adjust:100%}
 .auburn-header.round-3 { display: contents; }
 @keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
 .auburn-hold.round-3 { display: block; }
-.auburn-hold.round-3 .hold-letter[data-state="idle"] { color: color-mix(in srgb, var(--hold-color-text) var(--primary-text), transparent); }
+.auburn-hold.round-3 .hold-letter[data-state="idle"] { color: var(--part-label-color, color-mix(in srgb, var(--hold-color-text) var(--primary-text), transparent)); }
 .auburn-hold.round-3 .hold-letter[data-state="filled"] { color: var(--hold-color-text-filled); }
 .auburn-list.round-3 { display: block; }
 .auburn-widget.round-3 { display: contents; }
@@ -55,9 +55,9 @@ a{color:inherit}
 </helmet>
 <div style="width: 904px; height: 204px; box-sizing: border-box; padding: 32px; background: #000; font-family: var(--font-interface); display: flex; gap: 40px; align-items: flex-start; --text-1: 11px; --text-1-tracking: 0.5px; --text-1-leading: 15px; --text-2: 13px; --text-2-tracking: 2px; --text-2-leading: 11px; --text-3: 16px; --text-3-tracking: 1.5px; --text-3-leading: 20px; --text-4: 22px; --text-4-tracking: 6px; --text-4-leading: 24px; --color-primary-text: var(--ember); --color-supporting-text: var(--ember); --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px; --space-5: 16px; --space-6: 24px; --tap-area: 48px">
 <div style="display: flex; flex-direction: column; gap: 8px"><div style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #8A8A8A; text-transform: uppercase">Idle</div>
-<div style="position: relative; width: 400px; height: 52px; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface)"><div style="position: absolute; inset: 0"><dc-import name="C-R3-Hold" label="POWER DOWN" fill="0" inverted="0" hint-size="100%,40px"></dc-import></div></div></div>
+<div style="position: relative; width: 400px; height: 52px; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface)"><div style="position: absolute; inset: 0; --part-label-color: var(--power-label-color); --part-label-weight: var(--power-label-weight)"><dc-import name="C-R3-Hold" label="POWER DOWN" fill="0" inverted="0" hint-size="100%,40px"></dc-import></div></div></div>
 <div style="display: flex; flex-direction: column; gap: 8px"><div style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #8A8A8A; text-transform: uppercase">Held</div>
-<div style="position: relative; width: 400px; height: 52px; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface)"><div style="position: absolute; inset: 0"><dc-import name="C-R3-Hold" label="POWER DOWN" fill="60" inverted="10" hint-size="100%,40px"></dc-import></div></div></div>
+<div style="position: relative; width: 400px; height: 52px; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface)"><div style="position: absolute; inset: 0; --part-label-color: var(--power-label-color); --part-label-weight: var(--power-label-weight)"><dc-import name="C-R3-Hold" label="POWER DOWN" fill="60" inverted="10" hint-size="100%,40px"></dc-import></div></div></div>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":904,"height":204}}'>

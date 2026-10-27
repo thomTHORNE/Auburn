@@ -68,7 +68,23 @@ function rampAround(anchor, steps) {
   var near = steps.reduce(function (best, L) { return Math.abs(L - a.L) < Math.abs(best - a.L) ? L : best; }, steps[0]);
   return ramp({ hue: a.H, chroma: a.C }, steps).map(function (s) { return s.L === near ? { L: a.L, C: a.C, H: a.H, hex: anchor.toUpperCase(), anchor: true } : s; });
 }
+
+// A ramp centred on a colour: the colour itself at 0, and each step k lighter (k > 0) or darker (k < 0) by k times
+// the step size, at the colour's own hue. Chroma stays the colour's own where the screen can show it; with fade,
+// darker steps lose chroma in proportion as they near the ground's lightness, as a light dims. A step that keeps
+// less than two thirds of a colourful colour's chroma is marked faded: it no longer reads as that colour. A step
+// past white is marked white: it repeats the lightest the screen can show.
+function rampFrom(anchor, offsets, size, fade, groundL) {
+  var a = oklch(anchor), canFade = fade && a.L > groundL + 0.02;
+  return offsets.map(function (k) {
+    if (k === 0) return { k: 0, L: a.L, C: a.C, H: a.H, hex: anchor.toUpperCase(), anchor: true };
+    var want = a.L + k * size, L = Math.max(groundL + 0.01, Math.min(0.99, want));
+    var C = k < 0 && canFade ? a.C * Math.max(0, L - groundL) / (a.L - groundL) : a.C;
+    C = Math.min(C, 0.95 * maxChroma(L, a.H));
+    return { k: k, L: L, C: C, H: a.H, hex: hex(L, C, a.H), faded: a.C >= 0.05 && C < a.C * 2 / 3, white: want > 0.99 };
+  });
+}
 `;
 
-const lib = new Function(`${COLOUR_JS}\nreturn { hex, ramp, contrast, over, oklch, rampAround };`)();
-export const { hex, ramp, contrast, over, oklch, rampAround } = lib;
+const lib = new Function(`${COLOUR_JS}\nreturn { hex, ramp, contrast, over, oklch, rampAround, rampFrom };`)();
+export const { hex, ramp, contrast, over, oklch, rampAround, rampFrom } = lib;

@@ -37,7 +37,7 @@ html, body{-webkit-text-size-adjust:100%; text-size-adjust:100%}
 .auburn-header.round-3 { display: contents; }
 @keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
 .auburn-hold.round-3 { display: block; }
-.auburn-hold.round-3 .hold-letter[data-state="idle"] { color: color-mix(in srgb, var(--hold-color-text) var(--primary-text), transparent); }
+.auburn-hold.round-3 .hold-letter[data-state="idle"] { color: var(--part-label-color, color-mix(in srgb, var(--hold-color-text) var(--primary-text), transparent)); }
 .auburn-hold.round-3 .hold-letter[data-state="filled"] { color: var(--hold-color-text-filled); }
 .auburn-list.round-3 { display: block; }
 .auburn-widget.round-3 { display: contents; }
@@ -55,15 +55,15 @@ a{color:inherit}
 </helmet>
 <div style="width: 400px; height: 640px; position: relative; overflow: hidden; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface); {{theme}}">
 <div style="position: absolute; left: var(--space-5); right: var(--space-5); top: calc(var(--space-5) - (var(--text-4-leading) - var(--text-4)) / 2); display: flex; flex-direction: column; gap: var(--space-6)">
-<dc-import name="C-R3-Header" status="LAST WORKOUT · 2 DAYS AGO · CITY GYM" hint-size="100%,40px"></dc-import>
+<div style="display: contents; --part-wordmark-color: var(--header-wordmark-color); --part-wordmark-weight: var(--header-wordmark-weight); --part-status-color: var(--header-status-color); --part-status-weight: var(--header-status-weight)"><dc-import name="C-R3-Header" status="LAST WORKOUT · 2 DAYS AGO · CITY GYM" hint-size="100%,40px"></dc-import></div>
 <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3)">
-<dc-import name="C-R3-Widget" kind="rest" width="full" state="idle" title="REST AT A GLANCE" line1="4 IN TRAIN · 2 OVERDUE" line2="OVERDUE · QUADS, HAMSTRINGS" hint-size="100%,40px"></dc-import>
-<dc-import name="C-R3-Widget" kind="goals" width="half" state="idle" title="GOALS" line1="5 GOALS" line2="LATEST · PISTOL SQUAT" hint-size="100%,40px"></dc-import>
-<dc-import name="C-R3-Widget" kind="cardio" width="half" state="idle" title="CARDIO" line1="3 DAYS SINCE LAST" line2="LAST RUN · 8.2 KM" hint-size="100%,40px"></dc-import>
+<div style="display: contents; --part-name-color: var(--rest-name-color); --part-name-weight: var(--rest-name-weight); --part-line-1-color: var(--rest-line-1-color); --part-line-1-weight: var(--rest-line-1-weight); --part-line-2-color: var(--rest-line-2-color); --part-line-2-weight: var(--rest-line-2-weight)"><dc-import name="C-R3-Widget" kind="rest" width="full" state="idle" title="REST AT A GLANCE" line1="4 IN TRAIN · 2 OVERDUE" line2="OVERDUE · QUADS, HAMSTRINGS" hint-size="100%,40px"></dc-import></div>
+<div style="display: contents; --part-name-color: var(--goals-name-color); --part-name-weight: var(--goals-name-weight); --part-line-1-color: var(--goals-line-1-color); --part-line-1-weight: var(--goals-line-1-weight); --part-line-2-color: var(--goals-line-2-color); --part-line-2-weight: var(--goals-line-2-weight)"><dc-import name="C-R3-Widget" kind="goals" width="half" state="idle" title="GOALS" line1="5 GOALS" line2="LATEST · PISTOL SQUAT" hint-size="100%,40px"></dc-import></div>
+<div style="display: contents; --part-name-color: var(--cardio-name-color); --part-name-weight: var(--cardio-name-weight); --part-line-1-color: var(--cardio-line-1-color); --part-line-1-weight: var(--cardio-line-1-weight); --part-line-2-color: var(--cardio-line-2-color); --part-line-2-weight: var(--cardio-line-2-weight)"><dc-import name="C-R3-Widget" kind="cardio" width="half" state="idle" title="CARDIO" line1="3 DAYS SINCE LAST" line2="LAST RUN · 8.2 KM" hint-size="100%,40px"></dc-import></div>
 </div>
 </div>
-<div style="position: absolute; left: 0; right: 0; top: calc(432px - 3 * (var(--tap-area) - 42px)); bottom: 52px"><dc-import name="C-R3-List" position="down" handle="3 MORE" entries="START WORKOUT|PAST WORKOUTS|EXERCISES" hint-size="100%,40px"></dc-import></div>
-<div style="position: absolute; left: 0; right: 0; bottom: 0"><dc-import name="C-R3-Hold" label="POWER DOWN" fill="0" inverted="0" hint-size="100%,40px"></dc-import></div>
+<div style="position: absolute; left: 0; right: 0; top: calc(432px - 3 * (var(--tap-area) - 42px)); bottom: 52px; --part-handle-color: var(--list-handle-color); --part-handle-weight: var(--list-handle-weight)"><dc-import name="C-R3-List" position="down" handle="3 MORE" entries="START WORKOUT|PAST WORKOUTS|EXERCISES" hint-size="100%,40px"></dc-import></div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; --part-label-color: var(--power-label-color); --part-label-weight: var(--power-label-weight)"><dc-import name="C-R3-Hold" label="POWER DOWN" fill="0" inverted="0" hint-size="100%,40px"></dc-import></div>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":null},"$preview":{"width":400,"height":640}}'>
