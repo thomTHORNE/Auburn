@@ -104,8 +104,8 @@ Auburn/
 ### How a screen gets agreed
 
 1. **Explain it first.** Before any design, Claude states the screen's purpose, why it earns its place, and what it must carry. The user confirms it is understood, or the screen is cut or merged. A screen that cannot say why it exists is not designed.
-2. **Wireframe the information.** On the screen's page in the canvas, every piece of information that could appear is laid out and weighed, and only what earns its place stays. Wireframes carry no look.
-3. **Iterate on the design canvas**, round by round, until the user approves a version.
+2. **Wireframe the information.** On the screen's page in the canvas, every piece of information that could appear is laid out and weighed, and only what earns its place stays. Wireframes carry no look, but they carry structure: which pieces form one thing, which names which, which heads which, and which are separate sections. That structure sets every gap, from Visual Design's spacing table, before the first round.
+3. **Iterate on the design canvas**, round by round, until the user approves a version. A round is built from the basics' rules first: every gap from its relationship, every text from the type scale at its emphasis level, every key at the tap area. A round that needs a value the rules don't give, or a different one, asks for it, and either the rule or the round changes.
 4. **Save the approved version**: the screen's document, its HTML, and an image per state, as below.
 5. **Remove its TASKS.md item.**
 
