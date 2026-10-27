@@ -723,6 +723,15 @@
       "h": 1800,
       "x": 0,
       "y": 3548
+    },
+    "X-Colour-Grid.dc.html": {
+      "page": "design",
+      "title": "Colour grid · tune in the Tweaks tab · exploration",
+      "w": 2060,
+      "h": 1720,
+      "x": 0,
+      "y": 5768,
+      "is_interactive": true
     }
   },
   "createdOnFiles": {
@@ -984,6 +993,15 @@
       "w": 240,
       "x": 0,
       "y": 3268
+    },
+    "colourGrid": {
+      "kind": "title1",
+      "maxW": 2060,
+      "page": "design",
+      "text": "Colour grid — palette, kinds and levels",
+      "w": 240,
+      "x": 0,
+      "y": 5488
     }
   },
   "order": [
@@ -1074,7 +1092,8 @@
     "S01-Workout.dc.html",
     "S01-Editing.dc.html",
     "S01-Power.dc.html",
-    "X-Palette.dc.html"
+    "X-Palette.dc.html",
+    "X-Colour-Grid.dc.html"
   ],
   "pages": [
     {

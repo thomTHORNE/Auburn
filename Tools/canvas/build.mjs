@@ -14,6 +14,8 @@
 //                            on the scales, with no editing state.
 //   X-Palette.dc.html        the palette exploration: a ramp per role with contrast, and round 3's home under three
 //                            ways of colouring text. Its colours come from palette.mjs.
+//   X-Colour-Grid.dc.html    the colour grid exploration: palette primitives the user names in its Tweaks tab, a
+//                            grid of kinds by levels picking steps from them, and round 3's home drawn from the grid.
 //   basics.css               a copy of Spec/Visual Design/basics.css.
 //
 // Values the user has set in a board's Tweaks tab are read from the mirror and kept. A change stays on its board.
@@ -23,7 +25,7 @@
 
 import { readFileSync, writeFileSync, existsSync, copyFileSync } from 'node:fs';
 import { components, readComponent } from '../build-components.mjs';
-import { rampAround, contrast, over } from './palette.mjs';
+import { rampAround, contrast, over, COLOUR_JS } from './palette.mjs';
 
 const SPEC = 'Spec/Visual Design';
 const OUT = 'Canvas/project';
@@ -579,8 +581,250 @@ ${screens}
   });
 }
 
+// ---- the colour grid: palette primitives, a grid of kinds by levels that picks from them, and home drawn from it ----
+//
+// Built like the basics: the palette is the primitives, each colour a ramp built around it at the steps above; the
+// grid is the semantic tier, each cell a kind at a level, naming one step of its kind's ramp; home takes its colours
+// from the cells its parts are plotted on. Everything is tuned in the board's Tweaks tab and computed live by the
+// board's own script, which runs palette.mjs's arithmetic.
+
+const GRID_FILE = 'X-Colour-Grid.dc.html';
+const SLOTS = 8, KINDS = 4, LEVEL_MAX = 6;
+const STEP_NAMES = STEPS.map((L) => String(Math.round(L * 100)));
+const SEED_SLOTS = [['Ember', '#D9573B'], ['Trial A', '#DFFFE4'], ['Cyan white', '#DDF7F5']];
+const SEED_KINDS = [['Accent', 1, ['62', '52', '42', '32', '—', '—']], ['Information', 2, ['82', '72', '52', '42', '—', '—']],
+  ['Set apart', 3, ['92', '72', '52', '42', '—', '—']], ['Kind 4', 1, ['82', '72', '62', '52', '—', '—']]];
+const SEED_LEVELS = ['Primary', 'Secondary', 'Supporting', 'Level 4', 'Level 5', 'Level 6'];
+const CELLS = Array.from({ length: KINDS * LEVEL_MAX }, (_, i) => `K${Math.floor(i / LEVEL_MAX) + 1} L${(i % LEVEL_MAX) + 1}`);
+// Home's parts, by the colour each takes in round 3, with how many pieces of text each colours.
+const HOOKS = [
+  { key: 'homeAccent', css: ['--color-accent'], name: 'Accent', parts: 'AUBURN · the bands, covers and lines', texts: 1, seed: 'K1 L1', ink: true },
+  { key: 'homePrimary', css: ['--color-primary-text'], name: 'Primary text', parts: 'The entries', texts: 3, seed: 'K1 L1' },
+  { key: 'homeSecondary', css: ['--color-secondary-text'], name: 'Secondary text', parts: 'The status line · the widget lines', texts: 7, seed: 'K2 L2' },
+  { key: 'homeSupporting', css: ['--color-supporting-text'], name: 'Supporting text', parts: '3 MORE', texts: 1, seed: 'K2 L3' },
+  { key: 'homeApart', css: ['--color-apart'], name: 'Set apart', parts: 'POWER DOWN', texts: 1, seed: 'K3 L1' },
+];
+
+function gridBoard() {
+  const props = {};
+  const tweak = (k, meta) => { props[k] = meta; };
+  for (let i = 1; i <= SLOTS; i++) {
+    const [name, colour] = SEED_SLOTS[i - 1] ?? ['', '#808080'];
+    tweak(`p${i}Name`, { editor: 'text', default: name, section: 'Palette · a name turns a colour on' });
+    tweak(`p${i}Colour`, { editor: 'color', default: colour, section: 'Palette · a name turns a colour on' });
+  }
+  tweak('kinds', { editor: 'int', default: 3, min: 1, max: KINDS, section: 'Kinds · rows' });
+  SEED_KINDS.forEach(([name, ramp], k) => {
+    tweak(`k${k + 1}Name`, { editor: 'text', default: name, section: 'Kinds · rows' });
+    tweak(`k${k + 1}Ramp`, { editor: 'int', default: ramp, min: 1, max: SLOTS, section: 'Kinds · rows' });
+  });
+  tweak('levels', { editor: 'int', default: 3, min: 2, max: LEVEL_MAX, section: 'Levels · columns' });
+  SEED_LEVELS.forEach((name, j) => tweak(`l${j + 1}Name`, { editor: 'text', default: name, section: 'Levels · columns' }));
+  SEED_KINDS.forEach(([, , steps], k) => steps.forEach((s, j) =>
+    tweak(`c${k + 1}${j + 1}`, { editor: 'enum', options: [...STEP_NAMES, '—'], default: s, section: `Cells · K${k + 1}` })));
+  for (const h of HOOKS) tweak(h.key, { editor: 'enum', options: CELLS, default: h.seed, section: 'Home · the cell each part takes' });
+  tweak('greyscale', { editor: 'boolean', default: false, section: 'View' });
+  // The starts the board measures changes from, before the user's values are laid over the defaults.
+  const START = Object.fromEntries(Object.entries(props).map(([k, m]) => [k, m.default]));
+  const kept = readProps(`${OUT}/${GRID_FILE}`);
+  for (const [k, m] of Object.entries(props)) if (kept[k] && kept[k].default !== undefined && (!m.options || m.options.includes(kept[k].default))) m.default = kept[k].default;
+  const width = 2060, height = 1720;
+  props.$preview = { width, height };
+  // Home is drawn with every basic and round 3's trials, then the grid's colours, each at full strength.
+  const base = vars([...basicTokens, ...roundTokens, ...swatchTokens]);
+  const H = (t) => `<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">${t}</div>`;
+  const N = (t) => `<div style="color: #9A9A9A; line-height: 17px">${t}</div>`;
+  const body = `<div style="width: ${width}px; height: ${height}px; box-sizing: border-box; padding: 32px; background: #000; color: #E8E8E8; font-family: var(--font-interface); font-size: 12px; letter-spacing: 1px; display: flex; gap: 48px; overflow: hidden">
+<div style="width: 340px; flex: none; display: flex; flex-direction: column; gap: 16px; overflow: hidden">
+<div style="font-size: 16px; font-weight: 700; letter-spacing: 2px">COLOUR GRID · EXPLORATION</div>
+${N('Built like the basics. The palette is the primitives: each colour you name becomes a ramp around it, at the seven steps of lightness. The grid is the semantic tier: a kind is a row and picks one ramp; a level is a column; each cell names one step. Home takes each part\'s colour from the cell it is plotted on.')}
+${N('Tune everything in this board\'s Tweaks tab. Nothing here is a basic: a colour kept from this board joins the palette by name first.')}
+<button type="button" onPointerDown="{{holdOn}}" onPointerUp="{{holdOff}}" onPointerLeave="{{holdOff}}" onPointerCancel="{{holdOff}}" style="{{holdStyle}}">HOLD · PREVIEW START</button>
+<div style="font-weight: 700">{{status}}</div>
+${H('CHANGED · {{changedCount}}')}
+<sc-if value="{{noChanges}}" hint-placeholder-val="{{true}}"><div style="color: #9A9A9A">Nothing changed from the start.</div></sc-if>
+<sc-for list="{{changed}}" as="c" hint-placeholder-count="3"><div style="display: flex; gap: 8px"><span style="flex: 1; font-weight: 700">{{c.name}}</span><span style="color: #9A9A9A">{{c.from}}</span><span>→ {{c.to}}</span></div></sc-for>
+${H('LOG · ON THIS COMPUTER')}
+<sc-if value="{{noLog}}" hint-placeholder-val="{{true}}"><div style="color: #9A9A9A">No changes seen yet.</div></sc-if>
+<sc-for list="{{log}}" as="e" hint-placeholder-count="3"><div style="display: flex; gap: 8px"><span style="color: #9A9A9A">{{e.at}}</span><span style="flex: 1; font-weight: 700">{{e.name}}</span><span style="color: #9A9A9A">{{e.from}}</span><span>→ {{e.to}}</span></div></sc-for>
+</div>
+<div style="width: 1144px; flex: none; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+${H('PALETTE · THE PRIMITIVES')}
+${N('Each ramp holds its colour exactly (●) in place of the nearest step; the other steps share its hue and chroma, easing where the screen cannot show more. Under each step: its contrast on the ground, then on the list sheet. 4.5 reads as body text, 3 as large text. A step the grid uses is outlined.')}
+<sc-for list="{{ramps}}" as="r" hint-placeholder-count="3"><div style="display: flex; gap: 8px; align-items: flex-start">
+<div style="width: 128px; flex: none; display: flex; flex-direction: column; gap: 4px"><div style="font-weight: 700">{{r.num}} · {{r.name}}</div><div style="color: #9A9A9A; font-size: 11px">{{r.anchor}}</div><div style="color: #9A9A9A; font-size: 11px">HUE {{r.hue}} · C {{r.chroma}}</div></div>
+<sc-for list="{{r.chips}}" as="s" hint-placeholder-count="7"><div style="width: 132px; flex: none; display: flex; flex-direction: column; gap: 3px; font-size: 11px; letter-spacing: 0.5px">
+<div style="{{s.swatch}}"></div>
+<div style="font-weight: 700">{{s.name}}</div>
+<div style="color: #9A9A9A">{{s.hex}} · L {{s.l}}</div>
+<div style="color: #9A9A9A">{{s.contrast}}</div>
+</div></sc-for>
+</div></sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+${H('GRID · KINDS BY LEVELS')}
+${N('A kind is what sort of thing a text is; a level is how loud it is. Every cell shows its colour, its contrast, and the parts of home plotted on it with how many pieces of text that is. Under each column: the lightness its cells span. A level reads as one only while its span stays above the next level\'s.')}
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; gap: 8px"><div style="width: 128px; flex: none"></div><sc-for list="{{levelHeads}}" as="h" hint-placeholder-count="3"><div style="width: 160px; flex: none; font-weight: 700">{{h.label}}</div></sc-for></div>
+<sc-for list="{{rows}}" as="row" hint-placeholder-count="3"><div style="display: flex; gap: 8px; align-items: stretch">
+<div style="width: 128px; flex: none; display: flex; flex-direction: column; gap: 4px"><div style="font-weight: 700">{{row.label}}</div><div style="color: #9A9A9A; font-size: 11px">{{row.ramp}}</div></div>
+<sc-for list="{{row.cells}}" as="cell" hint-placeholder-count="3"><div style="width: 160px; flex: none; box-sizing: border-box; padding: 8px; background: #1A1D1A; display: flex; flex-direction: column; gap: 4px; font-size: 11px; letter-spacing: 0.5px">
+<div style="{{cell.text}}">{{cell.sample}}</div>
+<div style="color: #9A9A9A">{{cell.name}}</div>
+<div style="color: #9A9A9A">{{cell.contrast}}</div>
+<div style="{{cell.hookStyle}}">{{cell.hooks}}</div>
+<div style="color: #E8B04B">{{cell.warn}}</div>
+</div></sc-for>
+</div></sc-for>
+<div style="display: flex; gap: 8px"><div style="width: 128px; flex: none; color: #9A9A9A">LIGHTNESS</div><sc-for list="{{spans}}" as="sp" hint-placeholder-count="3"><div style="width: 160px; flex: none; display: flex; flex-direction: column; gap: 4px; font-size: 11px"><div style="color: #9A9A9A">{{sp.range}}</div><div style="color: #E8B04B">{{sp.warn}}</div></div></sc-for></div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+${H('AS THE BASICS WOULD HOLD IT')}
+<div style="white-space: pre; font-size: 11px; line-height: 15px; color: #9A9A9A">{{css}}</div>
+</div>
+</div>
+<div style="width: 400px; flex: none; display: flex; flex-direction: column; gap: 16px">
+${H('HOME · ROUND 3 · FROM THE GRID')}
+${N('Every text at full strength: the grid\'s steps replace the levels\' opacities. Lines keep theirs.')}
+<div style="{{homeStyle}}"><dc-import name="S01-R3-Home" theme="{{theme}}" hint-size="400px,640px"></dc-import></div>
+<sc-for list="{{hooks}}" as="h" hint-placeholder-count="5"><div style="display: flex; gap: 8px; align-items: flex-start; font-size: 11px">
+<div style="{{h.swatch}}"></div>
+<div style="flex: 1; display: flex; flex-direction: column; gap: 2px"><div style="font-weight: 700">{{h.name}} · {{h.cell}}</div><div style="color: #9A9A9A">{{h.parts}}</div><div style="color: #E8B04B">{{h.warn}}</div></div>
+</div></sc-for>
+</div>
+</div>`;
+  const script = `${COLOUR_JS}
+var STEPS = ${JSON.stringify(STEPS)}, STEP_NAMES = ${JSON.stringify(STEP_NAMES)};
+var GROUND = ${JSON.stringify(GROUND)}, RAISED = ${JSON.stringify(RAISED)}, INK = '#121215';
+var SLOTS = ${SLOTS}, KINDS = ${KINDS}, LEVEL_MAX = ${LEVEL_MAX};
+var HOOKS = ${JSON.stringify(HOOKS)};
+var START = ${JSON.stringify(START)};
+var BASE = ${JSON.stringify(base)};
+var LOG_KEY = ${JSON.stringify(`auburn.log.${GRID_FILE}`)};
+var f2 = function (n) { return n.toFixed(2).replace(/^0/, ''); };
+var f1 = function (n) { return n.toFixed(1); };
+var slug = function (s) { return String(s).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); };
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+var log = [];
+try { log = JSON.parse(window.localStorage.getItem(LOG_KEY) || '[]'); } catch (e) {}
+this.state = { holding: false, log: log };
+}
+value(k, props) { var v = props[k]; return v == null ? START[k] : v; }
+// Every change the board sees is logged, newest first, and kept on this computer.
+componentDidUpdate(prev) {
+var self = this, added = [];
+var now = new Date(), at = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
+Object.keys(START).forEach(function (k) {
+var a = String(self.value(k, prev)), b = String(self.value(k, self.props));
+if (a !== b) added.push({ at: at, name: k, from: a, to: b });
+});
+if (!added.length) return;
+var log = added.concat(this.state.log).slice(0, 40);
+try { window.localStorage.setItem(LOG_KEY, JSON.stringify(log)); } catch (e) {}
+this.setState({ log: log });
+}
+renderVals() {
+var self = this, holding = this.state.holding, props = holding ? {} : this.props;
+var v = function (k) { return self.value(k, props); };
+var clamp = function (n, lo, hi) { n = Math.round(Number(n)); return isNaN(n) ? lo : Math.max(lo, Math.min(hi, n)); };
+// The primitives: every named colour, as a ramp around it.
+var slots = [];
+for (var i = 1; i <= SLOTS; i++) {
+var name = String(v('p' + i + 'Name') || '').trim(), colour = String(v('p' + i + 'Colour') || '');
+if (!name || !/^#[0-9a-f]{6}$/i.test(colour)) { slots.push(null); continue; }
+var a = oklch(colour);
+slots.push({ num: i, name: name, anchor: colour.toUpperCase(), hue: Math.round(a.H), chroma: a.C.toFixed(3), steps: rampAround(colour, STEPS) });
+}
+var kinds = clamp(v('kinds'), 1, KINDS), levels = clamp(v('levels'), 2, LEVEL_MAX);
+// The grid: each kind takes a ramp, each cell a step of it.
+var grid = [];
+for (var k = 1; k <= KINDS; k++) {
+var slot = slots[clamp(v('k' + k + 'Ramp'), 1, SLOTS) - 1];
+var row = { k: k, name: String(v('k' + k + 'Name') || 'Kind ' + k), slot: slot, cells: [] };
+for (var j = 1; j <= LEVEL_MAX; j++) {
+var pick = String(v('c' + k + j)), at = STEP_NAMES.indexOf(pick);
+var s = slot && at >= 0 ? slot.steps[at] : null;
+row.cells.push({ id: 'K' + k + ' L' + j, k: k, j: j, step: pick, s: s, name: s ? slot.name.toUpperCase() + ' ' + pick : 'EMPTY' });
+}
+grid.push(row);
+}
+var cellOf = function (id) { var m = /^K(\\d) L(\\d)$/.exec(id); return m ? grid[+m[1] - 1].cells[+m[2] - 1] : null; };
+var levelName = function (j) { return String(v('l' + j + 'Name') || 'Level ' + j); };
+var on = function (c) { return c && c.k <= kinds && c.j <= levels && c.s; };
+// Home's parts on the grid.
+var hooks = HOOKS.map(function (h) { var c = cellOf(String(v(h.key))); return { h: h, c: c, ok: on(c) }; });
+var used = {};
+hooks.forEach(function (x) { if (x.ok) used[x.c.s.hex] = true; });
+grid.forEach(function (r) { r.cells.forEach(function (c) { if (on(c)) used[c.s.hex] = true; }); });
+var ramps = slots.filter(Boolean).map(function (sl) {
+return { num: sl.num, name: sl.name.toUpperCase(), anchor: sl.anchor, hue: sl.hue, chroma: sl.chroma, chips: sl.steps.map(function (s, n) {
+return { name: (s.anchor ? '● ' : '') + STEP_NAMES[n], hex: s.hex, l: f2(s.L),
+contrast: f1(contrast(s.hex, GROUND)) + ' · ' + f1(contrast(s.hex, RAISED)),
+swatch: 'height: 32px; box-sizing: border-box; background: ' + s.hex + '; border: 2px solid ' + (used[s.hex] ? '#E8E8E8' : 'transparent') };
+}) };
+});
+var rows = grid.slice(0, kinds).map(function (r) {
+return { label: 'K' + r.k + ' · ' + r.name.toUpperCase(), ramp: r.slot ? 'RAMP ' + r.slot.num + ' · ' + r.slot.name.toUpperCase() : 'NO COLOUR ON RAMP ' + clamp(v('k' + r.k + 'Ramp'), 1, SLOTS),
+cells: r.cells.slice(0, levels).map(function (c, n) {
+var here = hooks.filter(function (x) { return x.ok && x.c === c; });
+var texts = here.reduce(function (t, x) { return t + x.h.texts; }, 0);
+var left = n > 0 ? r.cells[n - 1] : null;
+return { sample: c.s ? 'LAST RUN · 8.2 KM' : '—', name: c.name, text: 'font-weight: 700; color: ' + (c.s ? c.s.hex : '#555') + '; white-space: nowrap; overflow: hidden',
+contrast: c.s ? 'L ' + f2(c.s.L) + ' · ' + f1(contrast(c.s.hex, GROUND)) + ' · ' + f1(contrast(c.s.hex, RAISED)) : '',
+hooks: here.length ? here.map(function (x) { return x.h.name; }).join(' · ') + ' · ' + texts + ' TEXT' + (texts === 1 ? '' : 'S') : 'NOTHING ON HOME',
+hookStyle: here.length ? 'font-weight: 700' : 'color: #555',
+warn: c.s && left && left.s && c.s.L >= left.s.L ? 'NOT DIMMER THAN ' + levelName(n).toUpperCase() : '' };
+}) };
+});
+var levelHeads = [];
+for (var j = 1; j <= levels; j++) levelHeads.push({ label: 'L' + j + ' · ' + levelName(j).toUpperCase() });
+// Each level's span of lightness across the kinds, and whether it overlaps the next.
+var span = function (j) { var ls = grid.slice(0, kinds).map(function (r) { return r.cells[j - 1].s; }).filter(Boolean).map(function (s) { return s.L; }); return ls.length ? { lo: Math.min.apply(null, ls), hi: Math.max.apply(null, ls) } : null; };
+var spans = levelHeads.map(function (h, n) {
+var a = span(n + 1), b = n + 1 < levels ? span(n + 2) : null;
+return { range: a ? 'L ' + f2(a.lo) + ' – ' + f2(a.hi) : 'NO CELLS', warn: a && b && b.hi >= a.lo ? 'OVERLAPS ' + levelName(n + 2).toUpperCase() : '' };
+});
+var theme = BASE + '; --primary-text: 100%; --secondary-text: 100%; --supporting-text: 100%';
+hooks.forEach(function (x) { if (x.ok) x.h.css.forEach(function (c) { theme += '; ' + c + ': ' + x.c.s.hex; }); });
+var hookRows = hooks.map(function (x) {
+var c = x.c;
+return { name: x.h.name.toUpperCase(), cell: c ? 'K' + c.k + ' ' + grid[c.k - 1].name.toUpperCase() + ' · L' + c.j + ' ' + levelName(c.j).toUpperCase() : String(v(x.h.key)),
+parts: x.h.parts + ' · ' + x.h.texts + ' text' + (x.h.texts === 1 ? '' : 's') + (x.ok ? ' · ' + c.s.hex + (x.h.ink ? ' · ink on it ' + f1(contrast(INK, c.s.hex)) : '') : ''),
+warn: x.ok ? '' : 'NOT ON THE GRID: ROUND 3\\'S OWN COLOUR',
+swatch: 'width: 24px; height: 24px; flex: none; background: ' + (x.ok ? c.s.hex : 'transparent') + '; border: 1px solid #555' };
+});
+// The result, written as basics.css would hold it: the steps the grid uses as primitives, the cells as semantic values.
+var lines = ['/* Palette */'];
+slots.filter(Boolean).forEach(function (sl) { sl.steps.forEach(function (s, n) { if (used[s.hex]) lines.push('--' + slug(sl.name) + '-' + STEP_NAMES[n] + ': ' + s.hex + ';' + (s.anchor ? ' /* ' + sl.name + ' itself */' : '')); }); });
+lines.push('', '/* Colour: a kind at a level */');
+grid.slice(0, kinds).forEach(function (r) { r.cells.slice(0, levels).forEach(function (c) { if (c.s) lines.push('--color-' + slug(r.name) + '-' + slug(levelName(c.j)) + ': var(--' + slug(r.slot.name) + '-' + c.step + ');'); }); });
+var changed = Object.keys(START).map(function (k) { return { name: k, from: String(START[k]), to: String(v(k)) }; }).filter(function (c) { return c.from !== c.to; });
+return {
+ramps: ramps, rows: rows, levelHeads: levelHeads, spans: spans, hooks: hookRows, theme: theme, css: lines.join('\\n'),
+homeStyle: 'width: 400px; height: 640px; overflow: hidden' + (v('greyscale') === true || v('greyscale') === 'true' ? '; filter: grayscale(1)' : ''),
+changed: changed, changedCount: changed.length, noChanges: changed.length === 0,
+log: this.state.log.slice(0, 16), noLog: this.state.log.length === 0,
+status: holding ? 'SHOWING THE START' : 'SHOWING YOUR VALUES',
+holdOn: function () { self.setState({ holding: true }); },
+holdOff: function () { if (self.state.holding) self.setState({ holding: false }); },
+holdStyle: 'height: 44px; padding: 0 14px; font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: 1.5px; cursor: pointer; touch-action: none; user-select: none; border: 2px solid #E8E8E8; background: ' + (holding ? '#E8E8E8' : 'transparent') + '; color: ' + (holding ? '#000' : '#E8E8E8')
+};
+}
+}`;
+  return board({
+    title: 'Colour grid · exploration',
+    fonts: 'family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700',
+    body, script, props,
+  });
+}
+
 const files = {
   'X-Palette.dc.html': paletteBoard(),
+  [GRID_FILE]: gridBoard(),
   ...parts, ...partsRound, ...boot, ...agreed, ...round3,
   'Theme.dc.html': controlBoard({
     file: 'Theme.dc.html', title: 'Theme', heading: 'THEME', note: 'Every agreed screen.',
@@ -661,6 +905,10 @@ index.notes.s01agreed = index.notes.s01agreed || { kind: 'title1', maxW: 2320, p
 const paletteW = +files['X-Palette.dc.html'].match(/"\$preview":\{"width":(\d+)/)[1];
 place('X-Palette.dc.html', { page: 'design', title: 'Palette · ramps and roles · exploration', w: paletteW, h: 1800, x: 0, y: 3548 });
 index.notes.palette = index.notes.palette || { kind: 'title1', maxW: paletteW, page: 'design', text: 'Palette — ramps and roles', w: 240, x: 0, y: 3268 };
+// The colour grid, below the palette.
+const gridW = +files[GRID_FILE].match(/"\$preview":\{"width":(\d+)/)[1];
+place(GRID_FILE, { page: 'design', title: 'Colour grid · tune in the Tweaks tab · exploration', w: gridW, h: 1720, x: 0, y: 5768, is_interactive: true });
+index.notes.colourGrid = index.notes.colourGrid || { kind: 'title1', maxW: gridW, page: 'design', text: 'Colour grid — palette, kinds and levels', w: 240, x: 0, y: 5488 };
 index.notes.s00agreed = index.notes.s00agreed || { kind: 'title1', maxW: 880, page: 's00', text: 'Boot · agreed', w: 240, x: 0, y: 7180 };
 writeFileSync(`${OUT}/canvas.json`, `${JSON.stringify(index, null, 2)}\n`);
 
