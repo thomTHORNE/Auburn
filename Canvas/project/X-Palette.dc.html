@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Palette · ramps and roles · exploration</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="basics.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+/* The phone's browser may enlarge text on a page it thinks is not built for it; the boards show text at its own size. */
+html, body{-webkit-text-size-adjust:100%; text-size-adjust:100%}
+
+.auburn-entry { display: contents; }
+.auburn-header { display: contents; }
+@keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+.auburn-hold { display: block; }
+.auburn-hold .hold-letter[data-state="idle"] { color: color-mix(in srgb, var(--hold-color-text) var(--primary-text), transparent); }
+.auburn-hold .hold-letter[data-state="filled"] { color: var(--hold-color-text-filled); }
+.auburn-list { display: block; }
+.auburn-widget { display: contents; }
+.auburn-widget[data-width="full"] .w-half, .auburn-widget[data-width="half"] .w-full { display: none !important; }
+.auburn-widget .cover { display: none; }
+.auburn-widget[data-kind="rest"] .cover-rest, .auburn-widget[data-kind="goals"] .cover-goals, .auburn-widget[data-kind="cardio"] .cover-cardio { display: block; }
+.auburn-widget .widget { border: 3px solid color-mix(in srgb, var(--color-accent) var(--supporting-line), transparent); }
+.auburn-widget[data-state="editing"] .widget { border: 2px solid color-mix(in srgb, var(--color-accent) var(--primary-line), transparent); }
+.auburn-widget[data-state="stepped-back"] .widget { opacity: var(--widget-stepped-back); }
+.auburn-widget:not([data-state="editing"]) .edit-done, .auburn-widget[data-state="editing"] .edit-idle, .auburn-widget:not([data-state="editing"]) .edit-controls { display: none !important; }
+.auburn-widget .seg { background: transparent; color: color-mix(in srgb, var(--color-accent) var(--secondary-text), transparent); }
+.auburn-widget[data-width="half"] .seg-half, .auburn-widget[data-width="full"] .seg-full { background: var(--color-accent); color: var(--color-ink); }
+.auburn-entry.round-3 { display: contents; }
+.auburn-header.round-3 { display: contents; }
+@keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+.auburn-hold.round-3 { display: block; }
+.auburn-hold.round-3 .hold-letter[data-state="idle"] { color: color-mix(in srgb, var(--hold-color-text) var(--primary-text), transparent); }
+.auburn-hold.round-3 .hold-letter[data-state="filled"] { color: var(--hold-color-text-filled); }
+.auburn-list.round-3 { display: block; }
+.auburn-widget.round-3 { display: contents; }
+.auburn-widget.round-3[data-width="full"] .w-half, .auburn-widget.round-3[data-width="half"] .w-full { display: none !important; }
+.auburn-widget.round-3 .cover { display: none; }
+.auburn-widget.round-3[data-kind="rest"] .cover-rest, .auburn-widget.round-3[data-kind="goals"] .cover-goals, .auburn-widget.round-3[data-kind="cardio"] .cover-cardio { display: block; }
+.auburn-widget.round-3 .widget { border: var(--supporting-line-width) solid color-mix(in srgb, var(--color-accent) var(--supporting-line), transparent); }
+.bust{background: var(--color-accent); -webkit-mask: url(/_blob/8dc69cd32a565ee54c5606a82fce2b14) center top / contain no-repeat; mask: url(/_blob/8dc69cd32a565ee54c5606a82fce2b14) center top / contain no-repeat}
+a{color:inherit}
+.sc-host:has(> .auburn-entry), .sc-host:has(> .auburn-header), .sc-host:has(> .auburn-widget) { display: contents; }
+.sc-host:has(> .auburn-hold), .sc-host > .auburn-hold, .sc-host:has(> .auburn-list), .sc-host > .auburn-list { height: 100%; }
+#dc-root > .sc-host:has(> [class^="auburn-"]) { background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface); overflow: hidden; }
+#dc-root > .sc-host:has(> .round-3) { --text-1: 11px; --text-1-tracking: 0.5px; --text-1-leading: 15px; --text-2: 13px; --text-2-tracking: 2px; --text-2-leading: 11px; --text-3: 16px; --text-3-tracking: 1.5px; --text-3-leading: 20px; --text-4: 22px; --text-4-tracking: 6px; --text-4-leading: 24px; --color-primary-text: var(--ember); --color-supporting-text: var(--ember); --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px; --space-5: 16px; --space-6: 24px; --tap-area: 48px }
+</style>
+</helmet>
+<div style="width: 1400px; height: 1800px; box-sizing: border-box; padding: 32px; background: #000; font-family: var(--font-interface); display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 1100px">
+<div style="font-size: 16px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">PALETTE · RAMPS AND ROLES · EXPLORATION</div>
+<div style="color: #9A9A9A; font-size: 12px; letter-spacing: 1px; line-height: 18px">Each ramp is one hue at seven even steps of lightness (L), computed in OKLCH; chroma (C) eases where the screen cannot show more. Contrast is measured against the ground and the list sheet: 4.5 reads as body text, 3 as large text. Nothing here is a basic: a colour kept from this board joins the palette by name first.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">ACCENT · HUE 34 · <span style="color: #9A9A9A; font-weight: 400; letter-spacing: 1px">Ember: marks, names, keys, lines</span></div>
+<div style="display: flex; gap: 16px"><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #FEDCD4"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #FEDCD4; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.92 · C 0.040</div>
+<div style="color: #9A9A9A">#FEDCD4</div>
+<div style="color: #9A9A9A">ON GROUND 13.3 · TEXT</div>
+<div style="color: #9A9A9A">ON LIST 12.5 · TEXT</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #FCAD9A"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #FCAD9A; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.82 · C 0.097</div>
+<div style="color: #9A9A9A">#FCAD9A</div>
+<div style="color: #9A9A9A">ON GROUND 9.4 · TEXT</div>
+<div style="color: #9A9A9A">ON LIST 8.8 · TEXT</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #FB775A"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #FB775A; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.72 · C 0.168</div>
+<div style="color: #9A9A9A">#FB775A</div>
+<div style="color: #9A9A9A">ON GROUND 6.4 · TEXT</div>
+<div style="color: #9A9A9A">ON LIST 6.0 · TEXT</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #D9563A"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #D9563A; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.62 · C 0.170</div>
+<div style="color: #9A9A9A">#D9563A</div>
+<div style="color: #9A9A9A">ON GROUND 4.3 · LARGE</div>
+<div style="color: #9A9A9A">ON LIST 4.1 · LARGE</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #B63517"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #B63517; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.52 · C 0.170</div>
+<div style="color: #9A9A9A">#B63517</div>
+<div style="color: #9A9A9A">ON GROUND 2.8 · —</div>
+<div style="color: #9A9A9A">ON LIST 2.7 · —</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #8A2208"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #8A2208; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.42 · C 0.144</div>
+<div style="color: #9A9A9A">#8A2208</div>
+<div style="color: #9A9A9A">ON GROUND 1.9 · —</div>
+<div style="color: #9A9A9A">ON LIST 1.8 · —</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #5E1403"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #5E1403; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.32 · C 0.110</div>
+<div style="color: #9A9A9A">#5E1403</div>
+<div style="color: #9A9A9A">ON GROUND 1.3 · —</div>
+<div style="color: #9A9A9A">ON LIST 1.2 · —</div>
+</div></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">INFORMATION · HUE 149 · <span style="color: #9A9A9A; font-weight: 400; letter-spacing: 1px">A quiet neutral, from the pale green trial: data and body text</span></div>
+<div style="display: flex; gap: 16px"><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #D8EBDA"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #D8EBDA; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.92 · C 0.030</div>
+<div style="color: #9A9A9A">#D8EBDA</div>
+<div style="color: #9A9A9A">ON GROUND 13.6 · TEXT</div>
+<div style="color: #9A9A9A">ON LIST 12.8 · TEXT</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #B7CABA"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #B7CABA; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.82 · C 0.030</div>
+<div style="color: #9A9A9A">#B7CABA</div>
+<div style="color: #9A9A9A">ON GROUND 9.9 · TEXT</div>
+<div style="color: #9A9A9A">ON LIST 9.3 · TEXT</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #98AA9B"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #98AA9B; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.72 · C 0.030</div>
+<div style="color: #9A9A9A">#98AA9B</div>
+<div style="color: #9A9A9A">ON GROUND 6.9 · TEXT</div>
+<div style="color: #9A9A9A">ON LIST 6.5 · TEXT</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #7A8C7C"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #7A8C7C; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.62 · C 0.030</div>
+<div style="color: #9A9A9A">#7A8C7C</div>
+<div style="color: #9A9A9A">ON GROUND 4.8 · TEXT</div>
+<div style="color: #9A9A9A">ON LIST 4.5 · LARGE</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #5D6E60"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #5D6E60; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.52 · C 0.030</div>
+<div style="color: #9A9A9A">#5D6E60</div>
+<div style="color: #9A9A9A">ON GROUND 3.1 · LARGE</div>
+<div style="color: #9A9A9A">ON LIST 2.9 · —</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #425244"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #425244; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.42 · C 0.030</div>
+<div style="color: #9A9A9A">#425244</div>
+<div style="color: #9A9A9A">ON GROUND 2.0 · —</div>
+<div style="color: #9A9A9A">ON LIST 1.9 · —</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #28372A"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #28372A; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.32 · C 0.030</div>
+<div style="color: #9A9A9A">#28372A</div>
+<div style="color: #9A9A9A">ON GROUND 1.4 · —</div>
+<div style="color: #9A9A9A">ON LIST 1.3 · —</div>
+</div></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">SET APART · HUE 190 · <span style="color: #9A9A9A; font-weight: 400; letter-spacing: 1px">Cyan white: only what must stand apart</span></div>
+<div style="display: flex; gap: 16px"><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #D1EBE8"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #D1EBE8; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.92 · C 0.027</div>
+<div style="color: #9A9A9A">#D1EBE8</div>
+<div style="color: #9A9A9A">ON GROUND 13.6 · TEXT</div>
+<div style="color: #9A9A9A">ON LIST 12.8 · TEXT</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #B1CAC8"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #B1CAC8; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.82 · C 0.027</div>
+<div style="color: #9A9A9A">#B1CAC8</div>
+<div style="color: #9A9A9A">ON GROUND 9.8 · TEXT</div>
+<div style="color: #9A9A9A">ON LIST 9.2 · TEXT</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #92AAA8"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #92AAA8; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.72 · C 0.027</div>
+<div style="color: #9A9A9A">#92AAA8</div>
+<div style="color: #9A9A9A">ON GROUND 6.9 · TEXT</div>
+<div style="color: #9A9A9A">ON LIST 6.5 · TEXT</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #748C8A"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #748C8A; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.62 · C 0.027</div>
+<div style="color: #9A9A9A">#748C8A</div>
+<div style="color: #9A9A9A">ON GROUND 4.7 · TEXT</div>
+<div style="color: #9A9A9A">ON LIST 4.5 · LARGE</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #586E6C"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #586E6C; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.52 · C 0.027</div>
+<div style="color: #9A9A9A">#586E6C</div>
+<div style="color: #9A9A9A">ON GROUND 3.1 · LARGE</div>
+<div style="color: #9A9A9A">ON LIST 2.9 · —</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #3C5250"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #3C5250; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.42 · C 0.027</div>
+<div style="color: #9A9A9A">#3C5250</div>
+<div style="color: #9A9A9A">ON GROUND 2.0 · —</div>
+<div style="color: #9A9A9A">ON LIST 1.9 · —</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #223736"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #223736; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">L 0.32 · C 0.027</div>
+<div style="color: #9A9A9A">#223736</div>
+<div style="color: #9A9A9A">ON GROUND 1.4 · —</div>
+<div style="color: #9A9A9A">ON LIST 1.3 · —</div>
+</div></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">EMBER BY OPACITY · <span style="color: #9A9A9A; font-weight: 400; letter-spacing: 1px">what the levels do now: each one mixed toward the ground beneath it</span></div>
+<div style="display: flex; gap: 16px"><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #D9573B"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #D9573B; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">EMBER 100%</div>
+<div style="color: #9A9A9A">#D9573B</div>
+<div style="color: #9A9A9A">ON GROUND 4.4 · LARGE</div>
+<div style="color: #9A9A9A">ON LIST 4.1 · LARGE</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #C65138"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #C65138; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">EMBER 90%</div>
+<div style="color: #9A9A9A">#C65138</div>
+<div style="color: #9A9A9A">ON GROUND 3.8 · LARGE</div>
+<div style="color: #9A9A9A">ON LIST 3.5 · LARGE</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #90412E"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #90412E; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">EMBER 62%</div>
+<div style="color: #9A9A9A">#90412E</div>
+<div style="color: #9A9A9A">ON GROUND 2.4 · —</div>
+<div style="color: #9A9A9A">ON LIST 2.3 · —</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #6A3528"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #6A3528; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">EMBER 42%</div>
+<div style="color: #9A9A9A">#6A3528</div>
+<div style="color: #9A9A9A">ON GROUND 1.7 · —</div>
+<div style="color: #9A9A9A">ON LIST 1.6 · —</div>
+</div><div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: #31241E"></div>
+<div style="background: #1A1D1A; padding: 8px; color: #31241E; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">LAST RUN · 8.2 KM</div>
+<div style="color: #E8E8E8; font-weight: 700">EMBER 12%</div>
+<div style="color: #9A9A9A">#31241E</div>
+<div style="color: #9A9A9A">ON GROUND 1.1 · —</div>
+<div style="color: #9A9A9A">ON LIST 1.1 · —</div>
+</div></div>
+</div>
+<div style="display: flex; gap: 40px; align-items: flex-start">
+<div style="display: flex; flex-direction: column; gap: 10px; width: 400px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">A · ONE COLOUR, BY OPACITY</div>
+<div style="color: #9A9A9A; font-size: 11px; letter-spacing: 1px; line-height: 15px; min-height: 30px">Ember at 90 / 62 / 42%: the levels before today</div>
+<dc-import name="S01-R3-Home" theme="--text-1: 11px; --text-1-tracking: 0.5px; --text-1-leading: 15px; --text-2: 13px; --text-2-tracking: 2px; --text-2-leading: 11px; --text-3: 16px; --text-3-tracking: 1.5px; --text-3-leading: 20px; --text-4: 22px; --text-4-tracking: 6px; --text-4-leading: 24px; --color-primary-text: var(--ember); --color-supporting-text: var(--ember); --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px; --space-5: 16px; --space-6: 24px; --tap-area: 48px; --trial-a: #76DA84; --trial-b: #D9573B; --trial-c: #D9573B; --trial-d: #D9573B; --color-primary-text: var(--ember); --color-secondary-text: var(--ember); --color-supporting-text: var(--ember); --primary-text: 90%; --secondary-text: 62%; --secondary-text-weight: 700; --supporting-text: 42%" hint-size="400px,640px"></dc-import>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; width: 400px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">B · ROUND 3 NOW</div>
+<div style="color: #9A9A9A; font-size: 11px; letter-spacing: 1px; line-height: 15px; min-height: 30px">Secondary text in the pale green trial at 42%; the rest ember by opacity</div>
+<dc-import name="S01-R3-Home" theme="--text-1: 11px; --text-1-tracking: 0.5px; --text-1-leading: 15px; --text-2: 13px; --text-2-tracking: 2px; --text-2-leading: 11px; --text-3: 16px; --text-3-tracking: 1.5px; --text-3-leading: 20px; --text-4: 22px; --text-4-tracking: 6px; --text-4-leading: 24px; --color-primary-text: var(--ember); --color-supporting-text: var(--ember); --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px; --space-5: 16px; --space-6: 24px; --tap-area: 48px; --trial-a: #76DA84; --trial-b: #D9573B; --trial-c: #D9573B; --trial-d: #D9573B; --color-primary-text: var(--ember); --color-secondary-text: #DFFFE4; --color-supporting-text: var(--ember); --primary-text: 90%; --secondary-text: 42%; --secondary-text-weight: 400; --supporting-text: 42%" hint-size="400px,640px"></dc-import>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; width: 400px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">C · ROLES, SOLID STEPS</div>
+<div style="color: #9A9A9A; font-size: 11px; letter-spacing: 1px; line-height: 15px; min-height: 30px">Entries: accent L .62 · data: information L .72 · hints: information L .52 · POWER DOWN: set apart</div>
+<dc-import name="S01-R3-Home" theme="--text-1: 11px; --text-1-tracking: 0.5px; --text-1-leading: 15px; --text-2: 13px; --text-2-tracking: 2px; --text-2-leading: 11px; --text-3: 16px; --text-3-tracking: 1.5px; --text-3-leading: 20px; --text-4: 22px; --text-4-tracking: 6px; --text-4-leading: 24px; --color-primary-text: var(--ember); --color-supporting-text: var(--ember); --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px; --space-5: 16px; --space-6: 24px; --tap-area: 48px; --trial-a: #76DA84; --trial-b: #D9573B; --trial-c: #D9573B; --trial-d: #D9573B; --color-primary-text: #D9563A; --color-secondary-text: #98AA9B; --color-supporting-text: #5D6E60; --primary-text: 100%; --secondary-text: 100%; --secondary-text-weight: 400; --supporting-text: 100%" hint-size="400px,640px"></dc-import>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1400,"height":1800}}'>
+class Component extends DCLogic {
+renderVals() {
+// Values passed in by the Theme board; on its own, the board's trials over basics.css.
+return { theme: this.props.theme != null ? this.props.theme : "" };
+}
+}
+</script>
+</body>
+</html>

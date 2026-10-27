@@ -715,6 +715,14 @@
       "w": 400,
       "x": 960,
       "y": 0
+    },
+    "X-Palette.dc.html": {
+      "page": "design",
+      "title": "Palette · ramps and roles · exploration",
+      "w": 1400,
+      "h": 1800,
+      "x": 0,
+      "y": 3548
     }
   },
   "createdOnFiles": {
@@ -967,6 +975,15 @@
       "w": 560,
       "x": 2400,
       "y": 0
+    },
+    "palette": {
+      "kind": "title1",
+      "maxW": 1400,
+      "page": "design",
+      "text": "Palette — ramps and roles",
+      "w": 240,
+      "x": 0,
+      "y": 3268
     }
   },
   "order": [
@@ -1056,7 +1073,8 @@
     "S01-Raised.dc.html",
     "S01-Workout.dc.html",
     "S01-Editing.dc.html",
-    "S01-Power.dc.html"
+    "S01-Power.dc.html",
+    "X-Palette.dc.html"
   ],
   "pages": [
     {

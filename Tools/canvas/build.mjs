@@ -12,6 +12,8 @@
 //                            Tools/canvas/rounds/r3/<name>/. C-R3-Screens shows round 3's screens.
 //   S01-R3-<state>           screen 01, round 3: the agreed screen importing the component rounds, its own placing
 //                            on the scales, with no editing state.
+//   X-Palette.dc.html        the palette exploration: a ramp per role with contrast, and round 3's home under three
+//                            ways of colouring text. Its colours come from palette.mjs.
 //   basics.css               a copy of Spec/Visual Design/basics.css.
 //
 // Values the user has set in a board's Tweaks tab are read from the mirror and kept. A change stays on its board.
@@ -21,6 +23,7 @@
 
 import { readFileSync, writeFileSync, existsSync, copyFileSync } from 'node:fs';
 import { components, readComponent } from '../build-components.mjs';
+import { ramp, contrast, over } from './palette.mjs';
 
 const SPEC = 'Spec/Visual Design';
 const OUT = 'Canvas/project';
@@ -506,7 +509,77 @@ const round3 = navigationBoards(true);
 const W = 2652;
 // A row of n screens: the padding, the side column and its gap, then each screen and the gap after it.
 const rowWidth = (n) => 452 + 440 * n;
+// ---- the palette exploration: ramps by role, and round 3's home under three ways of colouring text ----
+
+const GROUND = '#1A1D1A', RAISED = '#212220';
+const STEPS = [0.92, 0.82, 0.72, 0.62, 0.52, 0.42, 0.32];
+const ROLES = [
+  { name: 'ACCENT', note: 'Ember: marks, names, keys, lines', hue: 34, chroma: 0.17 },
+  { name: 'INFORMATION', note: 'A quiet neutral, from the pale green trial: data and body text', hue: 149, chroma: 0.03 },
+  { name: 'SET APART', note: 'Cyan white: only what must stand apart', hue: 190, chroma: 0.027 },
+].map((r) => ({ ...r, steps: ramp(r, STEPS) }));
+const step = (role, L) => ROLES.find((r) => r.name === role).steps.find((s) => s.L === L).hex;
+const fmt = (n) => n.toFixed(1);
+const verdict = (c) => (c >= 4.5 ? 'TEXT' : c >= 3 ? 'LARGE' : '—');
+
+function card(hexValue, label, sample) {
+  const g = contrast(hexValue, GROUND), r = contrast(hexValue, RAISED);
+  return `<div style="width: 150px; display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 1px">
+<div style="height: 44px; background: ${hexValue}"></div>
+<div style="background: ${GROUND}; padding: 8px; color: ${hexValue}; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden">${sample}</div>
+<div style="color: #E8E8E8; font-weight: 700">${label}</div>
+<div style="color: #9A9A9A">${hexValue}</div>
+<div style="color: #9A9A9A">ON GROUND ${fmt(g)} · ${verdict(g)}</div>
+<div style="color: #9A9A9A">ON LIST ${fmt(r)} · ${verdict(r)}</div>
+</div>`;
+}
+
+function paletteBoard() {
+  const rows = ROLES.map((r) => `<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">${r.name} · HUE ${r.hue} · <span style="color: #9A9A9A; font-weight: 400; letter-spacing: 1px">${r.note}</span></div>
+<div style="display: flex; gap: 16px">${r.steps.map((s) => card(s.hex, `L ${s.L.toFixed(2)} · C ${s.C.toFixed(3)}`, 'LAST RUN · 8.2 KM')).join('')}</div>
+</div>`).join('\n');
+  const opacity = `<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">EMBER BY OPACITY · <span style="color: #9A9A9A; font-weight: 400; letter-spacing: 1px">what the levels do now: each one mixed toward the ground beneath it</span></div>
+<div style="display: flex; gap: 16px">${[100, 90, 62, 42, 12].map((a) => card(over('#D9573B', GROUND, a / 100), `EMBER ${a}%`, 'LAST RUN · 8.2 KM')).join('')}</div>
+</div>`;
+  // Round 3's home under three ways of colouring text. Each passes the round's values with its own text colours.
+  const base = vars([...roundTokens, ...swatchTokens]);
+  const schemes = [
+    { title: 'A · ONE COLOUR, BY OPACITY', note: 'Ember at 90 / 62 / 42%: the levels before today',
+      theme: '--color-primary-text: var(--ember); --color-secondary-text: var(--ember); --color-supporting-text: var(--ember); --primary-text: 90%; --secondary-text: 62%; --secondary-text-weight: 700; --supporting-text: 42%' },
+    { title: 'B · ROUND 3 NOW', note: 'Secondary text in the pale green trial at 42%; the rest ember by opacity',
+      theme: '--color-primary-text: var(--ember); --color-secondary-text: #DFFFE4; --color-supporting-text: var(--ember); --primary-text: 90%; --secondary-text: 42%; --secondary-text-weight: 400; --supporting-text: 42%' },
+    { title: 'C · ROLES, SOLID STEPS', note: `Entries: accent L .62 · data: information L .72 · hints: information L .52 · POWER DOWN: set apart`,
+      theme: `--color-primary-text: ${step('ACCENT', 0.62)}; --color-secondary-text: ${step('INFORMATION', 0.72)}; --color-supporting-text: ${step('INFORMATION', 0.52)}; --primary-text: 100%; --secondary-text: 100%; --secondary-text-weight: 400; --supporting-text: 100%` },
+  ];
+  const screens = schemes.map((x) => `<div style="display: flex; flex-direction: column; gap: 10px; width: 400px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">${x.title}</div>
+<div style="color: #9A9A9A; font-size: 11px; letter-spacing: 1px; line-height: 15px; min-height: 30px">${x.note}</div>
+<dc-import name="S01-R3-Home" theme="${base}; ${x.theme}" hint-size="400px,640px"></dc-import>
+</div>`).join('\n');
+  const width = 32 * 2 + 7 * 150 + 6 * 16 + 120, height = 1800;
+  return board({
+    title: 'Palette · ramps and roles · exploration',
+    fonts: 'family=Gelasio:wght@700&amp;family=Courier+Prime:wght@400;700',
+    body: `<div style="width: ${Math.max(width, 1400)}px; height: ${height}px; box-sizing: border-box; padding: 32px; background: #000; font-family: var(--font-interface); display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 1100px">
+<div style="font-size: 16px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">PALETTE · RAMPS AND ROLES · EXPLORATION</div>
+<div style="color: #9A9A9A; font-size: 12px; letter-spacing: 1px; line-height: 18px">Each ramp is one hue at seven even steps of lightness (L), computed in OKLCH; chroma (C) eases where the screen cannot show more. Contrast is measured against the ground and the list sheet: 4.5 reads as body text, 3 as large text. Nothing here is a basic: a colour kept from this board joins the palette by name first.</div>
+</div>
+${rows}
+${opacity}
+<div style="display: flex; gap: 40px; align-items: flex-start">
+${screens}
+</div>
+</div>`,
+    script: screenScript(''),
+    props: { $preview: { width: Math.max(width, 1400), height } },
+  });
+}
+
 const files = {
+  'X-Palette.dc.html': paletteBoard(),
   ...parts, ...partsRound, ...boot, ...agreed, ...round3,
   'Theme.dc.html': controlBoard({
     file: 'Theme.dc.html', title: 'Theme', heading: 'THEME', note: 'Every agreed screen.',
@@ -583,6 +656,10 @@ index.notes.theme = index.notes.theme || { kind: 'title1', maxW: W, page: 'basic
 index.notes.s01r3 = index.notes.s01r3 || { kind: 'title1', maxW: 2320, page: 's01', text: 'Round 3 — screen 01 on the type and spacing scales', w: 240, x: 0, y: 10280 };
 index.notes.s01r3board = index.notes.s01r3board || { kind: 'title1', maxW: W, page: 's01', text: 'Round 3 — tune here; changes stay on this board', w: 240, x: 0, y: 11200 };
 index.notes.s01agreed = index.notes.s01agreed || { kind: 'title1', maxW: 2320, page: 's01', text: 'Screen 01 — agreed', w: 240, x: 0, y: 12340 };
+// The palette exploration, below the Explorations page's earlier rounds.
+const paletteW = +files['X-Palette.dc.html'].match(/"\$preview":\{"width":(\d+)/)[1];
+place('X-Palette.dc.html', { page: 'design', title: 'Palette · ramps and roles · exploration', w: paletteW, h: 1800, x: 0, y: 3548 });
+index.notes.palette = index.notes.palette || { kind: 'title1', maxW: paletteW, page: 'design', text: 'Palette — ramps and roles', w: 240, x: 0, y: 3268 };
 index.notes.s00agreed = index.notes.s00agreed || { kind: 'title1', maxW: 880, page: 's00', text: 'Boot · agreed', w: 240, x: 0, y: 7180 };
 writeFileSync(`${OUT}/canvas.json`, `${JSON.stringify(index, null, 2)}\n`);
 
