@@ -41,9 +41,9 @@ const TRIALS = [
     ['--text-3', '16px'], ['--text-3-tracking', '1.5px'], ['--text-3-leading', '20px'],
     ['--text-4', '22px'], ['--text-4-tracking', '6px'], ['--text-4-leading', '24px'],
   ]],
-  // Each emphasis level's text takes its colour from the palette or a swatch, by name; its opacity stays the level's.
+  // Primary and supporting text take their colour from the palette or a swatch, by name; the opacity stays the level's.
   ['Text colour', [
-    ['--color-primary-text', 'var(--ember)'], ['--color-secondary-text', 'var(--ember)'], ['--color-supporting-text', 'var(--ember)'],
+    ['--color-primary-text', 'var(--ember)'], ['--color-supporting-text', 'var(--ember)'],
   ]],
   ['Spacing scale', [
     ['--space-1', '2px'], ['--space-2', '4px'], ['--space-3', '8px'],

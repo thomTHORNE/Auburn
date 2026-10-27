@@ -22,9 +22,10 @@
   /* Colour */
   --color-ground: var(--tube);             /* the screen behind everything */
   --color-ground-raised: var(--graphite);  /* a layer over the screen */
-  --color-accent: var(--ember);            /* text, lines and marks, at every level */
+  --color-accent: var(--ember);            /* text, lines and marks */
   --color-ink: var(--obsidian);            /* text on an accent fill */
   --color-apart: var(--cyan-white);        /* an element a screen sets apart */
+  --color-secondary-text: var(--cyan-white); /* text at the secondary level */
 
   /* Font */
   --font-wordmark: var(--gelasio);
@@ -33,7 +34,7 @@
 
   /* Emphasis: the accent at the level's opacity, for text and for lines */
   --primary-text: 90%;      --primary-text-weight: 400;
-  --secondary-text: 62%;    --secondary-text-weight: 700;
+  --secondary-text: 42%;    --secondary-text-weight: 400;
   --supporting-text: 42%;   --supporting-text-weight: 700;
   --primary-line: 90%;      --primary-line-width: 2px;
   --secondary-line: 55%;    --secondary-line-width: 2px;
