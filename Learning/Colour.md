@@ -57,11 +57,11 @@ A **ramp** is a set of shades of one colour that belong together. It keeps H fix
 
 | L | .92 | .82 | .72 | **.62** | .52 | .42 | .32 |
 |---|---|---|---|---|---|---|---|
-| Hex | #FEDCD4 | #FCAD9A | #FB775A | **#D9563A** | #B63517 | #8A2208 | #5E1403 |
-| C | .040 | .097 | .168 | .170 | .170 | .144 | .110 |
-| Contrast | 13.3 | 9.4 | 6.4 | 4.3 | 2.8 | 1.9 | 1.3 |
+| Hex | #FEDCD4 | #FCAD9B | #FB775A | **#D9573B** | #B63519 | #8B2108 | #5F1303 |
+| C | .039 | .097 | .167 | .169 | .169 | .145 | .110 |
+| Contrast | 13.3 | 9.4 | 6.4 | 4.4 | 2.8 | 1.9 | 1.3 |
 
-Ember itself (#D9573B) lands on the .62 step almost exactly; the ramp is built around the colour you already chose. The palette board on the canvas's Explorations page shows this ramp, one for a quiet neutral at the pale green's hue, and one for cyan white, with every step's contrast.
+Ember itself (#D9573B) is the .62 step: each ramp is built around the colour you already chose, which stands in it exactly. The palette board on the canvas's Explorations page shows this ramp, one for a quiet neutral at the pale green's hue, and one for cyan white, with every step's contrast.
 
 **In your own words:** a ramp is "the same colour, brighter or dimmer, in even steps."
 

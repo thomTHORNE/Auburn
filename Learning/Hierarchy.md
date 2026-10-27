@@ -58,6 +58,8 @@ Auburn already has the ranking: three **levels**, primary, secondary and support
 
 **Add a level.** A fourth level above primary, for set-apart elements: one more rung on the same ladder. It is simple to state. But it says POWER DOWN *matters more* than RESUME WORKOUT, which is not true, and every screen then has a level reserved for exceptions.
 
+A level and a kind answer different questions. A level is *how much* something should be noticed, and levels rank: primary is always louder than secondary. A kind is *what sort of thing* it is, and kinds do not rank: whether accent or information matters more has no answer, the way a violin is not louder than a drum. Every element has both, so they form a grid rather than a line: RESUME WORKOUT is accent at primary; the status line is information at secondary; POWER DOWN is set apart at primary. In colour, the kind picks the ramp and the level picks the step.
+
 **Add a dimension.** Keep three levels for loudness, and add a separate choice of *kind*: accent, information, set apart. Set-apart elements get their own colour and are allowed to break the ranking on purpose, which is only safe because there are so few of them. The cost is a second axis on every element, and discipline: the moment a second thing is set apart, both lose their force.
 
 Neither is decided. The colour explainer shows the same split from the palette's side; the spacing explainer shows how distance votes. Each can be judged on its own.
