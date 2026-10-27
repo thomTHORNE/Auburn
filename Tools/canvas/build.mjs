@@ -8,7 +8,8 @@
 //   S00-Dark, S00-Light      the agreed boot (Spec/Visual Design/00-boot/screen.html), held frame, line 0.
 //   S01-<state>              the agreed screen 01 (Spec/Visual Design/01-navigation/screen.html), importing the
 //                            component boards.
-//   C-R3-<Name>, -States     each component's round for screen 01's round 3: on the trial scales, with tap areas of
+//   C-R3-<Name>, -States     each component's round for screen 01's round 3, from Tools/canvas/rounds/r3/<name>/ where
+//                            the round reshaped it, or else the agreed one: on the trial scales, with tap areas of
 //                            the trial's height, and a widget with no EDIT. C-R3-Screens shows round 3's screens.
 //   S01-R3-<state>           screen 01, round 3: the agreed screen importing the component rounds, its own placing
 //                            on the scales, with no editing state.
@@ -20,7 +21,7 @@
 // Then commit and publish the changed files as CLAUDE.md's The canvas says.
 
 import { readFileSync, writeFileSync, existsSync, copyFileSync } from 'node:fs';
-import { components } from '../build-components.mjs';
+import { components, readComponent } from '../build-components.mjs';
 
 const SPEC = 'Spec/Visual Design';
 const OUT = 'Canvas/project';
@@ -181,10 +182,14 @@ function bootBoards() {
     .replace(/\.(screen|power-line|picture|dots|stack|plate|rule-outer|rule-inner|pillars|pillar|line|wordmark|still)\b/g, '.b00-$1')
     .replace(/animation:[^;]+;/g, '')
     .split('\n').map((l) => l.trim()).filter(Boolean).join('\n');
+  // The boot shows one of its lines; the line the user set on the board stays, if it is still one of them.
+  const lines = JSON.parse(src.match(/var lines = (\[[^\]]*\]);/)[1].replace(/'/g, '"'));
+  const shown = existsSync(`${OUT}/S00-Dark.dc.html`) && (readFileSync(`${OUT}/S00-Dark.dc.html`, 'utf8').match(/<div class="b00-line"><span>([^<]*)<\/span>/) || [])[1];
+  const shownLine = lines.includes(shown) ? shown : lines[0];
   const markup = src.match(/<div class="screen">([\s\S]*?)<\/div>\s*<script>/)[1]
     .replace(/<div class="power-line"[^>]*><\/div>/, '')
     .replace(/class="([a-z-]+)"/g, (_, c) => `class="${c.split(' ').map((x) => `b00-${x}`).join(' ')}"`)
-    .replace('<span id="line"></span>', '<span>More human than human.</span>');
+    .replace('<span id="line"></span>', `<span>${shownLine}</span>`);
   const out = {};
   for (const theme of ['dark', 'light']) {
     out[`S00-${theme === 'dark' ? 'Dark' : 'Light'}.dc.html`] = board({
@@ -238,20 +243,17 @@ function onScales(style) {
   return s;
 }
 
-// Round 3's component changes. Home carries no EDIT: the widget loses its key and its editing controls, and with
-// them its editing and stepped-back states. An entry is a key of the tap area's height. The handle keeps its look;
-// its tap area reaches up over the screen.
+// Round 3's copy of a component: its own template where the round reshaped it (Tools/canvas/rounds/r3/<name>/
+// component.html, already on the scales, and the agreed component.html once the round is approved); otherwise the
+// agreed one, put on the scales with these changes. An entry is a key of the tap area's height. The handle keeps its
+// look; its tap area reaches up over the screen.
+const roundFile = (name) => `Tools/canvas/rounds/r3/${name}/component.html`;
 function roundCopy(html) {
   return html
-    .replace(/<button style="height: 44px;[^"]*" type="button">[\s\S]*?<\/button>/g, '')
-    .replace(/\n?<div class="edit-controls"[^>]*>[\s\S]*?FULL<\/span><\/div><\/div>/g, '')
     .replace(/<a href="#" style="height: 42px;/g, '<a href="#" style="height: var(--tap-area);')
     .replace(/(<div style="height: 30px; display: flex; align-items: center; justify-content: center; gap: 10px; [^"]*)">(<span style="width: 40px; height: 3px;[^>]*><\/span>[^<]*)<\/div>/g,
       '$1; position: relative">$2<button aria-label="Raise or lower the list" style="position: absolute; left: 0; right: 0; bottom: 0; height: var(--tap-area); padding: 0; border: none; background: transparent" type="button"></button></div>');
 }
-// The properties and states a round's copy no longer has.
-const ROUND_DROPS = { 'auburn-widget': ['state'] };
-const roundStates = (c) => c.states.filter((s) => !/data-state="(editing|stepped-back)"/.test(s.inst));
 
 // Round 3's screen, before its components are filled in. The list sits lower than the agreed screen's by its three
 // entries' growth, so the same three show.
@@ -294,14 +296,15 @@ function toImports(html, round) {
 // Each component's board and states board; with round, its round 3 copy: on the scales, with its tap areas.
 function componentBoards(round) {
   const out = {};
-  for (const c of COMPONENTS) {
+  for (const agreed of COMPONENTS) {
+    const reshaped = round && existsSync(roundFile(agreed.name));
+    const c = reshaped ? { name: agreed.name, ...readComponent(roundFile(agreed.name)) } : agreed;
     const Name = boardOf(c.tag, round);
     const first = attrsOf(c.states[0].inst.match(/<auburn-[a-z]+((?:\s+[a-z0-9-]+="[^"]*")*)/)[1]);
     const defaults = Object.fromEntries(Object.entries(first).filter(([k]) => k.startsWith('data-')).map(([k, v]) => [camel(k.slice(5)), v]));
     const props = {};
-    const own = Object.keys(c.props).filter((k) => !(round && (ROUND_DROPS[c.tag] || []).includes(k)));
-    const states = round ? roundStates(c) : c.states;
-    for (const [k, values] of Object.entries(c.props).filter(([k]) => own.includes(k))) {
+    const states = c.states;
+    for (const [k, values] of Object.entries(c.props)) {
       const range = values[0].match(/^(\d+)-(\d+|n)$/);
       props[camel(k)] = range ? { editor: 'range', default: Number(defaults[camel(k)] || 0), min: +range[1], max: range[2] === 'n' ? 20 : +range[2], step: 1, section: 'Properties' }
         : { editor: 'enum', options: values, default: defaults[camel(k)] || values[0], section: 'Properties' };
@@ -314,11 +317,16 @@ function componentBoards(round) {
     }
     // The agreed images' sizes; a round's copy grows, so its boards take room to spare.
     const grow = round ? 60 : 0;
-    const size = (id) => { const s = readFileSync(`${SPEC}/components/${c.name}/${id}.png`); return { width: s.readUInt32BE(16), height: s.readUInt32BE(20) + grow }; };
+    // A state with no image yet takes its frame's width and room to spare.
+    const size = (id) => {
+      const png = `${SPEC}/components/${c.name}/${id}.png`;
+      if (!existsSync(png)) return { width: +states.find((s) => s.id === id).frame.match(/width: (\d+)px/)[1], height: 200 };
+      const s = readFileSync(png); return { width: s.readUInt32BE(16), height: s.readUInt32BE(20) + grow };
+    };
     props.$preview = size(states[0].id);
-    const template = (round ? onScalesAll(roundCopy(bustToMask(c.html))) : bustToMask(c.html))
+    const template = (round && !reshaped ? onScalesAll(roundCopy(bustToMask(c.html))) : bustToMask(c.html))
       .replace(/<template data-each="([a-z0-9]+)">([\s\S]*?)<\/template>/g, '<sc-for list="{{$1}}" as="item" hint-placeholder-count="3">$2</sc-for>');
-    const root = `<div class="${c.tag}${round ? ' round-3' : ''}" ${own.map((k) => `data-${k}="{{${camel(k)}}}"`).join(' ')}>\n${toImports(template, round)}\n</div>`;
+    const root = `<div class="${c.tag}${round ? ' round-3' : ''}" ${Object.keys(c.props).map((k) => `data-${k}="{{${camel(k)}}}"`).join(' ')}>\n${toImports(template, round)}\n</div>`;
     const lists = [...c.html.matchAll(/<template data-each="([a-z0-9]+)">/g)].map((m) => m[1]);
     out[`${Name}.dc.html`] = board({
       title: round ? `Component round · ${c.name} · for screen 01's round 3 · in progress` : `Component · ${c.name} · agreed`,

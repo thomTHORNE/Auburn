@@ -11,182 +11,182 @@
       "y": 0
     },
     "C-Entry-States.dc.html": {
-      "h": 134,
       "page": "components",
       "title": "Entry · states · agreed",
       "w": 464,
+      "h": 134,
       "x": 0,
       "y": 0
     },
     "C-Entry.dc.html": {
-      "h": 42,
-      "is_interactive": true,
       "page": "components",
       "title": "Entry · the component · tune its properties in the Tweaks tab",
       "w": 400,
+      "h": 42,
       "x": 544,
-      "y": 0
+      "y": 0,
+      "is_interactive": true
     },
     "C-Header-States.dc.html": {
-      "h": 179,
       "page": "components",
       "title": "Header · states · agreed",
       "w": 464,
+      "h": 179,
       "x": 0,
       "y": 254
     },
     "C-Header.dc.html": {
-      "h": 87,
-      "is_interactive": true,
       "page": "components",
       "title": "Header · the component · tune its properties in the Tweaks tab",
       "w": 400,
+      "h": 87,
       "x": 544,
-      "y": 254
+      "y": 254,
+      "is_interactive": true
     },
     "C-Hold-States.dc.html": {
-      "h": 144,
       "page": "components",
       "title": "Hold · states · agreed",
       "w": 904,
+      "h": 144,
       "x": 0,
       "y": 553
     },
     "C-Hold.dc.html": {
-      "h": 52,
-      "is_interactive": true,
       "page": "components",
       "title": "Hold · the component · tune its properties in the Tweaks tab",
       "w": 400,
+      "h": 52,
       "x": 984,
-      "y": 553
+      "y": 553,
+      "is_interactive": true
     },
     "C-List-States.dc.html": {
-      "h": 598,
       "page": "components",
       "title": "List · states · agreed",
       "w": 904,
+      "h": 598,
       "x": 0,
       "y": 817
     },
     "C-List.dc.html": {
-      "h": 156,
-      "is_interactive": true,
       "page": "components",
       "title": "List · the component · tune its properties in the Tweaks tab",
       "w": 400,
+      "h": 156,
       "x": 984,
-      "y": 817
+      "y": 817,
+      "is_interactive": true
     },
     "C-R3-Entry-States.dc.html": {
-      "h": 194,
       "page": "components",
       "title": "Entry · states · round 3 · in progress",
       "w": 464,
+      "h": 194,
       "x": 0,
       "y": 2248
     },
     "C-R3-Entry.dc.html": {
-      "h": 102,
-      "is_interactive": true,
       "page": "components",
       "title": "Entry · round 3 · in progress · tune its properties in the Tweaks tab",
       "w": 400,
+      "h": 102,
       "x": 544,
-      "y": 2248
+      "y": 2248,
+      "is_interactive": true
     },
     "C-R3-Header-States.dc.html": {
-      "h": 239,
       "page": "components",
       "title": "Header · states · round 3 · in progress",
       "w": 464,
+      "h": 239,
       "x": 0,
       "y": 2562
     },
     "C-R3-Header.dc.html": {
-      "h": 147,
-      "is_interactive": true,
       "page": "components",
       "title": "Header · round 3 · in progress · tune its properties in the Tweaks tab",
       "w": 400,
+      "h": 147,
       "x": 544,
-      "y": 2562
+      "y": 2562,
+      "is_interactive": true
     },
     "C-R3-Hold-States.dc.html": {
-      "h": 204,
       "page": "components",
       "title": "Hold · states · round 3 · in progress",
       "w": 904,
+      "h": 204,
       "x": 0,
       "y": 2921
     },
     "C-R3-Hold.dc.html": {
-      "h": 112,
-      "is_interactive": true,
       "page": "components",
       "title": "Hold · round 3 · in progress · tune its properties in the Tweaks tab",
       "w": 400,
+      "h": 112,
       "x": 984,
-      "y": 2921
+      "y": 2921,
+      "is_interactive": true
     },
     "C-R3-List-States.dc.html": {
-      "h": 658,
       "page": "components",
       "title": "List · states · round 3 · in progress",
       "w": 904,
+      "h": 658,
       "x": 0,
       "y": 3245
     },
     "C-R3-List.dc.html": {
-      "h": 216,
-      "is_interactive": true,
       "page": "components",
       "title": "List · round 3 · in progress · tune its properties in the Tweaks tab",
       "w": 400,
+      "h": 216,
       "x": 984,
-      "y": 3245
+      "y": 3245,
+      "is_interactive": true
     },
     "C-R3-Screens.dc.html": {
-      "h": 760,
       "page": "components",
       "title": "Component rounds · in screen 01, round 3 · in progress",
       "w": 1800,
+      "h": 760,
       "x": 0,
       "y": 4496
     },
     "C-R3-Widget-States.dc.html": {
-      "h": 314,
       "page": "components",
       "title": "Widget · states · round 3 · in progress",
-      "w": 652,
+      "w": 1092,
+      "h": 314,
       "x": 0,
       "y": 4023
     },
     "C-R3-Widget.dc.html": {
-      "h": 178,
-      "is_interactive": true,
       "page": "components",
       "title": "Widget · round 3 · in progress · tune its properties in the Tweaks tab",
       "w": 368,
+      "h": 178,
       "x": 1172,
-      "y": 4023
+      "y": 4023,
+      "is_interactive": true
     },
     "C-Widget-States.dc.html": {
-      "h": 293,
       "page": "components",
       "title": "Widget · states · agreed",
       "w": 1092,
+      "h": 293,
       "x": 0,
       "y": 1535
     },
     "C-Widget.dc.html": {
-      "h": 118,
-      "is_interactive": true,
       "page": "components",
       "title": "Widget · the component · tune its properties in the Tweaks tab",
       "w": 368,
+      "h": 118,
       "x": 1172,
-      "y": 1535
+      "y": 1535,
+      "is_interactive": true
     },
     "Instrument.dc.html": {
       "h": 844,
@@ -401,18 +401,18 @@
       "y": 6260
     },
     "S00-Dark.dc.html": {
-      "h": 640,
       "page": "s00",
       "title": "Boot · dark · agreed",
       "w": 400,
+      "h": 640,
       "x": 0,
       "y": 7460
     },
     "S00-Light.dc.html": {
-      "h": 640,
       "page": "s00",
       "title": "Boot · light · agreed",
       "w": 400,
+      "h": 640,
       "x": 480,
       "y": 7460
     },
@@ -434,18 +434,18 @@
       "y": 1040
     },
     "S01-Editing.dc.html": {
-      "h": 640,
       "page": "s01",
       "title": "Navigation · editing · agreed",
       "w": 400,
+      "h": 640,
       "x": 1440,
       "y": 12620
     },
     "S01-Home.dc.html": {
-      "h": 640,
       "page": "s01",
       "title": "Navigation · home · agreed",
       "w": 400,
+      "h": 640,
       "x": 0,
       "y": 12620
     },
@@ -523,10 +523,10 @@
       "y": 4680
     },
     "S01-Power.dc.html": {
-      "h": 640,
       "page": "s01",
       "title": "Navigation · power · agreed",
       "w": 400,
+      "h": 640,
       "x": 1920,
       "y": 12620
     },
@@ -611,70 +611,70 @@
       "y": 8200
     },
     "S01-R3-Home.dc.html": {
-      "h": 640,
       "page": "s01",
       "title": "Round 3 · home · on the scales · in progress",
       "w": 400,
+      "h": 640,
       "x": 0,
       "y": 10560
     },
     "S01-R3-Power.dc.html": {
-      "h": 640,
       "page": "s01",
       "title": "Round 3 · power · on the scales · in progress",
       "w": 400,
+      "h": 640,
       "x": 1440,
       "y": 10560
     },
     "S01-R3-Raised.dc.html": {
-      "h": 640,
       "page": "s01",
       "title": "Round 3 · raised · on the scales · in progress",
       "w": 400,
+      "h": 640,
       "x": 480,
       "y": 10560
     },
     "S01-R3-Round.dc.html": {
-      "h": 760,
-      "is_interactive": true,
       "page": "s01",
       "title": "Round 3 · in progress · tune in the Tweaks tab",
       "w": 2212,
+      "h": 760,
       "x": 0,
-      "y": 11480
+      "y": 11480,
+      "is_interactive": true
     },
     "S01-R3-Workout.dc.html": {
-      "h": 640,
       "page": "s01",
       "title": "Round 3 · workout · on the scales · in progress",
       "w": 400,
+      "h": 640,
       "x": 960,
       "y": 10560
     },
     "S01-Raised.dc.html": {
-      "h": 640,
       "page": "s01",
       "title": "Navigation · raised · agreed",
       "w": 400,
+      "h": 640,
       "x": 480,
       "y": 12620
     },
     "S01-Workout.dc.html": {
-      "h": 640,
       "page": "s01",
       "title": "Navigation · workout · agreed",
       "w": 400,
+      "h": 640,
       "x": 960,
       "y": 12620
     },
     "Theme.dc.html": {
-      "h": 1456,
-      "is_interactive": true,
       "page": "basics",
       "title": "Theme · tune in the Tweaks tab",
       "w": 2652,
+      "h": 1456,
       "x": 0,
-      "y": 0
+      "y": 0,
+      "is_interactive": true
     },
     "W01-Glyphs.dc.html": {
       "h": 820,
@@ -723,8 +723,8 @@
   },
   "designSystems": [],
   "launch": {
-    "page": "basics",
-    "view": "canvas"
+    "view": "canvas",
+    "page": "basics"
   },
   "noteOrder": [
     "round1",
