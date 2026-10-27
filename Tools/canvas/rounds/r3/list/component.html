@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=400">
+<title>Auburn · Component · List sheet</title>
+<!-- The list's round 3 copy, on the type and spacing scales, with its gaps from Visual Design's spacing table.
+     Approving round 3 makes this the agreed component.html. -->
+<meta name="images" content="down: | #down > .frame; raised: | #raised > .frame">
+<link rel="stylesheet" href="../../basics.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&family=Courier+Prime:wght@400;700&display=swap">
+<script src="../../components.js"></script>
+<style>
+body { margin: 0; padding: 24px; background: #000; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; font-family: var(--font-interface); }
+h2 { margin: 0 0 8px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #8A8A8A; text-transform: uppercase; }
+.frame { position: relative; background: var(--color-ground); color: var(--color-accent); font-family: var(--font-interface); }
+</style>
+</head>
+<body>
+<template id="auburn-list" data-props="position: down raised" data-text="handle entries">
+<style>
+.auburn-list { display: block; }
+</style>
+<div style="height: 100%; box-sizing: border-box; padding: 0 var(--space-5); background: var(--list-color-ground); border-top: var(--secondary-line-width) solid color-mix(in srgb, var(--color-accent) var(--secondary-line), transparent)">
+<div style="height: 30px; display: flex; align-items: center; justify-content: center; gap: var(--space-3); font-size: var(--text-1); font-weight: var(--supporting-text-weight); color: color-mix(in srgb, var(--color-supporting-text) var(--supporting-text), transparent); position: relative; letter-spacing: var(--text-1-tracking); line-height: var(--text-1-leading)"><span style="width: 40px; height: 3px; background: color-mix(in srgb, var(--color-supporting-text) var(--supporting-text), transparent)"></span>{{handle}}<button aria-label="Raise or lower the list" style="position: absolute; left: 0; right: 0; bottom: 0; height: var(--tap-area); padding: 0; border: none; background: transparent" type="button"></button></div>
+<template data-each="entries"><auburn-entry data-label="{{item}}"></auburn-entry></template>
+</div>
+</template>
+<section id="down">
+<h2>Down</h2>
+<div class="frame" style="width: 400px; height: 156px"><auburn-list data-position="down" data-handle="3 MORE" data-entries="START WORKOUT|PAST WORKOUTS|EXERCISES" style="position: absolute; inset: 0"></auburn-list></div>
+</section>
+<section id="raised">
+<h2>Raised</h2>
+<div class="frame" style="width: 400px; height: 506px"><auburn-list data-position="raised" data-handle="HIDE" data-entries="START WORKOUT|PAST WORKOUTS|EXERCISES|SPLITS AND GYMS|OVERDUE LOG|SETTINGS" style="position: absolute; inset: 0"></auburn-list></div>
+</section>
+</body>
+</html>

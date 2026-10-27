@@ -8,9 +8,8 @@
 //   S00-Dark, S00-Light      the agreed boot (Spec/Visual Design/00-boot/screen.html), held frame, line 0.
 //   S01-<state>              the agreed screen 01 (Spec/Visual Design/01-navigation/screen.html), importing the
 //                            component boards.
-//   C-R3-<Name>, -States     each component's round for screen 01's round 3, from Tools/canvas/rounds/r3/<name>/ where
-//                            the round reshaped it, or else the agreed one: on the trial scales, with tap areas of
-//                            the trial's height, and a widget with no EDIT. C-R3-Screens shows round 3's screens.
+//   C-R3-<Name>, -States     each component's round for screen 01's round 3, from its template in
+//                            Tools/canvas/rounds/r3/<name>/. C-R3-Screens shows round 3's screens.
 //   S01-R3-<state>           screen 01, round 3: the agreed screen importing the component rounds, its own placing
 //                            on the scales, with no editing state.
 //   basics.css               a copy of Spec/Visual Design/basics.css.
@@ -243,31 +242,29 @@ function onScales(style) {
   return s;
 }
 
-// Round 3's copy of a component: its own template where the round reshaped it (Tools/canvas/rounds/r3/<name>/
-// component.html, already on the scales, and the agreed component.html once the round is approved); otherwise the
-// agreed one, put on the scales with these changes. An entry is a key of the tap area's height. The handle keeps its
-// look; its tap area reaches up over the screen.
-const roundFile = (name) => `Tools/canvas/rounds/r3/${name}/component.html`;
-function roundCopy(html) {
-  return html
-    .replace(/<a href="#" style="height: 42px;/g, '<a href="#" style="height: var(--tap-area);')
-    .replace(/(<div style="height: 30px; display: flex; align-items: center; justify-content: center; gap: 10px; [^"]*)">(<span style="width: 40px; height: 3px;[^>]*><\/span>[^<]*)<\/div>/g,
-      '$1; position: relative">$2<button aria-label="Raise or lower the list" style="position: absolute; left: 0; right: 0; bottom: 0; height: var(--tap-area); padding: 0; border: none; background: transparent" type="button"></button></div>');
-}
-
-// Round 3's screen, before its components are filled in. The list sits lower than the agreed screen's by its three
-// entries' growth, so the same three show.
-const roundScreen = (html) => html.replace(/top: 432px/g, 'top: calc(432px - 3 * (var(--tap-area) - 42px))');
+// Round 3's screen, before its components are filled in, with its gaps from the spacing table. The list sits lower
+// than the agreed screen's by its three entries' growth, so the same three show. The header is a section of its own;
+// the wordmark's top is measured to its letters.
+const roundScreen = (html) => html
+  .replace(/top: 432px/g, 'top: calc(432px - 3 * (var(--tap-area) - 42px))')
+  .replace(/top: 18px; display: flex; flex-direction: column; gap: 10px/g,
+    'top: calc(var(--space-5) - (var(--text-4-leading) - var(--text-4)) / 2); display: flex; flex-direction: column; gap: var(--space-6)')
+  .replace(/(grid-template-columns: repeat\(2, minmax\(0, 1fr\)\); gap: 8px); margin-top: 4px/g, '$1');
 
 // ---- components ----
 
 const COMPONENTS = components();
+// Round 3's copy of each component is its own template, Tools/canvas/rounds/r3/<name>/component.html: on the scales,
+// with its gaps from Visual Design's spacing table. Approving the round makes it the agreed component.html.
+const roundFile = (name) => `Tools/canvas/rounds/r3/${name}/component.html`;
+const ROUND = COMPONENTS.map((c) => ({ name: c.name, ...readComponent(roundFile(c.name)) }));
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 // A component's board, or its round 3 copy's.
 const boardOf = (tag, round) => `C-${round ? 'R3-' : ''}${cap(tag.replace('auburn-', ''))}`;
 const camel = (s) => s.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
 const attrsOf = (s) => Object.fromEntries([...s.matchAll(/([a-z0-9-]+)="([^"]*)"/g)].map(([, k, v]) => [k, v]));
-const ALL_CSS = COMPONENTS.map((c) => c.css).filter(Boolean).join('\n');
+const ROUND_CSS = ROUND.map((c) => c.css.replace(/\.(auburn-[a-z]+)\b/g, '.$1.round-3')).filter(Boolean).join('\n');
+const ALL_CSS = [...COMPONENTS.map((c) => c.css), ROUND_CSS].filter(Boolean).join('\n');
 // Every board carries every component's rules: a board shown inside another takes only the outer board's rules.
 // An import's host takes the part of the component's own element: out of the layout, or filling its placing.
 const CONTENTS = COMPONENTS.filter((c) => /display: contents/.test(c.css)).map((c) => `.sc-host:has(> .${c.tag})`).join(', ');
@@ -297,8 +294,7 @@ function toImports(html, round) {
 function componentBoards(round) {
   const out = {};
   for (const agreed of COMPONENTS) {
-    const reshaped = round && existsSync(roundFile(agreed.name));
-    const c = reshaped ? { name: agreed.name, ...readComponent(roundFile(agreed.name)) } : agreed;
+    const c = round ? ROUND.find((r) => r.name === agreed.name) : agreed;
     const Name = boardOf(c.tag, round);
     const first = attrsOf(c.states[0].inst.match(/<auburn-[a-z]+((?:\s+[a-z0-9-]+="[^"]*")*)/)[1]);
     const defaults = Object.fromEntries(Object.entries(first).filter(([k]) => k.startsWith('data-')).map(([k, v]) => [camel(k.slice(5)), v]));
@@ -324,7 +320,7 @@ function componentBoards(round) {
       const s = readFileSync(png); return { width: s.readUInt32BE(16), height: s.readUInt32BE(20) + grow };
     };
     props.$preview = size(states[0].id);
-    const template = (round && !reshaped ? onScalesAll(roundCopy(bustToMask(c.html))) : bustToMask(c.html))
+    const template = bustToMask(c.html)
       .replace(/<template data-each="([a-z0-9]+)">([\s\S]*?)<\/template>/g, '<sc-for list="{{$1}}" as="item" hint-placeholder-count="3">$2</sc-for>');
     const root = `<div class="${c.tag}${round ? ' round-3' : ''}" ${Object.keys(c.props).map((k) => `data-${k}="{{${camel(k)}}}"`).join(' ')}>\n${toImports(template, round)}\n</div>`;
     const lists = [...c.html.matchAll(/<template data-each="([a-z0-9]+)">/g)].map((m) => m[1]);
