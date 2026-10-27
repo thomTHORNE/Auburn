@@ -41,3 +41,23 @@ const luminance = (h) => { const [r, g, b] = rgb(h).map(toLinear); return 0.2126
 export const contrast = (a, b) => { const [x, y] = [luminance(a), luminance(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
 // A colour at an opacity over a ground, as the solid colour the eye sees.
 export const over = (fg, bg, alpha) => '#' + rgb(fg).map((c, i) => Math.round((c * alpha + rgb(bg)[i] * (1 - alpha)) * 255).toString(16).padStart(2, '0')).join('').toUpperCase();
+
+// A hex colour in OKLCH: its lightness, chroma and hue.
+export function oklch(h) {
+  const [r, g, b] = rgb(h).map(toLinear);
+  const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+  const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+  const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+  const L = 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s;
+  const A = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s;
+  const B = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s;
+  return { L, C: Math.hypot(A, B), H: ((Math.atan2(B, A) * 180) / Math.PI + 360) % 360 };
+}
+
+// A ramp built around a colour: its hue and chroma, the given steps, and the colour itself in place of the nearest
+// step, exactly as it is.
+export function rampAround(anchor, steps) {
+  const a = oklch(anchor);
+  const near = steps.reduce((best, L) => (Math.abs(L - a.L) < Math.abs(best - a.L) ? L : best), steps[0]);
+  return ramp({ hue: a.H, chroma: a.C }, steps).map((s) => (s.L === near ? { L: a.L, C: a.C, H: a.H, hex: anchor.toUpperCase(), anchor: true } : s));
+}

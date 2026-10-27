@@ -23,7 +23,7 @@
 
 import { readFileSync, writeFileSync, existsSync, copyFileSync } from 'node:fs';
 import { components, readComponent } from '../build-components.mjs';
-import { ramp, contrast, over } from './palette.mjs';
+import { rampAround, contrast, over } from './palette.mjs';
 
 const SPEC = 'Spec/Visual Design';
 const OUT = 'Canvas/project';
@@ -513,12 +513,13 @@ const rowWidth = (n) => 452 + 440 * n;
 
 const GROUND = '#1A1D1A', RAISED = '#212220';
 const STEPS = [0.92, 0.82, 0.72, 0.62, 0.52, 0.42, 0.32];
+// Each ramp is built around its colour, which stands in it exactly, in place of the nearest step.
 const ROLES = [
-  { name: 'ACCENT', note: 'Ember: marks, names, keys, lines', hue: 34, chroma: 0.17 },
-  { name: 'INFORMATION', note: 'A quiet neutral, from the pale green trial: data and body text', hue: 149, chroma: 0.03 },
-  { name: 'SET APART', note: 'Cyan white: only what must stand apart', hue: 190, chroma: 0.027 },
-].map((r) => ({ ...r, steps: ramp(r, STEPS) }));
-const step = (role, L) => ROLES.find((r) => r.name === role).steps.find((s) => s.L === L).hex;
+  { name: 'ACCENT', note: 'Ember: marks, names, keys, lines', anchor: '#D9573B', label: 'EMBER' },
+  { name: 'INFORMATION', note: 'A quiet neutral, around the pale green trial: data and body text', anchor: '#DFFFE4', label: 'TRIAL A' },
+  { name: 'SET APART', note: 'Cyan white: only what must stand apart', anchor: '#DDF7F5', label: 'CYAN WHITE' },
+].map((r) => ({ ...r, steps: rampAround(r.anchor, STEPS) }));
+const step = (role, L) => ROLES.find((r) => r.name === role).steps.reduce((a, b) => (Math.abs(b.L - L) < Math.abs(a.L - L) ? b : a)).hex;
 const fmt = (n) => n.toFixed(1);
 const verdict = (c) => (c >= 4.5 ? 'TEXT' : c >= 3 ? 'LARGE' : '—');
 
@@ -536,8 +537,8 @@ function card(hexValue, label, sample) {
 
 function paletteBoard() {
   const rows = ROLES.map((r) => `<div style="display: flex; flex-direction: column; gap: 10px">
-<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">${r.name} · HUE ${r.hue} · <span style="color: #9A9A9A; font-weight: 400; letter-spacing: 1px">${r.note}</span></div>
-<div style="display: flex; gap: 16px">${r.steps.map((s) => card(s.hex, `L ${s.L.toFixed(2)} · C ${s.C.toFixed(3)}`, 'LAST RUN · 8.2 KM')).join('')}</div>
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">${r.name} · HUE ${Math.round(r.steps[0].H)} · <span style="color: #9A9A9A; font-weight: 400; letter-spacing: 1px">${r.note}</span></div>
+<div style="display: flex; gap: 16px">${r.steps.map((s) => card(s.hex, `${s.anchor ? `${r.label} · ` : ''}L ${s.L.toFixed(2)} · C ${s.C.toFixed(3)}`, 'LAST RUN · 8.2 KM')).join('')}</div>
 </div>`).join('\n');
   const opacity = `<div style="display: flex; flex-direction: column; gap: 10px">
 <div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">EMBER BY OPACITY · <span style="color: #9A9A9A; font-weight: 400; letter-spacing: 1px">what the levels do now: each one mixed toward the ground beneath it</span></div>
@@ -565,7 +566,7 @@ function paletteBoard() {
     body: `<div style="width: ${Math.max(width, 1400)}px; height: ${height}px; box-sizing: border-box; padding: 32px; background: #000; font-family: var(--font-interface); display: flex; flex-direction: column; gap: 32px">
 <div style="display: flex; flex-direction: column; gap: 8px; max-width: 1100px">
 <div style="font-size: 16px; font-weight: 700; letter-spacing: 2px; color: #E8E8E8">PALETTE · RAMPS AND ROLES · EXPLORATION</div>
-<div style="color: #9A9A9A; font-size: 12px; letter-spacing: 1px; line-height: 18px">Each ramp is one hue at seven even steps of lightness (L), computed in OKLCH; chroma (C) eases where the screen cannot show more. Contrast is measured against the ground and the list sheet: 4.5 reads as body text, 3 as large text. Nothing here is a basic: a colour kept from this board joins the palette by name first.</div>
+<div style="color: #9A9A9A; font-size: 12px; letter-spacing: 1px; line-height: 18px">Each ramp is built around one colour, which stands in it exactly: its hue at seven steps of lightness (L), computed in OKLCH; chroma (C) eases where the screen cannot show more. Contrast is measured against the ground and the list sheet: 4.5 reads as body text, 3 as large text. Nothing here is a basic: a colour kept from this board joins the palette by name first.</div>
 </div>
 ${rows}
 ${opacity}
