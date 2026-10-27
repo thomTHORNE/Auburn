@@ -227,6 +227,8 @@ is approved. A component changes only through a component round on the Component
 showing its states with every agreed screen that uses it. A screen round that needs a component
 changed opens that component round and imports the component as the round has it; the two are
 approved together, and every screen that uses the component changes with it.
+A component round that reshapes a component keeps its template in
+`Tools/canvas/rounds/<round>/<name>/component.html`; approving the round makes it the agreed `component.html`.
 A component's board has a tweak for each of its properties and none for values: its look is
 tuned on the Theme board, or on the board of the round that imports it.
 
