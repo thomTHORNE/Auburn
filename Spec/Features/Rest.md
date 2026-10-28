@@ -8,7 +8,7 @@ How long each tracked muscle group, and cardio, has gone untrained, which band t
 
 ### Counting
 
-A muscle group's rest is the number of calendar days, in the phone's local time, from the day of its latest resetting set to today. A set trained today gives 0. A resetting set is any set of a non-AMAP exercise that names the group, at any gym, except a set graded Warmup; ungraded imported sets reset. A set counts the moment it is logged, while the workout is still in progress.
+A muscle group's rest is the number of calendar days, in the phone's local time, from the day of its latest resetting set to today. A set trained today gives 0. A resetting set is any set of a non-AMAP exercise that names the group, at any gym, except a set graded Warmup; ungraded imported sets reset. A Light set resets: it still works the muscle. Only a Warmup is preparation. A set counts the moment it is logged, while the workout is still in progress.
 
 Cardio's rest counts the same way from the day the latest imported activity started, of any kind.
 

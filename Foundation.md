@@ -102,9 +102,9 @@ Auburn never names or diagnoses a weakness. Weaknesses are found by the user.
 - **Grade** — how a set went, read by feel. A mobility exercise carries its own optional grade: controlled, improved, or poor.
   - *Ideal:* heavy, taken to failure with control, within a hypertrophy rep range.
   - *Acceptable:* close to ideal with clearly fewer reps, or form held at the edge of breaking.
-  - *Light:* too easy to count as work.
+  - *Light:* too easy to count toward progress, though it still works the muscle.
   - *Yielding:* form and control lost; the load is not tried again until enough ideal sets come first.
-  - *Warmup.*
+  - *Warmup:* preparation before the work; it works nothing.
 - **Rest** — the days since a muscle group was last worked by an exercise that resets it, at any gym; for cardio, since the last activity from the watch.
 - **AMAP** — "as much as possible": an exercise that resets no muscle group's rest. Usually low-fatigue isolation work; heavy compounds always reset.
 - **Overdue** — a muscle group, or cardio, that has rested into its last band. Each carries its own limit.
