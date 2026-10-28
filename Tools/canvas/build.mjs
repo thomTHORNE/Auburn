@@ -188,7 +188,8 @@ function bootBoards() {
     .replace(/animation:[^;]+;/g, '')
     .split('\n').map((l) => l.trim()).filter(Boolean).join('\n');
   // The boot shows one of its lines; the line the user set on the board stays, if it is still one of them.
-  const lines = JSON.parse(src.match(/var lines = (\[[^\]]*\]);/)[1].replace(/'/g, '"'));
+  const listed = src.match(/var lines = (\[[^\]]*\]);/);
+  const lines = listed ? JSON.parse(listed[1].replace(/'/g, '"')) : [];
   const shown = existsSync(`${OUT}/S00-Dark.dc.html`) && (readFileSync(`${OUT}/S00-Dark.dc.html`, 'utf8').match(/<div class="b00-line"><span>([^<]*)<\/span>/) || [])[1];
   const shownLine = lines.includes(shown) ? shown : lines[0];
   const markup = src.match(/<div class="screen">([\s\S]*?)<\/div>\s*<script>/)[1]
