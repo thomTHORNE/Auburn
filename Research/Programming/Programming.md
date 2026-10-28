@@ -26,6 +26,8 @@ The method a goal is meant to be reached by, stated in advance by the user, so t
 - **A method can be planned to change mid-goal.** For a bodyweight pull-up out of reach: negatives and partial movements at a stated frequency, then more volume at a lighter load if heavier loading stops working.
 - **A locked method keeps the user from programme hopping.** A method is followed to its end or abandoned with a reason, never quietly swapped.
 - **A method is tracked through exercises of its own.** Negatives and partials are each an exercise; a method done as a variation logged under another exercise cannot be counted apart.
+- **Programming explains through what Auburn records; a phase explains through what it does not.** A method is workouts and sets, so Auburn can check it. A cut, an injury, or a busy quarter happens outside Auburn's facts, so a phase is only the user's word. This is why programming belongs in Auburn and phases were parked.
+- **A followed method under an unrecorded circumstance reads as a method that failed.** Programming cannot tell "the method does not work" from "the method works, and a cut held it back". The abandon reason is where the user says which.
 - **Shown where training is chosen, programming would prescribe the day.** Foundation refuses that. Shown with a committed exercise, it is the user's own intent, as the exercise's notes are.
 
 ## Dependencies

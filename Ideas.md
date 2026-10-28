@@ -40,4 +40,12 @@ A stretch of training lived under a circumstance of its own — a cut, a bulk, a
 
 Parked because no phase has been committed to in practice, and a phase cannot yet be defined in simple terms.
 
-Worth revisiting if a stretch of training is planned around a circumstance, or if progress across one is misread without its reason. The cheapest form is Auburn asking why when many exercises drop at once, as it does for an overdue muscle group, and keeping the answer.
+Worth revisiting if a stretch of training is planned around a circumstance, or if progress across one is misread without its reason — above all a goal's method followed and failed, later traced to a circumstance. Calories and body weight would make a diet phase provable. The cheapest form is Auburn asking why when many exercises drop at once, as it does for an overdue muscle group, and keeping the answer.
+
+## Calories and body weight
+
+Auburn could hold calories eaten and body weight, entered by hand or read from intervals.icu, whose wellness record has a field for each. With them a phase stops being only the user's word: a cut states a deficit and a falling weight, and the facts show whether it happened. A goal's method followed and failed during a cut could then be read for what it was.
+
+Parked because v1 reads neither, and phases are parked with it. Which apps fill intervals.icu's calories field is not yet known.
+
+Worth revisiting together with Phases.
