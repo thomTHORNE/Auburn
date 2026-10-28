@@ -7,8 +7,8 @@
 <!-- Approved board for screen 00, Boot: Boot P (dark) and Boot Q (light) from the design canvas.
      Layout reference only. The values come from ../basics.css; only the boot's own sizes and timeline are set here. The tube's effects
      (scanlines, glow, curvature) are not drawn here; the app's shader adds them.
-     data-theme="dark" | "light" picks the version; #still on the URL shows the held frame; ?line=n picks a line. -->
-<meta name="images" content="dark: ?theme=dark&amp;line=0#still | .screen; light: ?theme=light&amp;line=0#still | .screen">
+     data-theme="dark" | "light" picks the version; #still on the URL shows the held frame. -->
+<meta name="images" content="dark: ?theme=dark#still | .screen; light: ?theme=light#still | .screen">
 <link rel="stylesheet" href="../basics.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&family=Saira:wght@300;600&display=swap">
@@ -60,7 +60,7 @@ body { margin: 0; background: #000; }
       <div class="plate" role="img" aria-label="Auburn mark: three pillars lettered H, C, M, with the line beneath">
         <div class="rule-outer"><div class="rule-inner">
           <div class="pillars"><span class="pillar">H</span><span class="pillar">C</span><span class="pillar">M</span></div>
-          <div class="line"><span id="line"></span></div>
+          <div class="line"><span>Introducing, the new You.</span></div>
         </div></div>
       </div>
       <h1 class="wordmark" aria-label="Auburn"><span>A</span><span>U</span><span>B</span><span>U</span><span>R</span><span>N</span></h1>
@@ -68,11 +68,8 @@ body { margin: 0; background: #000; }
   </div>
 </div>
 <script>
-// One line per boot, picked at random, never the same as the last boot's (the app remembers the last; this file does not).
-var lines = ['More human than human.', 'Introducing, the new You.', 'Human, improved.', 'Built better. By you.', 'Engineered to endure.', 'Strength is a protocol.', 'Advancement is mandatory.', 'Obsolescence is optional.', 'Flesh: the first machine.'];
 var params = new URLSearchParams(location.search);
 if (params.get('theme')) document.documentElement.dataset.theme = params.get('theme');
-document.getElementById('line').textContent = lines[params.has('line') ? +params.get('line') : Math.floor(Math.random() * lines.length)];
 if (location.hash === '#still') document.querySelector('.screen').classList.add('still');
 document.querySelector('.power-line').style.display = location.hash === '#still' ? 'none' : '';
 </script>

@@ -1,8 +1,6 @@
 // Screen 00, Boot — rebuilt from Spec/Visual Design/00-boot/screen.html.
 // The timeline is the same fractions of the boot's 8 s as the CSS keyframes.
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,17 +9,7 @@ import '../sounds.dart';
 
 const bootDuration = Duration(seconds: 8);
 
-const _lines = [
-  'More human than human.',
-  'Introducing, the new You.',
-  'Human, improved.',
-  'Built better. By you.',
-  'Engineered to endure.',
-  'Strength is a protocol.',
-  'Advancement is mandatory.',
-  'Obsolescence is optional.',
-  'Flesh: the first machine.',
-];
+const _slogan = 'Introducing, the new You.';
 
 class BootScreen extends StatefulWidget {
   const BootScreen({super.key, required this.dark, required this.replays});
@@ -37,8 +25,6 @@ class BootScreen extends StatefulWidget {
 
 class _BootScreenState extends State<BootScreen> with SingleTickerProviderStateMixin {
   late final AnimationController _t = AnimationController(vsync: this, duration: bootDuration);
-  final _random = Random();
-  int _line = -1;
 
   @override
   void initState() {
@@ -52,11 +38,7 @@ class _BootScreenState extends State<BootScreen> with SingleTickerProviderStateM
     if (old.replays != widget.replays) _play();
   }
 
-  // A new line each boot, never the same as the last.
   void _play() {
-    var next = _random.nextInt(_lines.length);
-    if (next == _line) next = (next + 1) % _lines.length;
-    setState(() => _line = next);
     _t.forward(from: 0);
     Sounds.instance.boot(bootDuration);
   }
@@ -216,7 +198,7 @@ class _BootScreenState extends State<BootScreen> with SingleTickerProviderStateM
                 child: Opacity(
                   opacity: quote,
                   child: Text(
-                    _line < 0 ? '' : _lines[_line].toUpperCase(),
+                    _slogan.toUpperCase(),
                     maxLines: 1,
                     softWrap: false,
                     overflow: TextOverflow.clip,
