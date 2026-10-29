@@ -53,5 +53,5 @@ None.
 | Sound turned off while the ambience plays | It fades out over 0.5 s |
 | The phone set to silent while the ambience plays | It fades out over 0.5 s |
 | The volume is changed while the ambience plays | The ambience follows at once |
-| Powered down during a workout | The workout stays in progress. Auburn opens straight to it next time, without the boot |
+| Powered down during a workout | The workout stays in progress; how Auburn next opens is [Navigation](../Screens/01-navigation/01-navigation.md)'s |
 | Powered down with sound off | The power-down runs its 11.4 s in silence, then Auburn quits |

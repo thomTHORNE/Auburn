@@ -27,7 +27,7 @@ Every screen is reached from here, by one tap on a widget or an entry, so there 
 
 ## Opening Auburn
 
-A cold start plays the boot and then shows home; with a workout in progress there is no boot, and Auburn opens straight to the workout. Returning from the background shows wherever Auburn was left. When an overdue answer is owed, the prompt opens over home. Android's back gesture on home sends Auburn to the background.
+A cold start plays the boot and then shows home; with a workout in progress there is no boot, and Auburn opens straight to the workout. Returning from the background shows wherever Auburn was left. The overdue prompt, when [Overdue Log](../../Features/Overdue%20Log.md) calls for it, opens over whatever Auburn shows. Android's back gesture on home sends Auburn to the background.
 
 ## Rules
 
@@ -51,7 +51,7 @@ A cold start plays the boot and then shows home; with a workout in progress ther
 | Tap | Does |
 |---|---|
 | A widget, its keys, the list and its entries | As their component documents say |
-| Power down, held to the end | Plays the power-down, then Auburn quits |
+| Power down, held to the end | Powers Auburn down, as [Sound](../../Features/Sound.md) sets out |
 
 ## Images
 

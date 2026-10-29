@@ -12,7 +12,7 @@ A group falls overdue on the day its rest reaches its overdue limit, as defined 
 
 ### The prompt
 
-The prompt appears when Auburn is opened with no workout in progress. It names the groups that fell overdue and asks why. It cannot be dismissed, and no workout can be started until it is answered; rest at a glance and past workouts stay readable behind it.
+Auburn is opened whenever it comes to the front: on a cold start, and on returning from the background. The prompt appears whenever Auburn is opened with no workout in progress. It names the groups that fell overdue and asks why. It cannot be dismissed, and no workout can be started until it is answered; rest at a glance and past workouts stay readable behind it.
 
 The answer is free text and cannot be empty.
 
@@ -39,6 +39,7 @@ The log lists every answer, newest first, with its date and the groups that were
 | Five groups fall overdue on the same day | One prompt, naming all five |
 | A sick week: chest falls overdue Monday, legs Wednesday | Asked on Monday's first opening; asked again from Wednesday, for legs |
 | Auburn is not opened for a week | One prompt on the next opening, covering everything that fell overdue meanwhile |
+| An answer is given in the morning, Auburn is left in the background, and a group falls overdue that evening | Asked when Auburn next comes to the front |
 | A workout is in progress when a group falls overdue | No prompt until the workout has ended and Auburn is next opened |
 | A group's overdue limit is lowered so it is overdue today | It counts as falling overdue today |
 | A group not yet trained | Never overdue, never asked about |

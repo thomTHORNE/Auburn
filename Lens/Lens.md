@@ -19,7 +19,7 @@ Lens/
 
 ## Authority
 
-The Lens holds authority over Spec. Inside the Lens, Foundation holds over the principles, and the principles over the languages; the four languages stand side by side. In Spec, behaviour answers to the principles, and screens answer to the languages and carry the behaviour. Where two disagree, the higher one holds, and the lower one is the defect, fixed in the same edit. Research, Learning, Lab and Ideas carry no authority.
+The Lens holds authority over Spec. Inside the Lens, Foundation holds over the principles, and the principles over the languages; the four languages stand side by side. In Spec, behaviour answers to the principles. Screens answer to the languages and to the behaviour they carry: where a screen document and a feature describe the same behaviour, the feature holds. Where two disagree, the higher one holds, and the lower one is the defect, fixed in the same edit. Research, Learning, Lab and Ideas carry no authority.
 
 Each line reads "answers to", from the lower end to the higher:
 
@@ -32,9 +32,10 @@ Lens    Foundation
         Lexicon · Visual ·            │
         Sound · Touch                 │
 ────────────┼─────────────────────────┼──────────
-Spec        │                         │
-        Screens ◄──── carry ──── Behaviour
-                                 Data Model · Features
+Spec        │                     Behaviour
+            │                     Data Model · Features
+            │                         │
+            └──────── Screens ────────┘
 
 No authority: Research · Learning · Lab · Ideas
 ```
@@ -59,8 +60,8 @@ Training concepts are Foundation's [Terms](Foundation.md#terms). Concepts explai
 | **Value** | The setting an element takes (a colour's hex, a size, a duration), kept in [basics.css](Language/basics.css) for every language. | — |
 | **Component** | A visual element built from others, with states of its own, placed on screens and never copied into them. | Screen |
 | **Grammar** | A language's rules for combining its elements. | Principle |
-| **Behaviour** | What Auburn does: records, rules, states. The Data Model and Features. | — |
-| **Screen** | The languages put together for one purpose, carrying the behaviour behind it. | Component |
+| **Behaviour** | What Auburn does with what it keeps: its records, the rules about them, and when it acts on them, such as asking why a group went untrained. The Data Model and Features. | Interface behaviour, which is the screen's |
+| **Screen** | The languages put together for one purpose. It owns its interface behaviour (what each tap does, where it leads, what is shown and where) and carries the behaviour behind it, linking to it and never restating it. | Component |
 | **Realm** | Reality or fiction. The fiction changes what Auburn says, never what it does. [Foundation § Two realms](Foundation.md#two-realms) | — |
 | **Voice** | The realm a word speaks in: plain (reality) or house (the corporation). | — |
 | **Term** | A concept Auburn has, and what it means. [Foundation § Terms](Foundation.md#terms) | Word |
