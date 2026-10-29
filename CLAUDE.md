@@ -109,7 +109,7 @@ its words only in the senses it gives them.
 4. **Constraints** — hard limits, version-scoped limitations
 5. **Edge cases** — a table of scenario → behavior
 
-**One owner per rule.** A term, unit, or calculation that several features use — how a set's load is recorded, what counts as a completed session, how volume is computed — is defined once, in the file that owns it, and referenced everywhere else. A rule that appears in four features will otherwise be defined four times and eventually disagree. This is the rule the Data Model carries for fields, applied to everything shared.
+**One owner per rule.** A term, unit, or calculation that several features use — how a set's load is recorded, which exercises reset a muscle group's rest, when a group falls overdue — is defined once, in the file that owns it, and referenced everywhere else. A rule that appears in four features will otherwise be defined four times and eventually disagree. This is the rule the Data Model carries for fields, applied to everything shared.
 
 ## Visual design process
 
@@ -265,7 +265,7 @@ not load uploaded images; the bust missing there is not a fault.
 
 `Research/` is where an idea is developed in parallel to the spec, at more length than `Ideas.md` can hold.
 
-Research carries no authority. It does not define behavior and nothing in it constrains implementation — it is thinking in progress, not a decision. Where `Learning/` explains concepts and `Ideas.md` parks possibilities, `Research/` is the one place with a path out: a topic developed thoroughly and shown to apply to Auburn is promoted into `Spec/`, and the research document stops being the reference the moment it lands there.
+Research carries no authority. It does not define behavior and nothing in it constrains implementation — it is thinking in progress, not a decision. Where `Learning/` explains concepts and `Ideas.md` parks possibilities, `Research/` is the one place with a path out: a topic developed thoroughly and shown to apply to Auburn is promoted into the Lens or `Spec/`, and the research document stops being the reference the moment it lands there.
 
 ### Structure
 
@@ -306,7 +306,7 @@ Promoted ideas are removed from `Ideas.md`. The frozen origin is the only copy.
 |---|---|
 | `Open` | Under research |
 | `Ready` | Cleared the promotion bar, held by a dependency. Earns a TASKS.md item carrying the `Deps:` that blocks it |
-| `Promoted` | Landed in spec. The research document is no longer the reference |
+| `Promoted` | Landed in the Lens or Spec. The research document is no longer the reference |
 
 Research stays out of TASKS.md's items while it is still research. A version that waits on a topic names it in its `Waits on research:` line, and the topic enters as items only at `Ready`, at which point its promotion is work like anything else. Release work already decided is tracked as items under its version, even while research around it is open.
 
@@ -333,13 +333,13 @@ An explainer teaches by putting the reader inside a real scenario before it name
 5. **Ground it in what the reader does.** Once the mechanism is on the page, restate it in the reader's own vocabulary before charging for it: the concept as a sentence they would actually say, a test they can run themselves that separates it from its neighbours, and a mapping from their real actions onto the part of the system each one touches. An abstraction the reader cannot locate in their own behavior will not survive the tradeoff that follows.
 6. **Then charge for it.** Every technique has a price, and the explainer is not finished until the price is shown — worked through the *same* example, not a fresh one.
 7. **Name the alternative that was rejected, and why.** The tradeoff is the teaching. A solution presented without its alternatives is a fact to be memorised, which is what the mentorship directive exists to avoid.
-8. **Close by connecting to a rule already in the spec.** The section ends by making an existing decision legible — the reader should finish it understanding something they had already agreed to.
+8. **Close by connecting to a rule already in the Lens or Spec.** The section ends by making an existing decision legible — the reader should finish it understanding something they had already agreed to.
 
 Supporting rules:
 
 - **One example, carried the whole way through.** The same session, the same sets, demonstrates the win, then the failure, then the tradeoff. Introducing a second example resets the reader's working memory and costs more than it explains.
 - **Demonstrate, then name.** Show the thing working before introducing the word for it.
-- **Real numbers, taken from the spec.** Where the spec states a figure, use that figure. Invented numbers make a worked example read as hypothetical, which is the one thing it must not be.
+- **Real numbers, taken from the Lens or Spec.** Where either states a figure, use that figure. Invented numbers make a worked example read as hypothetical, which is the one thing it must not be.
 - **Failures stated as symptoms, not as incorrectness.** "Last week's best set disappears from your history" lands. "The query returns a stale row" does not.
 - **Pace generously, then stop.** Length spent building a problem is earned. Length spent restating a solution is padding.
 
@@ -487,14 +487,14 @@ Skills print what their skill file specifies. This section governs conversation.
 
       The program prescribes 100 kg and the set is entered as 225 lb. Whether the set is stored as entered or converted…
   ```
-- Before drafting any spec section, check the item's `Deps:` field in TASKS.md. Surface all listed dependencies and propose batching them into the current work. Do not use an inline `[#N.N]` reference as a substitute for resolving a dependency.
-- Every decision made in conversation must be written into the spec before the task is considered done. Marking a task complete or moving on without writing the decision into the relevant spec file is not acceptable — the goal is to build the spec, not tick off tasks.
+- Before drafting any section of the Lens or Spec, check the item's `Deps:` field in TASKS.md. Surface all listed dependencies and propose batching them into the current work. Do not use an inline `[#N.N]` reference as a substitute for resolving a dependency.
+- Every decision made in conversation must be written into the Lens or Spec before the task is considered done. Marking a task complete or moving on without writing the decision into the relevant file is not acceptable — the goal is to build them, not tick off tasks.
 - When an item is resolved, remove it from TASKS.md entirely. Do not leave completed items in TASKS.md.
 - **A document says what its artifact cannot.** Where a design, a sound file, or another asset exists, the document holds the reasons, rules, and behaviour around it, never a description of it.
-- Decisions recorded in the spec are settled. Reopen one when something new is known — not because it feels uncertain again.
-- **No todos in the spec, ever.** No TBDs, no "revisit this", no work items parked in the deliverable, no pointers to the tracker. An open question is resolved in the session that raised it, or the feature is deferred to Ideas.md — a half-specced feature is worse than no spec. The single permitted deferral is a statement that something is **not yet specified**, which is a fact about the spec's coverage addressed to its reader, not a note-to-self about work outstanding. It must have a corresponding TASKS.md item so the gap stays visible, and it is a last resort rather than a way to close a section: reach for it when a decision genuinely cannot be made yet, not when making one is inconvenient.
-- **The spec never references TASKS.md.** No item IDs, no "see TASKS", no pointers to the tracker in any form. TASKS.md tracks work against the spec; the spec is the product of that work and has no knowledge of it. A spec file may state that something is not yet specified — that is a fact about the spec — but naming the item that will resolve it is tracker bookkeeping leaking into the deliverable, and it dangles the moment that item is renumbered or, on resolution, removed.
-- Diagrams are derived, never authoritative. Where a diagram and the prose it illustrates disagree, the prose wins and the diagram is the defect. A change to any field, relationship, or rule a diagram depicts is not complete until that diagram is updated in the same edit. A spec whose picture disagrees with its text is worse than one with no picture, because the picture is what gets read.
+- Decisions recorded in the Lens or Spec are settled. Reopen one when something new is known — not because it feels uncertain again.
+- **No todos in the Lens or Spec, ever.** No TBDs, no "revisit this", no work items parked in the deliverable, no pointers to the tracker. An open question is resolved in the session that raised it, or the feature is deferred to Ideas.md — a half-specced feature is worse than no spec. The single permitted deferral is a statement that something is **not yet specified**, which is a fact about the spec's coverage addressed to its reader, not a note-to-self about work outstanding. It must have a corresponding TASKS.md item so the gap stays visible, and it is a last resort rather than a way to close a section: reach for it when a decision genuinely cannot be made yet, not when making one is inconvenient.
+- **Neither the Lens nor Spec references TASKS.md.** No item IDs, no "see TASKS", no pointers to the tracker in any form. TASKS.md tracks work against them; they are the product of that work and have no knowledge of it. A Lens or Spec file may state that something is not yet specified — that is a fact about its coverage — but naming the item that will resolve it is tracker bookkeeping leaking into the deliverable, and it dangles the moment that item is renumbered or, on resolution, removed.
+- Diagrams are derived, never authoritative. Where a diagram and the prose it illustrates disagree, the prose wins and the diagram is the defect. A change to any field, relationship, or rule a diagram depicts is not complete until that diagram is updated in the same edit. A document whose picture disagrees with its text is worse than one with no picture, because the picture is what gets read.
 
 ---
 
