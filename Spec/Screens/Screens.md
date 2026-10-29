@@ -1,6 +1,6 @@
 # Screens
 
-Every screen of Auburn, each built from the [languages](../../Lens/Glossary.md) and carrying the behaviour [Features](../Features/) specifies. The screens are agreed one at a time, as the project's visual design process sets out.
+Every screen of Auburn, each built from the [languages](../../Lens/Lens.md#terms) and carrying the behaviour [Features](../Features/) specifies. The screens are agreed one at a time, as the project's visual design process sets out.
 
 | # | Screen | Covers | Status |
 |---|---|---|---|

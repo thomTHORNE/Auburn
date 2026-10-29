@@ -1,12 +1,51 @@
-# Glossary
+# Lens
 
-The words used to talk about how Auburn is shaped: where a rule lives, what it answers to, and which document holds when two disagree. Training concepts are Foundation's [Terms](Foundation.md#terms). Concepts explained in Learning are in [its glossary](../Learning/Glossary.md).
+What Auburn is judged through: what the Lens holds, what it holds authority over, and the words used to talk about how Auburn is shaped. Read this first.
 
-An entry whose concept another document owns links to it, and that document holds where the two disagree. Every other entry is owned here.
+## Contents
+
+```
+Lens/
+├── Lens.md            ← this file
+├── Foundation.md      ← the case for Auburn. The root.
+├── Principles.md      ← judgements that hold in every medium
+└── Language/
+    ├── basics.css     ← every value, in every language
+    ├── Lexicon.md     ← words, in both voices
+    ├── Touch.md       ← the touch language
+    ├── Visual/        ← the visual language and its components
+    └── Sound/         ← the sound language and its files
+```
+
+## Authority
+
+The Lens holds authority over Spec. Inside the Lens, Foundation holds over the principles, and the principles over the languages; the four languages stand side by side. In Spec, behaviour answers to the principles, and screens answer to the languages and carry the behaviour. Where two disagree, the higher one holds, and the lower one is the defect, fixed in the same edit. Research, Learning, Lab and Ideas carry no authority.
+
+Each line reads "answers to", from the lower end to the higher:
+
+```
+Lens    Foundation
+            │
+        Principles ───────────────────┐
+            │                         │
+        Languages                     │
+        Lexicon · Visual ·            │
+        Sound · Touch                 │
+────────────┼─────────────────────────┼──────────
+Spec        │                         │
+        Screens ◄──── carry ──── Behaviour
+                                 Data Model · Features
+
+No authority: Research · Learning · Lab · Ideas
+```
+
+## Terms
+
+Training concepts are Foundation's [Terms](Foundation.md#terms). Concepts explained in Learning are in [its glossary](../Learning/Glossary.md). An entry whose concept another document owns links to it, and that document holds where the two disagree. Every other entry is owned here.
 
 | Term | Means | Not to be confused with |
 |---|---|---|
-| **Lens** | What Auburn is judged through: Foundation, the principles and the languages, in this folder. It decides and is never built directly. It holds authority over Spec. Inside it, Foundation holds over the principles, and the principles over the languages. Where two disagree, the lower one is the defect. | Research, which carries no authority |
+| **Lens** | What Auburn is judged through: Foundation, the principles and the languages, in this folder. It decides and is never built directly. What it holds over is set out under [Authority](#authority). | Research, which carries no authority |
 | **Spec** | What is built through the Lens: behaviour and screens. Anything with a file that is rendered, played or implemented belongs here. | — |
 | **Foundation** | The case for Auburn: what it is, where it departs from the market and why, the two realms, the terms. The root. [Foundation](Foundation.md) | Principle, which is a judgement drawn from the case |
 | **Principle** | A judgement that can reject a proposal by itself, in any medium. Each traces to Foundation. [Principles](Principles.md) | Grammar, which binds one medium |

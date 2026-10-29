@@ -51,7 +51,7 @@ Auburn/
 ├── TASKS.md                ← every version's work, spec and release, with inline reasoning notes
 ├── Ideas.md                ← deferred ideas, not committed to spec
 ├── Lens/                   ← what Auburn is judged through. See Lens below.
-│   ├── Glossary.md         ← the vocabulary, and the rules that place every document
+│   ├── Lens.md             ← what the Lens holds, its authority and its terms
 │   ├── Foundation.md       ← why Auburn is shaped the way it is. The root.
 │   ├── Principles.md
 │   └── Language/
@@ -82,7 +82,7 @@ Auburn/
 ## Lens
 
 `Lens/` holds what Auburn is judged through; `Spec/` holds what is built through it.
-[Lens/Glossary.md](Lens/Glossary.md) defines the vocabulary for both and the rules that
+[Lens/Lens.md](Lens/Lens.md) defines the vocabulary for both and the rules that
 place every document. Read it at the start of every conversation, with Foundation, and use
 its words only in the senses it gives them.
 
