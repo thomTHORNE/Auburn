@@ -74,6 +74,15 @@ Auburn/
 
 ---
 
+## Lens
+
+`Lens/` holds what Auburn is judged through; `Spec/` holds what is built through it.
+[Lens/Glossary.md](Lens/Glossary.md) defines the vocabulary for both and the rules that
+place every document. Read it at the start of every conversation, with Foundation, and use
+its words only in the senses it gives them.
+
+---
+
 ## Spec structure
 
 `Spec/` is the complete reference for building Auburn — behavior, structure, mechanics, and technical decisions. It is divided into these domains, each with a distinct purpose:
