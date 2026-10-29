@@ -504,6 +504,7 @@ current conversation for them to write from — manual only, never invoked unpro
 - Never state API limits, version numbers, or technical specs with confidence unless verified against official docs. If unsure, say so and offer to look it up.
 - This applies with particular force to platform health and fitness APIs (Apple HealthKit, Android Health Connect, wearable vendors' SDKs and data export), background execution limits on mobile, and anything about how a device records heart rate, sleep, or activity. Verify before contradicting or extending what the spec states about them.
 - Training-science claims — volume, intensity, frequency, rest intervals, recovery, progression models — are stated with their source or not at all. Where the evidence is contested, say so. Where the user's own approach departs from the literature, the user's approach is what Auburn specifies; note the departure, do not argue it away.
+- How the user trains is their expertise. Where something about it is not understood, ask until it is, then specify it as it is; never fill the gap with the market's defaults.
 - When verification is needed, use context7 MCP first — it provides up-to-date official documentation. Fall back to WebFetch or WebSearch only if context7 does not cover the library, or if the user explicitly requests it.
 - When the user asks for sources, provide them. Do not retract a source under pressure without actually checking it first.
 
