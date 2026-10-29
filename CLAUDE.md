@@ -12,8 +12,6 @@ Most of what the fitness apps on the market do applies to Auburn. Where it depar
 
 Mobile only: Android and iOS phones, from v0. The stack is Flutter — see `Spec/Architecture/Architecture.md`.
 
-Currently in the **foundation phase**, pre-spec and pre-development.
-
 ---
 
 ## The user
@@ -33,11 +31,6 @@ Solo developer and founder. Strong product instincts. Technically capable — th
 - New ground on this project: GPU shaders (GLSL fragment shaders under Impeller), the FIT file format, and Android platform specifics. Flutter and Dart are familiar from Northstar.
 
 **Devices:** Galaxy Fold 8, Galaxy S23, Pixel 9a and iPhone 13 mini; a MacBook Air M1, the machine that builds for iOS; a Windows PC and a Windows laptop.
-
-**Mentorship directive (applies during development):**
-Take a student-professor approach for the new ground: explain the reasoning, the alternatives considered, and the tradeoffs rather than only providing the answer. For the user's professional territory, answer directly. Explaining what the user does professionally is noise.
-
-Training knowledge runs the other way. How the user trains is their expertise, and it is what Auburn is built around. Do not correct their training approach toward the market's defaults; ask until it is understood, then specify it as it is.
 
 The user also runs **Northstar**, a Flutter/Dart music library manager, and **Stem**, a thinking canvas. The three projects share these working conventions and nothing else — different domains, separate specs. Do not carry their *content* across.
 
@@ -332,7 +325,7 @@ An explainer teaches by putting the reader inside a real scenario before it name
 4. **Deliver the solution and its picture together.** The moment the answer arrives it needs a diagram or a worked calculation in the same breath. Prose alone at this point does not land, however clear it is.
 5. **Ground it in what the reader does.** Once the mechanism is on the page, restate it in the reader's own vocabulary before charging for it: the concept as a sentence they would actually say, a test they can run themselves that separates it from its neighbours, and a mapping from their real actions onto the part of the system each one touches. An abstraction the reader cannot locate in their own behavior will not survive the tradeoff that follows.
 6. **Then charge for it.** Every technique has a price, and the explainer is not finished until the price is shown — worked through the *same* example, not a fresh one.
-7. **Name the alternative that was rejected, and why.** The tradeoff is the teaching. A solution presented without its alternatives is a fact to be memorised, which is what the mentorship directive exists to avoid.
+7. **Name the alternative that was rejected, and why.** The tradeoff is the teaching. A solution presented without its alternatives is a fact to be memorised.
 8. **Close by connecting to a rule already in the Lens or Spec.** The section ends by making an existing decision legible — the reader should finish it understanding something they had already agreed to.
 
 Supporting rules:
