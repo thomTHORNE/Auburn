@@ -95,7 +95,7 @@ its words only in the senses it gives them.
 | Domain | Purpose |
 |---|---|
 | **Scope** | What each version includes and excludes, and why. Foundation and the principles stay fixed across versions; scope is what changes. |
-| **Data Model** | The canonical definition of every record Auburn keeps — exercises, sessions, sets, programs, measurements — with fields, types, and rules. The single source of truth. If a field isn't defined here, it doesn't exist in Auburn. Feature specs reference it; they never redefine it. |
+| **Data Model** | The canonical definition of every record Auburn keeps — muscle groups, gyms, exercises, goals, workouts and their sets, activities, the overdue log, settings — with fields, types, and rules. The single source of truth. If a field isn't defined here, it doesn't exist in Auburn. Feature specs reference it; they never redefine it. |
 | **Screens/** | Every screen: its document, `screen.html` and images, built from the languages and carrying the behaviour Features specifies. How a screen is agreed is the visual design process below. |
 | **Features/** | Behavioral specifications — what each feature does, the rules governing it, its states, constraints, and edge cases. No implementation detail lives here; that belongs in Architecture or Integrations. |
 | **Architecture/** | Structural and technical decisions: stack, persistence, sync, build sequencing. Records the why behind major choices. |
@@ -158,7 +158,7 @@ each property, and every screen board that uses it imports it.
 - `basics.css` owns every value, and the Lexicon every word.
 - `screen.html` owns the look and layout: sizes, gaps, positions. Canvas pixels are Flutter logical pixels. The art files own the art.
 - `component.html` owns a component's look and layout. A screen's `screen.html` owns where each component sits and which properties and text it is given.
-- The screen's document owns reasoning, behaviour, rules, and data.
+- The screen's document owns reasoning, interface behaviour, rules, and data. Behaviour is the features' (Lens.md, Authority).
 - Images are rendered, never edited.
 
 Where two disagree, the owner holds and the other is fixed in the same edit. A change to a screen is not done until its document, HTML, and images all agree.
