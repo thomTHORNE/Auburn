@@ -35,7 +35,7 @@ A split is a name and a set of muscle groups, created by the user. A group may s
 
 ## Constraints
 
-- The list is fixed in v1. No custom groups, and no group can be hidden by hand.
+- The list is fixed in v0. No custom groups, and no group can be hidden by hand.
 - Mobility exercises name no muscle groups.
 
 ## Edge cases

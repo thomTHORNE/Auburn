@@ -8,7 +8,7 @@ Bringing basic data for runs, treadmill sessions, and hikes recorded on a Suunto
 
 - Auburn does not record these activities itself. The watch does.
 - **The path runs through intervals.icu.** The Suunto app syncs each workout to intervals.icu. Auburn fetches the workout's original FIT file with the owner's personal API key and reads it.
-- **Cardio reaches v1 through intervals.icu.** The Suunto app does not write to Health Connect, and Suunto's own API is closed to personal use.
+- **Cardio reaches v0 through intervals.icu.** The Suunto app does not write to Health Connect, and Suunto's own API is closed to personal use.
 - **An activity keeps its kind, start, duration, distance, average heart rate, and intervals.icu id.** Promoted to the Data Model.
 
 ## Open questions
@@ -29,7 +29,7 @@ Bringing basic data for runs, treadmill sessions, and hikes recorded on a Suunto
 - **intervals.icu also holds Suunto's wellness data.** Sleep, HRV, and resting heart rate sync from Suunto once wellness import is turned on in intervals.icu, and the same API key reads them by date range. Forum reports, not yet probed: sleep totals have arrived short, and the automatic sync has stalled for some accounts.
 - **intervals.icu calculates more than the FIT file carries.** Each activity also has heart-rate zone times, training load, a heart-rate curve, intervals, and its streams as JSON. These are intervals.icu's calculations, not the watch's.
 - **The watch's post-workout feeling reaches the FIT file**, on a 1–5 scale, and intervals.icu imports it as Feel. Forum report, not yet probed.
-- **intervals.icu can send planned workouts to the watch** as SuuntoPlus Guides. Outside v1.
+- **intervals.icu can send planned workouts to the watch** as SuuntoPlus Guides. Outside v0.
 
 ## Dependencies
 

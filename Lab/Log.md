@@ -16,7 +16,7 @@ Timebox: half a day.
 Needs: "Save to Health Connect" turned on in the Suunto app, and a build run on the phone.
 Feeds: Research/Suunto, Research/Platforms.
 Code: Lab/suunto-health-connect/
-Stakes: a fail removes cardio from v1.
+Stakes: a fail removes cardio from v0.
 Verdict (2026-10-23): fail, without running the probe. The Suunto app does not write to Health Connect: it is absent from the Fold's Health Connect app permissions. A paid relay (Health Sync) exists and is ruled out on cost.
 Notes: the code was never run. Kept as reference for reading Health Connect.
 
@@ -93,7 +93,7 @@ Timebox: half a day.
 Needs: intervals.icu connected to Suunto; an API key and athlete ID entered on the phone; a build run on the phone.
 Feeds: Research/Suunto, Research/Platforms.
 Code: Lab/suunto-intervals/
-Stakes: if the fetch fails, the fallback is a manual FIT export from the Suunto app. If the files cannot be parsed, cardio leaves v1.
+Stakes: if the fetch fails, the fallback is a manual FIT export from the Suunto app. If the files cannot be parsed, cardio leaves v0.
 Verdict (2026-10-23): pass. A Flutter app with a personal intervals.icu API key lists the athlete's activities and downloads each one's original FIT file. A run, a treadmill session, and a hike each parsed with distance, duration, and heart rate, from 1,261 to 9,264 heart-rate samples per activity. The FIT file's own sub-sport marks treadmill sessions; intervals.icu calls them VirtualRun.
 Notes: fit_tool 1.0.5 throws on sport values newer than its profile. One activity carried value 64, which stopped the run after seven files. Product code needs a parser that tolerates unknown values. The athlete id worked with its "i" prefix. Code kept as reference.
 
@@ -109,7 +109,7 @@ Timebox: two hours.
 Needs: wellness import turned on in intervals.icu's Suunto settings; a build run on the phone.
 Feeds: Research/Suunto.
 Code: Lab/suunto-intervals/, a second screen beside the done probe.
-Stakes: none for v1. What it finds decides what is worth parking in Ideas.md.
+Stakes: none for v0. What it finds decides what is worth parking in Ideas.md.
 
 ---
 

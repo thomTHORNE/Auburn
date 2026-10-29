@@ -10,13 +10,26 @@ A version may withhold a pillar of Foundation, but never break one of its refusa
 
 ---
 
-## v1
+## Versions
+
+A version is a release to an audience, and what it commits to.
+
+| Version | For |
+|---|---|
+| **v0** | The developer and a small circle of trusted testers, field-testing Auburn in real training. |
+| **v1** | The public, on Google Play and the App Store. |
+
+Builds are numbered major.minor.patch, and the major is the version: v0's builds are 0.x.y, v1's are 1.x.y. A minor adds to what the version includes; a patch fixes what it has.
+
+---
+
+## v0
 
 ### Included
 
 | | |
 |---|---|
-| **Platforms** | Android phones. |
+| **Platforms** | Android and iOS phones. |
 | **Muscle groups** | The standard list, the exercises that work each group, and the AMAP rule. Every muscle group is owed. A muscle group may carry a split. |
 | **Rest** | Each muscle group's rest, rest bands, and overdue limit, set per group; cardio rests the same way. Every rest at a glance, as the basis for choosing the day's training. |
 | **The muscle figure** | A classical figure, engraved in the style of a terminal boot screen, shown front and back, with one region per muscle group. It lights the groups an exercise works, and tints every group by its rest band. |
@@ -37,10 +50,16 @@ A version may withhold a pillar of Foundation, but never break one of its refusa
 
 | Excluded | |
 |---|---|
-| iOS, watch, desktop, and web | v1 is built for the phone training happens with. The stack keeps iOS within reach. |
+| Watch, desktop, and web | v0 is built for the phones training happens with. |
 | Manual cardio entry | Cardio comes from the watch, or not at all. |
 | A built-in exercise library | Exercises are the user's own. A catalog needs sourcing and upkeep, and nothing in current training uses one. |
 | A rest timer | Nothing in current training depends on one. |
-| A body-weight log | Nothing in v1 reads it. |
+| A body-weight log | Nothing in v0 reads it. |
 
-Excluding these is what makes the rest of v1 small enough to finish. Anything here worth reconsidering later lives in [Ideas.md](../Ideas.md), not in this table.
+Excluding these is what makes the rest of v0 small enough to finish. Anything here worth reconsidering later lives in [Ideas.md](../Ideas.md), not in this table.
+
+---
+
+## v1
+
+Everything v0 includes and excludes.

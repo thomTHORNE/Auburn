@@ -37,7 +37,7 @@ The fiction Auburn's second realm is built from: the corporation, its voice, and
 - Commendations: uncanny badges that praise compliance. They record only facts that already happened and never ask the user back.
 - In-world paperwork for system surfaces: intake, memos, the release of records.
 - Sound's part in the voice.
-- Outward pieces: the subreddit pitch, ads, a corporate site.
+- Outward pieces: ads, a corporate site. The subreddit pitch is in Launch/Forums.
 - The mark: a statue clipped into the three pillars, whose boot animation zooms out from a full-width bust to the whole figure inside one pillar. Still open: the statue's source, and whether the final figure is wholly enclosed or fills the pillar's height.
 
 ## Findings
@@ -46,4 +46,4 @@ The fiction Auburn's second realm is built from: the corporation, its voice, and
 
 ## Dependencies
 
-Requires nothing. Required by any feature, screen or sound that carries in-world text.
+Requires nothing. Required by any feature, screen or sound that carries in-world text, and the Launch topics whose copy speaks in its voice.

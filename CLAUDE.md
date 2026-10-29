@@ -10,7 +10,7 @@ A personal fitness training app, built around how the user actually trains.
 
 Most of what the fitness apps on the market do applies to Auburn. Where it departs from them is in the specifics of how the user trains and approaches training, and those departures are the reason Auburn exists rather than an off-the-shelf app being used. [Foundation](Foundation.md) states them, and is the root everything else answers to.
 
-Mobile only. v1 targets Android; the stack keeps other platforms within reach. The stack is Flutter — see `Spec/Architecture/Architecture.md`.
+Mobile only: Android and iOS phones, from v0. The stack is Flutter — see `Spec/Architecture/Architecture.md`.
 
 Currently in the **foundation phase**, pre-spec and pre-development.
 
@@ -32,6 +32,8 @@ Solo developer and founder. Strong product instincts. Technically capable — th
 - Building Northstar in Flutter/Dart
 - New ground on this project: GPU shaders (GLSL fragment shaders under Impeller), the FIT file format, and Android platform specifics. Flutter and Dart are familiar from Northstar.
 
+**Devices:** Galaxy Fold 8, Galaxy S23, Pixel 9a and iPhone 13 mini; a MacBook Air M1, the machine that builds for iOS; a Windows PC and a Windows laptop.
+
 **Mentorship directive (applies during development):**
 Take a student-professor approach for the new ground: explain the reasoning, the alternatives considered, and the tradeoffs rather than only providing the answer. For the user's professional territory, answer directly. Explaining what the user does professionally is noise.
 
@@ -47,7 +49,7 @@ The user also runs **Northstar**, a Flutter/Dart music library manager, and **St
 Auburn/
 ├── CLAUDE.md               ← this file
 ├── Foundation.md           ← why Auburn is shaped the way it is. The root.
-├── TASKS.md                ← task tracker with inline reasoning notes
+├── TASKS.md                ← every version's work, spec and release, with inline reasoning notes
 ├── Ideas.md                ← deferred ideas, not committed to spec
 ├── Research/               ← ideas developed in parallel to the spec. See Research below.
 ├── Learning/               ← explainers. See Learning below.
@@ -294,7 +296,7 @@ Promoted ideas are removed from `Ideas.md`. The frozen origin is the only copy.
 | `Ready` | Cleared the promotion bar, held by a dependency. Earns a TASKS.md item carrying the `Deps:` that blocks it |
 | `Promoted` | Landed in spec. The research document is no longer the reference |
 
-Research stays out of TASKS.md while it is still research. A topic enters the tracker only at `Ready`, at which point its promotion is spec work like anything else.
+Research stays out of TASKS.md's items while it is still research. A version that waits on a topic names it in its `Waits on research:` line, and the topic enters as items only at `Ready`, at which point its promotion is work like anything else. Release work already decided is tracked as items under its version, even while research around it is open.
 
 **Promotion bar.** A topic is ready when its open questions are resolved rather than listed, and its conclusions can be stated as decisions in the spec's own voice.
 
@@ -461,12 +463,12 @@ Skills print what their skill file specifies. This section governs conversation.
 ## Spec & docs workflow
 
 - Never write to files without explicit approval of a specific draft. "Sure" or "ok" in response to "want me to write it?" means show a draft first — not write to files.
-- TASKS.md uses an Alignment → Goal → Item hierarchy. Alignments are `##` headings. Goals are `###` headings carrying a `#N` ID and a link to the spec file they cover. Items carry `#N.N` decimal IDs scoped to their goal. TASKS.md holds no second index of items — the Alignment → Goal → Item hierarchy is the whole file.
+- TASKS.md tracks all of Auburn's work by version: the spec each version needs, and the release work that puts it in people's hands. Versions are `##` headings, each opening with the research it waits on. Alignments are `###` headings; a version's release work is an alignment of its own. Goals are `####` headings carrying a `#N` ID and a link to the file they cover. Items carry `#N.N` decimal IDs scoped to their goal, unique across versions. TASKS.md holds no second index of items — the Version → Alignment → Goal → Item hierarchy is the whole file.
 - TASKS.md item format: a list item whose first line is the checkbox and the bold ID and title; the next line, indented by 4 spaces, carries the tags — severity, then `Deps: #X.X` if any, separated by ` · `; a description, if any, follows after a blank line, indented by 4 spaces. A blank line separates consecutive items. Status: `[ ]` Unresolved (default), `[x]` Pending review (drafted, awaiting review).
 
   Example:
   ```
-  ### `#3` Sets · [Spec/Features/Sets.md](Spec/Features/Sets.md)
+  #### `#3` Sets · [Spec/Features/Sets.md](Spec/Features/Sets.md)
 
   - [ ] **`#3.2` A set logged in pounds against a program written in kilograms**
       `GAP` · `Deps: #1.1`

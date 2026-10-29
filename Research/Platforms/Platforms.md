@@ -8,11 +8,10 @@ Seeded by Stem's platform research — see [Origin](Origin.md). Stem's conclusio
 
 ## Settled
 
-- Mobile only. v1 targets Android phones.
-- Android-only is v1's scope, not something the stack may lock in. Reaching other platforms later stays cheap.
+- Mobile only: Android and iOS phones, from v0.
 - Cardio is recorded on a Suunto watch, not on the phone. Auburn does not track activity live.
 - **The stack is Flutter.** Promoted to Spec/Architecture.
-- **Offline and local, no sync in v1.** Promoted to Spec/Architecture.
+- **Offline and local, no sync in v0.** Promoted to Spec/Architecture.
 
 ## Open questions
 

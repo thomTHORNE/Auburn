@@ -16,7 +16,7 @@ Every colour is a palette colour, named for what it is. A new colour joins the p
 
 ### Themes
 
-Auburn has a dark and a light theme. It follows the device unless Settings sets dark or light. In v1 the theme changes the boot screen only; every other screen is the same in both.
+Auburn has a dark and a light theme. It follows the device unless Settings sets dark or light. In v0 the theme changes the boot screen only; every other screen is the same in both.
 
 ### Emphasis
 

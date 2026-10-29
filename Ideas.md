@@ -4,7 +4,7 @@ A running list of ideas worth revisiting. Nothing here is committed to the spec 
 
 An idea that outgrows this file is promoted to `Research/`, where it is developed in parallel to the spec. Promoted ideas are removed from here — their frozen originals live beside the document they seeded, as `Origin.md`. See [CLAUDE.md](CLAUDE.md) for the research conventions.
 
-The [v1 exclusions](Spec/Scope.md#excluded) are a different thing: those are exclusions that make v1 finishable, and most of them should stay excluded. An entry appears here only when there is a reason to think it might not.
+The [v0 exclusions](Spec/Scope.md#excluded) are a different thing: those are exclusions that make v0 finishable, and most of them should stay excluded. An entry appears here only when there is a reason to think it might not.
 
 Each entry states the idea, why it is parked rather than settled, and the condition that would bring it back.
 
@@ -22,7 +22,7 @@ Worth revisiting if rest bands alone let a goal be trained more often in a week 
 
 The Suunto watch records strength sessions with heart rate, and intervals.icu serves them as FIT files the same way it serves runs. A 48-minute session carried 2,895 heart-rate samples. Auburn could attach that record to the workout logged in the app.
 
-Parked because v1 reads only runs, treadmill sessions, and hikes, and what heart rate would add beside graded sets is not yet understood.
+Parked because v0 reads only runs, treadmill sessions, and hikes, and what heart rate would add beside graded sets is not yet understood.
 
 Worth revisiting if heart rate during a workout would change how rest or a grade is read.
 
@@ -30,7 +30,7 @@ Worth revisiting if heart rate during a workout would change how rest or a grade
 
 The FIT file of a run or hike carries the watch's GPS track. Auburn could draw it on the activity, as a line in its own palette or over a map.
 
-Parked because v1 keeps only basic data for each activity.
+Parked because v0 keeps only basic data for each activity.
 
 Worth revisiting once cardio has a screen of its own and what it lists is decided.
 
@@ -46,6 +46,6 @@ Worth revisiting if a stretch of training is planned around a circumstance, or i
 
 Auburn could hold calories eaten and body weight, entered by hand or read from intervals.icu, whose wellness record has a field for each. With them a phase stops being only the user's word: a cut states a deficit and a falling weight, and the facts show whether it happened. A goal's method followed and failed during a cut could then be read for what it was.
 
-Parked because v1 reads neither, and phases are parked with it. Which apps fill intervals.icu's calories field is not yet known.
+Parked because v0 reads neither, and phases are parked with it. Which apps fill intervals.icu's calories field is not yet known.
 
 Worth revisiting together with Phases.

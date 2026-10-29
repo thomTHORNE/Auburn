@@ -8,7 +8,7 @@ The mark is three pillars lettered H, C and M, for the three kinds of training F
 
 The line under the mark is Auburn's slogan, the same on every boot. The boot is the one place the brand is shown whole, and a brand has one slogan.
 
-The boot is the one screen that ignores taps and plays to the end: a skipped boot would show a half-drawn screen. It is also the one screen with a light theme in v1, because a brand moment can afford it where the working screens keep one look.
+The boot is the one screen that ignores taps and plays to the end: a skipped boot would show a half-drawn screen. It is also the one screen with a light theme in v0, because a brand moment can afford it where the working screens keep one look.
 
 Its glass is High, not the basics' Low: in the Lab, Low was barely visible on the boot's large flat plate.
 

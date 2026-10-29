@@ -10,6 +10,8 @@ Auburn is a personal fitness training app, built around how its user actually tr
 
 Most of what the fitness apps on the market do applies. Auburn does not reinvent the parts that already work. It departs from them only where the way its user trains and approaches training departs from what those apps assume, and each departure is stated here with the reason for it.
 
+Auburn is released to others as it is. It does not adapt to the way another person trains: it is for whoever trains this way.
+
 ---
 
 ## Training

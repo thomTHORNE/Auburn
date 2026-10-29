@@ -1,25 +1,31 @@
 # Tasks
 
-Auburn spec writing tracker. Structure: Alignment → Goal → Item.
+All of Auburn's work, by version: the spec each version needs, and the release work that puts it in people's hands. Structure: Version → Alignment → Goal → Item.
 
 ## Status
 
-- `[ ]` **Unresolved** — default state. No spec work drafted yet.
-- `[x]` **Pending review** — spec work drafted and committed, awaiting user review.
+- `[ ]` **Unresolved** — default state. No work done yet.
+- `[x]` **Pending review** — drafted or done, awaiting user review.
 
 Resolved tasks are removed from TASKS.md.
 
 ## Severity
 
-- `BLOCKER` — missing spec that would produce broken or undefined behavior at implementation time.
+- `BLOCKER` — missing spec that would produce broken or undefined behavior at implementation time, or release work the version cannot be released without.
 - `GAP` — incomplete or inconsistent spec that would cause a developer to make a wrong assumption.
-- `MINOR` — should be addressed but low risk if deferred; implementation can proceed without it.
+- `MINOR` — should be addressed but low risk if deferred; implementation or the release can proceed without it.
 
 
 
-## Alignment 1 — Spec top level
+## v0
 
-### `#6` Visual Design · [Spec/Visual Design.md](Spec/Visual%20Design.md)
+The developer and a small circle of trusted testers · [Scope](Spec/Scope.md#v0)
+
+Waits on research: Suunto, Notion Import, Lore, Programming, Tests.
+
+### Alignment 1 — Spec top level
+
+#### `#6` Visual Design · [Spec/Visual Design.md](Spec/Visual%20Design.md)
 
 - [ ] **`#6.1` The visual basics are not specified**
     `MINOR`
@@ -95,18 +101,16 @@ Resolved tasks are removed from TASKS.md.
 
     The boot's sizes and gaps (14, 10, 4 and 12 px among them) are its own, from before the type and spacing scales. It is revisited in a round of its own and brought onto them.
 
-### `#9` Architecture · [Spec/Architecture/Architecture.md](Spec/Architecture/Architecture.md)
+#### `#9` Architecture · [Spec/Architecture/Architecture.md](Spec/Architecture/Architecture.md)
 
 - [ ] **`#9.1` The storage engine is not specified**
     `GAP`
 
     The on-phone database behind the Data Model's records. Chosen when the walking skeleton begins.
 
-## Alignment 2 — Features
+### Alignment 2 — Features
 
-### `#7` Features · [Spec/Features/](Spec/Features/)
-
-
+#### `#7` Features · [Spec/Features/](Spec/Features/)
 
 - [ ] **`#7.10` Cardio is not specified**
     `BLOCKER` · `Deps: #8.1`
@@ -120,12 +124,72 @@ Resolved tasks are removed from TASKS.md.
 
     A one-time import of Training '26. Waits on Research/Notion Import for how the export writes relations and order.
 
+### Alignment 3 — Integrations
 
-## Alignment 3 — Integrations
-
-### `#8` Integrations · [Spec/Integrations/](Spec/Integrations/)
+#### `#8` Integrations · [Spec/Integrations/](Spec/Integrations/)
 
 - [ ] **`#8.1` The intervals.icu integration is not specified**
     `BLOCKER`
 
     Endpoints, the personal API key and how it is stored, FIT parsing, and tolerance for values newer than the parser's profile. Waits on Research/Suunto for how the key is stored.
+
+### Alignment 4 — Release
+
+#### `#10` Testers · [Spec/Scope.md](Spec/Scope.md#v0)
+
+- [ ] **`#10.1` A tester without a Suunto watch has cardio overdue for good**
+    `GAP`
+
+    v0's cardio comes only from a Suunto watch through intervals.icu. A tester without both never resets cardio's rest, so it falls overdue and the overdue prompt asks at every visit.
+
+- [ ] **`#10.2` A tester's first launch is empty**
+    `GAP`
+
+    Exercises are the user's own and there is no library, so a tester opens Auburn with no exercise and no gym, and nothing to start a workout with. What the first launch does is not specified.
+
+- [ ] **`#10.3` The Notion import is the developer's alone**
+    `MINOR`
+
+    It reads Training '26, which no tester has. Whether a tester is offered it is not specified.
+
+- [ ] **`#10.4` Auburn is measured on the Fold 8 alone**
+    `GAP`
+
+    The CRT shader's cost and every layout were measured on the Fold 8 cover screen. v0 runs on testers' Android phones and on iPhones. The developer's devices span the range: the Fold 8, the Galaxy S23, the Pixel 9a, and the iPhone 13 mini as the small screen. Architecture requires Impeller; which testers' phones run it is not known.
+
+#### `#11` Distribution · [Research/Launch/Distribution](Research/Launch/Distribution/Distribution.md)
+
+- [ ] **`#11.1` The Play developer account is not opened**
+    `BLOCKER`
+
+    Personal or organisation. A personal account opened now falls under the closed-test rule; an organisation account needs a registered business.
+
+- [ ] **`#11.2` Twelve Android testers are not recruited**
+    `BLOCKER`
+
+    At least 12, opted in to the closed test for 14 days in a row. iPhone testers on TestFlight do not count toward them.
+
+- [ ] **`#11.3` The Play declarations are not filed**
+    `BLOCKER` · `Deps: #11.1`
+
+    The Health apps declaration, as Activity and Fitness, and the Data safety form. Whether a privacy policy is required is checked with them.
+
+- [ ] **`#11.4` The Apple Developer Program is not joined**
+    `BLOCKER`
+
+    TestFlight comes with the membership. Builds are made and signed on the MacBook Air M1.
+
+- [ ] **`#11.5` TestFlight is not set up**
+    `BLOCKER` · `Deps: #11.4`
+
+    Testers join as internal testers, who must be members of the App Store Connect team, or as external testers, whose first build of each version passes Beta App Review. Builds expire 90 days after upload.
+
+
+
+## v1
+
+The public · [Scope](Spec/Scope.md#v1)
+
+Waits on research: Launch — Name, Distribution, Protection, Pricing, Website, Forums, Outreach.
+
+No items yet.
