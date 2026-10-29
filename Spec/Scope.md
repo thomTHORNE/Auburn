@@ -2,7 +2,7 @@
 
 What each version of Auburn includes and excludes, and why.
 
-[Foundation](../Foundation.md) and the [design principles](Design%20Principles.md) stay fixed across versions; scope is what changes. Something not yet decided either way is not listed here — it is in [Ideas.md](../Ideas.md) or `Research/`.
+[Foundation](../Lens/Foundation.md) and the [principles](../Lens/Principles.md) stay fixed across versions; scope is what changes. Something not yet decided either way is not listed here — it is in [Ideas.md](../Ideas.md) or `Research/`.
 
 A version includes a feature as a commitment to what the product is. How the feature behaves is specified in `Features/` once it is understood, not before.
 

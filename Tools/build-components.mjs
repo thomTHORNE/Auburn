@@ -1,4 +1,4 @@
-// Builds Spec/Visual Design/components.js from every Spec/Visual Design/components/<name>/component.html.
+// Builds Lens/Language/Visual/components.js from every Lens/Language/Visual/components/<name>/component.html.
 //
 // Each component.html holds one <template id="auburn-<name>">: the component's markup, with
 //   {{name}}                               a hole for text, from the element's data-name attribute
@@ -14,7 +14,7 @@
 import { readdirSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const ROOT = 'Spec/Visual Design';
+const ROOT = 'Lens/Language/Visual';
 
 export function readComponent(path) {
   const src = readFileSync(path, 'utf8');

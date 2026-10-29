@@ -87,6 +87,6 @@ Neither question is settled. Each path is shown here with its price, so the choi
 
 ## Back to the spec
 
-Visual Design's Emphasis rule reads: every element sits on one of three levels, "the accent at the level's opacity on the ground, or the set-apart colour where a screen sets an element apart."
+The visual language's Emphasis rule reads: every element sits on one of three levels, "the accent at the level's opacity on the ground, or the set-apart colour where a screen sets an element apart."
 
 That sentence now reads differently. "At the level's opacity on the ground" is the opacity path: dimming by mixing toward the tube. "The set-apart colour" is already a role. Cyan white was never a fourth level; it was always a different kind of thing. The open questions are whether the levels stay opacity or become steps, and whether the other text gets roles of its own.

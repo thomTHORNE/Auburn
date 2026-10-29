@@ -37,7 +37,7 @@ One screen shows every tracked group and cardio, each with its days and its band
 
 ### Never trained
 
-A tracked group with no resetting set yet shows "not yet trained". It has no band and is not overdue.
+A tracked group with no resetting set yet shows as [not yet trained](../../Lens/Language/Lexicon.md#names). It has no band and is not overdue.
 
 ## States
 

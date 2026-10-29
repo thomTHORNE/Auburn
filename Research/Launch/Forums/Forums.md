@@ -17,7 +17,7 @@ Introducing Auburn on Reddit and forums like it: a pitch in the corporation's vo
 
 ## Why it is worded this way
 
-The corporation sells a new You; Auburn is built on reading the one you have ([Two realms](../../../Foundation.md#two-realms)). The pitch is the corporation's offer, warm on the surface — a reputable company, an honest wage — and turning uncanny in its language: credits, investing in You. The plain line beneath it is the real app. A reader who sees both sees the gap between them, which is the fiction doing what Foundation gives it to do. "Introducing, the new You." is the corporation's one slogan ([Lore](../../Lore/Lore.md)).
+The corporation sells a new You; Auburn is built on reading the one you have ([Two realms](../../../Lens/Foundation.md#two-realms)). The pitch is the corporation's offer, warm on the surface — a reputable company, an honest wage — and turning uncanny in its language: credits, investing in You. The plain line beneath it is the real app. A reader who sees both sees the gap between them, which is the fiction doing what Foundation gives it to do. "Introducing, the new You." is the corporation's one slogan ([Lore](../../Lore/Lore.md)).
 
 ## Open questions
 

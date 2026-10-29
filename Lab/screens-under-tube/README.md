@@ -1,8 +1,8 @@
 # Approved screens under the tube — sketch
 
-Throwaway code. The question, pass condition, and a verdict line per screen live in [`Lab/Log.md`](../Log.md). A standing attempt: each screen brought for approval on the design canvas is rebuilt here as Flutter widgets from its canvas boards (or its `Spec/Visual Design/<nn-screen>/screen.html` once saved) and added to `_screens` in `lib/main.dart`.
+Throwaway code. The question, pass condition, and a verdict line per screen live in [`Lab/Log.md`](../Log.md). A standing attempt: each screen brought for approval on the design canvas is rebuilt here as Flutter widgets from its canvas boards (or its `Spec/Screens/<nn-screen>/screen.html` once saved) and added to `_screens` in `lib/main.dart`.
 
-- `lib/basics.dart` — the basics from `Spec/Visual Design.md` as Dart constants, and the tube's settings.
+- `lib/basics.dart` — the basics from `Lens/Language/basics.css` and `Lens/Language/Visual/Visual.md` as Dart constants, and the tube's settings.
 - `lib/tube.dart` — the CRT and glass shader from `Lab/glass-that-moves`, at strength 0.6, glass LOW, travel SMALL, driven by tilt.
 - `lib/screens/` — one file per screen. `covers.dart` holds the widget covers as SVG, generated from the canvas; `assets/bust-ember.png` is the Rest cover's bust.
 
@@ -38,7 +38,7 @@ Use the cover screen. Fonts (Gelasio, Saira) load from Google Fonts the first ti
 
 ### Sound in the hand
 
-A second attempt sharing this app; its entry is in the log. `lib/sounds.dart` plays the approved WAVs from `Spec/Sound Design/`, copied to `assets/sounds/`, through `audioplayers` with no audio focus requested, so other apps' audio keeps playing.
+A second attempt sharing this app; its entry is in the log. `lib/sounds.dart` plays the approved WAVs from `Lens/Language/Sound/`, copied to `assets/sounds/`, through `audioplayers` with no audio focus requested, so other apps' audio keeps playing.
 
 - **Boot** plays with the boot screen, from the start on every replay.
 - **Ambience** loops from the moment the boot ends, under every screen. Opening a screen without a boot fades it in over 0.5 s. It fades out over 0.5 s when the app leaves the screen, and back in on return.

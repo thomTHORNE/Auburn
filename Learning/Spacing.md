@@ -85,6 +85,6 @@ The bottom gap is 10, not 12, because of **leading**: the space a line of text c
 
 ## Back to the spec
 
-Design Principles: "Hierarchy says what matters. … When everything is equally loud, the eye reads the whole screen to find the one thing it needs. On the gym floor that turns a glance into a read."
+Principles: "Hierarchy says what matters. … When everything is equally loud, the eye reads the whole screen to find the one thing it needs. On the gym floor that turns a glance into a read."
 
-The agreed widget's equal 7 px gaps were the spacing version of "everything equally loud." The spacing table is that principle applied to distance. It lands in Visual Design when round 3 is approved, and the wireframe step now sets every gap from it before the first round.
+The agreed widget's equal 7 px gaps were the spacing version of "everything equally loud." The spacing table is that principle applied to distance. It lands in the visual language when round 3 is approved, and the wireframe step now sets every gap from it before the first round.

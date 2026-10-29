@@ -30,7 +30,7 @@ Question: does each screen brought for approval on the canvas, rebuilt in Flutte
 Pass: per screen, the layout matches its canvas boards, every text and mark reads through the shader, every control on the screen works in the hand, and the look agrees with the boards.
 Timebox: half a day for the app and screen 00; an hour or two for each screen after.
 Needs: a build on the Fold.
-Feeds: Spec/Visual Design.
+Feeds: Spec/Screens, Lens/Language/Visual.
 Code: Lab/screens-under-tube/
 Stakes: a screen that fails goes back to the canvas before it is approved.
 Screen 00, boot: pass. Rebuilt from its screen.html, it matches the approved board; the mark, wordmark, and line read through the tube, and the tilt-driven glass runs. At the approved glass LOW the glass is barely visible on the boot; HIGH (1.2) with travel SMALL fits it better.
@@ -46,7 +46,7 @@ Question: at what rate can the tube redraw — 120, 60, or 30 frames a second, w
 Pass: a rate where the battery temperature rises no more than 5 °C over 20 minutes on home with the ambience playing, and the tube's motion shows no stutter in the hand.
 Timebox: half a day.
 Needs: a build on the Fold; the phone at room temperature before each run.
-Feeds: Spec/Architecture, Spec/Visual Design (the tube).
+Feeds: Spec/Architecture, Lens/Language/Visual (the tube).
 Code: Lab/screens-under-tube/ — the tube under the real screens.
 Stakes: if no rate keeps the phone cool, the tube's animated effects are cut back.
 Notes: the first run starts at the tube redrawing 30 times a second, the tilt read at UI speed, and the display asked for 75 Hz.
@@ -61,7 +61,7 @@ Question: on the Fold, do the boot, the ambience, and the power-down play as Sou
 Pass: each sound starts and stops where Sound Design says; the ambience loops with no audible seam or gap; music playing in another app keeps playing at full volume alongside; silent mode and the sound setting mute them; and the sounds feel like part of the screens, not over them.
 Timebox: half a day.
 Needs: a build on the Fold, earphones and the speaker, and a music app.
-Feeds: Spec/Sound Design.
+Feeds: Lens/Language/Sound, Spec/Features/Sound.
 Code: Lab/screens-under-tube/ — shares the screens app, so the sounds play against the real boot and home.
 Stakes: a sound that fails goes back to the sound work; a fail on playing over other audio needs a different way of playing sound on Android, noted in Architecture.
 
@@ -75,7 +75,7 @@ Question: on the Fold cover screen, can the 20 muscle groups, drawn as regions o
 Pass: every group can be tapped without hitting its neighbour, at full size or zoomed; lit groups are found at a glance; and the rest tint reads without the figure losing its engraved look under the CRT shader.
 Timebox: 1–2 days.
 Needs: a build on the Fold.
-Feeds: Spec/Visual Design, the muscle figure.
+Feeds: Lens/Language/Visual, the muscle figure.
 Code: Lab/muscle-figure/
 Stakes: if small groups (neck, the three delts, obliques, abductors) cannot be tapped even zoomed, they need merged regions for display.
 Verdict (2026-10-23): pass, with zoom. Placeholder regions for the 20 muscle groups, front and back, under the CRT and glass shader. An exercise's groups lit in Cyan White are found at a glance. At full size the small groups — the three delts, neck, obliques, abductors — are missed one-handed; zoomed to a predefined section (shoulders, torso, hips, legs) they are hit. The rest tint reads in blue, green, and orange; red is the weakest on the ember plate.
@@ -121,7 +121,7 @@ Question: can Flutter run a custom fragment shader over the whole rendered scree
 Pass: the shader runs over live widgets at the screen's full refresh rate, and a tap's visual response is no slower than without it.
 Timebox: half a day.
 Needs: a build run on the Fold.
-Feeds: Research/Platforms, Spec/Visual Design.
+Feeds: Research/Platforms, Lens/Language/Visual.
 Code: Lab/crt-shader/
 Stakes: a fail limits the CRT look to static texture layers.
 Verdict (2026-10-23): pass. The full CRT shader runs over the whole screen on the Fold 8 cover screen at 120 Hz: 117–119 fps, frames at 6.8 ms typical and 7.9 ms worst 5%, inside the 8.3 ms budget and about a millisecond above no shader at all. Taps felt instant in every mode. The look was most appealing at strength 0.6 and 1.0.
@@ -137,7 +137,7 @@ Question: does a halo and smudge layer that shifts with the phone's tilt read as
 Pass: in use at the gym, the glass reads as physical, and no value or key is ever harder to read because of where the halo has moved.
 Timebox: 1–2 days.
 Needs: a passing CRT shader probe; a build on the Fold.
-Feeds: Spec/Visual Design.
+Feeds: Lens/Language/Visual.
 Code: Lab/glass-that-moves/
 Verdict (2026-10-23): pass. A glass layer driven by the phone's tilt reads as real glass over the screen, and its motion feels fluid and instant. The light moves on the glass; the oily film, swipe streaks, and dust stay fixed and show where the light catches them. The best look was glass LOW, travel SMALL, CRT strength 0.6, with frames at 5.2 ms worst 5%, inside the 8.3 ms budget. At those settings no value or key was harder to read.
 Notes: the first texture was blocky — a noise grid showing through — and was replaced with gradient noise. Thumbprints over the keys were tried and rejected before the run. Code kept as reference.

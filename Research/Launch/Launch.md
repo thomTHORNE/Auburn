@@ -15,7 +15,7 @@ Each topic waits on something different, and each is worth little alone. A pitch
 
 ## The voice
 
-Launch copy speaks in the two layers Foundation's [Two realms](../../Foundation.md#two-realms) sets out: the corporation narrates, and a plain line says what the real app is. [Lore](../Lore/Lore.md) holds the corporation's voice — the slogan, the maxims, the references — and launch copy uses it as Lore has it.
+Launch copy speaks in the two layers Foundation's [Two realms](../../Lens/Foundation.md#two-realms) sets out: the corporation narrates, and a plain line says what the real app is. [Lore](../Lore/Lore.md) holds the corporation's voice — the slogan, the maxims, the references — and launch copy uses it as Lore has it.
 
 ## Order
 

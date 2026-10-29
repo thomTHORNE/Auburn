@@ -2,11 +2,11 @@
 //
 //   Theme.dc.html            the Theme board: every agreed screen, a tweak for every basic except the tube's,
 //                            and the swatches; the changed list, hold-to-preview and the change log.
-//   C-<Name>, C-<Name>-States each agreed component (Spec/Visual Design/components/<name>/component.html), with a
+//   C-<Name>, C-<Name>-States each agreed component (Lens/Language/Visual/components/<name>/component.html), with a
 //                            tweak for each property, and a board showing its states.
 //   S01-R3-Round.dc.html     screen 01's round 3 board: the same, for round 3's states, plus the trials below.
-//   S00-Dark, S00-Light      the agreed boot (Spec/Visual Design/00-boot/screen.html), held frame, line 0.
-//   S01-<state>              the agreed screen 01 (Spec/Visual Design/01-navigation/screen.html), importing the
+//   S00-Dark, S00-Light      the agreed boot (Spec/Screens/00-boot/screen.html), held frame, line 0.
+//   S01-<state>              the agreed screen 01 (Spec/Screens/01-navigation/screen.html), importing the
 //                            component boards.
 //   C-R3-<Name>, -States     each component's round for screen 01's round 3, from its template in
 //                            Tools/canvas/rounds/r3/<name>/. C-R3-Screens shows round 3's screens.
@@ -17,7 +17,7 @@
 //   X-Colour-Grid.dc.html    the colour grid exploration: palette primitives the user names in its Tweaks tab, each a
 //                            ramp centred on it; a grid of kinds by levels picking steps from them; and round 3's home,
 //                            each of its parts taking a cell and a weight.
-//   basics.css               a copy of Spec/Visual Design/basics.css.
+//   basics.css               a copy of Lens/Language/basics.css.
 //
 // Values the user has set in a board's Tweaks tab are read from the mirror and kept. A change stays on its board.
 // It also updates Canvas/project/canvas.json: the Theme page, each board's entry (a board the user moved keeps
@@ -28,7 +28,9 @@ import { readFileSync, writeFileSync, existsSync, copyFileSync } from 'node:fs';
 import { components, readComponent } from '../build-components.mjs';
 import { rampAround, contrast, over, oklch, COLOUR_JS } from './palette.mjs';
 
-const SPEC = 'Spec/Visual Design';
+const SCREENS = 'Spec/Screens';
+const VISUAL = 'Lens/Language/Visual';
+const BASICS = 'Lens/Language/basics.css';
 const OUT = 'Canvas/project';
 const BUST = '/_blob/8dc69cd32a565ee54c5606a82fce2b14'; // the traced bust, uploaded to the canvas
 // The bust on the canvas is a mask over the accent, so it follows the theme.
@@ -103,7 +105,7 @@ function editorFor(css, value, section) {
   return { meta: { editor: 'text', default: value, section }, unit: '' };
 }
 
-const basics = parseBasics(`${SPEC}/basics.css`).filter((g) => !/tube/i.test(g.name));
+const basics = parseBasics(BASICS).filter((g) => !/tube/i.test(g.name));
 const names = (group) => basics.find((g) => g.name === group).tokens.map(([css]) => css.slice(2));
 const PALETTE = names('Palette');
 const FAMILIES = names('Font families');
@@ -175,7 +177,7 @@ const vars = (list) => list.map((t) => `${t.css}: ${t.start}`).join('; ');
 // ---- screen 00, the boot: agreed, held frame ----
 
 function bootBoards() {
-  const src = readFileSync(`${SPEC}/00-boot/screen.html`, 'utf8');
+  const src = readFileSync(`${SCREENS}/00-boot/screen.html`, 'utf8');
   const css = src.match(/<style>([\s\S]*?)<\/style>/)[1];
   // The boot's own rules, scoped to its board, without the timeline: the held frame.
   const rules = css
@@ -262,7 +264,7 @@ const roundScreen = (html) => html
 
 const COMPONENTS = components();
 // Round 3's copy of each component is its own template, Tools/canvas/rounds/r3/<name>/component.html: on the scales,
-// with its gaps from Visual Design's spacing table. Approving the round makes it the agreed component.html.
+// with its gaps from the visual language's spacing table. Approving the round makes it the agreed component.html.
 const roundFile = (name) => `Tools/canvas/rounds/r3/${name}/component.html`;
 const ROUND = COMPONENTS.map((c) => ({ name: c.name, ...readComponent(roundFile(c.name)) }));
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -344,7 +346,7 @@ function componentBoards(round) {
     const grow = round ? 60 : 0;
     // A state with no image yet takes its frame's width and room to spare.
     const size = (id) => {
-      const png = `${SPEC}/components/${c.name}/${id}.png`;
+      const png = `${VISUAL}/components/${c.name}/${id}.png`;
       if (!existsSync(png)) return { width: +states.find((s) => s.id === id).frame.match(/width: (\d+)px/)[1], height: 200 };
       const s = readFileSync(png); return { width: s.readUInt32BE(16), height: s.readUInt32BE(20) + grow };
     };
@@ -398,7 +400,7 @@ return d;
 }
 
 function navigationBoards(round) {
-  const src = readFileSync(`${SPEC}/01-navigation/screen.html`, 'utf8');
+  const src = readFileSync(`${SCREENS}/01-navigation/screen.html`, 'utf8');
   const names = { home: 'Home', raised: 'Raised', workout: 'Workout', editing: 'Editing', 'power-down': 'Power' };
   const titles = { home: 'home', raised: 'list raised', workout: 'workout in progress', editing: 'editing the Goals widget', 'power-down': 'power down, held' };
   const out = {};
@@ -944,7 +946,7 @@ ${Object.keys(round3).map((b) => `<dc-import name="${b.replace('.dc.html', '')}"
   }),
 };
 for (const [name, text] of Object.entries(files)) writeFileSync(`${OUT}/${name}`, text);
-copyFileSync(`${SPEC}/basics.css`, `${OUT}/basics.css`);
+copyFileSync(BASICS, `${OUT}/basics.css`);
 
 // canvas.json: the Theme page first, an entry per board (a board already placed keeps its place), the order.
 const index = JSON.parse(readFileSync(`${OUT}/canvas.json`, 'utf8'));

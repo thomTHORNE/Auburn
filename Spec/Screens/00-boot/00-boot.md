@@ -22,7 +22,7 @@ It costs about eight seconds a few times a day and nothing more. It plays only w
 
 ## Rules
 
-- The line under the mark is "Introducing, the new You." on every boot.
+- The line under the mark is the [slogan](../../../Lens/Language/Lexicon.md#slogan), on every boot.
 - The boot has both themes; the theme decides which version plays.
 
 ## Controls

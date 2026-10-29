@@ -53,8 +53,6 @@ A cold start plays the boot and then shows home; with a workout in progress ther
 | A widget, its keys, the list and its entries | As their component documents say |
 | Power down, held to the end | Plays the power-down, then Auburn quits |
 
-Every key's tap area is at least 44 px.
-
 ## Images
 
 Rendered from `screen.html`.

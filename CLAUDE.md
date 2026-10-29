@@ -8,7 +8,7 @@ Read this at the start of every conversation. It captures the working context bu
 
 A personal fitness training app, built around how the user actually trains.
 
-Most of what the fitness apps on the market do applies to Auburn. Where it departs from them is in the specifics of how the user trains and approaches training, and those departures are the reason Auburn exists rather than an off-the-shelf app being used. [Foundation](Foundation.md) states them, and is the root everything else answers to.
+Most of what the fitness apps on the market do applies to Auburn. Where it departs from them is in the specifics of how the user trains and approaches training, and those departures are the reason Auburn exists rather than an off-the-shelf app being used. [Foundation](Lens/Foundation.md) states them, and is the root everything else answers to.
 
 Mobile only: Android and iOS phones, from v0. The stack is Flutter — see `Spec/Architecture/Architecture.md`.
 
@@ -48,9 +48,18 @@ The user also runs **Northstar**, a Flutter/Dart music library manager, and **St
 ```
 Auburn/
 ├── CLAUDE.md               ← this file
-├── Foundation.md           ← why Auburn is shaped the way it is. The root.
 ├── TASKS.md                ← every version's work, spec and release, with inline reasoning notes
 ├── Ideas.md                ← deferred ideas, not committed to spec
+├── Lens/                   ← what Auburn is judged through. See Lens below.
+│   ├── Glossary.md         ← the vocabulary, and the rules that place every document
+│   ├── Foundation.md       ← why Auburn is shaped the way it is. The root.
+│   ├── Principles.md
+│   └── Language/
+│       ├── basics.css      ← every value, in every medium
+│       ├── Lexicon.md
+│       ├── Touch.md
+│       ├── Visual/
+│       └── Sound/
 ├── Research/               ← ideas developed in parallel to the spec. See Research below.
 ├── Learning/               ← explainers. See Learning below.
 ├── Lab/                    ← throwaway code that answers questions. See Lab below.
@@ -61,16 +70,12 @@ Auburn/
 └── Spec/
     ├── Scope.md            ← what each version includes and excludes
     ├── Data Model.md       ← source of truth for every training record
-    ├── Design Principles.md
-    ├── Visual Design.md
-    ├── Sound Design.md
+    ├── Screens/            ← every screen, built from the languages
     ├── Features/
     ├── Architecture/
     │   └── Architecture.md
     └── Integrations/
 ```
-
-**Foundation holds authority over `Spec/`.** Where a spec document disagrees with Foundation, Foundation holds and the spec document is the defect.
 
 ---
 
@@ -85,15 +90,13 @@ its words only in the senses it gives them.
 
 ## Spec structure
 
-`Spec/` is the complete reference for building Auburn — behavior, structure, mechanics, and technical decisions. It is divided into these domains, each with a distinct purpose:
+`Spec/` is what is built through the Lens, and with it the complete reference for building Auburn — behavior, screens, structure, mechanics, and technical decisions. It is divided into these domains, each with a distinct purpose:
 
 | Domain | Purpose |
 |---|---|
-| **Scope** | What each version includes and excludes, and why. Foundation and the design principles stay fixed across versions; scope is what changes. |
+| **Scope** | What each version includes and excludes, and why. Foundation and the principles stay fixed across versions; scope is what changes. |
 | **Data Model** | The canonical definition of every record Auburn keeps — exercises, sessions, sets, programs, measurements — with fields, types, and rules. The single source of truth. If a field isn't defined here, it doesn't exist in Auburn. Feature specs reference it; they never redefine it. |
-| **Design Principles** | The principles that govern every decision, each tracing to the Foundation section it derives from. A lens applied to every feature — not a spec in its own right. |
-| **Visual Design** | Concrete values: palette, type, spacing, radii. Where Design Principles holds the reasoning, this holds the numbers. |
-| **Sound Design** | The sounds, when each plays, and when Auburn is silent. Where Visual Design holds the picture, this holds the sound. |
+| **Screens/** | Every screen: its document, `screen.html` and images, built from the languages and carrying the behaviour Features specifies. How a screen is agreed is the visual design process below. |
 | **Features/** | Behavioral specifications — what each feature does, the rules governing it, its states, constraints, and edge cases. No implementation detail lives here; that belongs in Architecture or Integrations. |
 | **Architecture/** | Structural and technical decisions: stack, persistence, sync, build sequencing. Records the why behind major choices. |
 | **Integrations/** | Source-specific implementation detail for outside systems: endpoints, tokens, payloads, platform constraints. Feature specs stay behavior-focused and reference the relevant integration spec for the how. An integration that grows in scope becomes its own subfolder. |
@@ -110,19 +113,19 @@ its words only in the senses it gives them.
 
 ## Visual design process
 
-`Spec/Visual Design.md` holds the rules every screen follows and the screens table; `Spec/Visual Design/basics.css` holds every value — palette, faces, emphasis, timings, the tube's numbers. Each agreed screen has its own document in its folder, linked from the table. A screen is either agreed or stated as not yet specified, with a TASKS.md item for each screen still open. The screens are agreed one at a time.
+`Lens/Language/Visual/Visual.md` holds the rules every screen follows; `Lens/Language/basics.css` holds every value — palette, faces, emphasis, timings, the tube's numbers, the hold's durations; `Spec/Screens/Screens.md` holds the screens table. Each agreed screen has its own document in its folder, linked from the table. A screen is either agreed or stated as not yet specified, with a TASKS.md item for each screen still open. The screens are agreed one at a time.
 
 ### How a screen gets agreed
 
 1. **Explain it first.** Before any design, Claude states the screen's purpose, why it earns its place, and what it must carry. The user confirms it is understood, or the screen is cut or merged. A screen that cannot say why it exists is not designed.
-2. **Wireframe the information.** On the screen's page in the canvas, every piece of information that could appear is laid out and weighed, and only what earns its place stays. Wireframes carry no look, but they carry structure: which pieces form one thing, which names which, which heads which, and which are separate sections. That structure sets every gap, from Visual Design's spacing table, before the first round.
+2. **Wireframe the information.** On the screen's page in the canvas, every piece of information that could appear is laid out and weighed, and only what earns its place stays. Wireframes carry no look, but they carry structure: which pieces form one thing, which names which, which heads which, and which are separate sections. That structure sets every gap, from the visual language's spacing table, before the first round.
 3. **Iterate on the design canvas**, round by round, until the user approves a version. A round is built from the basics' rules first: every gap from its relationship, every text from the type scale at its emphasis level, every key at the tap area. A round that needs a value the rules don't give, or a different one, asks for it, and either the rule or the round changes.
 4. **Save the approved version**: the screen's document, its HTML, and an image per state, as below.
 5. **Remove its TASKS.md item.**
 
 ### An agreed screen
 
-Its folder, `Spec/Visual Design/<nn-screen>/`, holds `<nn-screen>.md`, `screen.html` and the state images. The document opens with **Why it is shaped this way**: the reasoning from the explanation, the wireframe and the rounds — what the screen had to carry, what was weighed and set aside, and why — written in the spec's voice and kept in step with the rules below it. Then five parts. A document never describes what its design shows:
+Its folder, `Spec/Screens/<nn-screen>/`, holds `<nn-screen>.md`, `screen.html` and the state images. The document opens with **Why it is shaped this way**: the reasoning from the explanation, the wireframe and the rounds — what the screen had to carry, what was weighed and set aside, and why — written in the spec's voice and kept in step with the rules below it. Then five parts. A document never describes what its design shows:
 
 - **Purpose.** One sentence: what the user comes here to do.
 - **Earns its place.** What would break or be worse without it, and why it is not folded into another screen.
@@ -134,7 +137,7 @@ Its folder, `Spec/Visual Design/<nn-screen>/`, holds `<nn-screen>.md`, `screen.h
 
 ### An agreed component
 
-Its folder, `Spec/Visual Design/components/<name>/`, holds `<name>.md`, `component.html`
+Its folder, `Lens/Language/Visual/components/<name>/`, holds `<name>.md`, `component.html`
 and the state images. The document follows a screen's, without **Earns its place**: **Why it
 is shaped this way**, then **Purpose**, **Rules** (what each property changes, and what holds
 in every state), **Controls** and **Images**. A screen's document names the components it
@@ -143,7 +146,7 @@ uses and never repeats their rules.
 `component.html` is the agreed component as one template: its markup, a hole for each piece
 of text it is given, and a data attribute for each property that changes its look. It links
 `basics.css`, uses only semantic and component values, and lists the states to render.
-`Tools/` builds `Spec/Visual Design/components.js` from every `component.html`; a screen's
+`Tools/` builds `Lens/Language/Visual/components.js` from every `component.html`; a screen's
 `screen.html` loads it and places each component as an element, never a copy of its markup.
 `components.js` is generated and never edited.
 
@@ -152,7 +155,7 @@ each property, and every screen board that uses it imports it.
 
 ### What owns what
 
-- `basics.css` owns every value. A screen never introduces one; a value it needs is added there first.
+- `basics.css` owns every value, and the Lexicon every word.
 - `screen.html` owns the look and layout: sizes, gaps, positions. Canvas pixels are Flutter logical pixels. The art files own the art.
 - `component.html` owns a component's look and layout. A screen's `screen.html` owns where each component sits and which properties and text it is given.
 - The screen's document owns reasoning, behaviour, rules, and data.
@@ -189,7 +192,7 @@ A publish is undone by publishing the files from the commit before it.
 **Pages.** Theme first, then Components, then one page per screen named by its number and
 name (its wireframes and rounds), then Explorations.
 
-**Values.** `project/basics.css` is a copy of `Spec/Visual Design/basics.css`, and every board
+**Values.** `project/basics.css` is a copy of `Lens/Language/basics.css`, and every board
 links it. A board never declares a value. A screen board declares no values. Sizes and
 gaps are steps of the basics' type and spacing scales; only a position on one screen is that
 screen's own.
@@ -214,7 +217,7 @@ on the user's computer. An earlier value is read from the log and set back in th
 Reset all is Claude republishing the board from the basics.
 
 **Persisting.** The user says which trials persist. Claude writes those into
-`Spec/Visual Design/basics.css`, copies it to the canvas, and removes the persisted and the
+`Lens/Language/basics.css`, copies it to the canvas, and removes the persisted and the
 dropped trials from the boards, all in one commit.
 
 **Rounds.** Every round has a status: in progress, approved, or set aside. It shows in the

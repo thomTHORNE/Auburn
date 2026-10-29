@@ -1,6 +1,6 @@
 # Foundation
 
-This document is the reason Auburn is shaped the way it is. The design principles, the features, and the technical decisions all answer to it. Where another document disagrees with this one, this one holds and the other is the defect.
+This document is the reason Auburn is shaped the way it is. The principles, the languages, the features, and the technical decisions all answer to it. Where another document disagrees with this one, this one holds and the other is the defect.
 
 ---
 

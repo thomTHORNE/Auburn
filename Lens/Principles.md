@@ -1,8 +1,8 @@
-# Design Principles
+# Principles
 
-These principles govern every feature — interaction, layout, defaults, and what is refused. They are not aesthetic preferences. They are the reason the app is shaped the way it is. If a proposed element or interaction cannot be justified by at least one of them, it does not belong in Auburn.
+These principles govern everything Auburn does and every way it expresses itself — behaviour, interaction, layout, words, sound, and what is refused. They are not aesthetic preferences. They are the reason the app is shaped the way it is. If a proposal cannot be justified by at least one of them, it does not belong in Auburn.
 
-Each principle names the [Foundation](../Foundation.md) section it derives from. A principle that cannot trace to Foundation is either a missing part of Foundation or not a principle.
+Each principle names the [Foundation](Foundation.md) section it derives from. A principle that cannot trace to Foundation is either a missing part of Foundation or not a principle.
 
 Each is stated as a rule, followed by the cost it prevents, followed by a line showing it in practice.
 
@@ -68,6 +68,18 @@ The gym floor is a divided-attention context. A control that needs aiming pulls 
 
 ---
 
+## What cannot be undone takes effort
+
+An action that cannot be taken back is never a tap. It asks for a deliberate act, and stopping partway takes nothing.
+
+A tap lands by accident, and on the gym floor, from a hand that has just put down a weight, it often does. An accident that can be undone costs a moment; one that cannot costs whatever it took, and nothing brings it back.
+
+> In practice: Power down is pressed and held; let go before the fill is full, and nothing happens.
+
+*Derives from: Training.*
+
+---
+
 ## Hierarchy says what matters
 
 Not everything on a screen matters equally, and the screen says so. What the user came for is the most prominent; what informs it steps back; what only holds the screen together steps back further. Every element sits on one of those levels, and balancing them is the core of every screen's design.
@@ -90,3 +102,15 @@ A tap registers the moment it lands, on screen and in the hand, before anything 
 > The boot screen is the one exception: it plays to the end, and a tap during it does nothing.
 
 *Derives from: Training; A set is graded by feel.*
+
+---
+
+## The screen carries everything
+
+Everything Auburn tells the user is on the screen. A haptic confirms what the screen shows, and a sound accompanies it; neither carries anything the screen does not.
+
+Sound is off on a phone set to silent and lost in a loud gym, and a haptic is missed by a hand that has already let go. Whatever only one of them carries is lost to the user who did not hear or feel it, and on the gym floor that is often.
+
+> In practice: the three sounds are the machine running behind the tube and say nothing the screen does not.
+
+*Derives from: Training.*

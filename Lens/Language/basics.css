@@ -1,7 +1,7 @@
 /* Auburn's basics: every value a screen may use, in three tiers. Screens link this file; they never copy it.
    Primitives have no context; semantic values say what a value is for and refer only to primitives;
    component values belong to one part and refer only to semantic values. Screens and components use
-   semantic and component values, never a primitive. The rules are in Spec/Visual Design.md. */
+   semantic and component values, never a primitive. The rules are in Lens/Language/Visual/Visual.md. */
 :root {
   /* ---- Primitive: values with no context ---- */
 

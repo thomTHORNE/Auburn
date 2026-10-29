@@ -32,7 +32,7 @@ Only tracked groups with a band are tinted. Untracked groups and groups not yet 
 ## Constraints
 
 - One region per muscle group per view; the figure cannot show a group the list does not have.
-- The look, colours, and art are [Visual Design](../Visual%20Design.md)'s.
+- The look, colours, and art are [visual language](../../Lens/Language/Visual/Visual.md)'s.
 
 ## Edge cases
 

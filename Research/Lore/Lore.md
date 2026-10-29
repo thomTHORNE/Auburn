@@ -44,6 +44,23 @@ The fiction Auburn's second realm is built from: the corporation, its voice, and
 
 - Several Foundation mechanics already read as corporate policy without changing them.
 
+## Where it lands
+
+Each part promotes on its own once settled, into the layer and medium it belongs to:
+
+| Part | Lands in | As |
+|---|---|---|
+| The corporation, its culture, the founder | Foundation § Two realms | The case for the fiction |
+| Slogan, maxims, house vocabulary, plain labels or fiction second, the dose | Lexicon | House-voice elements and grammar |
+| A maxim never names training; no maxim while a set is being logged | Lexicon | Grammar, citing the principle each comes from |
+| No line lifted from the references | Lexicon | Grammar |
+| The references | Lexicon and Visual, in why each is shaped this way | Reasoning, not rules |
+| Classical statues, the mark | Visual | Elements |
+| Sound's part in the voice | Sound | Grammar |
+| In-world paperwork | Lexicon, and the screens that carry it | Words in the Lexicon, placement in Spec |
+| Commendations | Lexicon, and a Features entry | Words in the Lexicon; when one is granted is behaviour |
+| Outward pieces | Launch, drawing on the Lexicon | Outside the Lens |
+
 ## Dependencies
 
-Requires nothing. Required by any feature, screen or sound that carries in-world text, and the Launch topics whose copy speaks in its voice.
+Requires nothing. Required by the Lexicon's house voice, any feature, screen or sound that carries in-world text, and the Launch topics whose copy speaks in its voice.

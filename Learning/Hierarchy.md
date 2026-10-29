@@ -66,6 +66,6 @@ Neither is decided. The colour explainer shows the same split from the palette's
 
 ## Back to the spec
 
-Design Principles, "Hierarchy says what matters": "What the user came for is the most prominent; what informs it steps back; what only holds the screen together steps back further. … In practice: on the main menu, the destinations are at full strength, the status lines a step back, and the numbers and the rules between rows further back still."
+Principles, "Hierarchy says what matters": "What the user came for is the most prominent; what informs it steps back; what only holds the screen together steps back further. … In practice: on the main menu, the destinations are at full strength, the status lines a step back, and the numbers and the rules between rows further back still."
 
 That principle names the levels and the order. What it leaves unsaid is that every property, not just colour, has to agree with that order, and that something like POWER DOWN, loud for a different reason, needs a rule of its own. That is the question the colour and spacing work keeps arriving at.
