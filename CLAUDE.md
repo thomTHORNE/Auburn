@@ -513,3 +513,5 @@ current conversation for them to write from — manual only, never invoked unpro
 ## Where things stand
 
 See `TASKS.md` for the current phase breakdown and status.
+
+@canary-root.md
