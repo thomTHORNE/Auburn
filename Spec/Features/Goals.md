@@ -55,9 +55,7 @@ A new goal can be started from an ended one: a draft holding its name, explanati
 
 ### What a goal shows
 
-Its explanation. Then its chart: the line of the exercise or kind its target sits on, drawn only from the facts the target's rules let through, with the target as a line across it and the gap stated. The gap runs from the best point since the goal was made active to the target; until a point arrives, from the last point before it. The parameter plotted is a viewing choice kept on the goal, starting from the target's own; the target's line and gap show only on its own parameter.
-
-Then its supporting exercises, each with its progress as specified in [Progress](Progress.md).
+Its explanation. Then one chart holding a line for every exercise in the goal, and for the activity kind its target sits on. The target's exercise or kind is drawn only from the facts the target's rules let through, with the target as a line across it and the gap stated. The gap runs from the best point since the goal was made active to the target; until a point arrives, from the last point before it. Each supporting exercise is drawn as [Progress](Progress.md) draws it. The parameter plotted is a viewing choice kept on the goal, starting from the target's own, and every line follows it; a line with no point in that parameter is left out. The target's line and gap show only on the target's own parameter.
 
 A reached goal also shows the days from active to reached. An abandoned goal shows the days it ran and why it was abandoned.
 

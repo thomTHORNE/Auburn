@@ -21,7 +21,7 @@ Resolved tasks are removed from TASKS.md.
 
 The developer and a small circle of trusted testers · [Scope](Spec/Scope.md#v0)
 
-Waits on research: Suunto, Notion Import, Lore, Tests.
+Waits on research: Suunto, Notion Import, Lore, Tests, Routines.
 
 ### Alignment 1 — Lens
 

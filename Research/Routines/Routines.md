@@ -1,0 +1,45 @@
+Status: Open
+
+# Routines
+
+A template for a workout, planned in advance, that a workout is started from, so the gym is for execution. Seeded by [Origin](Origin.md).
+
+## Why
+
+- **Planning at downtime, focus at the gym.** A routine is where the user works out how to train around their life; at the gym they pick it and execute, without deliberating.
+- **Exercises and goals grouped for one workout.** Without routines, every workout starts from the full list of exercises and goals, searched and scrolled each time.
+- **A place for the urge to organise.** Grouping training as Push, Pull, Legs or Upper, Lower is legitimate, and it needs a home that is not a goal.
+
+## Settled
+
+- **A routine is a fixed plan the user makes in advance**, a template a workout starts from. The workout it starts is recorded like any other.
+- **A routine holds exercises and goals.** A goal brings its exercises, and a goal can sit in any number of routines.
+- **A workout started from a routine still takes exercises that are not in it.**
+- **There is no limit to how many routines exist.**
+- **A routine stands alone or belongs to one named group,** such as Push, Pull and Legs. Grouped routines are shown together, apart from standalone ones.
+- **Routines are picked when a workout starts and edited on a screen of their own,** never in the start flow.
+- **Auburn never suggests which routine is next, and never schedules one.** Foundation's refusal to prescribe the day's training holds: the user picks, from rest and feel.
+
+## Use cases
+
+1. **Training organised around a life** — push, pull, legs; upper and lower; full body. Legitimate and allowed: a short list of routines is the cheapest way to reach what the user came to train.
+2. **Routines that belong together, set apart** — Push, Pull and Legs as one group, Full body on its own. Legitimate and allowed: grouping keeps a long list readable.
+3. **Organising with a goal instead** — an "Isolations" goal holding every arm exercise. Tolerated and superseded: a goal needs a target its one exercise proves, so a grouping of unrelated exercises makes a poor goal. Routines are where this belongs.
+
+## Open questions
+
+- **Gyms.** How a routine handles exercises tied to a gym other than the one the workout is at.
+- **What a routine holds per exercise.** Order alone, or more.
+- **Kind.** Whether a routine is hypertrophy or mobility, as a workout is.
+- **The group's name.** "Split" already names a grouping of muscle groups for rest at a glance, which is to be researched again.
+- **Foundation.** "The problem" argues against planning in advance and records fixed splits as abandoned; "Variety on purpose" says a fixed routine goes stale. Both are reworded before routines promote.
+
+## Findings
+
+- **Splits failed in Notion because goals and exercises could not be shown together.** A split there was a list searched each time. Auburn can show both, which removes the friction, not the plan.
+- **Supporting and alternate exercises in a goal act the same.** Only the intent differs, and intent belongs in the goal's explanation.
+
+## Dependencies
+
+- **Requires:** none. The group's name waits on rest at a glance being researched again.
+- **Required by:** none.

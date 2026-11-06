@@ -17,7 +17,7 @@ Each workout the exercise was done in is one point on the workout's date, for th
 
 Load is shown first; the choice is kept per exercise. A workout with no set for the chosen parameter adds no point; ungraded imported sets add none to load.
 
-The progress is shown on the exercise, above its past sets, and under each goal it serves, as specified in [Goals](Goals.md).
+The progress is shown on the exercise, above its past sets, and as a line in the chart of each goal it serves, as specified in [Goals](Goals.md).
 
 ### Cardio progress
 
