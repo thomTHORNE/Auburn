@@ -19,7 +19,8 @@ A template for a workout, planned in advance, that a workout is started from, so
 - **A routine stands alone or belongs to one named group,** such as Push, Pull and Legs. Grouped routines are shown together, apart from standalone ones.
 - **Routines are picked when a workout starts and edited on a screen of their own,** never in the start flow.
 - **A routine is tied to gyms or to none, as an exercise is.** A tied routine is offered only at its gyms; an untied one is offered everywhere. A tied routine holds only exercises available at one of its gyms.
-- **A goal joins a tied routine only if its target's exercise is available at one of the routine's gyms.** A goal whose target's exercise belongs to another gym cannot be proven there.
+- **A goal whose target sits on an exercise joins a tied routine only if that exercise is available at one of the routine's gyms.** A goal whose target's exercise belongs to another gym cannot be proven there.
+- **A goal whose target sits on an activity kind can sit in any routine.** It brings only its supporting exercises; the activity that proves it arrives from the watch. Its supporting exercises follow the gym like any others.
 - **A routine holds a goal, never a copy of its exercises.** The goal's exercises are read when the workout starts, so an active goal's supporting exercises can change without the routine being edited.
 - **A workout started from a routine offers the routine's exercises available at its gym.** An exercise tied to another gym is replaced by its alternate available here, or left out.
   This holds for the exercises a goal brings: a supporting exercise tied to another gym gives way to its alternate, or is left out, and the goal stays.
@@ -31,13 +32,13 @@ A template for a workout, planned in advance, that a workout is started from, so
 1. **Training organised around a life** — push, pull, legs; upper and lower; full body. Legitimate and allowed: a short list of routines is the cheapest way to reach what the user came to train.
 2. **Routines that belong together, set apart** — Push, Pull and Legs as one group, Full body on its own. Legitimate and allowed: grouping keeps a long list readable.
 3. **Organising with a goal instead** — an "Isolations" goal holding every arm exercise. Tolerated and superseded: a goal needs a target its one exercise proves, so a grouping of unrelated exercises makes a poor goal. Routines are where this belongs.
+4. **A running goal's strength work, inside a gym routine** — "4 km under 20 minutes", supported by calf raises and step-ups, sits in Leg day. Legitimate and allowed: the routine shows which of its exercises serve the run.
 
 ## Open questions
 
 - **What a routine holds per exercise.** Order alone, or more.
 - **Kind.** Whether a routine is hypertrophy or mobility, as a workout is.
 - **The group's name.** "Split" already names a grouping of muscle groups for rest at a glance, which is to be researched again.
-- **Cardio goals.** Whether a goal whose target sits on an activity kind can sit in a routine, bringing only its supporting exercises.
 - **Foundation.** "The problem" argues against planning in advance and records fixed splits as abandoned; "Variety on purpose" says a fixed routine goes stale. Both are reworded before routines promote.
 
 ## Findings
