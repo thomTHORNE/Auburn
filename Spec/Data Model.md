@@ -98,6 +98,7 @@ class Goal {
   final String? abandonedBecause;        // abandoned only
   final String? fromGoalId;              // the goal this one was started from
   final TargetParameter? shownParameter; // what the chart plots; null: the current target's parameter
+  final Set<String> hiddenExerciseIds;   // exercises whose lines the chart hides; never the target's
 }
 
 enum TargetParameter { load, reps, pace, duration, distance, averageHeartRate }

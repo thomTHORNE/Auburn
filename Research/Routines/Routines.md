@@ -18,6 +18,8 @@ A template for a workout, planned in advance, that a workout is started from, so
 - **There is no limit to how many routines exist.**
 - **A routine stands alone or belongs to one named group,** such as Push, Pull and Legs. Grouped routines are shown together, apart from standalone ones.
 - **Routines are picked when a workout starts and edited on a screen of their own,** never in the start flow.
+- **A routine is tied to gyms or to none, as an exercise is.** A tied routine is offered only at its gyms; an untied one is offered everywhere. A tied routine holds only exercises available at its gyms.
+- **A workout started from a routine offers the routine's exercises available at its gym.** An exercise tied to another gym is replaced by its alternate available here, or left out.
 - **Auburn never suggests which routine is next, and never schedules one.** Foundation's refusal to prescribe the day's training holds: the user picks, from rest and feel.
 
 ## Use cases
@@ -28,7 +30,6 @@ A template for a workout, planned in advance, that a workout is started from, so
 
 ## Open questions
 
-- **Gyms.** How a routine handles exercises tied to a gym other than the one the workout is at.
 - **What a routine holds per exercise.** Order alone, or more.
 - **Kind.** Whether a routine is hypertrophy or mobility, as a workout is.
 - **The group's name.** "Split" already names a grouping of muscle groups for rest at a glance, which is to be researched again.

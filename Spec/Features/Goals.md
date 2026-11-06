@@ -57,6 +57,8 @@ A new goal can be started from an ended one: a draft holding its name, explanati
 
 Its explanation. Then one chart holding a line for every exercise in the goal, and for the activity kind its target sits on. The target's exercise or kind is drawn only from the facts the target's rules let through, with the target as a line across it and the gap stated. The gap runs from the best point since the goal was made active to the target; until a point arrives, from the last point before it. Each supporting exercise is drawn as [Progress](Progress.md) draws it. The parameter plotted is a viewing choice kept on the goal, starting from the target's own, and every line follows it; a line with no point in that parameter is left out. The target's line and gap show only on the target's own parameter.
 
+Each line can be shown or hidden, a viewing choice kept on the goal; every line is shown to begin with. The line of the exercise or kind the target sits on is always shown, since the target and its gap sit on it. Viewing choices can change on an ended goal: they are not part of what it froze.
+
 A reached goal also shows the days from active to reached. An abandoned goal shows the days it ran and why it was abandoned.
 
 ## States
