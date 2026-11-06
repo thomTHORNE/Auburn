@@ -102,10 +102,9 @@ class Goal {
 
 enum TargetParameter { load, reps, pace, duration, distance, averageHeartRate }
 
-/// A step or a final target. A goal's targets are reached in position order; the last is the final target.
+/// A goal's target.
 class Target {
   final String goalId;
-  final int position;               // from 1, without gaps
   final String? exerciseId;         // one of the goal's exercises; or
   final ActivityKind? activityKind; // an activity kind
   final TargetParameter parameter;
@@ -123,10 +122,10 @@ class Target {
 
 - A goal's exercises are the exercises that name it.
 - `activatedAt` is set exactly when the state is not draft; `endedAt` exactly when it is reached or abandoned; `abandonedBecause` exactly when abandoned, and never empty.
-- A goal that is not a draft has at least one target.
+- A goal has at most one target; one that is not a draft has exactly one.
 - A target has exactly one of `exerciseId` and `activityKind`. On an exercise, its parameter is load or reps, the exercise names the goal, and it has at least one grade. On an activity kind, its parameter is pace, duration, distance, or average heart rate, and it has no grades.
 - `minLoadKg` is set only on a reps target. `minDistanceKm ≤ maxDistanceKm` when both are set.
-- `kept` is true only with `reachedAt`. A reached goal's targets are all kept.
+- `kept` is true only with `reachedAt`. A reached goal's target is kept.
 - A target's reach is stored, not derived: the user keeps or undoes it, and an ended goal never changes.
 
 ## Workouts

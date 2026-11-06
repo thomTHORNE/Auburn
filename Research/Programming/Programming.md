@@ -28,6 +28,8 @@ The method a goal is meant to be reached by, stated in advance by the user, so t
 - **A method is tracked through exercises of its own.** Negatives and partials are each an exercise; a method done as a variation logged under another exercise cannot be counted apart.
 - **Programming explains through what Auburn records; a phase explains through what it does not.** A method is workouts and sets, so Auburn can check it. A cut, an injury, or a busy quarter happens outside Auburn's facts, so a phase is only the user's word. This is why programming belongs in Auburn and phases were parked.
 - **A followed method under an unrecorded circumstance reads as a method that failed.** Programming cannot tell "the method does not work" from "the method works, and a cut held it back". The abandon reason is where the user says which.
+- **An exercise too hard for a beginner needs no programming, only exercises of its own.** For a pull-up out of reach, negatives and band pull-ups are exercises like any other; how many sets and how often stays in the goal's explanation.
+- **Programming proved to be a lock-in for what the user said they would do, and too complicated to define yet.** Without it, the goal's chart still shows over time whether the stated method was followed.
 - **Shown where training is chosen, programming would prescribe the day.** Foundation refuses that. Shown with a committed exercise, it is the user's own intent, as the exercise's notes are.
 
 ## Dependencies

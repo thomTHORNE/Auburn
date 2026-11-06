@@ -106,7 +106,7 @@ The fiction changes what Auburn says, never what Auburn does. Every behaviour fo
 
 - **Muscle group** — a part of the body rest is kept for, from a standard list: chest, front delts, side delts, rear delts, biceps, triceps, forearms, lats, upper back, traps, lower back, abs, obliques, quads, hamstrings, glutes, calves, adductors, abductors, neck. Cardio rests the same way, reset by runs, treadmill sessions, and hikes from the watch.
 - **Goal** — something to reach: the user's explanation of what it is and how it is achieved, its target, and the exercises that work toward it.
-- **Target** — what reaching a goal looks like: a value on one exercise's sets or one kind of activity, under the user's own rules. Steps are targets on the way to the final one.
+- **Target** — what reaching a goal looks like: a value on one exercise's sets or one kind of activity, under the user's own rules.
 - **Exercise** — a movement, on specific equipment where it uses any. Works one or more muscle groups, may serve goals, may name alternates, and may be tied to the gyms it is done at. A mobility exercise works no muscle group and serves no goal.
 - **Alternate** — an exercise named on another as its stand-in, used when that one's equipment is taken.
 - **Workout** — one visit to train at a gym: the exercises committed to it, in order, and their sets. Titled by its date and gym. A workout is hypertrophy or mobility, never both.
