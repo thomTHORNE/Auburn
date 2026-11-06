@@ -45,6 +45,7 @@ A template for a workout, planned in advance, that a workout is started from, so
 
 - **Splits failed in Notion because goals and exercises could not be shown together.** A split there was a list searched each time. Auburn can show both, which removes the friction, not the plan.
 - **Supporting and alternate exercises in a goal act the same.** Only the intent differs, and intent belongs in the goal's explanation.
+- **A routine holds no activity, and a workout never records one.** A treadmill session done during a gym visit arrives from the watch as an activity of its own; a treadmill goal in the routine is the only link between them.
 
 ## Dependencies
 

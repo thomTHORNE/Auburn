@@ -24,7 +24,7 @@ The Suunto watch records strength sessions with heart rate, and intervals.icu se
 
 Parked because v0 reads only runs, treadmill sessions, and hikes, and what heart rate would add beside graded sets is not yet understood.
 
-Worth revisiting if heart rate during a workout would change how rest or a grade is read.
+Worth revisiting if heart rate during a workout would change how rest or a grade is read, or if a treadmill session done during a workout should show inside it: both read the same watch data, matched to the workout by time.
 
 ## A run's route
 
