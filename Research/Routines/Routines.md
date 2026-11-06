@@ -39,7 +39,6 @@ A template for a workout, planned in advance, that a workout is started from, so
 
 ## Open questions
 
-- **Kind.** Whether a routine is hypertrophy or mobility, as a workout is.
 - **How a goal's exercises are reached in a routine.** In the routine's own list beneath the goal, or one step away through it. Decided with the screen.
 - **The group's name.** "Split" already names a grouping of muscle groups for rest at a glance, which is to be researched again.
 - **Foundation.** "The problem" argues against planning in advance and records fixed splits as abandoned; "Variety on purpose" says a fixed routine goes stale. Both are reworded before routines promote.
@@ -52,5 +51,5 @@ A template for a workout, planned in advance, that a workout is started from, so
 
 ## Dependencies
 
-- **Requires:** none. The group's name waits on rest at a glance being researched again.
+- **Requires:** none. The group's name waits on rest at a glance being researched again; mobility exercises in a routine wait on Mobility.
 - **Required by:** none.

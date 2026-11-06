@@ -2,13 +2,13 @@
 
 ## What it is
 
-The modality an exercise is done with in a hypertrophy workout — slow and controlled, counted, or by feel — rolled when the exercise is committed, so training stays varied by design.
+The modality an exercise is done with in a workout — slow and controlled, counted, or by feel — rolled when the exercise is committed, so training stays varied by design.
 
 ## Behavior
 
 ### The roll
 
-While a workout's roll is on, each commit rolls one of the three modalities, each equally likely. With it off, a commit is by feel. A new hypertrophy workout starts with the roll on; it can be switched off and on at any time, and commits already made keep their modality.
+While a workout's roll is on, each commit rolls one of the three modalities, each equally likely. With it off, a commit is by feel. A new workout starts with the roll on; it can be switched off and on at any time, and commits already made keep their modality.
 
 ### Never re-rolled
 
@@ -26,7 +26,7 @@ The modality is shown prominently on the exercise for as long as it is being don
 
 ## Constraints
 
-- Hypertrophy only. Mobility and cardio have no modality.
+- Cardio has no modality.
 - Imported workouts carry no modality.
 
 ## Edge cases

@@ -63,9 +63,6 @@ Waits on research: Suunto, Notion Import, Lore, Tests, Routines.
 - [ ] **`#6.9` Screen 06, logging a set, is not specified**
     `GAP`
 
-- [ ] **`#6.10` Screen 07, a mobility workout, is not specified**
-    `GAP`
-
 - [ ] **`#6.11` Screen 08, past workouts, is not specified**
     `GAP`
 

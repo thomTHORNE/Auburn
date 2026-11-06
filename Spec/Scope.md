@@ -40,7 +40,6 @@ Builds are numbered major.minor.patch, and the major is the version: v0's builds
 | **Modality** | The modality roll, on when a workout starts and switched off or on during it. With it off, every exercise is done by feel. |
 | **Exercises** | The user's own exercises, each with the muscle groups it works and its alternates, optionally tied to gyms, with its notes and its past sets, grouped by workout and showing the gym and the exercise's place in that workout. |
 | **Progress** | Each exercise's ideal load over time. |
-| **Mobility** | Mobility workouts, with a grading system of their own. |
 | **Cardio** | Runs, treadmill sessions, and hikes recorded on the Suunto watch, read from intervals.icu, which syncs them from the Suunto app. |
 | **Notion history** | A one-time import of Training '26: exercises and their notes, workouts, and sets. Its goals are rebuilt by hand as muscle groups and goals. |
 | **Sound** | The boot, the ambience, and the power-down. |

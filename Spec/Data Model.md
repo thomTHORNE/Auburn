@@ -54,16 +54,14 @@ class Gym {
 ## Exercises
 
 ```dart
-enum ExerciseKind { hypertrophy, mobility }
 enum LoadKind { plates, stack, dumbbells, bodyweight }
 
 class Exercise {
   final String name;
-  final ExerciseKind kind;
-  final LoadKind? loadKind;           // hypertrophy only
+  final LoadKind loadKind;
   final double? barKg;                // plates only
   final double? stepKg;               // stack and dumbbells only: the step between loads
-  final bool amap;                    // hypertrophy only
+  final bool amap;
   final Set<MuscleGroup> muscleGroups;
   final Set<String> goalIds;
   final List<String> alternateIds;    // ordered
@@ -78,10 +76,9 @@ class Exercise {
 enum ExerciseParameter { load, reps }
 ```
 
-- A hypertrophy exercise has a load kind and works at least one muscle group. An AMAP exercise resets none of them.
-- A mobility exercise has no load kind, muscle groups, goals, alternates, or AMAP flag.
+- An exercise works at least one muscle group. An AMAP exercise resets none of them.
 - `barKg` is set exactly when the load kind is plates; `stepKg` exactly when it is stack or dumbbells.
-- An alternate is a hypertrophy exercise other than the exercise itself.
+- An alternate is an exercise other than the exercise itself.
 
 ## Goals
 
@@ -132,14 +129,11 @@ class Target {
 ## Workouts
 
 ```dart
-enum WorkoutKind { hypertrophy, mobility }
-
 class Workout {
   final String gymId;
-  final WorkoutKind kind;
   final DateTime startedAt;
   final DateTime? endedAt; // null while in progress
-  final bool rollOn;       // hypertrophy only; true when the workout starts
+  final bool rollOn;       // true when the workout starts
   final bool imported;     // from the Notion history
 }
 ```
@@ -149,27 +143,24 @@ class Workout {
 
 ```dart
 enum Modality { slowAndControlled, counted, byFeel }
-enum MobilityGrade { controlled, improved, poor }
 
 /// One exercise committed to one workout.
 class Commit {
   final String workoutId;
   final String exerciseId;
   final int position;                 // commit order, from 1
-  final Modality? modality;           // hypertrophy only
-  final MobilityGrade? mobilityGrade; // mobility only, optional
+  final Modality? modality;           // none only in an imported workout
 }
 ```
 
-- The exercise's kind matches the workout's.
-- A hypertrophy commit always has a modality, except in an imported workout, which has none. With the roll off, the modality is `byFeel`.
+- A commit always has a modality, except in an imported workout, which has none. With the roll off, the modality is `byFeel`.
 - A commit records the exercise actually done. An alternate taken in place of another is simply that alternate.
 
 ```dart
 enum Grade { ideal, acceptable, light, yielding, warmup }
 
 class LoggedSet {
-  final String commitId;              // a hypertrophy commit
+  final String commitId;
   final DateTime loggedAt;            // sets are ordered by it
   final double loadKg;                // the total; for dumbbells, one dumbbell; for bodyweight, the added load
   final List<double>? platesPerSide;  // plates only, as entered

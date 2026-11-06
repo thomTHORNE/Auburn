@@ -12,7 +12,7 @@ The twenty groups of the [Data Model](../Data%20Model.md#muscle-groups), shown b
 
 ### What an exercise works
 
-A hypertrophy exercise names the muscle groups it works, at least one. There is no primary or secondary: a named group is worked in full. The groups are ticked when the exercise is created and can be changed at any time; a change applies to past sets too, since rest is computed from the records.
+An exercise names the muscle groups it works, at least one. There is no primary or secondary: a named group is worked in full. The groups are ticked when the exercise is created and can be changed at any time; a change applies to past sets too, since rest is computed from the records.
 
 ### AMAP
 
@@ -36,7 +36,6 @@ A split is a name and a set of muscle groups, created by the user. A group may s
 ## Constraints
 
 - The list is fixed in v0. No custom groups, and no group can be hidden by hand.
-- Mobility exercises name no muscle groups.
 
 ## Edge cases
 
