@@ -26,8 +26,8 @@ A template for a workout, planned in advance, that a workout is started from, so
   This holds for the exercises a goal brings: a supporting exercise tied to another gym gives way to its alternate, or is left out, and the goal stays.
 - **A goal whose target's exercise is no longer available at a tied routine's gyms** is shown on the routine's edit screen as not provable there, and its target's exercise is left out when a workout starts.
 - **A routine holds its exercises and goals in order, and nothing more about them.** No sets, reps, load, or way of doing an exercise: sets wait on programming, how an exercise is done waits on tests, and reps and load would prescribe the set.
-- **A goal's exercises take the goal's place in the order,** its target's exercise first and its supporting exercises after it.
-- **Starting a workout from a routine offers its exercises; it commits none of them.** They are committed as they are done, so commit order records what happened, and an exercise skipped leaves nothing behind. The offered list shows which have been committed. A workout's other exercises can still be committed at any time.
+- **A goal's exercises take the goal's place in the order,** in whatever order the goal holds them. A goal has no order of its own; the routine applies what the goal brings.
+- **Starting a workout from a routine offers its exercises; it commits none of them.** Whether to commit any of them is the user's choice. They are committed as they are done, so commit order records what happened, and an exercise skipped leaves nothing behind. The offered list shows which have been committed. A workout's other exercises can still be committed at any time.
 - **Auburn never suggests which routine is next, and never schedules one.** Foundation's refusal to prescribe the day's training holds: the user picks, from rest and feel.
 
 ## Use cases
@@ -39,7 +39,6 @@ A template for a workout, planned in advance, that a workout is started from, so
 
 ## Open questions
 
-- **The order of a goal's supporting exercises.** A goal keeps its exercises without an order, so where each supporting exercise falls after the target's is not yet set.
 - **Kind.** Whether a routine is hypertrophy or mobility, as a workout is.
 - **The group's name.** "Split" already names a grouping of muscle groups for rest at a glance, which is to be researched again.
 - **Foundation.** "The problem" argues against planning in advance and records fixed splits as abandoned; "Variety on purpose" says a fixed routine goes stale. Both are reworded before routines promote.
