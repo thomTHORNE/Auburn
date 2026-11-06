@@ -18,8 +18,12 @@ A template for a workout, planned in advance, that a workout is started from, so
 - **There is no limit to how many routines exist.**
 - **A routine stands alone or belongs to one named group,** such as Push, Pull and Legs. Grouped routines are shown together, apart from standalone ones.
 - **Routines are picked when a workout starts and edited on a screen of their own,** never in the start flow.
-- **A routine is tied to gyms or to none, as an exercise is.** A tied routine is offered only at its gyms; an untied one is offered everywhere. A tied routine holds only exercises available at its gyms.
+- **A routine is tied to gyms or to none, as an exercise is.** A tied routine is offered only at its gyms; an untied one is offered everywhere. A tied routine holds only exercises available at one of its gyms.
+- **A goal joins a tied routine only if its target's exercise is available at one of the routine's gyms.** A goal whose target's exercise belongs to another gym cannot be proven there.
+- **A routine holds a goal, never a copy of its exercises.** The goal's exercises are read when the workout starts, so an active goal's supporting exercises can change without the routine being edited.
 - **A workout started from a routine offers the routine's exercises available at its gym.** An exercise tied to another gym is replaced by its alternate available here, or left out.
+  This holds for the exercises a goal brings: a supporting exercise tied to another gym gives way to its alternate, or is left out, and the goal stays.
+- **A goal whose target's exercise is no longer available at a tied routine's gyms** is shown on the routine's edit screen as not provable there, and its target's exercise is left out when a workout starts.
 - **Auburn never suggests which routine is next, and never schedules one.** Foundation's refusal to prescribe the day's training holds: the user picks, from rest and feel.
 
 ## Use cases
@@ -33,6 +37,7 @@ A template for a workout, planned in advance, that a workout is started from, so
 - **What a routine holds per exercise.** Order alone, or more.
 - **Kind.** Whether a routine is hypertrophy or mobility, as a workout is.
 - **The group's name.** "Split" already names a grouping of muscle groups for rest at a glance, which is to be researched again.
+- **Cardio goals.** Whether a goal whose target sits on an activity kind can sit in a routine, bringing only its supporting exercises.
 - **Foundation.** "The problem" argues against planning in advance and records fixed splits as abandoned; "Variety on purpose" says a fixed routine goes stale. Both are reworded before routines promote.
 
 ## Findings
