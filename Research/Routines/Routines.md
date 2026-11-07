@@ -16,7 +16,7 @@ A template for a workout, planned in advance, that a workout is started from, so
 - **A routine holds exercises and goals.** A goal brings its exercises, and a goal can sit in any number of routines.
 - **A workout started from a routine still takes exercises that are not in it.**
 - **There is no limit to how many routines exist.**
-- **A routine stands alone or belongs to one named group,** such as Push, Pull and Legs. Grouped routines are shown together, apart from standalone ones.
+- **A routine stands alone or belongs to one routine group,** a named set of routines such as Push, Pull and Legs. Grouped routines are shown together, apart from standalone ones. A routine group implies no order among its routines.
 - **Routines are picked when a workout starts and edited on a screen of their own,** never in the start flow.
 - **A routine is tied to gyms or to none, as an exercise is.** A tied routine is offered only at its gyms; an untied one is offered everywhere. A tied routine holds only exercises available at one of its gyms.
 - **A goal whose target sits on an exercise joins a tied routine only if that exercise is available at one of the routine's gyms.** A goal whose target's exercise belongs to another gym cannot be proven there.
@@ -40,16 +40,16 @@ A template for a workout, planned in advance, that a workout is started from, so
 ## Open questions
 
 - **How a goal's exercises are reached in a routine.** In the routine's own list beneath the goal, or one step away through it. Decided with the screen.
-- **The group's name.** "Split" already names a grouping of muscle groups for rest at a glance, which is to be researched again.
 - **Foundation.** "The problem" argues against planning in advance and records fixed splits as abandoned; "Variety on purpose" says a fixed routine goes stale. Both are reworded before routines promote.
 
 ## Findings
 
 - **Splits failed in Notion because goals and exercises could not be shown together.** A split there was a list searched each time. Auburn can show both, which removes the friction, not the plan.
 - **Supporting and alternate exercises in a goal act the same.** Only the intent differs, and intent belongs in the goal's explanation.
+- **"Split" is the word most people use for a routine group, and Foundation's split examples, Upper and Leg Day, are routine names.** Whether muscle-group splits still earn their place once routines exist is for rest at a glance's research. If they retire, "split" can pass to routine groups.
 - **A routine holds no activity, and a workout never records one.** A treadmill session done during a gym visit arrives from the watch as an activity of its own; a treadmill goal in the routine is the only link between them.
 
 ## Dependencies
 
-- **Requires:** none. The group's name waits on rest at a glance being researched again; mobility exercises in a routine wait on Mobility.
+- **Requires:** none. Mobility exercises in a routine wait on Mobility.
 - **Required by:** none.
