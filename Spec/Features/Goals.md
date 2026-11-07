@@ -84,6 +84,11 @@ A reached goal also shows the days from active to reached. An abandoned goal sho
 | Scenario | Behavior |
 |---|---|
 | A draft with no target | Cannot be made active |
+| The exercise a draft's target sits on is removed from the goal | Allowed; the draft cannot be made active until its target sits on one of its exercises |
+| The exercise a draft's target sits on is archived | Allowed; the draft cannot be made active until its target sits on an exercise that is not archived |
+| A supporting exercise is archived | It stays in the goal, marked archived; its line keeps its history and no longer grows |
+| An archived exercise is added to a goal | Not offered: an archived exercise is offered nowhere new |
+| The target's exercise of an ended goal is archived | Allowed; the ended goal is unchanged |
 | The fact that marked a target is edited or deleted before the prompt is answered | If it no longer meets the rules, the mark is withdrawn and the target waits |
 | The fact behind a kept target is deleted later | The target stays reached |
 | An exercise a target of an active goal sits on is archived | Refused until the goal ends |
