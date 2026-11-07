@@ -123,7 +123,7 @@ class Target {
 - A goal names its exercises; an exercise serves the goals that name it.
 - `activatedAt` is set exactly when the state is not draft; `endedAt` exactly when it is reached or abandoned; `abandonedBecause` exactly when abandoned, and never empty.
 - A goal has at most one target; one that is not a draft has exactly one.
-- A target has exactly one of `exerciseId` and `activityKind`. On an exercise, its parameter is load or reps, the exercise is one of the goal's, and it has at least one grade. On an activity kind, its parameter is pace, duration, distance, or average heart rate, and it has no grades.
+- A target has exactly one of `exerciseId` and `activityKind`. On an exercise, its parameter is load or reps, and it has at least one grade. A goal that is not a draft has its target's exercise among its own and not archived; a draft's may be neither until it is made active. On an activity kind, its parameter is pace, duration, distance, or average heart rate, and it has no grades.
 - `minLoadKg` is set only on a reps target. `minDistanceKm ≤ maxDistanceKm` when both are set.
 - `kept` is true only with `reachedAt`. A reached goal's target is kept.
 - A target's reach is stored, not derived: the user keeps or undoes it, and an ended goal never changes.
@@ -247,4 +247,4 @@ class Settings {
 
 ## Deleting
 
-Gyms, exercises, splits, and routines are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new. A routine group is deleted outright; its routines stand alone. A draft goal is deleted outright with its target; a goal that has been active is never deleted. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Overdue entries are never deleted.
+Gyms, exercises, splits, and routines are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new, until it is restored; restored, it is offered again with its history whole. A routine group is deleted outright; its routines stand alone. A draft goal is deleted outright with its target; a goal that has been active is never deleted. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Overdue entries are never deleted.

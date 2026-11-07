@@ -30,7 +30,7 @@ An exercise's past sets are grouped by workout, newest first, each group showing
 
 ### Archiving
 
-An archived exercise is offered nowhere new and stays in every workout it appears in.
+An archived exercise is offered nowhere new and stays in every workout it appears in. It can be restored, and is then offered again with its history whole.
 
 ## States
 
