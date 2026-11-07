@@ -52,9 +52,9 @@ Auburn never prescribes the day's training.
 
 ### A set is graded by feel
 
-A set is recorded as its load and a grade of how it went — the control and form it was done with — not as a count. Learning to read the body this way has proven worth more than rep counts, and it lowers the risk of injury. Counting is still a tool, and it is used when the modality calls for it.
+A set is recorded as its load and a grade of how it went — the control and form it was done with — not as a count. Learning to read the body this way has proven worth more than rep counts, and it lowers the risk of injury. Counting is still a tool, and it is used in a test.
 
-Auburn never requires a rep count to log a set.
+Auburn never requires a rep count to log a set, unless the user has made it a test.
 
 ### Muscles set the pace
 
@@ -76,11 +76,11 @@ Training is thought through at rest so the gym is for doing it. A routine is a w
 
 Auburn never suggests which routine is next, and never schedules one.
 
-### Variety on purpose
+### Measured on purpose
 
-Training done the same way every time goes stale and leaves gaps. Every workout starts with the modality roll on: each exercise committed to it gets a rolled modality — slow and controlled, reps counted to test strength, or by feel. Training stays fresh, experimenting is built in, and the counted sets give a measured check on progress. With the roll off, every exercise is done by feel.
+Grading reads the body day to day; strength also needs a hard measure now and then. A test is that measure: a set the user marks before doing it, which records its reps beside its load and grade. Seven reps graded Ideal is the most that held, and the next test has it to beat. Tests accumulate into a provable record of strength.
 
-A roll is never re-rolled.
+Auburn never makes a set a test, and never schedules one.
 
 ### Each exercise keeps its own notes
 
@@ -122,9 +122,9 @@ The fiction changes what Auburn says, never what Auburn does. Every behaviour fo
 - **Workout** — one visit to train at a gym: the exercises committed to it, in order, and their sets. Titled by its date and gym. A workout is hypertrophy or mobility, never both.
 - **Gym** — where a workout happens, home included. Gyms differ in equipment: an exercise tied to a gym is that gym's version of the lift, and one tied to none is the same everywhere.
 - **Split** — an optional grouping of muscle groups, such as Upper or Leg Day.
-- **Commit** — adding an exercise to the current workout. When the workout's roll is on, its modality is rolled at that moment.
-- **Modality** — how an exercise is done in a workout: slow and controlled, counted, or by feel.
-- **Set** — a load and a grade, plus reps when the modality counts them. Mobility exercises have no sets.
+- **Commit** — adding an exercise to the current workout.
+- **Set** — a load and a grade, plus reps when it is a test. Mobility exercises have no sets.
+- **Test** — a set the user marks before doing it, recording its reps beside its load and grade.
 - **Grade** — how a set went, read by feel. A mobility exercise carries its own optional grade: controlled, improved, or poor.
   - *Ideal:* heavy, taken to failure with control, within a hypertrophy rep range.
   - *Acceptable:* close to ideal with clearly fewer reps, or form held at the edge of breaking.

@@ -161,7 +161,6 @@ class Workout {
   final String? routineId; // the routine it was started from
   final DateTime startedAt;
   final DateTime? endedAt; // null while in progress
-  final bool rollOn;       // true when the workout starts
   final bool imported;     // from the Notion history
 }
 ```
@@ -170,18 +169,15 @@ class Workout {
 - An imported workout ends at its last set's time.
 
 ```dart
-enum Modality { slowAndControlled, counted, byFeel }
 
 /// One exercise committed to one workout.
 class Commit {
   final String workoutId;
   final String exerciseId;
   final int position;                 // commit order, from 1
-  final Modality? modality;           // none only in an imported workout
 }
 ```
 
-- A commit always has a modality, except in an imported workout, which has none. With the roll off, the modality is `byFeel`.
 - A commit records the exercise actually done. An alternate taken in place of another is simply that alternate.
 
 ```dart
@@ -193,6 +189,7 @@ class LoggedSet {
   final double loadKg;                // the total; for dumbbells, one dumbbell; for bodyweight, the added load
   final List<double>? platesPerSide;  // plates only, as entered
   final Grade? grade;
+  final bool test;
   final int? reps;
 }
 ```
@@ -200,7 +197,7 @@ class LoggedSet {
 Dart's core library owns `Set`, so the record is `LoggedSet`.
 
 - A set has a grade, except in an imported workout, where it may have none.
-- Reps are present only when the commit's modality is `counted`, or in an imported workout.
+- A set has reps exactly when it is a test.
 
 ## Activities
 

@@ -26,7 +26,6 @@ The fiction Auburn's second realm is built from: the corporation, its voice, and
   |---|---|
   | Overdue Log asks why a group wasn't trained | Deviation is noted. |
   | A goal goes active and its target locks | Commitments are binding. |
-  | A modality is rolled | Assignments are final. |
   | The rest screen | Rest is maintenance. |
   | A goal is reached | Human, improved. |
   | A goal is abandoned and its reason kept | Obsolescence is optional. |

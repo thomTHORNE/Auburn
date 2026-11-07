@@ -13,7 +13,7 @@ A one-time import of Training '26, so rest, history, and progress are right from
 - **Exercises:** name as is; the Observations, Settings, and Form callouts become the exercise's notes.
 - **Workouts:** date as the start. The gym comes from the name — ": Iva Gyma" is Iva Gyma; every other workout is Gyms4You. Commit order is the order of the workout's exercises, which Notion shows as "Nu". Imported workouts carry no modality.
 - **Mobility workouts are not imported in v0.** Mobility is out of the spec; they stay in the export until Mobility decides.
-- **Sets:** creation time is the time logged. Kg-Km is parsed as a number, reading "," as a decimal point. Grade maps one to one. Reps come from Rps-Min where present. Ungraded sets import ungraded — a state only imported sets can have. Variable loads ("49!42", "60-50") take the first load.
+- **Sets:** creation time is the time logged. Kg-Km is parsed as a number, reading "," as a decimal point. Grade maps one to one. Reps come from Rps-Min where present, and **sets with reps import as tests**: Rps-Min was entered only when a set was counted. Ungraded sets import ungraded — a state only imported sets can have. Variable loads ("49!42", "60-50") take the first load.
 - **Dropped:** meantime, latest workout, activity, today's workout, punch-in card, bound workouts, previous and next, circuit, ignore tracking, Match, Notion's goals, modality and split values, and Running, Skiing, and Cycling with their sets — cardio arrives through Suunto.
 
 ## Open questions

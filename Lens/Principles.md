@@ -14,7 +14,7 @@ Between sets, Auburn asks for nothing beyond what the set is measured by. Every 
 
 The cost is not the seconds. It is that a grade read by feel is only as good as the attention behind it, and attention spent on the phone is not spent on control and form.
 
-> In practice: a set is a load and a grade. Reps are asked for only when the rolled modality counts them. During a workout, logging the next set is always the foremost action; everything else sits a level deeper.
+> In practice: a set is a load and a grade. Reps are asked for only on a set marked a test. During a workout, logging the next set is always the foremost action; everything else sits a level deeper.
 
 *Derives from: The problem; A set is graded by feel.*
 
@@ -38,9 +38,9 @@ The rules are the user's, and Auburn holds the user to them. Where a rule exists
 
 A rule that bends whenever it is inconvenient stops being a rule. The value of being held to account is that it does not depend on how the user feels about it in the moment.
 
-> In practice: a roll stands. A muscle group appears only once an exercise resets it. An overdue muscle group asks why, and the answer is kept. An active goal's target holds, and an abandoned goal keeps why.
+> In practice: a test is logged only with its reps. A muscle group appears only once an exercise resets it. An overdue muscle group asks why, and the answer is kept. An active goal's target holds, and an abandoned goal keeps why.
 
-*Derives from: Muscles set the pace; Rest and feel choose the training; Variety on purpose; A goal says why.*
+*Derives from: Muscles set the pace; Rest and feel choose the training; Measured on purpose; A goal says why.*
 
 ---
 

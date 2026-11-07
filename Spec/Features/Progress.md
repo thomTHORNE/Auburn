@@ -13,7 +13,7 @@ Each workout the exercise was done in is one point on the workout's date, for th
 | Parameter | The point |
 |---|---|
 | Load | The heaviest set graded Ideal |
-| Reps | The most reps on any set that has them |
+| Reps | The most reps on a test |
 
 Load is shown first; the choice is kept per exercise. A workout with no set for the chosen parameter adds no point; ungraded imported sets add none to load.
 
@@ -39,5 +39,5 @@ None. Progress is computed from sets and activities; only each exercise's chosen
 | Two sets tie as heaviest Ideal in a workout | One point at that load |
 | An Ideal set's grade is corrected to Acceptable | Its point moves to the next heaviest Ideal set, or disappears |
 | A bodyweight exercise, by load | Its added load is plotted; 0 when none |
-| Reps are chosen for an exercise rarely rolled counted | Few points; the line covers only workouts with reps |
+| Reps are chosen for an exercise rarely tested | Few points; the line covers only workouts with a test |
 | Average heart rate is chosen and an activity has none | That activity adds no point |

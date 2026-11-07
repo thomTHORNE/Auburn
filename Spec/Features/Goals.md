@@ -27,6 +27,8 @@ A target says what reaching the goal looks like, in rules the user writes. It si
 
 Its conditions say which facts count. A target on an exercise names the grades that count, at least one; a reps target may also name the least load that counts. A target on an activity kind may set a distance range. Auburn writes none of these rules.
 
+Only a test carries reps, so a reps target is reached only by a test.
+
 A set and an imported activity are facts alike. The exercise or kind a target sits on proves it; the goal's other exercises support it and prove nothing.
 
 ### Draft, active, ended

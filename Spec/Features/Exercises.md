@@ -10,6 +10,8 @@ The user's own exercises: what each is, what it works, where it is done, what st
 
 An exercise has a name, a load kind and the equipment value it needs, the muscle groups it works, the AMAP flag, the goals it serves, its alternates, and its gym ties. The fields are the [Data Model](../Data%20Model.md#exercises)'s. Names need not be unique: the gym ties tell two versions of a lift apart.
 
+A way of doing an exercise that is to be tracked apart, such as slow and controlled, is an exercise of its own; otherwise it belongs in the exercise's notes.
+
 ### Gym ties
 
 An exercise tied to gyms is offered only at those gyms; one tied to none is offered everywhere.

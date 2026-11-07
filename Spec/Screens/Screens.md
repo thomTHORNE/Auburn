@@ -10,7 +10,7 @@ Every screen of Auburn, each built from the [languages](../../Lens/Lens.md#terms
 | 03 | The overdue prompt | Asking why training did not happen | Not yet specified |
 | 04 | Starting a workout | Choosing the gym, then a routine or none | Not yet specified |
 | 05 | Committing an exercise | The exercises offered here, and swapping for an alternate | Not yet specified |
-| 06 | Logging a set | Load, grade, reps when counted, the modality, and the notes | Not yet specified |
+| 06 | Logging a set | Load, grade, marking a test and its reps, and the notes | Not yet specified |
 | 07 | Routines | The routines and their groups, and creating or editing one | Not yet specified |
 | 08 | Past workouts | Past workouts, and one opened for corrections | Not yet specified |
 | 09 | Exercises | The list, and one exercise with its notes, progress, past sets, and figure | Not yet specified |

@@ -2,7 +2,7 @@
 
 ## What it is
 
-Logging a set — its load and its grade, plus reps when the modality counts them — and correcting it afterwards. Logging the next set is always the foremost action of a workout in progress.
+Logging a set — its load and its grade, plus reps when it is a test — and correcting it afterwards. Logging the next set is always the foremost action of a workout in progress.
 
 ## Behavior
 
@@ -25,13 +25,13 @@ Plate keys are 20, 10, 5, 2.5, and 1.25 kg.
 
 The load starts at the previous set of this commit; for the first set, at the first working set of this exercise's last commit; for an exercise never done, at its bar, its lowest step, or 0.
 
-### Reps
+### Tests
 
-Reps are asked for only when the commit's modality is counted. The input shows the exercise's last known rep count as a placeholder. Reps are optional: a set graded without entering reps is logged without them.
+The next set can be marked a test, a level deeper than the grade keys; the mark applies to that set only. A test asks for its reps beside its load, and is logged only once they are entered. The reps input shows the reps of the exercise's last test as a placeholder. An ordinary set has no reps. Auburn never marks a set a test.
 
 ### Correcting
 
-A logged set opens to change its load, grade, or reps, or to be deleted. Sets keep the order they were logged in.
+A logged set opens to change its load, grade, or reps, to be marked or unmarked a test, or to be deleted. Marking it a test asks for its reps; unmarking it removes them. Sets keep the order they were logged in.
 
 ## States
 
@@ -39,7 +39,7 @@ None. A set exists once logged.
 
 ## Constraints
 
-- Auburn never requires a rep count to log a set.
+- Auburn never requires a rep count to log a set that is not a test.
 - One load per set.
 
 ## Edge cases
@@ -49,4 +49,5 @@ None. A set exists once logged.
 | A grade is tapped twice in quick succession | Two sets are logged; the second is deleted like any other |
 | The last set before an exercise's history is Warmup | It is not the starting load; the first working set is |
 | A plate exercise's bar weight is changed | Past sets keep their stored load |
-| A counted set's reps are entered after grading | The set is opened and corrected |
+| A test's grade is tapped before its reps are entered | Nothing is logged; the reps input is shown as owed |
+| A test is marked, then the next set is logged as ordinary | The mark is cleared; nothing asks for reps |
