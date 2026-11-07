@@ -126,11 +126,39 @@ class Target {
 - `kept` is true only with `reachedAt`. A reached goal's target is kept.
 - A target's reach is stored, not derived: the user keeps or undoes it, and an ended goal never changes.
 
+## Routines
+
+```dart
+class RoutineGroup {
+  final String name;
+}
+
+class Routine {
+  final String name;
+  final String? groupId;     // null: standalone
+  final Set<String> gymIds;  // empty: offered everywhere
+  final bool archived;
+}
+
+/// One exercise or goal in a routine, in order.
+class RoutineItem {
+  final String routineId;
+  final int position;        // from 1, without gaps
+  final String? exerciseId;  // exactly one of these two
+  final String? goalId;
+}
+```
+
+- An exercise or a goal appears in a routine at most once.
+- A routine's goals are active.
+- A tied routine's exercises are each available at one of its gyms; a goal whose target sits on an exercise is in a tied routine only if that exercise is.
+
 ## Workouts
 
 ```dart
 class Workout {
   final String gymId;
+  final String? routineId; // the routine it was started from
   final DateTime startedAt;
   final DateTime? endedAt; // null while in progress
   final bool rollOn;       // true when the workout starts
@@ -220,4 +248,4 @@ class Settings {
 
 ## Deleting
 
-Gyms, exercises, and splits are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new. A draft goal is deleted outright with its targets, and its exercises stop naming it; a goal that has been active is never deleted. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Overdue entries are never deleted.
+Gyms, exercises, splits, and routines are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new. A routine group is deleted outright; its routines stand alone. A draft goal is deleted outright with its targets, and its exercises stop naming it; a goal that has been active is never deleted. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Overdue entries are never deleted.

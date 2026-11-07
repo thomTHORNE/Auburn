@@ -8,9 +8,10 @@ Every screen of Auburn, each built from the [languages](../../Lens/Lens.md#terms
 | 01 | [Navigation](01-navigation/01-navigation.md) | How the screens connect, and what opening Auburn shows | Agreed |
 | 02 | Rest at a glance | Every tracked group's rest, on the figure and in a list, with cardio | Not yet specified |
 | 03 | The overdue prompt | Asking why training did not happen | Not yet specified |
-| 04 | Starting a workout | Choosing the gym | Not yet specified |
+| 04 | Starting a workout | Choosing the gym, then a routine or none | Not yet specified |
 | 05 | Committing an exercise | The exercises offered here, and swapping for an alternate | Not yet specified |
 | 06 | Logging a set | Load, grade, reps when counted, the modality, and the notes | Not yet specified |
+| 07 | Routines | The routines and their groups, and creating or editing one | Not yet specified |
 | 08 | Past workouts | Past workouts, and one opened for corrections | Not yet specified |
 | 09 | Exercises | The list, and one exercise with its notes, progress, past sets, and figure | Not yet specified |
 | 10 | Creating or editing an exercise | Its fields, and ticking muscle groups on the figure | Not yet specified |

@@ -21,7 +21,7 @@ Resolved tasks are removed from TASKS.md.
 
 The developer and a small circle of trusted testers · [Scope](Spec/Scope.md#v0)
 
-Waits on research: Suunto, Notion Import, Lore, Tests, Routines.
+Waits on research: Suunto, Notion Import, Lore, Tests.
 
 ### Alignment 1 — Lens
 
@@ -63,6 +63,11 @@ Waits on research: Suunto, Notion Import, Lore, Tests, Routines.
 - [ ] **`#6.9` Screen 06, logging a set, is not specified**
     `GAP`
 
+- [ ] **`#6.23` Screen 07, routines, is not specified**
+    `GAP`
+
+    How a goal's exercises are reached in a routine is decided with this screen: in the routine's own list beneath the goal, or one step away through it.
+
 - [ ] **`#6.11` Screen 08, past workouts, is not specified**
     `GAP`
 
@@ -95,7 +100,7 @@ Waits on research: Suunto, Notion Import, Lore, Tests, Routines.
 - [ ] **`#6.20` Screen 01's round 3 is not approved**
     `MINOR`
 
-    Screen 01 on the type and spacing scales, with text colours, a 48 px tap area, and no EDIT key: the home layout is edited in Settings. Entries are as tall as the tap area and the list sits lower by their growth; the handle keeps its look and its tap area reaches up over the screen. Approving it persists the scales, the text colours and the tap area into basics.css, replaces screen 01's screen.html, document and images, and the five components with their component rounds; the widget loses its EDIT key and its editing and stepped-back states.
+    Screen 01 on the type and spacing scales, with text colours, a 48 px tap area, and no EDIT key: the home layout is edited in Settings. Entries are as tall as the tap area and the list sits lower by their growth; the handle keeps its look and its tap area reaches up over the screen. Approving it persists the scales, the text colours and the tap area into basics.css, replaces screen 01's screen.html, document and images, and the five components with their component rounds; the widget loses its EDIT key and its editing and stepped-back states. The list gains Routines, after Exercises.
 
     The tap area lands as agreed. Touch.md's Tap section becomes: "Every key's tap area is at least the tap area value in each direction. A key drawn smaller keeps its look and takes the rest as an invisible margin; keys closer together than that are set apart until their areas do not overlap." Visual.md's Values section reads: "Semantic values say what a value is for — roles, emphasis levels, faces by job, timings, the tap area — and refer only to primitives, except a measure no scale holds, such as the tap area." basics.css gains, in the semantic tier, `/* Tap area: Android's least touch target */ --tap-area: 48px;`. Visual.md also gains, after Emphasis, its spacing rule: "### Spacing — Space shows how things relate: the more closely two things belong together, the less space between them. Every gap is a step of the spacing scale, chosen by the relationship it separates, so the same relationship looks the same on every screen. | Relationship | For example | Step | — Parts of one thing | A load and its unit; the two lines of one fact | `--space-1` — A thing and what names it | A mark and its label; a field and its caption | `--space-3` — Like things in a series | List entries; keys in a row; widgets in a grid | `--space-3`, or none where a line or border divides them — A heading and what it heads | A section title and its list; a name and its details | `--space-4` — Separate sections of a screen | The header and what follows it | `--space-6` — The screen's edge | The content's inset | `--space-5` — A container's padding is never less than the largest gap inside it. A relationship the table does not name is added to it before a screen uses it. Space is measured to what the eye sees: where text meets an edge, half its leading comes off, so the space looks even." The Lexicon drops Edit, Done, Half and Full.
 

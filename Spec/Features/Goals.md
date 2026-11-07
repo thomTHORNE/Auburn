@@ -10,6 +10,8 @@ Something to reach — a movement mastered, an imbalance levelled, a time run �
 
 A goal has a name and an explanation, both the user's, and one target. Its exercises are the exercises that name it; they are added and removed from the exercise or from the goal.
 
+An active goal can sit in any number of routines, as specified in [Routines](Routines.md).
+
 ### Targets
 
 A target says what reaching the goal looks like, in rules the user writes. It sits on one source of facts — one of the goal's exercises, or an activity kind — and names a parameter and a value:

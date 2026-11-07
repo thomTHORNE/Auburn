@@ -35,7 +35,8 @@ Builds are numbered major.minor.patch, and the major is the version: v0's builds
 | **The muscle figure** | A classical figure, engraved in the style of a terminal boot screen, shown front and back, with one region per muscle group. It lights the groups an exercise works, and tints every group by its rest band. |
 | **Goals** | Goals with the user's explanation, a target the facts prove, and the exercises that work toward it, shown with the gap to the target. A goal is drafted, made active, and ends reached or abandoned. Weaknesses are goals. |
 | **The overdue log** | The prompt when a muscle group or cardio falls overdue, and the log of answers. |
-| **Workouts** | Starting a workout by choosing the gym, which limits the exercises on offer to that gym's; committing exercises to it in order; its duration; and past workouts. |
+| **Workouts** | Starting a workout by choosing the gym, which limits the exercises on offer to that gym's, then a routine or none; committing exercises to it in order; its duration; and past workouts. |
+| **Routines** | Workouts prepared in advance — exercises and goals, in order — picked when a workout starts, standing alone or in a routine group, and optionally tied to gyms. |
 | **Sets** | Load and grade, plus reps when the modality counts them. |
 | **Modality** | The modality roll, on when a workout starts and switched off or on during it. With it off, every exercise is done by feel. |
 | **Exercises** | The user's own exercises, each with the muscle groups it works and its alternates, optionally tied to gyms, with its notes and its past sets, grouped by workout and showing the gym and the exercise's place in that workout. |

@@ -30,9 +30,11 @@ Training happens on the gym floor. Auburn is used between sets, in one hand, wit
 
 ## The problem
 
-The apps on the market assume training is planned in advance and measured by counting. A programme says what today is; a set is weight times reps; progress is a number going up.
+The apps on the market assume training is scheduled and measured by counting. A programme says what today is; a set is weight times reps; progress is a number going up.
 
-That fits a routine. It does not fit training chosen each day from what has rested and how the body feels, where a set is worth the control it was done with, and where the way an exercise is done changes on purpose. Used for that, such an app demands data that is not the measure — reps typed in for a set judged by feel — and offers structure that goes unused. The Notion system that came before Auburn shows both: rep counts were dropped in practice, and fixed splits were built and then abandoned.
+That fits a schedule. It does not fit training chosen each day from what has rested and how the body feels, where a set is worth the control it was done with, and where the way an exercise is done changes on purpose. Used for that, such an app demands data that is not the measure — reps typed in for a set judged by feel — and offers structure that goes unused. The Notion system that came before Auburn shows both: rep counts were dropped in practice, and fixed splits were built and then abandoned. A split there could list exercises but never the goals they served, so every workout began with a search through it.
+
+Planning is not the fault; a plan that decides the day is. Training can be prepared in advance and still be chosen on the day.
 
 ---
 
@@ -68,9 +70,15 @@ Its target says what reaching it looks like, in the user's own rules, and only t
 
 Auburn never sets a target, and never moves one.
 
+### Prepared in advance, chosen on the day
+
+Training is thought through at rest so the gym is for doing it. A routine is a workout prepared in advance: its exercises and goals, in order. When a workout starts, the user picks a routine, or none, from what has rested and how the body feels. A routine offers its exercises; the user commits them as they are done, or not at all.
+
+Auburn never suggests which routine is next, and never schedules one.
+
 ### Variety on purpose
 
-A fixed routine goes stale and leaves gaps. Every workout starts with the modality roll on: each exercise committed to it gets a rolled modality — slow and controlled, reps counted to test strength, or by feel. Training stays fresh, experimenting is built in, and the counted sets give a measured check on progress. With the roll off, every exercise is done by feel.
+Training done the same way every time goes stale and leaves gaps. Every workout starts with the modality roll on: each exercise committed to it gets a rolled modality — slow and controlled, reps counted to test strength, or by feel. Training stays fresh, experimenting is built in, and the counted sets give a measured check on progress. With the roll off, every exercise is done by feel.
 
 A roll is never re-rolled.
 
@@ -106,6 +114,8 @@ The fiction changes what Auburn says, never what Auburn does. Every behaviour fo
 
 - **Muscle group** — a part of the body rest is kept for, from a standard list: chest, front delts, side delts, rear delts, biceps, triceps, forearms, lats, upper back, traps, lower back, abs, obliques, quads, hamstrings, glutes, calves, adductors, abductors, neck. Cardio rests the same way, reset by runs, treadmill sessions, and hikes from the watch.
 - **Goal** — something to reach: the user's explanation of what it is and how it is achieved, its target, and the exercises that work toward it.
+- **Routine** — a workout prepared in advance: exercises and goals, in order, picked when a workout starts. It may be tied to gyms.
+- **Routine group** — a named set of routines, such as Push, Pull and Legs. It implies no order among them.
 - **Target** — what reaching a goal looks like: a value on one exercise's sets or one kind of activity, under the user's own rules.
 - **Exercise** — a movement, on specific equipment where it uses any. Works one or more muscle groups, may serve goals, may name alternates, and may be tied to the gyms it is done at. A mobility exercise works no muscle group and serves no goal.
 - **Alternate** — an exercise named on another as its stand-in, used when that one's equipment is taken.
