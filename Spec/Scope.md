@@ -39,7 +39,7 @@ Builds are numbered major.minor.patch, and the major is the version: v0's builds
 | **Routines** | Workouts prepared in advance — exercises and goals, in order — picked when a workout starts, standing alone or in a routine group, and optionally tied to gyms. |
 | **Sets** | Load and grade, and tests: a set the user marks, recording its reps. |
 | **Exercises** | The user's own exercises, each with the muscle groups it works and its alternates, optionally tied to gyms, with its notes and its past sets, grouped by workout and showing the gym and the exercise's place in that workout. |
-| **Progress** | Each exercise's ideal load over time. |
+| **Progress** | Each exercise's load and tested reps over time, by the grades the user chooses to show, and each kind of cardio's pace, duration, distance and heart rate; drawn on the exercise and in each goal's chart. |
 | **Cardio** | Runs, treadmill sessions, and hikes recorded on the Suunto watch, read from intervals.icu, which syncs them from the Suunto app. |
 | **Notion history** | A one-time import of Training '26: exercises and their notes, workouts, and sets. Its goals are rebuilt by hand as muscle groups and goals. |
 | **Sound** | The boot, the ambience, and the power-down. |
