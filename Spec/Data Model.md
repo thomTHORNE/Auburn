@@ -69,6 +69,7 @@ class Exercise {
   final String settings;
   final String form;
   final ExerciseParameter shownParameter; // what Progress plots; default load
+  final Set<Grade> shownGrades;           // the grades its line is given; default Ideal
   final bool archived;
 }
 
@@ -96,6 +97,7 @@ class Goal {
   final String? fromGoalId;              // the goal this one was started from
   final TargetParameter? shownParameter; // what the chart plots; null: the current target's parameter
   final Set<String> hiddenExerciseIds;   // exercises whose lines the chart hides; never the target's
+  final Set<Grade> shownGrades;          // the grades its supporting lines are given; default Ideal
 }
 
 enum TargetParameter { load, reps, pace, duration, distance, averageHeartRate }
