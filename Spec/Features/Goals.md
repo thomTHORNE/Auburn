@@ -8,7 +8,7 @@ Something to reach â€” a movement mastered, an imbalance levelled, a time run â€
 
 ### A goal
 
-A goal has a name and an explanation, both the user's, and one target. Its exercises are the exercises that name it; they are added and removed from the exercise or from the goal.
+A goal has a name and an explanation, both the user's, one target, and the exercises it names. Any exercise can be added to a goal from the goal itself; an exercise shows the goals it serves.
 
 An active goal can sit in any number of routines, as specified in [Routines](Routines.md).
 
@@ -51,7 +51,7 @@ An active goal can be abandoned at any time. Auburn asks why; the answer is free
 
 ### An ended goal
 
-A reached or abandoned goal is frozen: a permanent record that never changes. Its progress is shown up to the day it ended. Its exercises keep naming it as history, and no exercise can newly name it.
+A reached or abandoned goal is frozen: a permanent record that never changes. Its progress is shown up to the day it ended. It keeps its exercises as history, and none can be added to it.
 
 A new goal can be started from an ended one: a draft holding its name, explanation, exercises and targets, unreached, and linked to the goal it came from. The link shows on both.
 

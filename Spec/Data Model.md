@@ -63,7 +63,6 @@ class Exercise {
   final double? stepKg;               // stack and dumbbells only: the step between loads
   final bool amap;
   final Set<MuscleGroup> muscleGroups;
-  final Set<String> goalIds;
   final List<String> alternateIds;    // ordered
   final Set<String> gymIds;           // empty: the same everywhere
   final String observations;          // the notes, shown as three tabs
@@ -89,6 +88,7 @@ enum GoalState { draft, active, reached, abandoned }
 class Goal {
   final String name;
   final String explanation;
+  final Set<String> exerciseIds;         // the exercises that work toward it
   final GoalState state;
   final DateTime? activatedAt;           // set when made active
   final DateTime? endedAt;               // reached or abandoned
@@ -118,10 +118,10 @@ class Target {
 }
 ```
 
-- A goal's exercises are the exercises that name it.
+- A goal names its exercises; an exercise serves the goals that name it.
 - `activatedAt` is set exactly when the state is not draft; `endedAt` exactly when it is reached or abandoned; `abandonedBecause` exactly when abandoned, and never empty.
 - A goal has at most one target; one that is not a draft has exactly one.
-- A target has exactly one of `exerciseId` and `activityKind`. On an exercise, its parameter is load or reps, the exercise names the goal, and it has at least one grade. On an activity kind, its parameter is pace, duration, distance, or average heart rate, and it has no grades.
+- A target has exactly one of `exerciseId` and `activityKind`. On an exercise, its parameter is load or reps, the exercise is one of the goal's, and it has at least one grade. On an activity kind, its parameter is pace, duration, distance, or average heart rate, and it has no grades.
 - `minLoadKg` is set only on a reps target. `minDistanceKm ≤ maxDistanceKm` when both are set.
 - `kept` is true only with `reachedAt`. A reached goal's target is kept.
 - A target's reach is stored, not derived: the user keeps or undoes it, and an ended goal never changes.
@@ -248,4 +248,4 @@ class Settings {
 
 ## Deleting
 
-Gyms, exercises, splits, and routines are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new. A routine group is deleted outright; its routines stand alone. A draft goal is deleted outright with its targets, and its exercises stop naming it; a goal that has been active is never deleted. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Overdue entries are never deleted.
+Gyms, exercises, splits, and routines are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new. A routine group is deleted outright; its routines stand alone. A draft goal is deleted outright with its target; a goal that has been active is never deleted. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Overdue entries are never deleted.
