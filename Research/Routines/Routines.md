@@ -28,6 +28,7 @@ A template for a workout, planned in advance, that a workout is started from, so
 - **A routine holds its exercises and goals in order, and nothing more about them.** No sets, reps, load, or way of doing an exercise: sets wait on programming, how an exercise is done waits on tests, and reps and load would prescribe the set.
 - **A goal in a routine stays a goal.** It is shown in the routine as itself, never dissolved into or replaced by its exercises: the meaning it gives them is the reason it is there. Its exercises come with it, at its place in the order, in whatever order the goal holds them; a goal has no order of its own, and the routine applies what the goal brings.
 - **Starting a workout from a routine offers its exercises; it commits none of them.** Whether to commit any of them is the user's choice. They are committed as they are done, so commit order records what happened, and an exercise skipped leaves nothing behind. The offered list shows which have been committed. A workout's other exercises can still be committed at any time.
+- **Foundation is reworded when routines promote,** with the text under *Foundation's wording* below.
 - **Auburn never suggests which routine is next, and never schedules one.** Foundation's refusal to prescribe the day's training holds: the user picks, from rest and feel.
 
 ## Use cases
@@ -40,7 +41,29 @@ A template for a workout, planned in advance, that a workout is started from, so
 ## Open questions
 
 - **How a goal's exercises are reached in a routine.** In the routine's own list beneath the goal, or one step away through it. Decided with the screen.
-- **Foundation.** "The problem" argues against planning in advance and records fixed splits as abandoned; "Variety on purpose" says a fixed routine goes stale. Both are reworded before routines promote.
+
+## Foundation's wording
+
+Agreed, and landed in `Lens/Foundation.md` when routines promote.
+
+**The problem.** Its first paragraph opens "The apps on the market assume training is scheduled and measured by counting." Its second opens "That fits a schedule." and ends, after "fixed splits were built and then abandoned.", with: "A split there could list exercises but never the goals they served, so every workout began with a search through it." A third paragraph follows:
+
+> Planning is not the fault; a plan that decides the day is. Training can be prepared in advance and still be chosen on the day.
+
+**A new pillar, after "A goal says why":**
+
+> ### Prepared in advance, chosen on the day
+>
+> Training is thought through at rest so the gym is for doing it. A routine is a workout prepared in advance: its exercises and goals, in order. When a workout starts, the user picks a routine, or none, from what has rested and how the body feels. A routine offers its exercises; the user commits them as they are done, or not at all.
+>
+> Auburn never suggests which routine is next, and never schedules one.
+
+**Variety on purpose.** Its first sentence becomes "Training done the same way every time goes stale and leaves gaps." The rest waits on Tests.
+
+**Terms, after Goal:**
+
+> - **Routine** — a workout prepared in advance: exercises and goals, in order, picked when a workout starts. It may be tied to gyms.
+> - **Routine group** — a named set of routines, such as Push, Pull and Legs. It implies no order among them.
 
 ## Findings
 
