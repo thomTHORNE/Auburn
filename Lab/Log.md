@@ -141,3 +141,17 @@ Feeds: Lens/Language/Visual.
 Code: Lab/glass-that-moves/
 Verdict (2026-10-23): pass. A glass layer driven by the phone's tilt reads as real glass over the screen, and its motion feels fluid and instant. The light moves on the glass; the oily film, swipe streaks, and dust stay fixed and show where the light catches them. The best look was glass LOW, travel SMALL, CRT strength 0.6, with frames at 5.2 ms worst 5%, inside the 8.3 ms budget. At those settings no value or key was harder to read.
 Notes: the first texture was blocky — a noise grid showing through — and was replaced with gradient noise. Thumbprints over the keys were tried and rejected before the run. Code kept as reference.
+
+---
+
+## Rest by rhythm
+
+Sketch · draft
+
+Question: read from your own training history, do a muscle's four steps — Should from the middle of its last six gaps as a main mover, Maybe a day earlier, Overdue at half again — say what you would say about that muscle on the day?
+Pass: on ten days picked from Training '26, each muscle's step matches the one you would have given it that morning in at least eight, and every miss can be named.
+Timebox: one day.
+Needs: Training '26's CSV export; each exercise's main movers marked by hand for the sketch; a build on the phone.
+Feeds: Research/Rest.
+Code: Lab/rest-rhythm/
+Stakes: a fail sends rhythm to Ideas.md, and steps are set by hand.
