@@ -18,11 +18,14 @@ A one-time import of Training '26, so rest, history, and progress are right from
 
 ## Open questions
 
-- **The export.** How Notion's CSV export writes relations, and whether it keeps the order of a workout's exercises.
+None.
 
 ## Findings
 
 - **"Nu" is commit order.** Notion's set displays compute it as the exercise's position in its workout's exercise list.
+- **The export writes a relation as the related page's name with its link,** and each exercise's page carries its Observations, Settings and Form as headed sections.
+- **Commit order survives:** "Nu" is present on 835 of 850 sets.
+- **The export holds 35 exercises, 850 sets and 90 workouts**, from 5 December 2025 to 16 October 2026; 30 sets carry reps.
 
 ## Dependencies
 

@@ -155,3 +155,18 @@ Needs: Training '26's CSV export; each exercise's main movers marked by hand for
 Feeds: Research/Rest.
 Code: Lab/rest-rhythm/
 Stakes: a fail sends rhythm to Ideas.md, and steps are set by hand.
+
+---
+
+## A week in the gym
+
+Prototype · draft
+
+Question: does a session — start at a gym, pick a routine or none, commit exercises as they are done, log load and grade, mark a test now and then — run without friction through a week of real training, on Training '26's history?
+Pass: a week of real sessions logged without falling back to notes or Notion, and every friction met written down with the moment it happened.
+Timebox: three days to build, a week of use.
+Needs: the Notion export, imported; main movers ticked on each imported exercise; a build on the Fold.
+Feeds: Research/Rest, and the screens 04, 05, 06, 07 and 11 not yet designed.
+Code: Lab/gym-week/
+Stakes: friction found here is fixed in the spec before v0's screens are designed.
+Shortcuts: plain screens from the visual basics; no sound, figure or overdue prompt; rest read-only on fixed steps; any storage.
