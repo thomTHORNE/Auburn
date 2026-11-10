@@ -43,7 +43,7 @@ An active goal ends in one of two ways: reached or abandoned. It cannot be pause
 
 The target is reached by the first fact that meets its rules, dated after the goal was made active. Auburn marks it on that fact's date.
 
-Auburn then asks how to proceed. It never asks during a workout: the prompt appears when Auburn is opened with no workout in progress, after the overdue prompt when both are owed, and it cannot be dismissed. Keep it, keep it and start a new goal from this one, or undo it. An undone mark passes over that fact and every fact before it; the target waits for the next.
+Auburn then asks how to proceed. It never asks during a workout: the prompt appears when Auburn is opened with no workout in progress, and it cannot be dismissed. Keep it, keep it and start a new goal from this one, or undo it. An undone mark passes over that fact and every fact before it; the target waits for the next.
 
 A kept target ends the goal as reached on that day.
 

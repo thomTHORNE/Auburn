@@ -25,12 +25,12 @@ enum MuscleGroup {
 The list is fixed. A muscle group is not a record; what the user sets for it is.
 
 ```dart
-/// Rest bands for one muscle group, or for cardio. One exists for each of the 21.
-class RestSettings {
+/// Rest steps set by hand for one muscle group, or for cardio. Absent: its steps follow its rhythm.
+class RestSteps {
   final MuscleGroup? group; // null: cardio
-  final int maybeFrom;      // default 3; fewer days is repair
-  final int trainFrom;      // default 4
-  final int overdueFrom;    // default 5; the overdue limit
+  final int maybeFrom;
+  final int shouldFrom;
+  final int overdueFrom;
 }
 
 class Split {
@@ -40,7 +40,7 @@ class Split {
 }
 ```
 
-- `0 < maybeFrom < trainFrom < overdueFrom`.
+- `0 < maybeFrom < shouldFrom < overdueFrom`. At most one exists per group, and one for cardio.
 
 ## Gyms
 
@@ -61,8 +61,8 @@ class Exercise {
   final LoadKind loadKind;
   final double? barKg;                // plates only
   final double? stepKg;               // stack and dumbbells only: the step between loads
-  final bool amap;
-  final Set<MuscleGroup> muscleGroups;
+  final Set<MuscleGroup> mainMovers;
+  final Set<MuscleGroup> supporting;
   final List<String> alternateIds;    // ordered
   final Set<String> gymIds;           // empty: the same everywhere
   final String observations;          // the notes, shown as three tabs
@@ -76,7 +76,7 @@ class Exercise {
 enum ExerciseParameter { load, reps }
 ```
 
-- An exercise works at least one muscle group. An AMAP exercise resets none of them.
+- A group is never in both `mainMovers` and `supporting`.
 - `barKg` is set exactly when the load kind is plates; `stepKg` exactly when it is stack or dumbbells.
 - An alternate is an exercise other than the exercise itself.
 
@@ -215,15 +215,6 @@ class Activity {
 }
 ```
 
-## The overdue log
-
-```dart
-class OverdueEntry {
-  final DateTime answeredAt;
-  final String answer; // tied to no muscle group, exercise, or workout
-}
-```
-
 ## Settings
 
 ```dart
@@ -247,4 +238,4 @@ class Settings {
 
 ## Deleting
 
-Gyms, exercises, splits, and routines are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new, until it is restored; restored, it is offered again with its history whole. A routine group is deleted outright; its routines stand alone. A draft goal is deleted outright with its target; a goal that has been active is never deleted. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Overdue entries are never deleted.
+Gyms, exercises, splits, and routines are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new, until it is restored; restored, it is offered again with its history whole. A routine group is deleted outright; its routines stand alone. A draft goal is deleted outright with its target; a goal that has been active is never deleted. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Rest steps set by hand are deleted outright when handed back to the rhythm.

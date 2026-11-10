@@ -24,7 +24,6 @@ The fiction Auburn's second realm is built from: the corporation, its voice, and
 
   | Moment | Maxim |
   |---|---|
-  | Overdue Log asks why a group wasn't trained | Deviation is noted. |
   | A goal goes active and its target locks | Commitments are binding. |
   | The rest screen | Rest is maintenance. |
   | A goal is reached | Human, improved. |

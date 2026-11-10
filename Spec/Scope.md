@@ -30,15 +30,13 @@ Builds are numbered major.minor.patch, and the major is the version: v0's builds
 | | |
 |---|---|
 | **Platforms** | Android and iOS phones. |
-| **Muscle groups** | The standard list, the exercises that work each group, and the AMAP rule. Every muscle group is owed. A muscle group may carry a split. |
-| **Rest** | Each muscle group's rest, rest bands, and overdue limit, set per group; cardio rests the same way. Every rest at a glance, as the basis for choosing the day's training. |
-| **The muscle figure** | A classical figure, engraved in the style of a terminal boot screen, shown front and back, with one region per muscle group. It lights the groups an exercise works, and tints every group by its rest band. |
+| **Muscle groups** | The standard list, and the groups each exercise mainly trains and supports. A muscle group may carry a split. |
+| **Rest** | Each muscle group's rest, counted from its main moves and read in four steps against its own rhythm, or steps set by hand; cardio rests the same way. Every rest in a list, as the basis for choosing the day's training. |
 | **Goals** | Goals with the user's explanation, a target the facts prove, and the exercises that work toward it, shown with the gap to the target. A goal is drafted, made active, and ends reached or abandoned. Weaknesses are goals. |
-| **The overdue log** | The prompt when a muscle group or cardio falls overdue, and the log of answers. |
 | **Workouts** | Starting a workout by choosing the gym, which limits the exercises on offer to that gym's, then a routine or none; committing exercises to it in order; its duration; and past workouts. |
 | **Routines** | Workouts prepared in advance — exercises and goals, in order — picked when a workout starts, standing alone or in a routine group, and optionally tied to gyms. |
 | **Sets** | Load and grade, and tests: a set the user marks, recording its reps. |
-| **Exercises** | The user's own exercises, each with the muscle groups it works and its alternates, optionally tied to gyms, with its notes and its past sets, grouped by workout and showing the gym and the exercise's place in that workout. |
+| **Exercises** | The user's own exercises, each with the muscle groups it trains and supports and its alternates, optionally tied to gyms, with its notes and its past sets, grouped by workout and showing the gym and the exercise's place in that workout. |
 | **Progress** | Each exercise's load and tested reps over time, by the grades the user chooses to show, and each kind of cardio's pace, duration, distance and heart rate; drawn on the exercise and in each goal's chart. |
 | **Cardio** | Runs, treadmill sessions, and hikes recorded on the Suunto watch, read from intervals.icu, which syncs them from the Suunto app. |
 | **Notion history** | A one-time import of Training '26: exercises and their notes, workouts, and sets. Its goals are rebuilt by hand as muscle groups and goals. |
@@ -62,3 +60,9 @@ Excluding these is what makes the rest of v0 small enough to finish. Anything he
 ## v1
 
 Everything v0 includes and excludes.
+
+### Included
+
+| | |
+|---|---|
+| **The muscle figure** | A classical figure, engraved in the style of a terminal boot screen, shown front and back, with one region per muscle group, drawn for the rest v0 proves. |

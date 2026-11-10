@@ -46,7 +46,7 @@ Each pillar is one departure from the market's defaults: what Auburn does instea
 
 What is trained on a given day is chosen from two things: how long each muscle group has rested, and how the body feels. Auburn shows the first. The user brings the second, and decides.
 
-Rest has a limit. When a muscle group rests past it, Auburn asks why it was not trained and keeps the answer in a log of its own, so slack is seen rather than forgotten.
+Rest is read against the user's own rhythm: how long each muscle group usually goes between being trained. Overdue means well past that, and it pulls training back to what was left behind. Auburn asks nothing about it.
 
 Auburn never prescribes the day's training.
 
@@ -58,9 +58,9 @@ Auburn never requires a rep count to log a set, unless the user has made it a te
 
 ### Muscles set the pace
 
-Rest is kept per muscle group, from a standard list. A muscle is worked wherever training happens, by whichever exercise works it, so its rest counts the days since any exercise worked it, at any gym. Each exercise names the muscle groups it trains, and those are the rests it resets.
+Rest is kept per muscle group, from a standard list, because the muscle is what tires, not the exercise. An exercise names the muscle groups it mainly trains, and those are the rests it resets, at any gym. The groups it only supports are shown with the day they last worked, and never counted.
 
-Every muscle group is owed. A group appears once an exercise resets it, and an AMAP exercise resets none, so no group can be held only by work that never lets it fall due.
+A muscle group that is never a main mover keeps no rest. Making it one is the user's choice.
 
 ### A goal says why
 
@@ -117,7 +117,9 @@ The fiction changes what Auburn says, never what Auburn does. Every behaviour fo
 - **Routine** — a workout prepared in advance: exercises and goals, in order, picked when a workout starts. It may be tied to gyms.
 - **Routine group** — a named set of routines, such as Push, Pull and Legs. It implies no order among them.
 - **Target** — what reaching a goal looks like: a value on one exercise's sets or one kind of activity, under the user's own rules.
-- **Exercise** — a movement, on specific equipment where it uses any. Works one or more muscle groups, may serve goals, may name alternates, and may be tied to the gyms it is done at. A mobility exercise works no muscle group and serves no goal.
+- **Exercise** — a movement, on specific equipment where it uses any. Names the muscle groups it mainly trains and those it supports, may serve goals, may name alternates, and may be tied to the gyms it is done at. A mobility exercise works no muscle group and serves no goal.
+- **Main mover** — a muscle group an exercise mainly trains. Its rest is reset by the exercise.
+- **Supporting muscle** — a muscle group an exercise also works. Shown with the day it last worked, never counted toward rest.
 - **Alternate** — an exercise named on another as its stand-in, used when that one's equipment is taken.
 - **Workout** — one visit to train at a gym: the exercises committed to it, in order, and their sets. Titled by its date and gym. A workout is hypertrophy or mobility, never both.
 - **Gym** — where a workout happens, home included. Gyms differ in equipment: an exercise tied to a gym is that gym's version of the lift, and one tied to none is the same everywhere.
@@ -131,6 +133,6 @@ The fiction changes what Auburn says, never what Auburn does. Every behaviour fo
   - *Light:* too easy to count toward progress, though it still works the muscle.
   - *Yielding:* form and control lost; the load is not tried again until enough ideal sets come first.
   - *Warmup:* preparation before the work; it works nothing.
-- **Rest** — the days since a muscle group was last worked by an exercise that resets it, at any gym; for cardio, since the last activity from the watch.
-- **AMAP** — "as much as possible": an exercise that resets no muscle group's rest. Usually low-fatigue isolation work; heavy compounds always reset.
-- **Overdue** — a muscle group, or cardio, that has rested into its last band. Each carries its own limit.
+- **Rest** — the days since a muscle group was last a main mover, at any gym; for cardio, since the last activity from the watch. Read in four steps: shouldn't, maybe, should, overdue.
+- **Rhythm** — how long a muscle group, or cardio, usually goes between being trained, read from its last gaps. It sets rest's four steps unless they are set by hand.
+- **Overdue** — the last of rest's four steps: well past a muscle group's, or cardio's, rhythm.

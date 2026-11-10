@@ -8,7 +8,7 @@ The user's own exercises: what each is, what it works, where it is done, what st
 
 ### An exercise
 
-An exercise has a name, a load kind and the equipment value it needs, the muscle groups it works, the AMAP flag, the goals it serves, its alternates, and its gym ties. The fields are the [Data Model](../Data%20Model.md#exercises)'s. Names need not be unique: the gym ties tell two versions of a lift apart.
+An exercise has a name, a load kind and the equipment value it needs, the muscle groups it mainly trains and those it supports, the goals it serves, its alternates, and its gym ties. The fields are the [Data Model](../Data%20Model.md#exercises)'s. Names need not be unique: the gym ties tell two versions of a lift apart.
 
 A way of doing an exercise that is to be tracked apart, such as slow and controlled, is an exercise of its own; otherwise it belongs in the exercise's notes.
 
@@ -40,7 +40,6 @@ An archived exercise is offered nowhere new and stays in every workout it appear
 
 ## Constraints
 
-- An exercise works at least one muscle group.
 - The load kind cannot change once the exercise has sets.
 
 ## Edge cases

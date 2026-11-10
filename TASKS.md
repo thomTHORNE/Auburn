@@ -30,13 +30,7 @@ Waits on research: Suunto, Notion Import, Lore.
 - [ ] **`#12.1` The visual basics are not specified**
     `MINOR`
 
-    The values on the design canvas and the Lab verdicts: CRT strength 0.6, glass LOW, travel SMALL. The rest bands' red reads weakly on the ember plate. The muscle figure's engraving, lit and band colours, source plates, and asset format: one shape per muscle group per view, named after the group.
-
-- [ ] **`#12.2` The muscle figure's art is not traced**
-    `MINOR`
-
-    Front and back plates from Albinus's Tabulae sceleti et musculorum (1747), engraved by Jan Wandelaar, traced into one region per muscle group from a public-domain scan. Refined placeholder shapes stand in until it is done.
-
+    The values on the design canvas and the Lab verdicts: CRT strength 0.6, glass LOW, travel SMALL.
 #### `#13` Touch language · [Lens/Language/Touch.md](Lens/Language/Touch.md)
 
 - [ ] **`#13.1` The haptic pulse is not specified**
@@ -49,9 +43,6 @@ Waits on research: Suunto, Notion Import, Lore.
 #### `#6` Screens · [Spec/Screens/Screens.md](Spec/Screens/Screens.md)
 
 - [ ] **`#6.5` Screen 02, rest at a glance, is not specified**
-    `GAP`
-
-- [ ] **`#6.6` Screen 03, the overdue prompt, is not specified**
     `GAP`
 
 - [ ] **`#6.7` Screen 04, starting a workout, is not specified**
@@ -86,9 +77,6 @@ Waits on research: Suunto, Notion Import, Lore.
 - [ ] **`#6.16` Screen 13, splits and gyms, is not specified**
     `GAP`
 
-- [ ] **`#6.17` Screen 14, the overdue log, is not specified**
-    `GAP`
-
 - [ ] **`#6.18` Screen 15, settings, is not specified**
     `GAP`
 
@@ -100,7 +88,7 @@ Waits on research: Suunto, Notion Import, Lore.
 - [ ] **`#6.20` Screen 01's round 3 is not approved**
     `MINOR`
 
-    Screen 01 on the type and spacing scales, with text colours, a 48 px tap area, and no EDIT key: the home layout is edited in Settings. Entries are as tall as the tap area and the list sits lower by their growth; the handle keeps its look and its tap area reaches up over the screen. Approving it persists the scales, the text colours and the tap area into basics.css, replaces screen 01's screen.html, document and images, and the five components with their component rounds; the widget loses its EDIT key and its editing and stepped-back states. The list gains Routines, after Exercises.
+    Screen 01 on the type and spacing scales, with text colours, a 48 px tap area, and no EDIT key: the home layout is edited in Settings. Entries are as tall as the tap area and the list sits lower by their growth; the handle keeps its look and its tap area reaches up over the screen. Approving it persists the scales, the text colours and the tap area into basics.css, replaces screen 01's screen.html, document and images, and the five components with their component rounds; the widget loses its EDIT key and its editing and stepped-back states. The list gains Routines, after Exercises. The list drops Overdue log, the Rest widget's lines read the four steps, and the header's reasoning no longer leans on the overdue prompt; the Lexicon's band words and widget lines change with it.
 
     The tap area lands as agreed. Touch.md's Tap section becomes: "Every key's tap area is at least the tap area value in each direction. A key drawn smaller keeps its look and takes the rest as an invisible margin; keys closer together than that are set apart until their areas do not overlap." Visual.md's Values section reads: "Semantic values say what a value is for — roles, emphasis levels, faces by job, timings, the tap area — and refer only to primitives, except a measure no scale holds, such as the tap area." basics.css gains, in the semantic tier, `/* Tap area: Android's least touch target */ --tap-area: 48px;`. Visual.md also gains, after Emphasis, its spacing rule: "### Spacing — Space shows how things relate: the more closely two things belong together, the less space between them. Every gap is a step of the spacing scale, chosen by the relationship it separates, so the same relationship looks the same on every screen. | Relationship | For example | Step | — Parts of one thing | A load and its unit; the two lines of one fact | `--space-1` — A thing and what names it | A mark and its label; a field and its caption | `--space-3` — Like things in a series | List entries; keys in a row; widgets in a grid | `--space-3`, or none where a line or border divides them — A heading and what it heads | A section title and its list; a name and its details | `--space-4` — Separate sections of a screen | The header and what follows it | `--space-6` — The screen's edge | The content's inset | `--space-5` — A container's padding is never less than the largest gap inside it. A relationship the table does not name is added to it before a screen uses it. Space is measured to what the eye sees: where text meets an edge, half its leading comes off, so the space looks even." The Lexicon drops Edit, Done, Half and Full.
 
@@ -150,11 +138,6 @@ Waits on research: Suunto, Notion Import, Lore.
 
 #### `#10` Testers · [Spec/Scope.md](Spec/Scope.md#v0)
 
-- [ ] **`#10.1` A tester without a Suunto watch has cardio overdue for good**
-    `GAP`
-
-    v0's cardio comes only from a Suunto watch through intervals.icu. A tester without both never resets cardio's rest, so it falls overdue and the overdue prompt asks at every visit.
-
 - [ ] **`#10.2` A tester's first launch is empty**
     `GAP`
 
@@ -203,6 +186,13 @@ Waits on research: Suunto, Notion Import, Lore.
 
 The public · [Scope](Spec/Scope.md#v1)
 
-Waits on research: Launch — Name, Distribution, Protection, Pricing, Website, Forums, Outreach.
+Waits on research: Launch — Name, Distribution, Protection, Pricing, Website, Forums, Outreach; Figure.
 
-No items yet.
+### Alignment 1 — Lens
+
+#### `#12` Visual language · [Lens/Language/Visual/Visual.md](Lens/Language/Visual/Visual.md)
+
+- [ ] **`#12.2` The muscle figure's art is not traced**
+    `MINOR`
+
+    Front and back plates from Albinus's Tabulae sceleti et musculorum (1747), engraved by Jan Wandelaar, traced into one region per muscle group from a public-domain scan. Refined placeholder shapes stand in until it is done. The figure's engraving, lit and rest colours, source plates, and asset format: one shape per muscle group per view, named after the group.
