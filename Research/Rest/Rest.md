@@ -16,10 +16,10 @@ Rest redefined: what it is kept for, what it counts, how its scale is set, and w
 - **Overdue is the fourth step of the meter, and asks nothing.** The overdue log leaves v0 for Ideas.md; Foundation's "Rest has a limit… Auburn asks why" changes when this topic promotes.
 - **v0 shows muscles and rest as lists. The muscle figure comes in v1.**
 - **An exercise with no main mover resets nothing.** The AMAP flag leaves for Ideas.md.
+- **An exercise names its muscles in one list, each muscle main, supporting or neither.** A tap moves a muscle on: neither, main, supporting, neither again.
 
 ## Open questions
 
-- **Naming muscles on an exercise.** How an exercise names its main movers and supporting muscles.
 - **The muscle figure in v1.** What it lights and tints under main movers and supporting muscles.
 - **Cardio.** Whether cardio's rest follows the same steps and rhythm.
 
