@@ -16,12 +16,12 @@ Rest redefined: what it is kept for, what it counts, how its scale is set, and w
 - **Overdue is the fourth step of the meter, and asks nothing.** The overdue log leaves v0 for Ideas.md; Foundation's "Rest has a limit… Auburn asks why" changes when this topic promotes.
 - **v0 shows muscles and rest as lists. The muscle figure comes in v1.**
 - **An exercise with no main mover resets nothing.** The AMAP flag leaves for Ideas.md.
+- **Cardio keeps one rest, reset by any activity from the watch, read by the same steps and rhythm.** Its gaps are the days between activities.
 - **An exercise names its muscles in one list, each muscle main, supporting or neither.** A tap moves a muscle on: neither, main, supporting, neither again.
 
 ## Open questions
 
-- **The muscle figure in v1.** What it lights and tints under main movers and supporting muscles.
-- **Cardio.** Whether cardio's rest follows the same steps and rhythm.
+None.
 
 ## Findings
 
@@ -38,5 +38,5 @@ Rest redefined: what it is kept for, what it counts, how its scale is set, and w
 
 ## Dependencies
 
-- **Requires:** none. The rhythm waits on the Lab sketch "Rest by rhythm".
-- **Required by:** none.
+- **Requires:** none. The Lab sketch "Rest by rhythm" checks the rhythm; its verdict lands in the spec as a finding.
+- **Required by:** Figure, which draws what Rest keeps.
