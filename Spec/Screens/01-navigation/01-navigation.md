@@ -7,8 +7,8 @@ Every screen has to be reached from somewhere, and the gym floor needs one predi
 The information was settled on a wireframe before the screen was designed again. What remained:
 
 - **The brand stays.** AUBURN with its cursor is always on home; its place is reserved.
-- **One status line: the last workout.** Overdue groups are already asked about by the overdue prompt, a workout in progress already shows as RESUME WORKOUT, and the date adds nothing. All three were dropped.
-- **Rest at a glance, Goals and Cardio became widgets.** These are the three things read at a glance, and each still leads to its screen. Their order and width are the user's, because what matters most is the user's to say. The tinted figure stays on the rest screen; on home, the counts are enough.
+- **One status line: the last workout.** Overdue groups already show on Rest at a glance, a workout in progress already shows as RESUME WORKOUT, and the date adds nothing. All three were dropped.
+- **Rest at a glance, Goals and Cardio became widgets.** These are the three things read at a glance, and each still leads to its screen. Their order and width are the user's, because what matters most is the user's to say. On home, the counts are enough.
 - **The list slides.** Showing three entries and raising the rest frees the space the widgets need, and gives the screen depth: content, then the list over it, then power down over both.
 - **The entry glyph replaced the numbers.** Numbers repeated each entry's position and carried nothing else; a terminal prompt marks an entry without ranking it.
 - **Power down is pressed and held.** It cannot be taken back, so it asks for a deliberate act. It stays at the bottom edge on its own layer, always visible.
@@ -27,7 +27,7 @@ Every screen is reached from here, by one tap on a widget or an entry, so there 
 
 ## Opening Auburn
 
-A cold start plays the boot and then shows home; with a workout in progress there is no boot, and Auburn opens straight to the workout. Returning from the background shows wherever Auburn was left. The overdue prompt, when [Overdue Log](../../Features/Overdue%20Log.md) calls for it, opens over whatever Auburn shows. Android's back gesture on home sends Auburn to the background.
+A cold start plays the boot and then shows home; with a workout in progress there is no boot, and Auburn opens straight to the workout. Returning from the background shows wherever Auburn was left. A goal's reach prompt, when [Goals](../../Features/Goals.md) calls for it, opens over whatever Auburn shows. Android's back gesture on home sends Auburn to the background.
 
 ## Rules
 

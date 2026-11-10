@@ -169,4 +169,4 @@ Needs: the Notion export, imported; main movers ticked on each imported exercise
 Feeds: Research/Rest, and the screens 04, 05, 06, 07 and 11 not yet designed.
 Code: Lab/gym-week/
 Stakes: friction found here is fixed in the spec before v0's screens are designed.
-Shortcuts: plain screens from the visual basics; no sound, figure or overdue prompt; rest read-only on fixed steps; any storage.
+Shortcuts: plain screens from the visual basics; no sound, figure or overdue prompt; rest read-only, as Rest specifies it, rhythm included; any storage.

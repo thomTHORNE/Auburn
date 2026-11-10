@@ -7,8 +7,9 @@ A one-time import of Training '26, so rest, history, and progress are right from
 ## Settled
 
 - **One-time, from a Notion CSV export.** Auburn holds no connection to Notion.
-- **Goals are not imported.** Notion's goals mixed muscle groups and achievements; the user rebuilds both by hand. Exercises import with no muscle groups, goals, or alternates, and reset nothing until the user ticks their muscle groups.
-- **AMAP:** no exercise imports as AMAP; the user marks them.
+- **Goals are not imported.** Notion's goals mixed muscle groups and achievements; the user rebuilds both by hand. Exercises import with no muscle groups, goals, or alternates, and reset nothing until the user names their main movers.
+- **Load kind comes from the name's equipment suffix.** "bar" is plates on a 20 kg bar; "pin-machine", "machine" and "cable" are a stack; "db" and "preacher~db" are dumbbells; no suffix is bodyweight. "db~bar" is asked at import. A stack's or dumbbells' step is asked once per exercise at import, 2.5 kg to begin with.
+- **A set with no load takes the exercise's starting load:** 0 on bodyweight, the bar on plates. On a stack or dumbbells it is skipped.
 - **Exercises import with no gym.** The user ties them to gyms afterwards; Notion had no mechanism for gyms beyond grouping sets by workout.
 - **Exercises:** name as is; the Observations, Settings, and Form callouts become the exercise's notes.
 - **Workouts:** date as the start. The gym comes from the name — ": Iva Gyma" is Iva Gyma; every other workout is Gyms4You. Commit order is the order of the workout's exercises, which Notion shows as "Nu". Imported workouts carry no modality.
