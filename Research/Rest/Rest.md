@@ -13,13 +13,14 @@ Rest redefined: what it is kept for, what it counts, how its scale is set, and w
 - **Rest reads in four steps: shouldn't, maybe, should, overdue.**
 - **Each muscle's steps come from its own rhythm,** accepted on trust until the Lab's sketch gives its verdict: Should from the middle of its last six gaps as a main mover, Maybe a day earlier, Overdue at half again as long. Under three gaps, fixed steps hold. A gap over twice the usual marks the muscle "back after N days".
 - **Any muscle's steps can be set by hand,** and handed back to its rhythm later. Auburn never sets them.
+- **Overdue is the fourth step of the meter, and asks nothing.** The overdue log leaves v0 for Ideas.md; Foundation's "Rest has a limit… Auburn asks why" changes when this topic promotes.
+- **v0 shows muscles and rest as lists. The muscle figure comes in v1.**
+- **An exercise with no main mover resets nothing.** The AMAP flag leaves for Ideas.md.
 
 ## Open questions
 
 - **Naming muscles on an exercise.** How an exercise names its main movers and supporting muscles.
-- **The overdue log.** Whether overdue still asks why, and in what form.
-- **The muscle figure.** What it lights and tints under main movers and supporting muscles.
-- **v0.** Whether muscle groups, rest, the figure and the overdue log are in it.
+- **The muscle figure in v1.** What it lights and tints under main movers and supporting muscles.
 - **Cardio.** Whether cardio's rest follows the same steps and rhythm.
 
 ## Findings

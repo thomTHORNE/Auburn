@@ -49,3 +49,19 @@ Auburn could hold calories eaten and body weight, entered by hand or read from i
 Parked because v0 reads neither, and phases are parked with it. Which apps fill intervals.icu's calories field is not yet known.
 
 Worth revisiting together with Phases.
+
+## The overdue log
+
+When a muscle falls overdue, Auburn could ask why it was not trained and keep the answer in a log, so slack is seen rather than forgotten. A prompt that cannot be dismissed, and blocks the next workout until it is answered.
+
+Parked because overdue now reads against a rhythm that is still on trust, and a blocking prompt would turn every misreading into an interruption. In Notion, overdue pulled training back without asking anything.
+
+Worth revisiting if slack goes unseen once rest is in use.
+
+## AMAP
+
+An exercise could be marked "as much as possible": it works its muscles but resets none of their rest, so low-effort work never keeps a muscle reading fresh.
+
+Parked because a muscle trained day after day shortens its own rhythm, which may already be what AMAP was for, and an exercise with no main mover resets nothing.
+
+Worth revisiting if low-effort work keeps a muscle reading rested when it is not.
