@@ -62,6 +62,8 @@ Waits on research: Suunto, Notion Import, Lore.
 - [ ] **`#6.11` Screen 08, past workouts, is not specified**
     `GAP`
 
+    A calendar, in day, week and month views, is one form for it: see Calendar in Ideas.md. Whether it takes that form is decided with this screen.
+
 - [ ] **`#6.12` Screen 09, exercises, is not specified**
     `GAP`
 

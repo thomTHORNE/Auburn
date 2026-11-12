@@ -65,3 +65,29 @@ An exercise could be marked "as much as possible": it works its muscles but rese
 Parked because a muscle trained day after day shortens its own rhythm, which may already be what AMAP was for, and an exercise with no main mover resets nothing.
 
 Worth revisiting if low-effort work keeps a muscle reading rested when it is not.
+
+## Calendar
+
+A calendar of hypertrophy training, in day, week and month views. Past days hold the workouts done on them. Future days hold the forecast: the day each muscle group reaches Should, and the day it reaches Overdue, if it is not trained before then. Rest is the fact; the calendar reads it across time, what was done beside what is coming.
+
+The forecast is derived and never edited on the calendar. It changes only through its source, a muscle group's steps set by hand, so the only way to know what is coming is to trust the rhythm and keep to it. A forecast day that passes untrained is gone: nothing was prescribed, so nothing is missed.
+
+Parked because what a future day carries is not settled. The facts sit on muscle groups, and twenty of them across a month crowd the screen. Routines are what a workout is started from and would read cleanly, but a routine keeps no rest of its own, and putting one on a day schedules it.
+
+Worth revisiting when past workouts are designed, since a calendar is one form they could take, or if planning training around the week needs more than the rest list shows.
+
+## Notifications
+
+Auburn could tell the user, without the app open, when a muscle group's rest reaches Should or Overdue.
+
+Parked because the calendar is only a view for now, and a notification is the nearest thing to asking. Overdue asks nothing; a notification at Overdue still pushes, and where that line falls is not settled.
+
+Worth revisiting together with the Calendar, or if a muscle group falls overdue unnoticed because the app went unopened.
+
+## Sessions per week
+
+The user could state how many sessions a week they train, and the forecast would read across the week from it: which days, and what has rested by each. Rest alone keeps the forecast one session ahead; a count would let it plan the week.
+
+Parked because it is the strongest step toward a plan that decides the day, and the calendar beneath it is not settled. It is the counterpart of the weekly cap: the cap bounds training from above, a count sets it.
+
+Worth revisiting once the Calendar is, if one session ahead proves too short to plan a week around.
