@@ -1,7 +1,7 @@
 name: auburn_gym_week
 description: "Lab prototype: a week in the gym. Throwaway code."
 publish_to: 'none'
-version: 0.1.0+1
+version: 0.2.0+2
 
 environment:
   sdk: ^3.13.5
@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   path_provider: ^2.1.5
+  file_picker: ^10.3.0
 
 dev_dependencies:
   flutter_test:

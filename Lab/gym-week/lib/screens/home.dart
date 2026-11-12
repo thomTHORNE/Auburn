@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../logic.dart';
 import '../model.dart';
 import '../ui.dart';
+import 'backup.dart';
 import 'exercises.dart';
 import 'goals.dart';
 import 'rest.dart';
@@ -120,6 +121,8 @@ class _HomeState extends State<HomeScreen> with WidgetsBindingObserver {
               Entry('Exercises', trailing: '${store.exercises.where((e) => !e.archived).length}', onTap: () => push(context, const ExercisesScreen())),
               Entry('Routines', trailing: '${store.routines.where((r) => !r.archived).length}', onTap: () => push(context, const RoutinesScreen())),
               Entry('Gyms', trailing: '${store.gyms.where((g) => !g.archived).length}', onTap: () => push(context, const GymsScreen())),
+              Entry('Export data', sub: 'Everything, as one file', onTap: () => exportData(context)),
+              Entry('Import data', sub: 'Replaces everything with a file', onTap: () => importData(context)),
             ]),
           ),
         );

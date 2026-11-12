@@ -1,4 +1,5 @@
 // Checks the prototype's reading of the spec where a mistake would mislead: rest's rhythm, a goal's reach, and the screens laying out.
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:auburn_gym_week/logic.dart';
@@ -143,6 +144,23 @@ void main() {
     expect(offer.first.exercises.map((e) => e.name), ['Pull-up', 'Band negatives']);
     expect(offer.length, 1);
     expect(routineOffer(r, g4y.id).first.exercises.map((e) => e.name), ['Pull-up', 'Assisted negatives']);
+  });
+
+  test('everything written out reads back the same', () {
+    seed();
+    final gym = store.gyms.first;
+    final pull = Exercise(name: 'Pull-up', loadKind: LoadKind.bodyweight, mainMovers: {MuscleGroup.lats}, supporting: {MuscleGroup.biceps}, gymIds: {gym.id}, observations: 'Slow.');
+    store.exercises.add(pull);
+    store.goals.add(Goal(name: 'Pull-up', exerciseIds: {pull.id}, state: GoalState.active, activatedAt: ago(9), target: Target(exerciseId: pull.id, parameter: Param.reps, value: 8, minLoadKg: 0)));
+    store.routineGroups.add(RoutineGroup(name: 'PPL'));
+    store.routines.add(Routine(name: 'Pull', groupId: store.routineGroups.first.id, items: [RoutineItem(goalId: store.goals.first.id), RoutineItem(exerciseId: pull.id)]));
+    store.workouts.add(workoutOn(3, gym, pull, test: true, reps: 6, load: 0));
+    store.restSteps.add(RestSteps(group: MuscleGroup.lats, maybeFrom: 2, shouldFrom: 3, overdueFrom: 6));
+    final written = jsonEncode(store);
+    seed();
+    store.read(jsonDecode(written));
+    expect(jsonEncode(store), written);
+    expect(store.workouts.single.commits.single.sets.single.reps, 6);
   });
 
   testWidgets('every screen lays out on a narrow phone', (tester) async {

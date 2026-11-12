@@ -7,7 +7,7 @@ A whole session on the phone, on Training '26's history: start at a gym, pick a 
 - `lib/model.dart` — the records, after `Spec/Data Model.md`, kept in one JSON file on the phone and written on every change.
 - `lib/logic.dart` — rest and its rhythm, progress lines, a goal's reach, what a routine offers, a set's starting load.
 - `lib/ui.dart` — plain parts from the visual basics: the palette, Courier Prime, a 48 px tap area. No tube.
-- `lib/screens/` — home, workouts and sets, exercises, routines, goals, rest, gyms.
+- `lib/screens/` — home, workouts and sets, exercises, routines, goals, rest, gyms, and export and import.
 - `tool/convert_notion.py` — turns the Notion export into `assets/history.json`.
 - `test/logic_test.dart` — checks rest's rhythm, a goal's reach and undo, a routine's offer, and that every screen lays out.
 
@@ -42,6 +42,10 @@ Put `lab.keystore` at `android/app/lab.keystore` first. It is not committed. Bui
 1. **Exercises** — every imported exercise names no muscle group yet, so rest counts nothing. Open each one you use, **Edit**, and tap its muscle groups: one tap main, two supporting, three neither. Check its load kind, and a stack's or dumbbells' step: the import starts every step at 2.5 kg.
 2. **Routines** and **Goals** — make the ones you train by. A goal joins a routine once it is active.
 3. **Start workout**.
+
+## Keeping the data
+
+**Export data** on home writes every record to one file, `auburn-<date>.json`, wherever you choose. **Import data** replaces everything on the phone with such a file. Export before installing a build signed with another key, and import after.
 
 ## What to note during the week
 

@@ -356,7 +356,7 @@ class Store extends ChangeNotifier {
     final dir = await getApplicationDocumentsDirectory();
     _file = File('${dir.path}/gym-week.json');
     if (await _file!.exists()) {
-      _read(jsonDecode(await _file!.readAsString()));
+      read(jsonDecode(await _file!.readAsString()));
     } else {
       await _importHistory();
     }
@@ -364,7 +364,7 @@ class Store extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _read(Map<String, dynamic> j) {
+  void read(Map<String, dynamic> j) {
     gyms = [for (final x in j['gyms'] ?? []) Gym.fromJson(x)];
     exercises = [for (final x in j['exercises'] ?? []) Exercise.fromJson(x)];
     goals = [for (final x in j['goals'] ?? []) Goal.fromJson(x)];
