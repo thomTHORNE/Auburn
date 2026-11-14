@@ -1,7 +1,7 @@
 name: auburn_gym_week
 description: "Lab prototype: a week in the gym. Throwaway code."
 publish_to: 'none'
-version: 0.2.0+2
+version: 0.3.0+3
 
 environment:
   sdk: ^3.13.5
@@ -22,10 +22,10 @@ flutter:
   assets:
     - assets/
   fonts:
-    - family: Courier Prime
+    - family: Saira
       fonts:
-        - asset: fonts/CourierPrime-Regular.ttf
-        - asset: fonts/CourierPrime-Bold.ttf
+        - asset: fonts/Saira-Regular.ttf
+        - asset: fonts/Saira-Bold.ttf
           weight: 700
     - family: Gelasio
       fonts:

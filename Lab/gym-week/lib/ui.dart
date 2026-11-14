@@ -1,5 +1,7 @@
-// Plain parts built from the visual basics (Lens/Language/basics.css): the palette, Courier Prime,
-// the three emphasis levels and a 48 px tap area. No tube, no components from the canvas.
+// Plain parts built from the visual basics (Lens/Language/basics.css): the palette, the three emphasis
+// levels and a 48 px tap area. No tube, no components from the canvas.
+// A trial for the prototype only, not a design decision: Saira in place of Courier Prime, and secondary
+// and supporting text at 70% in place of the basics' 42%, after Courier Prime read poorly in use.
 import 'package:flutter/material.dart';
 
 import 'logic.dart';
@@ -12,13 +14,13 @@ const cyanWhite = Color(0xFFDDF7F5);
 const graphite = Color(0xFF212220);
 
 final primaryC = ember.withValues(alpha: 0.9);
-final secondaryC = cyanWhite.withValues(alpha: 0.42);
-final supportingC = ember.withValues(alpha: 0.42);
+final secondaryC = cyanWhite.withValues(alpha: 0.7);
+final supportingC = ember.withValues(alpha: 0.7);
 final lineSecondary = ember.withValues(alpha: 0.55);
 final lineSupporting = ember.withValues(alpha: 0.12);
 
 TextStyle ts(double size, {Color? color, bool bold = false, double spacing = 1.2}) => TextStyle(
-    fontFamily: 'Courier Prime', fontSize: size, color: color ?? primaryC,
+    fontFamily: 'Saira', fontSize: size, color: color ?? primaryC,
     fontWeight: bold ? FontWeight.w700 : FontWeight.w400, letterSpacing: spacing, height: 1.3);
 
 /// Rebuilds whenever the store saves.

@@ -35,7 +35,7 @@ void seed() {
 void main() {
   setUpAll(() async {
     // The real faces, so layouts are judged at their true widths.
-    for (final (family, files) in [('Courier Prime', ['CourierPrime-Regular.ttf', 'CourierPrime-Bold.ttf']), ('Gelasio', ['Gelasio.ttf'])]) {
+    for (final (family, files) in [('Saira', ['Saira-Regular.ttf', 'Saira-Bold.ttf']), ('Gelasio', ['Gelasio.ttf'])]) {
       final loader = FontLoader(family);
       for (final f in files) {
         loader.addFont(File('fonts/$f').readAsBytes().then((b) => ByteData.view(b.buffer)));

@@ -26,7 +26,7 @@ class GymWeekApp extends StatelessWidget {
           colorScheme: const ColorScheme.dark(primary: ember, surface: tube),
           splashColor: ember.withValues(alpha: 0.15),
           highlightColor: ember.withValues(alpha: 0.08),
-          fontFamily: 'Courier Prime',
+          fontFamily: 'Saira',
         ),
         home: const _Opening(),
       );

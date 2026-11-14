@@ -6,7 +6,7 @@ A whole session on the phone, on Training '26's history: start at a gym, pick a 
 
 - `lib/model.dart` — the records, after `Spec/Data Model.md`, kept in one JSON file on the phone and written on every change.
 - `lib/logic.dart` — rest and its rhythm, progress lines, a goal's reach, what a routine offers, a set's starting load.
-- `lib/ui.dart` — plain parts from the visual basics: the palette, Courier Prime, a 48 px tap area. No tube.
+- `lib/ui.dart` — plain parts from the visual basics: the palette, a 48 px tap area. No tube. Saira and secondary and supporting text at 70% are a trial for the prototype only.
 - `lib/screens/` — home, workouts and sets, exercises, routines, goals, rest, gyms, and export and import.
 - `tool/convert_notion.py` — turns the Notion export into `assets/history.json`.
 - `test/logic_test.dart` — checks rest's rhythm, a goal's reach and undo, a routine's offer, and that every screen lays out.
@@ -63,4 +63,4 @@ Every friction, with the moment it happened. Most of all:
 - A reach prompt appears on home; home is a list, not screen 01's widgets and sheet.
 - An exercise's load kind can be changed after it has sets, since the import guesses it from the name.
 - Loads are corrected in 2.5 kg steps on plates, without the plate keys.
-- Fonts: Courier Prime and Gelasio are bundled under the SIL Open Font License (`fonts/OFL-*.txt`).
+- Fonts: Saira and Gelasio are bundled under the SIL Open Font License (`fonts/OFL-*.txt`).
