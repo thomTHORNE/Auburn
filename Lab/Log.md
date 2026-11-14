@@ -148,12 +148,13 @@ Notes: the first texture was blocky — a noise grid showing through — and was
 
 Sketch · draft
 
-Question: read from your own training history, do a muscle's four steps — Should from the middle of its last six gaps as a main mover, Maybe a day earlier, Overdue at half again — say what you would say about that muscle on the day?
-Pass: on ten days picked from Training '26, each muscle's step matches the one you would have given it that morning in at least eight, and every miss can be named.
-Timebox: one day.
-Needs: Training '26's CSV export; each exercise's main movers marked by hand for the sketch; a build on the phone.
+Question: on any morning, do a muscle's four steps — Should from the middle of its last six gaps as a main mover, Maybe a day earlier, Overdue at half again — say what you would say about that muscle?
+How: before opening the prototype, whose home shows what is overdue, write down a step for each muscle you have a view on that morning, at least the ones you would train and any you would call Overdue. Then open Rest and compare.
+Pass: over ten mornings, at least eight in ten of your steps match Rest's, and every miss is written down with the muscle, both steps, and why. A muscle whose steps are fixed or set by hand does not count.
+Timebox: ten mornings, a few minutes each.
+Needs: the prototype, with Training '26 imported and main movers ticked on every exercise; any notes app for the steps written before looking.
 Feeds: Spec/Features/Rest.md.
-Code: Lab/rest-rhythm/
+Code: none of its own. It reads the steps in Lab/gym-week/.
 Stakes: a fail sends rhythm to Ideas.md, and steps are set by hand.
 
 ---
