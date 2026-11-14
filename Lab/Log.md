@@ -152,7 +152,7 @@ Question: read from your own training history, do a muscle's four steps — Shou
 Pass: on ten days picked from Training '26, each muscle's step matches the one you would have given it that morning in at least eight, and every miss can be named.
 Timebox: one day.
 Needs: Training '26's CSV export; each exercise's main movers marked by hand for the sketch; a build on the phone.
-Feeds: Research/Rest.
+Feeds: Spec/Features/Rest.md.
 Code: Lab/rest-rhythm/
 Stakes: a fail sends rhythm to Ideas.md, and steps are set by hand.
 
@@ -166,8 +166,8 @@ Question: does a session — start at a gym, pick a routine or none, commit exer
 Pass: a week of real sessions logged without falling back to notes or Notion, and every friction met written down with the moment it happened.
 Timebox: three days to build, a week of use.
 Needs: the Notion export, imported; main movers ticked on each imported exercise; a build on the Fold.
-Feeds: Research/Rest, and the screens 04, 05, 06, 07 and 11 not yet designed.
+Feeds: Spec/Features/Rest.md, and the screens 04, 05, 06, 07 and 11 not yet designed.
 Code: Lab/gym-week/
 Stakes: friction found here is fixed in the spec before v0's screens are designed.
 Shortcuts: plain screens from the visual basics; no sound, figure or overdue prompt; rest read-only, as Rest specifies it, rhythm included; any storage.
-Notes: built 2026-11-11 and compiled to an APK. A goal's target sits on an exercise only; splits, settings and cardio are left out. Rest's rhythm, a goal's reach and undo, and a routine's offer are checked by the attempt's own tests.
+Notes: built 2026-11-11 and compiled to an APK. A goal's target sits on an exercise only; splits, settings and cardio are left out. Rest's rhythm, a goal's reach and undo, and a routine's offer are checked by the attempt's own tests. Build 0.2.0 (2026-11-12) exports and imports every record as one file, so logged sets survive a reinstall.

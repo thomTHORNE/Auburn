@@ -23,8 +23,8 @@ The words language: every word Auburn shows, and the voice it speaks in. Words a
 | Overdue log | The overdue log | The list |
 | Settings | Settings | The list |
 | Power down | Quitting Auburn | Its hold key |
-| Train, Overdue | Two of the bands [Rest](../../Spec/Features/Rest.md) defines | Rest at a glance's widget |
-| Not yet trained | A tracked group with no resetting set yet | Rest at a glance |
+| Shouldn't, Maybe, Should, Overdue | The four steps [Rest](../../Spec/Features/Rest.md) reads | Rest at a glance's widget |
+| Not yet trained | A tracked group with no day as a main mover yet | Rest at a glance |
 | Hide | Lowering the raised list | The list's handle |
 | Edit, Done | Opening and closing a widget's controls | The widget |
 | Half, Full | A widget's two widths | The widget |
