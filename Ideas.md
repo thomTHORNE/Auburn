@@ -91,3 +91,11 @@ The user could state how many sessions a week they train, and the forecast would
 Parked because it is the strongest step toward a plan that decides the day, and the calendar beneath it is not settled. It is the counterpart of the weekly cap: the cap bounds training from above, a count sets it.
 
 Worth revisiting once the Calendar is, if one session ahead proves too short to plan a week around.
+
+## Filtering a cardio goal's exercises
+
+A goal's alternates are offered from the exercises that share a main mover with its target's exercise. A target on an activity kind has no muscle group, so there is nothing to filter its alternates by, and every exercise is offered.
+
+Parked because no rule for what serves a run or a hike has come up in use.
+
+Worth revisiting once a cardio goal names alternates.
