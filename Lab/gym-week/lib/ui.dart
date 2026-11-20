@@ -108,6 +108,68 @@ class Entry extends StatelessWidget {
       );
 }
 
+enum TagKind { gym, value, info, mark }
+
+/// A badge on an exercise's second line. A gym is the most marked, since an exercise is offered only at its gyms.
+class Tag extends StatelessWidget {
+  const Tag(this.text, {super.key, this.kind = TagKind.info});
+  final String text;
+  final TagKind kind;
+  @override
+  Widget build(BuildContext context) {
+    final (border, fill, color, bold) = switch (kind) {
+      TagKind.gym => (cyanWhite.withValues(alpha: 0.5), cyanWhite.withValues(alpha: 0.08), cyanWhite.withValues(alpha: 0.72), true),
+      TagKind.value => (lineSecondary, null, primaryC, false),
+      TagKind.info => (lineSupporting, null, secondaryC, false),
+      TagKind.mark => (cyanWhite.withValues(alpha: 0.55), cyanWhite.withValues(alpha: 0.55), obsidian, true),
+    };
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(color: fill, border: Border.all(color: border, width: 1.5)),
+      child: Text(text.toUpperCase(), style: ts(10, color: color, bold: bold, spacing: 1)),
+    );
+  }
+}
+
+/// Every tag an exercise carries wherever it is offered: its gyms, its property values, unilateral, its load kind,
+/// and, with [movers], its main movers.
+List<Tag> exerciseTags(Exercise e, {bool movers = true}) => [
+      for (final g in store.gyms)
+        if (e.gymIds.contains(g.id)) Tag(g.name, kind: TagKind.gym),
+      for (final v in valuesOf(e)) Tag(v.name, kind: TagKind.value),
+      if (e.unilateral) const Tag('Unilateral', kind: TagKind.value),
+      Tag(loadKindLabel(e.loadKind)),
+      if (movers)
+        for (final m in e.mainMovers) Tag(m.label),
+      if (e.archived) const Tag('Archived', kind: TagKind.mark),
+    ];
+
+/// An exercise in a list: its name alone on the first line, every tag on the second.
+class ExerciseEntry extends StatelessWidget {
+  const ExerciseEntry(this.exercise, {super.key, this.before = const [], this.after = const [], this.movers = true, this.onTap, this.dim = false});
+  final Exercise exercise;
+  final List<Tag> before; // what the place it is shown in adds first, such as committed
+  final List<Tag> after; // and after, such as its rest
+  final bool movers;
+  final VoidCallback? onTap;
+  final bool dim;
+
+  @override
+  Widget build(BuildContext context) => InkWell(
+        onTap: onTap,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 48),
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          decoration: BoxDecoration(border: Border(bottom: BorderSide(color: lineSupporting, width: 2))),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Text(exercise.name.toUpperCase(), style: ts(14, color: dim ? secondaryC : primaryC, spacing: 1.6)),
+            const SizedBox(height: 5),
+            Wrap(spacing: 4, runSpacing: 4, children: [...before, ...exerciseTags(exercise, movers: movers), ...after]),
+          ]),
+        ),
+      );
+}
+
 class KeyButton extends StatelessWidget {
   const KeyButton(this.label, {super.key, this.onTap, this.filled = false, this.on = false, this.height = 48, this.size = 13});
   final String label;
@@ -541,7 +603,7 @@ class ValueFilter extends StatelessWidget {
 }
 
 /// Picks one exercise, with the property filter above the list. Returns null when dismissed.
-Future<Exercise?> pickExercise(BuildContext context, String title, List<Exercise> options, {String Function(Exercise)? sub}) {
+Future<Exercise?> pickExercise(BuildContext context, String title, List<Exercise> options) {
   final on = <String>{};
   options.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
   return showDialog<Exercise>(
@@ -551,7 +613,7 @@ Future<Exercise?> pickExercise(BuildContext context, String title, List<Exercise
       return _sheet(ctx, title, [
         ValueFilter(on: on, onToggle: (id) => setState(() => on.contains(id) ? on.remove(id) : on.add(id))),
         if (shown.isEmpty) const Para('Nothing to choose from.'),
-        for (final e in shown) Entry(nameWithValues(e), sub: sub?.call(e), onTap: () => Navigator.pop(ctx, e)),
+        for (final e in shown) ExerciseEntry(e, onTap: () => Navigator.pop(ctx, e)),
         const SizedBox(height: 12),
         KeyButton('Cancel', onTap: () => Navigator.pop(ctx)),
       ]);

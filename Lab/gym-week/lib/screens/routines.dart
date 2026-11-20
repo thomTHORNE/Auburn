@@ -129,11 +129,13 @@ class _RoutineScreenState extends State<RoutineScreen> {
     final goal = store.goal(item.goalId);
     final ex = store.exercise(item.exerciseId);
     final label = goal != null ? 'Goal · ${goal.name}' : (ex?.name ?? '?');
-    final notes = <String>[
-      if (goal != null) '${store.exercise(goal.target?.exerciseId)?.name ?? '?'}, its alternates on demand',
-      if (goal != null && !goalFitsGym(goal, r.gymId)) 'not provable at this routine\'s gym',
-      if (ex != null && ex.archived) 'archived',
-      if (ex != null && !_exerciseFits(r, ex)) 'not tied to this routine\'s gym · not offered',
+    final target = store.exercise(goal?.target?.exerciseId);
+    final tags = <Tag>[
+      if (goal != null) Tag(target?.name ?? '?', kind: TagKind.value),
+      if (goal != null) Tag('${goal.alternateIds.length} alternates on demand'),
+      if (goal != null && !goalFitsGym(goal, r.gymId)) const Tag('Not provable at this routine\'s gym', kind: TagKind.mark),
+      if (ex != null) ...exerciseTags(ex),
+      if (ex != null && !_exerciseFits(r, ex)) const Tag('Not tied to this routine\'s gym · not offered', kind: TagKind.mark),
     ];
     void move(int by) {
       final j = i + by;
@@ -150,7 +152,8 @@ class _RoutineScreenState extends State<RoutineScreen> {
         Expanded(
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(label.toUpperCase(), style: ts(13.5, color: goal != null ? cyanWhite : primaryC, spacing: 1.5)),
-            if (notes.isNotEmpty) Text(notes.join(' · ').toUpperCase(), style: ts(10.5, color: secondaryC)),
+            const SizedBox(height: 5),
+            Wrap(spacing: 4, runSpacing: 4, children: tags),
           ]),
         ),
         SizedBox(width: 44, child: KeyButton('Up', size: 11, onTap: i == 0 ? null : () => move(-1))),

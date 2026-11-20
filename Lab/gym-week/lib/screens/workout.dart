@@ -61,10 +61,12 @@ class _StartWorkoutState extends State<StartWorkoutScreen> {
   }
 }
 
-String _restSummary(Exercise e, Map<MuscleGroup, RestReading> rest) => [
+/// Each main mover with its rest, as tags.
+List<Tag> _restTags(Exercise e, Map<MuscleGroup, RestReading> rest) => [
       for (final g in e.mainMovers)
-        '${g.label} ${rest[g]!.days == null ? 'not yet trained' : '${rest[g]!.days}d ${restStepLabels[rest[g]!.step!.index]}'}'
-    ].join(' · ');
+        Tag('${g.label} ${rest[g]!.days == null ? 'not yet trained' : '${rest[g]!.days}d ${restStepLabels[rest[g]!.step!.index]}'}',
+            kind: rest[g]!.step == RestStep.overdue ? TagKind.mark : TagKind.info),
+    ];
 
 /// The workout in progress: what the routine offers, what is committed, and every other exercise.
 class WorkoutScreen extends StatefulWidget {
@@ -114,10 +116,10 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
 
         Widget row(Exercise e) {
           final c = committed[e.id];
-          return Entry(nameWithValues(e),
-              glyph: c == null ? '>_' : 'OK',
-              sub: _restSummary(e, rest),
-              trailing: c == null ? null : '${c.sets.length} set${c.sets.length == 1 ? '' : 's'}',
+          return ExerciseEntry(e,
+              movers: false,
+              before: [if (c != null) Tag('Committed · ${c.sets.length} set${c.sets.length == 1 ? '' : 's'}', kind: TagKind.mark)],
+              after: _restTags(e, rest),
               onTap: () => _open(context, w, e));
         }
 
@@ -129,10 +131,11 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
             if (w.commits.isNotEmpty) ...[
               const Label('Committed, in order'),
               for (final (i, c) in w.commits.indexed)
-                Entry(store.exercise(c.exerciseId)?.name ?? '?',
-                    glyph: '${i + 1}.',
-                    trailing: '${c.sets.length} set${c.sets.length == 1 ? '' : 's'}',
-                    onTap: () => push(context, SetScreen(workoutId: w.id, commitId: c.id))),
+                if (store.exercise(c.exerciseId) case final e?)
+                  ExerciseEntry(e,
+                      movers: false,
+                      before: [Tag('${i + 1}.', kind: TagKind.mark), Tag('${c.sets.length} set${c.sets.length == 1 ? '' : 's'}')],
+                      onTap: () => push(context, SetScreen(workoutId: w.id, commitId: c.id))),
             ],
             if (routine != null) ...[
               Label('From ${routine.name}'),
@@ -261,9 +264,11 @@ class _SetScreenState extends State<SetScreen> {
         final lastReps = lastTestReps(ex.id);
 
         return Screen(
-          title: nameWithValues(ex),
+          title: ex.name,
           status: '${workoutTitle(w!)} · ${c.sets.length} set${c.sets.length == 1 ? '' : 's'}',
           children: [
+            Wrap(spacing: 4, runSpacing: 4, children: exerciseTags(ex, movers: false)),
+            const SizedBox(height: 8),
             for (final g in ex.mainMovers) RestMeter(rest[g]!),
             if (ex.supporting.isNotEmpty) Text('SUPPORTING · ${ex.supporting.map((g) => g.label).join(', ')}'.toUpperCase(), style: ts(10.5, color: secondaryC)),
             if (ex.mainMovers.isEmpty && ex.supporting.isEmpty) Text('NO MUSCLE GROUPS NAMED YET', style: ts(10.5, color: secondaryC)),

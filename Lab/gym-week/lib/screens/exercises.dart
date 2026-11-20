@@ -37,14 +37,9 @@ class _ExercisesState extends State<ExercisesScreen> {
           children: [
             ValueFilter(on: filter, onToggle: (id) => setState(() => filter.contains(id) ? filter.remove(id) : filter.add(id))),
             for (final e in all.where((e) => !e.archived && passesFilter(e, filter)))
-              Entry(nameWithValues(e),
-                  sub: [
-                    e.mainMovers.isEmpty ? 'No main mover named' : e.mainMovers.map((g) => g.label).join(', '),
-                    if (e.unilateral) 'unilateral',
-                  ].join(' · '),
-                  onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
+              ExerciseEntry(e, after: [if (e.mainMovers.isEmpty) const Tag('No main mover named', kind: TagKind.mark)], onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
             if (all.any((e) => e.archived)) const Label('Archived'),
-            for (final e in all.where((e) => e.archived)) Entry(e.name, dim: true, onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
+            for (final e in all.where((e) => e.archived)) ExerciseEntry(e, dim: true, onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
           ],
         );
       });
@@ -81,6 +76,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           status: '${loadKindLabel(e.loadKind)}${e.unilateral ? ' · unilateral' : ''}${e.archived ? ' · archived' : ''} · ${e.gymIds.map((id) => store.gym(id)?.name ?? '?').join(', ')}',
           bottom: KeyButton('Edit', onTap: () => push(context, ExerciseEditScreen(exerciseId: e.id))),
           children: [
+            Wrap(spacing: 4, runSpacing: 4, children: exerciseTags(e, movers: false)),
+            const SizedBox(height: 8),
             if (e.mainMovers.isEmpty && e.supporting.isEmpty) const Para('No muscle groups named: it resets no rest.', apart: true),
             for (final g in e.mainMovers) RestMeter(rest[g]!),
             if (e.supporting.isNotEmpty) Text('SUPPORTING · ${e.supporting.map((g) => g.label).join(', ')}'.toUpperCase(), style: ts(10.5, color: secondaryC)),
@@ -283,14 +280,14 @@ class _ExerciseEditState extends State<ExerciseEditScreen> {
           const Label('Its own alternates, in order'),
           if (from != null) Para('While ${from.name} is active, its alternates are the goal\'s. These return when it ends.'),
           for (final (i, id) in e.alternateIds.indexed)
-            Entry(store.exercise(id)?.name ?? '?',
-                glyph: '${i + 1}.',
-                sub: store.exercise(id) != null && !fitsAsAlternate(e, store.exercise(id)!) ? 'No longer shares a main mover or a gym · not offered' : null,
-                trailing: 'Remove',
-                onTap: () {
-                  e.alternateIds.remove(id);
-                  store.save();
-                }),
+            if (store.exercise(id) case final alt?)
+              ExerciseEntry(alt,
+                  before: [Tag('${i + 1}.')],
+                  after: [if (!fitsAsAlternate(e, alt)) const Tag('No longer shares a main mover or a gym · not offered', kind: TagKind.mark), const Tag('Tap to remove')],
+                  onTap: () {
+                    e.alternateIds.remove(id);
+                    store.save();
+                  }),
           const SizedBox(height: 6),
           KeyButton('Add an alternate', onTap: () async {
             final pick = await pickExercise(context, 'Alternate for ${e.name}', others.where((x) => !e.alternateIds.contains(x.id) && fitsAsAlternate(e, x)).toList());

@@ -92,7 +92,7 @@ class _GoalScreenState extends State<GoalScreen> {
     final base = store.exercise(g.target?.exerciseId);
     if (base == null) return;
     final options = store.exercises.where((e) => !e.archived && !g.exerciseIds.contains(e.id) && fitsAsAlternate(base, e)).toList();
-    final pick = await pickExercise(context, 'An alternate for ${base.name}', options, sub: (e) => e.mainMovers.map((m) => m.label).join(', '));
+    final pick = await pickExercise(context, 'An alternate for ${base.name}', options);
     if (pick == null) return;
     g.alternateIds.add(pick.id);
     store.save();
@@ -335,13 +335,11 @@ class _GoalScreenState extends State<GoalScreen> {
             const Label('Alternates · offered on demand'),
             if (alternates.isEmpty) const Para('None.'),
             for (final e in alternates) ...[
-              Entry(e.name,
-                  glyph: g.hiddenExerciseIds.contains(e.id) ? '[ ]' : '[x]',
-                  sub: [
-                    g.hiddenExerciseIds.contains(e.id) ? 'Line hidden' : 'Line shown',
-                    if (targetEx != null && !fitsAsAlternate(targetEx, e)) 'no longer shares a main mover or a gym',
-                    if (e.archived) 'archived',
-                  ].join(' · '),
+              ExerciseEntry(e,
+                  after: [
+                    Tag(g.hiddenExerciseIds.contains(e.id) ? 'Line hidden' : 'Line shown'),
+                    if (targetEx != null && !fitsAsAlternate(targetEx, e)) const Tag('No longer shares a main mover or a gym', kind: TagKind.mark),
+                  ],
                   dim: g.hiddenExerciseIds.contains(e.id),
                   onTap: () async {
                     final act = await pickOne<String>(context, e.name, [g.hiddenExerciseIds.contains(e.id) ? 'Show its line' : 'Hide its line', if (!g.ended) 'Remove from the goal'], (s) => s);
