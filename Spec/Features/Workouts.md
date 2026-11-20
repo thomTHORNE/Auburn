@@ -12,9 +12,9 @@ A workout starts by choosing the gym, then a routine or none, as specified in [R
 
 ### Committing
 
-The exercises offered are those tied to its gym or to no gym, and not archived; a workout started from a routine offers the routine's first. Committing one adds it after the last. An exercise is committed to a workout at most once; returning to it later adds sets to the same commit.
+The exercises offered are those tied to its gym and not archived; a workout started from a routine offers the routine's first. Committing one adds it after the last. An exercise is committed to a workout at most once; returning to it later adds sets to the same commit.
 
-A commit with no sets can be swapped for one of its exercise's alternates available at this gym, or removed. A commit with sets is removed together with its sets.
+A commit with no sets can be swapped for one of its alternates tied to this gym, whichever's they are, as specified in [Exercises](Exercises.md), or removed. A commit with sets is removed together with its sets.
 
 ### Ending
 

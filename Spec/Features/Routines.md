@@ -2,7 +2,7 @@
 
 ## What it is
 
-A workout prepared in advance: exercises and goals, in order, picked when a workout starts so the gym is for doing it. A routine stands alone or belongs to a routine group, and may be tied to gyms. It offers what to do; it commits nothing and decides nothing.
+A workout prepared in advance: exercises and goals, in order, picked when a workout starts so the gym is for doing it. A routine stands alone or belongs to a routine group, and is tied to one gym. It offers what to do; it commits nothing and decides nothing.
 
 ## Behavior
 
@@ -12,17 +12,17 @@ A routine has a name and holds exercises and goals in the order the user sets, a
 
 ### Goals in a routine
 
-A goal in a routine stays a goal: it is shown as itself, never dissolved into or replaced by its exercises. A routine holds the goal, never a copy of its exercises. Its exercises are read when a workout starts and come with it at its place in the order, in whatever order the goal holds them. A goal has no order of its own; the routine applies what the goal brings.
+A goal in a routine stays a goal: it is shown as itself, never dissolved into or replaced by its exercises. A routine holds the goal, never a copy of its exercises. When a workout starts, the goal brings its target's exercise at its place in the order. Its alternates come behind it, offered only on demand, in the goal's order.
 
 Only active goals are added to a routine. A goal that ends, reached or abandoned, leaves every routine it was in.
 
-A goal whose target sits on an activity kind brings only its supporting exercises; the activity that proves it arrives from the watch.
+A goal whose target sits on an activity kind brings only its alternates, on demand; the activity that proves it arrives from the watch.
 
 ### Gyms
 
-A routine is tied to gyms or to none, as an exercise is. A tied routine is offered only at its gyms, and holds only exercises available at one of them. A goal whose target sits on an exercise joins a tied routine only if that exercise is available at one of the routine's gyms; a goal whose target sits on an activity kind joins any routine.
+A routine is tied to one gym. It is offered only there, and its editor offers only exercises tied to that gym. A goal whose target sits on an exercise joins the routine only if that exercise is tied to its gym; a goal whose target sits on an activity kind joins any routine.
 
-A goal whose target's exercise stops being available at a tied routine's gyms stays in the routine, shown on its edit screen as not provable there.
+An exercise in a routine whose tie to the routine's gym is removed stays on its edit screen, marked, and is not offered. A goal whose target's exercise loses that tie stays, shown as not provable there.
 
 ### Routine groups
 
@@ -30,7 +30,7 @@ A routine stands alone or belongs to one routine group: a name and its routines.
 
 ### Starting from a routine
 
-When a workout starts at a gym, the routines tied to that gym or to none are offered, and the user picks one or none. A workout started from a routine offers the routine's exercises available at its gym; an exercise tied to another gym is replaced by its alternate available here, or left out. This holds for the exercises a goal brings, and the goal stays.
+When a workout starts at a gym, the routines tied to that gym are offered, and the user picks one or none. A workout started from a routine offers the routine's exercises and what its goals bring.
 
 The routine commits nothing. Whether to commit any of its exercises is the user's choice; each is committed as it is done, so commit order records what happened, and an exercise skipped leaves nothing behind. The offered list shows which have been committed. Every other exercise on offer at the gym can still be committed at any time.
 
@@ -46,6 +46,7 @@ Auburn never suggests which routine is next, and never schedules one.
 ## Constraints
 
 - An exercise or a goal sits in a routine at most once.
+- A routine is tied to exactly one gym.
 - A routine holds no activity; cardio is never a workout.
 
 ## Edge cases
@@ -58,4 +59,4 @@ Auburn never suggests which routine is next, and never schedules one.
 | A routine is edited while a workout started from it is in progress | The offered list follows the routine as it now stands |
 | The phone dies during a workout started from a routine | The offered list is there when Auburn reopens; what was committed stays committed |
 | A routine's group is deleted | Its routines stand alone |
-| An untied routine is started at a gym where none of its exercises is available | It offers nothing; every exercise on offer at the gym can still be committed |
+| An exercise in a routine loses its tie to the routine's gym | It stays on the edit screen, marked, and is not offered |

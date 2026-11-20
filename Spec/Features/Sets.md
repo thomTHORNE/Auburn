@@ -25,13 +25,17 @@ Plate keys are 20, 10, 5, 2.5, and 1.25 kg.
 
 The load starts at the previous set of this commit; for the first set, at the first working set of this exercise's last commit; for an exercise never done, at its bar, its lowest step, or 0.
 
+### Side
+
+On a unilateral exercise, each set records left or right. The side starts at the previous set of this commit; for the first set, at the side the exercise's last commit started on; for an exercise never done, left. A changed side holds for the sets after it until it is changed again.
+
 ### Tests
 
 The next set can be marked a test, a level deeper than the grade keys; the mark applies to that set only. A test asks for its reps beside its load, and is logged only once they are entered. The reps input shows the reps of the exercise's last test as a placeholder. An ordinary set has no reps. Auburn never marks a set a test.
 
 ### Correcting
 
-A logged set opens to change its load, grade, or reps, to be marked or unmarked a test, or to be deleted. Marking it a test asks for its reps; unmarking it removes them. Sets keep the order they were logged in.
+A logged set opens to change its load, grade, side, or reps, to be marked or unmarked a test, or to be deleted. Marking it a test asks for its reps; unmarking it removes them. Sets keep the order they were logged in.
 
 ## States
 

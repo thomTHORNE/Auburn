@@ -17,6 +17,8 @@ Each workout is one point on its date, drawn from the sets the line is given:
 
 A workout with no set given adds no point. Ungraded imported sets are never given.
 
+A unilateral exercise draws a line per side, each from that side's sets. Sets with no side are given to neither.
+
 ### What an exercise's line is given
 
 On the exercise, above its past sets, the line is given the sets of the grades the user shows: Ideal to begin with. The grades shown and the parameter, load to begin with, are viewing choices kept on the exercise.
@@ -40,6 +42,7 @@ None. Progress is drawn from sets and activities; only each exercise's viewing c
 | Scenario | Behavior |
 |---|---|
 | An exercise with one point ever | One point, no line |
+| A unilateral exercise whose sets all predate its marking | Both lines are empty; the sets stay in its past sets |
 | Two sets given tie as heaviest in a workout | One point at that load |
 | A set's grade is corrected to one not shown | Its point moves to the next set given, or disappears |
 | A test graded Yielding, with Ideal shown | Adds no point; the test stays in the exercise's past sets |

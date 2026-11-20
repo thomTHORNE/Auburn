@@ -64,7 +64,7 @@ A muscle group that is never a main mover keeps no rest. Making it one is the us
 
 ### A goal says why
 
-A goal is something to reach: a movement mastered, an imbalance levelled, a time run. It holds the user's own explanation of what it is for and how it is meant to be achieved, and the exercises that work toward it. A goal is never owed. It shows the gap to its target, not rest.
+A goal is something to reach: a movement mastered, an imbalance levelled, a time run. It is a commitment the user learns from. At its start the user says why it exists, what reaching it means, and what they expect to be hardest; at its end, reached or abandoned, they say what happened, beside what they said at the start. It names the exercise its target sits on and the alternates that serve it. A goal is never owed. It shows the gap to its target, not rest.
 
 Its target says what reaching it looks like, in the user's own rules, and only the facts prove it: a goal is reached by a set or an activity, never by being marked. A target committed to cannot be trusted unless it holds, so once a goal is active its target does not move. The goal is reached or abandoned, never paused, and an abandoned goal keeps the reason why.
 
@@ -113,16 +113,18 @@ The fiction changes what Auburn says, never what Auburn does. Every behaviour fo
 ## Terms
 
 - **Muscle group** — a part of the body rest is kept for, from a standard list: chest, front delts, side delts, rear delts, biceps, triceps, forearms, lats, upper back, traps, lower back, abs, obliques, quads, hamstrings, glutes, calves, adductors, abductors, neck. Cardio rests the same way, reset by runs, treadmill sessions, and hikes from the watch.
-- **Goal** — something to reach: the user's explanation of what it is and how it is achieved, its target, and the exercises that work toward it.
-- **Routine** — a workout prepared in advance: exercises and goals, in order, picked when a workout starts. It may be tied to gyms.
+- **Goal** — something to reach: its target, the exercise the target sits on and its alternates, and what the user says at its start and its end.
+- **Routine** — a workout prepared in advance: exercises and goals, in order, picked when a workout starts. It is tied to one gym.
 - **Routine group** — a named set of routines, such as Push, Pull and Legs. It implies no order among them.
 - **Target** — what reaching a goal looks like: a value on one exercise's sets or one kind of activity, under the user's own rules.
-- **Exercise** — a movement, on specific equipment where it uses any. Names the muscle groups it mainly trains and those it supports, may serve goals, may name alternates, and may be tied to the gyms it is done at. A mobility exercise works no muscle group and serves no goal.
+- **Exercise** — a movement, on specific equipment where it uses any. Names the muscle groups it mainly trains and those it supports, is tied to the gyms it is done at, may hold values of the user's properties, and may serve goals and name alternates. A mobility exercise works no muscle group and serves no goal.
+- **Unilateral** — an exercise done one side at a time. Each of its sets records its side.
+- **Property** — a name and its values, made by the user, such as Form: strict or freeform. An exercise holds at most one value of each. Shown and filtered on, never read by Auburn.
 - **Main mover** — a muscle group an exercise mainly trains. Its rest is reset by the exercise.
 - **Supporting muscle** — a muscle group an exercise also works. Shown with the day it last worked, never counted toward rest.
-- **Alternate** — an exercise named on another as its stand-in, used when that one's equipment is taken.
+- **Alternate** — an exercise offered in another's place, when that one is too hard or its equipment is taken. A goal names the alternates of its target's exercise; an exercise that is no active goal's target names its own.
 - **Workout** — one visit to train at a gym: the exercises committed to it, in order, and their sets. Titled by its date and gym. A workout is hypertrophy or mobility, never both.
-- **Gym** — where a workout happens, home included. Gyms differ in equipment: an exercise tied to a gym is that gym's version of the lift, and one tied to none is the same everywhere.
+- **Gym** — where a workout happens, home included. Gyms differ in equipment: an exercise is tied to the gyms it is done at, and is each one's version of the lift.
 - **Split** — an optional grouping of muscle groups, such as Upper or Leg Day.
 - **Commit** — adding an exercise to the current workout.
 - **Set** — a load and a grade, plus reps when it is a test. Mobility exercises have no sets.

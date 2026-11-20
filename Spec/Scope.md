@@ -32,12 +32,12 @@ Builds are numbered major.minor.patch, and the major is the version: v0's builds
 | **Platforms** | Android and iOS phones. |
 | **Muscle groups** | The standard list, and the groups each exercise mainly trains and supports. A muscle group may carry a split. |
 | **Rest** | Each muscle group's rest, counted from its main moves and read in four steps against its own rhythm, or steps set by hand; cardio rests the same way. Every rest in a list, as the basis for choosing the day's training. |
-| **Goals** | Goals with the user's explanation, a target the facts prove, and the exercises that work toward it, shown with the gap to the target. A goal is drafted, made active, and ends reached or abandoned. Weaknesses are goals. |
+| **Goals** | Goals with a target the facts prove, the exercise it sits on and its alternates, and what the user says at the start and at the end, shown with the gap to the target. A goal is drafted, made active, and ends reached or abandoned. Weaknesses are goals. |
 | **Workouts** | Starting a workout by choosing the gym, which limits the exercises on offer to that gym's, then a routine or none; committing exercises to it in order; its duration; and past workouts. |
-| **Routines** | Workouts prepared in advance — exercises and goals, in order — picked when a workout starts, standing alone or in a routine group, and optionally tied to gyms. |
-| **Sets** | Load and grade, and tests: a set the user marks, recording its reps. |
-| **Exercises** | The user's own exercises, each with the muscle groups it trains and supports and its alternates, optionally tied to gyms, with its notes and its past sets, grouped by workout and showing the gym and the exercise's place in that workout. |
-| **Progress** | Each exercise's load and tested reps over time, by the grades the user chooses to show, and each kind of cardio's pace, duration, distance and heart rate; drawn on the exercise and in each goal's chart. |
+| **Routines** | Workouts prepared in advance — exercises and goals, in order — picked when a workout starts, standing alone or in a routine group, and tied to one gym. |
+| **Sets** | Load and grade, the side on a unilateral exercise, and tests: a set the user marks, recording its reps. |
+| **Exercises** | The user's own exercises, each with the muscle groups it trains and supports, whether it is unilateral, the user's own properties, its alternates while it is no goal's target, and the gyms it is done at, with its notes and its past sets, grouped by workout and showing the gym and the exercise's place in that workout. |
+| **Progress** | Each exercise's load and tested reps over time, per side on a unilateral exercise, by the grades the user chooses to show, and each kind of cardio's pace, duration, distance and heart rate; drawn on the exercise and in each goal's chart. |
 | **Cardio** | Runs, treadmill sessions, and hikes recorded on the Suunto watch, read from intervals.icu, which syncs them from the Suunto app. |
 | **Notion history** | A one-time import of Training '26: exercises and their notes, workouts, and sets. Its goals are rebuilt by hand as muscle groups and goals. |
 | **Sound** | The boot, the ambience, and the power-down. |

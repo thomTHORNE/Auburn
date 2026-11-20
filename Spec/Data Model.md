@@ -61,10 +61,12 @@ class Exercise {
   final LoadKind loadKind;
   final double? barKg;                // plates only
   final double? stepKg;               // stack and dumbbells only: the step between loads
+  final bool unilateral;              // its sets record a side
   final Set<MuscleGroup> mainMovers;
   final Set<MuscleGroup> supporting;
-  final List<String> alternateIds;    // ordered
-  final Set<String> gymIds;           // empty: the same everywhere
+  final List<String> alternateIds;    // ordered; its own, used while it is no active goal's target
+  final Set<String> gymIds;           // at least one
+  final Set<String> propertyValueIds; // at most one value of each property
   final String observations;          // the notes, shown as three tabs
   final String settings;
   final String form;
@@ -74,11 +76,22 @@ class Exercise {
 }
 
 enum ExerciseParameter { load, reps }
+
+/// A property the user made, such as Form.
+class Property {
+  final String name;
+}
+
+class PropertyValue {
+  final String propertyId;
+  final String name;                  // such as Strict
+}
 ```
 
 - A group is never in both `mainMovers` and `supporting`.
 - `barKg` is set exactly when the load kind is plates; `stepKg` exactly when it is stack or dumbbells.
 - An alternate is an exercise other than the exercise itself.
+- `gymIds` is never empty.
 
 ## Goals
 
@@ -88,8 +101,11 @@ enum GoalState { draft, active, reached, abandoned }
 
 class Goal {
   final String name;
-  final String explanation;
-  final Set<String> exerciseIds;         // the exercises that work toward it
+  final List<String> alternateIds;       // ordered
+  final String why;                      // the start answers; empty when unanswered
+  final String reachedMeans;
+  final String hardestExpected;
+  final String? whatGotYouThere;         // reached only; the end answer
   final GoalState state;
   final DateTime? activatedAt;           // set when made active
   final DateTime? endedAt;               // reached or abandoned
@@ -97,18 +113,20 @@ class Goal {
   final String? fromGoalId;              // the goal this one was started from
   final TargetParameter? shownParameter; // what the chart plots; null: the current target's parameter
   final Set<String> hiddenExerciseIds;   // exercises whose lines the chart hides; never the target's
-  final Set<Grade> shownGrades;          // the grades its supporting lines are given; default Ideal
+  final Set<Grade> shownGrades;          // the grades its alternates' lines are given; default Ideal
 }
 
 enum TargetParameter { load, reps, pace, duration, distance, averageHeartRate }
+enum TargetSide { left, right, both }
 
 /// A goal's target.
 class Target {
   final String goalId;
-  final String? exerciseId;         // one of the goal's exercises; or
+  final String? exerciseId;         // the exercise it sits on; or
   final ActivityKind? activityKind; // an activity kind
-  final TargetParameter parameter;
-  final double value;               // kg, reps, seconds per km, seconds, km, or bpm
+  final TargetParameter? parameter; // set before the goal is made active
+  final double? value;              // kg, reps, seconds per km, seconds, km, or bpm
+  final TargetSide? side;           // set exactly when its exercise is unilateral
   final Set<Grade> grades;          // targets on an exercise: the grades that count
   final double? minLoadKg;          // reps targets: the least load that counts
   final double? minDistanceKm;      // targets on an activity kind: only activities in this range count
@@ -120,10 +138,12 @@ class Target {
 }
 ```
 
-- A goal names its exercises; an exercise serves the goals that name it.
+- A goal names its target's exercise through its target, and its alternates; an exercise serves the goals that name it.
 - `activatedAt` is set exactly when the state is not draft; `endedAt` exactly when it is reached or abandoned; `abandonedBecause` exactly when abandoned, and never empty.
-- A goal has at most one target; one that is not a draft has exactly one.
-- A target has exactly one of `exerciseId` and `activityKind`. On an exercise, its parameter is load or reps, and it has at least one grade. A goal that is not a draft has its target's exercise among its own and not archived; a draft's may be neither until it is made active. On an activity kind, its parameter is pace, duration, distance, or average heart rate, and it has no grades.
+- A goal has exactly one target, made with it. A goal that is not a draft has its target's parameter and value set.
+- An exercise is the target of at most one goal that is a draft or active.
+- `whatGotYouThere` is set only when reached.
+- A target has exactly one of `exerciseId` and `activityKind`. On an exercise, its parameter is load or reps, and it has at least one grade. A goal that is not a draft has its target's exercise not archived; a draft's may be archived until it is made active. On an activity kind, its parameter is pace, duration, distance, or average heart rate, and it has no grades.
 - `minLoadKg` is set only on a reps target. `minDistanceKm ≤ maxDistanceKm` when both are set.
 - `kept` is true only with `reachedAt`. A reached goal's target is kept.
 - A target's reach is stored, not derived: the user keeps or undoes it, and an ended goal never changes.
@@ -138,7 +158,7 @@ class RoutineGroup {
 class Routine {
   final String name;
   final String? groupId;     // null: standalone
-  final Set<String> gymIds;  // empty: offered everywhere
+  final String gymId;
   final bool archived;
 }
 
@@ -153,7 +173,7 @@ class RoutineItem {
 
 - An exercise or a goal appears in a routine at most once.
 - A routine's goals are active.
-- A tied routine's exercises are each available at one of its gyms; a goal whose target sits on an exercise is in a tied routine only if that exercise is.
+- A routine's exercises are tied to its gym when added; a goal whose target sits on an exercise is added only if that exercise is.
 
 ## Workouts
 
@@ -184,6 +204,7 @@ class Commit {
 
 ```dart
 enum Grade { ideal, acceptable, light, yielding, warmup }
+enum Side { left, right }
 
 class LoggedSet {
   final String commitId;
@@ -193,6 +214,7 @@ class LoggedSet {
   final Grade? grade;
   final bool test;
   final int? reps;
+  final Side? side;                   // unilateral exercises; null on sets logged before it was marked, and on imported sets
 }
 ```
 
@@ -200,6 +222,7 @@ Dart's core library owns `Set`, so the record is `LoggedSet`.
 
 - A set has a grade, except in an imported workout, where it may have none.
 - A set has reps exactly when it is a test.
+- A set on a unilateral exercise has a side, unless it was logged before the exercise was marked unilateral, or imported.
 
 ## Activities
 
@@ -238,4 +261,4 @@ class Settings {
 
 ## Deleting
 
-Gyms, exercises, splits, and routines are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new, until it is restored; restored, it is offered again with its history whole. A routine group is deleted outright; its routines stand alone. A draft goal is deleted outright with its target; a goal that has been active is never deleted. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Rest steps set by hand are deleted outright when handed back to the rhythm.
+Gyms, exercises, splits, and routines are archived, never deleted: history points at them. An archived record is kept in history and offered nowhere new, until it is restored; restored, it is offered again with its history whole. A routine group is deleted outright; its routines stand alone. A draft goal is deleted outright with its target; a goal that has been active is never deleted. Workouts, commits, sets, and activities are deleted outright, along with anything they own. Rest steps set by hand are deleted outright when handed back to the rhythm. Properties and property values are deleted outright, and leave the exercises that held them.
