@@ -170,8 +170,8 @@ class ExerciseEntry extends StatelessWidget {
       );
 }
 
-/// An exercise in the exercise list, as a card: its name, its tags, and where it applies, the muscles it supports and
-/// the goals it serves.
+/// An exercise in the exercise list, as a card: its name, its tags, and where it applies, the exercises it is an
+/// alternate for and the goals it serves.
 class ExerciseCard extends StatelessWidget {
   const ExerciseCard(this.exercise, {super.key, this.after = const [], this.onTap});
   final Exercise exercise;
@@ -190,6 +190,9 @@ class ExerciseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final e = exercise;
     final served = goalsServedBy(e.id).where((g) => !g.ended).toList();
+    // The exercises it stands in for, as their alternates hold now: a goal's while its target is active.
+    final alternateFor = store.exercises.where((x) => !x.archived && alternatesOf(x).any((a) => a.id == e.id)).toList()
+      ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: InkWell(
@@ -201,7 +204,10 @@ class ExerciseCard extends StatelessWidget {
             Text(e.name.toUpperCase(), style: ts(15, color: e.archived ? secondaryC : primaryC, spacing: 1.6)),
             const SizedBox(height: 6),
             Wrap(spacing: 4, runSpacing: 4, children: [...exerciseTags(e), ...after]),
-            if (e.supporting.isNotEmpty) _line('Supporting', [for (final m in e.supporting) Tag(m.label)]),
+            if (alternateFor.isNotEmpty)
+              _line('Alternate for', [
+                for (final x in alternateFor) Tag('${x.name}${alternatesFrom(x) == null ? '' : ' · via ${alternatesFrom(x)!.name}'}', kind: TagKind.value),
+              ]),
             if (served.isNotEmpty)
               _line('Serves', [
                 for (final g in served) Tag('${g.name}${g.target?.exerciseId == e.id ? ' · target' : ''}${g.state == GoalState.draft ? ' · draft' : ''}', kind: TagKind.value),
