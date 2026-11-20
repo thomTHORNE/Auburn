@@ -44,6 +44,8 @@ An exercise's past sets are grouped by workout, newest first, each group showing
 
 An archived exercise is offered nowhere new and stays in every workout it appears in. It can be restored, and is then offered again with its history whole.
 
+An exercise with no sets can be deleted outright instead. It leaves every routine, every list of alternates and every goal that names it. Deleting is refused while a goal's target sits on it, or while an ended goal names it.
+
 ## States
 
 | State | Kind | Meaning |
