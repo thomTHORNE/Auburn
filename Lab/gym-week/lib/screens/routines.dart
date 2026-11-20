@@ -122,6 +122,21 @@ class _RoutineScreenState extends State<RoutineScreen> {
             r.archived = !r.archived;
             store.save();
           }),
+          const SizedBox(height: 8),
+          KeyButton('Delete', onTap: () async {
+            // Only a routine no workout was started from: the rest are history.
+            final started = store.workouts.where((w) => w.routineId == r.id).length;
+            if (started > 0) {
+              await confirm(context, 'Not deleted', note: '$started workout${started == 1 ? ' was' : 's were'} started from it. Archive it instead.', yes: 'OK');
+              return;
+            }
+            if (!context.mounted || !await confirm(context, 'Delete ${r.name.isEmpty ? 'this routine' : r.name}?', note: 'No workout was started from it. It cannot be restored.', yes: 'Delete')) return;
+            store.routines.remove(r);
+            // A group with no routines left is deleted outright.
+            store.routineGroups.removeWhere((g) => !store.routines.any((x) => x.groupId == g.id));
+            store.save();
+            if (context.mounted) Navigator.of(context).pop();
+          }),
         ]);
       });
 
