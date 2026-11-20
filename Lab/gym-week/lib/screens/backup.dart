@@ -1,4 +1,6 @@
 // Export and import: every record as one JSON file, so a week's data outlives the build it was logged in.
+// Version 2 (0.4) adds gyms on every exercise and routine, properties, sides, alternates on goals and set limits;
+// a version 1 file is read and brought under those rules on import.
 import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
@@ -13,7 +15,7 @@ const _format = 'auburn-lab-gym-week';
 Future<void> exportData(BuildContext context) async {
   final now = DateTime.now();
   final stamp = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
-  final raw = jsonEncode({'format': _format, 'version': 1, 'exportedAt': now.toIso8601String(), ...store.toJson()});
+  final raw = jsonEncode({'format': _format, 'version': 2, 'exportedAt': now.toIso8601String(), ...store.toJson()});
   String? path;
   try {
     path = await FilePicker.platform.saveFile(fileName: 'auburn-$stamp.json', bytes: utf8.encode(raw));

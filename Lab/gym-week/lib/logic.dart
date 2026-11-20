@@ -117,31 +117,47 @@ Map<MuscleGroup, RestReading> readRest() {
 
 // ---- Progress (Spec/Features/Progress.md) ----
 
+/// One point: its date and value, and for a readout, the workout and set behind it.
 class Point {
-  Point(this.date, this.value);
+  Point(this.date, this.value, {this.workout, this.set, this.given = 0, this.total = 0});
   final DateTime date;
   final double value;
+  final Workout? workout;
+  final LoggedSet? set; // the first logged of the sets that tie as the point
+  final int given; // the workout's sets of the exercise the line was given
+  final int total; // and all of them
 }
 
-/// One point per workout, drawn from the sets the line is given.
-List<Point> exerciseLine(String exerciseId, Param parameter, bool Function(LoggedSet) given, {DateTime? until}) {
+/// One point per workout, drawn from the sets the line is given. A unilateral exercise's line is one side's.
+List<Point> exerciseLine(String exerciseId, Param parameter, bool Function(LoggedSet) given, {DateTime? until, Side? side}) {
   final points = <Point>[];
   final workouts = [...store.workouts]..sort((a, b) => a.startedAt.compareTo(b.startedAt));
   for (final w in workouts) {
     double? best;
+    LoggedSet? bestSet;
+    var n = 0, total = 0;
     for (final c in w.commits) {
       if (c.exerciseId != exerciseId) continue;
       for (final s in c.sets) {
+        if (side != null && s.side != side) continue;
+        total++;
         if (s.grade == null || !given(s)) continue;
         if (until != null && s.loggedAt.isAfter(until)) continue;
+        n++;
         final double? v = parameter == Param.load ? s.loadKg : (s.test ? s.reps?.toDouble() : null);
-        if (v != null && (best == null || v > best)) best = v;
+        if (v != null && (best == null || v > best)) {
+          best = v;
+          bestSet = s;
+        }
       }
     }
-    if (best != null) points.add(Point(dayOf(w.startedAt), best));
+    if (best != null) points.add(Point(dayOf(w.startedAt), best, workout: w, set: bestSet, given: n, total: total));
   }
   return points;
 }
+
+/// The sides an exercise's lines are drawn for: one line, or one per side.
+List<Side?> sidesOf(Exercise e) => e.unilateral ? Side.values : [null];
 
 // ---- Goals (Spec/Features/Goals.md) ----
 
@@ -154,7 +170,20 @@ bool letsThrough(Target t, LoggedSet s) {
 }
 
 bool reaches(Target t, LoggedSet s) =>
-    letsThrough(t, s) && (t.parameter == Param.load ? s.loadKg >= t.value : s.reps! >= t.value);
+    letsThrough(t, s) &&
+    (t.side == TargetSide.left ? s.side == Side.left : t.side == TargetSide.right ? s.side == Side.right : true) &&
+    (t.parameter == Param.load ? s.loadKg >= t.value : s.reps! >= t.value);
+
+/// The fact that reaches a target in a workout, or null. On both sides, each side needs a reaching set in that
+/// workout, and the later of the two is the fact.
+LoggedSet? _reachIn(Target t, Workout w, bool Function(LoggedSet) counts) {
+  final sets = [for (final c in w.commits) if (c.exerciseId == t.exerciseId) ...c.sets]..sort((a, b) => a.loggedAt.compareTo(b.loggedAt));
+  if (t.side != TargetSide.both) return sets.where((s) => counts(s) && reaches(t, s)).firstOrNull;
+  final left = sets.where((s) => counts(s) && s.side == Side.left && reaches(t, s)).firstOrNull;
+  final right = sets.where((s) => counts(s) && s.side == Side.right && reaches(t, s)).firstOrNull;
+  if (left == null || right == null) return null;
+  return left.loggedAt.isAfter(right.loggedAt) ? left : right;
+}
 
 List<LoggedSet> _setsOf(String exerciseId) => [
       for (final w in store.workouts)
@@ -169,20 +198,22 @@ bool checkGoals() {
   for (final g in store.goals) {
     final t = g.target;
     if (g.state != GoalState.active || t == null || t.kept) continue;
-    final sets = _setsOf(t.exerciseId);
+    bool counts(LoggedSet s) => s.loggedAt.isAfter(g.activatedAt!) && (t.passedUntil == null || s.loggedAt.isAfter(t.passedUntil!));
+    final workouts = store.workouts.where((w) => w.commits.any((c) => c.exerciseId == t.exerciseId)).toList()
+      ..sort((a, b) => a.startedAt.compareTo(b.startedAt));
     if (t.reachedAt != null) {
-      final fact = sets.where((s) => s.id == t.reachedById).firstOrNull;
-      if (fact != null && reaches(t, fact)) continue;
+      final w = workouts.where((w) => w.commits.any((c) => c.sets.any((s) => s.id == t.reachedById))).firstOrNull;
+      final fact = w == null ? null : _reachIn(t, w, counts);
+      if (fact != null && fact.id == t.reachedById) continue;
       t.reachedAt = null;
       t.reachedById = null;
       changed = true;
     }
-    for (final s in sets) {
-      if (!s.loggedAt.isAfter(g.activatedAt!)) continue;
-      if (t.passedUntil != null && !s.loggedAt.isAfter(t.passedUntil!)) continue;
-      if (reaches(t, s)) {
-        t.reachedAt = s.loggedAt;
-        t.reachedById = s.id;
+    for (final w in workouts) {
+      final fact = _reachIn(t, w, counts);
+      if (fact != null) {
+        t.reachedAt = fact.loggedAt;
+        t.reachedById = fact.id;
         changed = true;
         break;
       }
@@ -194,11 +225,9 @@ bool checkGoals() {
 List<Goal> owedPrompts() =>
     [for (final g in store.goals) if (g.state == GoalState.active && g.target?.reachedAt != null && !g.target!.kept) g];
 
+/// A new goal from an ended one: its name, its target unreached and its alternates; its questions start unanswered.
 Goal copyGoal(Goal g) {
-  final copy = Goal(
-    name: g.name, explanation: g.explanation, exerciseIds: {...g.exerciseIds},
-    fromGoalId: g.id, target: g.target?.unreachedCopy(),
-  );
+  final copy = Goal(name: g.name, alternateIds: [...g.alternateIds], fromGoalId: g.id, target: g.target?.unreachedCopy());
   store.goals.add(copy);
   return copy;
 }
@@ -209,8 +238,9 @@ void _leaveRoutines(Goal g) {
   }
 }
 
-void keepReach(Goal g) {
+void keepReach(Goal g, [String? whatGotYouThere]) {
   g.target!.kept = true;
+  g.whatGotYouThere = whatGotYouThere == null || whatGotYouThere.trim().isEmpty ? null : whatGotYouThere.trim();
   g.state = GoalState.reached;
   g.endedAt = g.target!.reachedAt;
   _leaveRoutines(g);
@@ -237,9 +267,12 @@ String? cannotActivate(Goal g) {
   final t = g.target;
   if (g.name.trim().isEmpty) return 'It has no name.';
   if (t == null) return 'It has no target.';
-  if (!g.exerciseIds.contains(t.exerciseId)) return 'Its target sits on an exercise that is not in the goal.';
-  if (store.exercise(t.exerciseId)?.archived ?? true) return 'Its target sits on an archived exercise.';
+  if (t.value <= 0) return 'Its target has no value.';
+  final ex = store.exercise(t.exerciseId);
+  if (ex == null || ex.archived) return 'Its target sits on an archived exercise.';
   if (t.grades.isEmpty) return 'Its target names no grade.';
+  if (ex.unilateral && t.side == null) return 'Its target names no side.';
+  if (targetTakenBy(t.exerciseId, except: g) != null) return 'Another goal\'s target already sits on ${ex.name}.';
   return null;
 }
 
@@ -248,41 +281,95 @@ String? cannotActivate(Goal g) {
 ({double? from, double? gap}) goalGap(Goal g) {
   final t = g.target;
   if (t == null) return (from: null, gap: null);
-  final line = exerciseLine(t.exerciseId, t.parameter, (s) => letsThrough(t, s), until: g.endedAt);
-  if (line.isEmpty) return (from: null, gap: null);
-  final since = g.activatedAt == null ? <Point>[] : line.where((p) => !p.date.isBefore(dayOf(g.activatedAt!))).toList();
-  final from = since.isEmpty ? line.last.value : since.map((p) => p.value).reduce((a, b) => a > b ? a : b);
-  final gap = t.value - from;
-  return (from: from, gap: gap < 0 ? 0 : gap);
+  // On both sides, the gap is the farther side's.
+  final sides = switch (t.side) { TargetSide.left => [Side.left], TargetSide.right => [Side.right], TargetSide.both => Side.values, null => <Side?>[null] };
+  ({double? from, double? gap}) result = (from: null, gap: null);
+  for (final side in sides) {
+    final line = exerciseLine(t.exerciseId, t.parameter, (s) => letsThrough(t, s), until: g.endedAt, side: side);
+    if (line.isEmpty) return (from: null, gap: null);
+    final since = g.activatedAt == null ? <Point>[] : line.where((p) => !p.date.isBefore(dayOf(g.activatedAt!))).toList();
+    final from = since.isEmpty ? line.last.value : since.map((p) => p.value).reduce((a, b) => a > b ? a : b);
+    final gap = t.value - from < 0 ? 0.0 : t.value - from;
+    if (result.gap == null || gap > result.gap!) result = (from: from, gap: gap);
+  }
+  return result;
+}
+
+/// The draft or active goal whose target sits on this exercise, if any: an exercise is the target of at most one.
+Goal? targetTakenBy(String exerciseId, {Goal? except}) => store.goals
+    .where((g) => g != except && (g.state == GoalState.draft || g.state == GoalState.active) && g.target?.exerciseId == exerciseId)
+    .firstOrNull;
+
+// ---- Alternates (Spec/Features/Exercises.md) ----
+
+/// Whether one exercise may be named as another's alternate: it shares a main mover and is tied to every gym the other is.
+bool fitsAsAlternate(Exercise base, Exercise candidate) =>
+    candidate.id != base.id && candidate.mainMovers.any(base.mainMovers.contains) && base.gymIds.every(candidate.gymIds.contains);
+
+/// The active goal whose target sits on the exercise: while it is active, the exercise's alternates are the goal's.
+Goal? alternatesFrom(Exercise e) => store.goals.where((g) => g.state == GoalState.active && g.target?.exerciseId == e.id).firstOrNull;
+
+/// An exercise's alternates as they hold now: the goal's while it is an active goal's target, its own otherwise.
+List<Exercise> alternatesOf(Exercise e) =>
+    [for (final id in alternatesFrom(e)?.alternateIds ?? e.alternateIds) store.exercise(id)].nonNulls.toList();
+
+// ---- Set limits (Spec/Features/Goals.md) ----
+
+/// The limit of sets per workout on an exercise: the lowest of the active goals that name it, or null.
+int? setLimitOn(String exerciseId) {
+  int? lowest;
+  for (final g in store.goals) {
+    if (g.state != GoalState.active || !g.exerciseIds.contains(exerciseId)) continue;
+    final l = g.limitOn(exerciseId);
+    if (l != null && (lowest == null || l < lowest)) lowest = l;
+  }
+  return lowest;
+}
+
+/// The sets of a commit that count toward its limit: every grade but Warmup, on that side for a unilateral exercise.
+int setsTowardLimit(Commit c, Side? side, {LoggedSet? except}) =>
+    c.sets.where((s) => s != except && s.grade != Grade.warmup && (side == null || s.side == side)).length;
+
+/// Whether a set of this grade, on this side, is refused by a limit.
+bool refusedByLimit(Commit c, Exercise ex, Grade grade, Side? side, {LoggedSet? except}) {
+  if (grade == Grade.warmup) return false;
+  final limit = setLimitOn(ex.id);
+  return limit != null && setsTowardLimit(c, ex.unilateral ? side : null, except: except) >= limit;
+}
+
+/// A unilateral set takes the side of the set before it in this commit; the first, the side the exercise's last
+/// commit started on; an exercise never done, left.
+Side startSide(Workout current, Commit commit) {
+  final last = commit.sets.where((s) => s.side != null).lastOrNull;
+  if (last != null) return last.side!;
+  final earlier = store.workouts.where((w) => w.id != current.id).toList()..sort((a, b) => b.startedAt.compareTo(a.startedAt));
+  for (final w in earlier) {
+    for (final c in w.commits) {
+      if (c.exerciseId != commit.exerciseId) continue;
+      final first = c.sets.where((s) => s.side != null).firstOrNull;
+      if (first != null) return first.side!;
+    }
+  }
+  return Side.left;
 }
 
 // ---- Routines (Spec/Features/Routines.md) ----
 
 class OfferedGroup {
-  OfferedGroup(this.goal, this.exercises);
+  OfferedGroup(this.goal, this.exercises, [this.alternates = const []]);
   final Goal? goal;
-  final List<Exercise> exercises;
+  final List<Exercise> exercises; // offered up front: the exercise, or the goal's target's exercise
+  final List<Exercise> alternates; // a goal's alternates, offered only on demand
 }
 
-/// The routine's exercises available at this gym, each offered once, at its first place in the order.
-/// An exercise tied to another gym is replaced by its alternate available here, or left out.
+/// The routine's exercises tied to this gym, each offered once, at its first place in the order. A goal brings its
+/// target's exercise; its alternates come behind it, on demand. Nothing tied to another gym is offered.
 List<OfferedGroup> routineOffer(Routine r, String gymId) {
   final seen = <String>{};
   Exercise? resolve(String? id) {
     final e = store.exercise(id);
-    if (e == null) return null;
-    Exercise? pick = (!e.archived && e.availableAt(gymId)) ? e : null;
-    if (pick == null && !e.archived) {
-      for (final a in e.alternateIds) {
-        final alt = store.exercise(a);
-        if (alt != null && !alt.archived && alt.availableAt(gymId)) {
-          pick = alt;
-          break;
-        }
-      }
-    }
-    if (pick == null || !seen.add(pick.id)) return null;
-    return pick;
+    if (e == null || e.archived || !e.availableAt(gymId) || !seen.add(e.id)) return null;
+    return e;
   }
 
   final groups = <OfferedGroup>[];
@@ -290,7 +377,8 @@ List<OfferedGroup> routineOffer(Routine r, String gymId) {
     if (item.goalId != null) {
       final goal = store.goal(item.goalId);
       if (goal == null || goal.state != GoalState.active) continue;
-      groups.add(OfferedGroup(goal, [for (final id in goal.exerciseIds) resolve(id)].nonNulls.toList()));
+      final target = resolve(goal.target?.exerciseId);
+      groups.add(OfferedGroup(goal, [?target], [for (final id in goal.alternateIds) resolve(id)].nonNulls.toList()));
     } else {
       final e = resolve(item.exerciseId);
       if (e != null) groups.add(OfferedGroup(null, [e]));
@@ -299,11 +387,10 @@ List<OfferedGroup> routineOffer(Routine r, String gymId) {
   return groups;
 }
 
-/// Whether a goal may join a routine tied to these gyms.
-bool goalFitsGyms(Goal g, Set<String> gymIds) {
-  if (gymIds.isEmpty) return true;
+/// Whether a goal may join a routine at this gym: its target's exercise is tied to it.
+bool goalFitsGym(Goal g, String? gymId) {
   final e = store.exercise(g.target?.exerciseId);
-  return e != null && gymIds.any(e.availableAt);
+  return e != null && gymId != null && e.availableAt(gymId);
 }
 
 // ---- Sets (Spec/Features/Sets.md) ----
@@ -355,3 +442,23 @@ int? lastTestReps(String exerciseId) {
 
 /// The goals an exercise serves.
 List<Goal> goalsServedBy(String exerciseId) => [for (final g in store.goals) if (g.exerciseIds.contains(exerciseId)) g];
+
+// ---- Properties (Spec/Features/Exercises.md) ----
+
+/// An exercise's property values, in the order the properties were made, as shown beside its name.
+List<PropertyValue> valuesOf(Exercise e) => [
+      for (final p in store.properties)
+        ...store.propertyValues.where((v) => v.propertyId == p.id && e.propertyValueIds.contains(v.id)),
+    ];
+
+String nameWithValues(Exercise e) => [e.name, ...valuesOf(e).map((v) => v.name)].join(' · ');
+
+/// Whether an exercise passes a filter: for each property the filter names, it holds one of the values on.
+bool passesFilter(Exercise e, Set<String> valueIds) {
+  final byProperty = <String, Set<String>>{};
+  for (final id in valueIds) {
+    final v = store.propertyValue(id);
+    if (v != null) byProperty.putIfAbsent(v.propertyId, () => {}).add(id);
+  }
+  return byProperty.values.every((ids) => ids.any(e.propertyValueIds.contains));
+}

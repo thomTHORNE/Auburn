@@ -13,7 +13,7 @@ class RoutinesScreen extends StatelessWidget {
         final archived = store.routines.where((r) => r.archived).toList();
         bool grouped(Routine r) => store.routineGroups.any((g) => g.id == r.groupId);
         Widget row(Routine r) => Entry(r.name.isEmpty ? 'Unnamed' : r.name,
-            sub: '${r.items.length} in it${r.gymIds.isEmpty ? '' : ' · ${r.gymIds.map((id) => store.gym(id)?.name ?? '?').join(', ')}'}',
+            sub: '${r.items.length} in it · ${store.gym(r.gymId)?.name ?? 'no gym'}',
             dim: r.archived,
             onTap: () => push(context, RoutineScreen(routineId: r.id)));
         return Screen(
@@ -21,8 +21,11 @@ class RoutinesScreen extends StatelessWidget {
           status: '${active.length} routines',
           bottom: KeyButton('New routine', onTap: () async {
             final name = await askText(context, 'New routine', hint: 'Name', required: true);
-            if (name == null || name.isEmpty) return;
-            final r = Routine(name: name);
+            if (name == null || name.isEmpty || !context.mounted) return;
+            // A routine is tied to one gym.
+            final gym = await pickOne<Gym>(context, 'At which gym?', store.gyms.where((g) => !g.archived).toList(), (g) => g.name);
+            if (gym == null) return;
+            final r = Routine(name: name, gymId: gym.id);
             store.routines.add(r);
             store.save();
             if (context.mounted) push(context, RoutineScreen(routineId: r.id));
@@ -51,7 +54,7 @@ class RoutineScreen extends StatefulWidget {
 class _RoutineScreenState extends State<RoutineScreen> {
   late final name = TextEditingController(text: store.routine(widget.routineId)?.name ?? '');
 
-  bool _exerciseFits(Routine r, Exercise e) => r.gymIds.isEmpty || r.gymIds.any(e.availableAt);
+  bool _exerciseFits(Routine r, Exercise e) => r.gymId != null && e.availableAt(r.gymId!);
 
   Future<void> _group(Routine r) async {
     const none = '— Standalone';
@@ -87,9 +90,9 @@ class _RoutineScreenState extends State<RoutineScreen> {
           }),
           const Label('Routine group'),
           Entry(group?.name ?? 'Standalone', trailing: 'Change', onTap: () => _group(r)),
-          const Label('Gyms · none ticked: offered everywhere'),
-          Choice<Gym>(options: store.gyms.where((g) => !g.archived).toList(), label: (g) => g.name, isOn: (g) => r.gymIds.contains(g.id), onTap: (g) {
-            r.gymIds.contains(g.id) ? r.gymIds.remove(g.id) : r.gymIds.add(g.id);
+          const Label('Gym · one'),
+          Choice<Gym>(options: store.gyms.where((g) => !g.archived).toList(), label: (g) => g.name, isOn: (g) => r.gymId == g.id, onTap: (g) {
+            r.gymId = g.id;
             store.save();
           }),
           const Label('In it, in order'),
@@ -100,15 +103,15 @@ class _RoutineScreenState extends State<RoutineScreen> {
             Expanded(child: KeyButton('Add exercise', size: 11, onTap: () async {
               final options = store.exercises.where((e) => !e.archived && _exerciseFits(r, e) && !r.items.any((i) => i.exerciseId == e.id)).toList()
                 ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
-              final pick = await pickOne<Exercise>(context, 'Add an exercise', options, (e) => e.name);
+              final pick = await pickExercise(context, 'Add an exercise', options);
               if (pick == null) return;
               r.items.add(RoutineItem(exerciseId: pick.id));
               store.save();
             })),
             const SizedBox(width: 8),
             Expanded(child: KeyButton('Add goal', size: 11, onTap: () async {
-              final options = store.goals.where((g) => g.state == GoalState.active && goalFitsGyms(g, r.gymIds) && !r.items.any((i) => i.goalId == g.id)).toList();
-              final pick = await pickOne<Goal>(context, 'Add an active goal', options, (g) => g.name, sub: (g) => '${g.exerciseIds.length} exercises');
+              final options = store.goals.where((g) => g.state == GoalState.active && goalFitsGym(g, r.gymId) && !r.items.any((i) => i.goalId == g.id)).toList();
+              final pick = await pickOne<Goal>(context, 'Add an active goal', options, (g) => g.name, sub: (g) => '${store.exercise(g.target?.exerciseId)?.name ?? '?'} · ${g.alternateIds.length} alternates');
               if (pick == null) return;
               r.items.add(RoutineItem(goalId: pick.id));
               store.save();
@@ -127,10 +130,10 @@ class _RoutineScreenState extends State<RoutineScreen> {
     final ex = store.exercise(item.exerciseId);
     final label = goal != null ? 'Goal · ${goal.name}' : (ex?.name ?? '?');
     final notes = <String>[
-      if (goal != null) [for (final id in goal.exerciseIds) store.exercise(id)?.name].nonNulls.join(', '),
-      if (goal != null && !goalFitsGyms(goal, r.gymIds)) 'not provable at this routine\'s gyms',
+      if (goal != null) '${store.exercise(goal.target?.exerciseId)?.name ?? '?'}, its alternates on demand',
+      if (goal != null && !goalFitsGym(goal, r.gymId)) 'not provable at this routine\'s gym',
       if (ex != null && ex.archived) 'archived',
-      if (ex != null && !_exerciseFits(r, ex)) 'not at this routine\'s gyms',
+      if (ex != null && !_exerciseFits(r, ex)) 'not tied to this routine\'s gym · not offered',
     ];
     void move(int by) {
       final j = i + by;

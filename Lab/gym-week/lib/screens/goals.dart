@@ -1,19 +1,35 @@
-// Goals: drafting one, making it active, its chart and gap, reaching, abandoning, and frozen records.
+// Goals: drafting one from its target's exercise, its start answers, alternates and set limits, making it active,
+// its chart and gap, reaching, abandoning, and frozen records.
 // Behaviour: Spec/Features/Goals.md. Targets sit on exercises only here; cardio is not in the prototype.
 import 'package:flutter/material.dart';
 
 import '../logic.dart';
 import '../model.dart';
 import '../ui.dart';
+import 'workout.dart';
+
+const _sideWords = {TargetSide.left: 'left', TargetSide.right: 'right', TargetSide.both: 'both sides'};
 
 String _targetLine(Target t) {
   final ex = store.exercise(t.exerciseId)?.name ?? '?';
+  if (t.value <= 0) return '$ex · no value yet';
   final value = t.parameter == Param.load ? '${fmtKg(t.value)} kg or more' : '${fmtKg(t.value)} reps or more';
   final min = t.parameter == Param.reps && t.minLoadKg != null ? ' at ${fmtKg(t.minLoadKg!)} kg or more' : '';
-  return '$ex · $value$min · ${t.grades.map(gradeLabel).join(', ')}';
+  final side = t.side == null ? '' : ' · ${_sideWords[t.side]}';
+  return '$ex$side · $value$min · ${t.grades.map(gradeLabel).join(', ')}';
 }
 
 String _unit(Target t) => t.parameter == Param.load ? 'kg' : 'reps';
+
+const _questions = ['Why this goal?', 'What does reaching it mean, in your words?', 'What do you expect to be hardest?'];
+
+List<String> _answers(Goal g) => [g.why, g.reachedMeans, g.hardestExpected];
+
+/// The start answers, as written: shown on the goal and again at its end.
+String _answersText(Goal g) => [
+      for (final (i, a) in _answers(g).indexed)
+        if (a.trim().isNotEmpty) '${_questions[i]}\n${a.trim()}',
+    ].join('\n\n');
 
 class GoalsScreen extends StatelessWidget {
   const GoalsScreen({super.key});
@@ -34,8 +50,12 @@ class GoalsScreen extends StatelessWidget {
           status: '${of(GoalState.active).length} active',
           bottom: KeyButton('New goal', onTap: () async {
             final name = await askText(context, 'New goal', hint: 'Something to reach', required: true);
-            if (name == null || name.isEmpty) return;
-            final g = Goal(name: name);
+            if (name == null || name.isEmpty || !context.mounted) return;
+            // A goal starts from the exercise its target sits on; an exercise is the target of at most one goal.
+            final options = store.exercises.where((e) => !e.archived && targetTakenBy(e.id) == null).toList();
+            final ex = await pickExercise(context, 'Its target sits on', options);
+            if (ex == null) return;
+            final g = Goal(name: name, target: Target(exerciseId: ex.id));
             store.goals.add(g);
             store.save();
             if (context.mounted) push(context, GoalScreen(goalId: g.id));
@@ -59,26 +79,57 @@ class GoalScreen extends StatefulWidget {
 class _GoalScreenState extends State<GoalScreen> {
   late final Goal? g0 = store.goal(widget.goalId);
   late final name = TextEditingController(text: g0?.name ?? '');
-  late final explanation = TextEditingController(text: g0?.explanation ?? '');
+  late final answers = [for (final a in g0 == null ? ['', '', ''] : _answers(g0!)) TextEditingController(text: a)];
 
-  Future<void> _addExercise(Goal g) async {
-    final options = store.exercises.where((e) => !e.archived && !g.exerciseIds.contains(e.id)).toList()..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
-    final pick = await pickOne<Exercise>(context, 'Add an exercise', options, (e) => e.name);
+  void _setAnswer(Goal g, int i, String v) {
+    if (i == 0) g.why = v;
+    if (i == 1) g.reachedMeans = v;
+    if (i == 2) g.hardestExpected = v;
+    store.save();
+  }
+
+  Future<void> _addAlternate(Goal g) async {
+    final base = store.exercise(g.target?.exerciseId);
+    if (base == null) return;
+    final options = store.exercises.where((e) => !e.archived && !g.exerciseIds.contains(e.id) && fitsAsAlternate(base, e)).toList();
+    final pick = await pickExercise(context, 'An alternate for ${base.name}', options, sub: (e) => e.mainMovers.map((m) => m.label).join(', '));
     if (pick == null) return;
-    g.exerciseIds.add(pick.id);
+    g.alternateIds.add(pick.id);
+    store.save();
+  }
+
+  Future<void> _limit(Goal g, Exercise e) async {
+    final now = g.limitOn(e.id);
+    final v = await askText(context, 'Sets per workout · ${e.name}',
+        initial: now?.toString() ?? '', number: true, hint: 'Empty: no limit',
+        note: '${e.unilateral ? 'A side. ' : ''}Warmups are not counted. A set past the limit is refused.${g.state == GoalState.active ? ' The change is kept on the goal with its date.' : ''}');
+    if (v == null) return;
+    final n = int.tryParse(v);
+    if (v.isNotEmpty && (n == null || n < 1)) return;
+    g.setLimit(e.id, v.isEmpty ? null : n);
+    store.save();
+  }
+
+  Future<void> _moveTarget(Goal g) async {
+    final t = g.target!;
+    final options = store.exercises.where((e) => !e.archived && e.id != t.exerciseId && targetTakenBy(e.id, except: g) == null).toList();
+    final pick = await pickExercise(context, 'Its target sits on', options);
+    if (pick == null) return;
+    g.setLimitsRemoveFor(t.exerciseId);
+    t.exerciseId = pick.id;
+    t.side = null;
+    g.alternateIds.remove(pick.id);
     store.save();
   }
 
   Future<void> _editTarget(Goal g) async {
-    final own = [for (final id in g.exerciseIds) store.exercise(id)].nonNulls.where((e) => !e.archived).toList();
-    if (own.isEmpty) {
-      await confirm(context, 'Add an exercise first', note: 'A target sits on one of the goal\'s exercises.', yes: 'OK');
-      return;
-    }
-    final t = g.target ?? Target(exerciseId: own.first.id);
-    if (!own.any((e) => e.id == t.exerciseId)) t.exerciseId = own.first.id;
+    final t = g.target!;
+    final ex = store.exercise(t.exerciseId)!;
     final value = TextEditingController(text: t.value == 0 ? '' : fmtKg(t.value));
     final minLoad = TextEditingController(text: t.minLoadKg == null ? '' : fmtKg(t.minLoadKg!));
+    var parameter = t.parameter;
+    var side = t.side;
+    final grades = {...t.grades};
     await showDialog<void>(
       context: context,
       builder: (ctx) => StatefulBuilder(builder: (ctx, setState) {
@@ -91,24 +142,28 @@ class _GoalScreenState extends State<GoalScreen> {
             padding: const EdgeInsets.all(16),
             child: SingleChildScrollView(
               child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                Text('TARGET', style: ts(14, spacing: 2)),
-                const Label('Sits on'),
-                Choice<Exercise>(options: own, label: (e) => e.name, isOn: (e) => e.id == t.exerciseId, onTap: (e) => setState(() => t.exerciseId = e.id)),
+                Text('TARGET · ${ex.name}'.toUpperCase(), style: ts(14, spacing: 2)),
                 const Label('Parameter'),
-                Choice<Param>(options: Param.values, label: (p) => p == Param.load ? 'Load' : 'Reps, on a test', isOn: (p) => p == t.parameter, onTap: (p) => setState(() => t.parameter = p)),
-                Label(t.parameter == Param.load ? 'Reached at · kg or more' : 'Reached at · reps or more'),
+                Choice<Param>(options: Param.values, label: (p) => p == Param.load ? 'Load' : 'Reps, on a test', isOn: (p) => p == parameter, onTap: (p) => setState(() => parameter = p)),
+                Label(parameter == Param.load ? 'Reached at · kg or more' : 'Reached at · reps or more'),
                 Field(controller: value, number: true, onChanged: (_) => setState(() {})),
+                if (ex.unilateral) ...[
+                  const Label('Side · both: each side in one workout'),
+                  Choice<TargetSide>(options: TargetSide.values, label: (s) => _sideWords[s]!, isOn: (s) => s == side, onTap: (s) => setState(() => side = s)),
+                ],
                 const Label('Grades that count'),
-                Choice<Grade>(options: Grade.values, label: gradeLabel, isOn: t.grades.contains, onTap: (gr) => setState(() => t.grades.contains(gr) ? t.grades.remove(gr) : t.grades.add(gr))),
-                if (t.parameter == Param.reps) ...[
+                Choice<Grade>(options: Grade.values, label: gradeLabel, isOn: grades.contains, onTap: (gr) => setState(() => grades.contains(gr) ? grades.remove(gr) : grades.add(gr))),
+                if (parameter == Param.reps) ...[
                   const Label('Least load that counts · kg, or empty'),
                   Field(controller: minLoad, number: true),
                 ],
                 const SizedBox(height: 16),
-                KeyButton('Save target', filled: true, onTap: v == null || v <= 0 || t.grades.isEmpty ? null : () {
+                KeyButton('Save target', filled: true, onTap: v == null || v <= 0 || grades.isEmpty || (ex.unilateral && side == null) ? null : () {
                   t.value = v;
-                  t.minLoadKg = t.parameter == Param.reps ? double.tryParse(minLoad.text.replaceAll(',', '.')) : null;
-                  g.target = t;
+                  t.parameter = parameter;
+                  t.grades = grades;
+                  t.side = ex.unilateral ? side : null;
+                  t.minLoadKg = parameter == Param.reps ? double.tryParse(minLoad.text.replaceAll(',', '.')) : null;
                   store.save();
                   Navigator.pop(ctx);
                 }),
@@ -126,7 +181,11 @@ class _GoalScreenState extends State<GoalScreen> {
       await confirm(context, 'Not yet', note: why, yes: 'OK');
       return;
     }
-    if (!await confirm(context, 'Make this goal active?', note: 'Nothing in it but its supporting exercises can change after. It ends only by being reached or abandoned.', yes: 'Make active')) return;
+    if (!await confirm(context, 'Make this goal active?',
+        note: 'Nothing in it but its alternates can change after: its name, your answers, its target and the limit on its target\'s exercise lock. It ends only by being reached or abandoned.',
+        yes: 'Make active')) {
+      return;
+    }
     g.state = GoalState.active;
     g.activatedAt = DateTime.now();
     store.save();
@@ -137,27 +196,36 @@ class _GoalScreenState extends State<GoalScreen> {
         final g = store.goal(widget.goalId);
         if (g == null) return const Screen(title: 'Goal', children: [Para('Deleted.')]);
         final t = g.target;
+        final targetEx = store.exercise(t?.exerciseId);
         final draft = g.state == GoalState.draft;
         final from = store.goal(g.fromGoalId);
         final successors = store.goals.where((x) => x.fromGoalId == g.id).toList();
-        final exercises = [for (final id in g.exerciseIds) store.exercise(id)].nonNulls.toList();
+        final alternates = [for (final id in g.alternateIds) store.exercise(id)].nonNulls.toList();
 
-        // The chart: the target's line by the target's rules, every other line by the grades shown.
+        // The chart: the target's line by the target's rules, every other line by the grades shown; a line per side.
         final parameter = g.shownParameter ?? t?.parameter ?? Param.load;
         final lines = <ChartLine>[];
-        final legend = <(Exercise, Color, bool, bool)>[];
         var colour = 1;
-        for (final e in exercises) {
-          final isTarget = t != null && e.id == t.exerciseId;
-          final hidden = !isTarget && g.hiddenExerciseIds.contains(e.id);
-          final c = isTarget ? ember : [cyanWhite.withValues(alpha: 0.8), ember.withValues(alpha: 0.5), cyanWhite.withValues(alpha: 0.4)][(colour++) % 3];
-          final points = exerciseLine(e.id, parameter, (s) => isTarget ? letsThrough(t, s) || (parameter != t.parameter && t.grades.contains(s.grade)) : g.shownGrades.contains(s.grade), until: g.endedAt);
-          legend.add((e, c, isTarget, points.isEmpty));
-          if (!hidden) lines.add(ChartLine(points, color: c, dashed: !isTarget));
+        for (final e in [?targetEx, ...alternates]) {
+          final isTarget = e == targetEx;
+          if (!isTarget && g.hiddenExerciseIds.contains(e.id)) continue;
+          for (final side in sidesOf(e)) {
+            final onTargetSide = isTarget && (t!.side == null || t.side == TargetSide.both || (t.side == TargetSide.left) == (side == Side.left));
+            final c = isTarget ? (side == Side.right ? cyanWhite.withValues(alpha: 0.85) : ember) : [cyanWhite.withValues(alpha: 0.8), ember.withValues(alpha: 0.5), cyanWhite.withValues(alpha: 0.4)][(colour++) % 3];
+            final points = exerciseLine(e.id, parameter, (s) => isTarget ? letsThrough(t!, s) || (parameter != t.parameter && t.grades.contains(s.grade)) : g.shownGrades.contains(s.grade), until: g.endedAt, side: side);
+            lines.add(ChartLine(points, color: c, dashed: !isTarget, label: side == null ? e.name : '${e.name} ${sideLabel(side)}', isTarget: onTargetSide));
+          }
         }
-        final onTargetParam = t != null && parameter == t.parameter;
+        final onTargetParam = t != null && t.value > 0 && parameter == t.parameter;
         final gap = goalGap(g);
         final days = g.activatedAt == null ? null : daysBetween(g.activatedAt!, g.endedAt ?? DateTime.now());
+        final changes = g.activatedAt == null ? <SetLimit>[] : g.setLimits.where((l) => l.setAt.isAfter(g.activatedAt!)).toList().reversed.toList();
+
+        Widget limitKey(Exercise e, {required bool locked}) {
+          final l = g.limitOn(e.id);
+          final text = l == null ? 'No limit' : '$l sets${e.unilateral ? ' a side' : ''}';
+          return SizedBox(width: 118, child: KeyButton(text, size: 10, height: 36, onTap: locked || g.ended ? null : () => _limit(g, e)));
+        }
 
         return Screen(
           title: g.name.isEmpty ? 'Unnamed goal' : g.name,
@@ -179,37 +247,55 @@ class _GoalScreenState extends State<GoalScreen> {
                 Expanded(child: KeyButton('Make active', filled: true, onTap: () => _activate(g))),
               ]),
             GoalState.active => KeyButton('Abandon', onTap: () async {
-                final why = await askText(context, 'Why is it abandoned?', lines: 3, required: true, note: 'The answer is kept on the goal and cannot be changed.');
+                final answers = _answersText(g);
+                final why = await askText(context, 'Why is it abandoned?', lines: 3, required: true,
+                    note: '${answers.isEmpty ? '' : 'At the start you said:\n\n$answers\n\n'}The answer is kept on the goal and cannot be changed.');
                 if (why == null || why.isEmpty) return;
                 abandon(g, why);
                 store.save();
               }),
             _ => KeyButton('Start a new goal from this one', onTap: () {
+                if (targetTakenBy(t!.exerciseId) != null) {
+                  confirm(context, 'Not yet', note: 'Another goal\'s target already sits on ${targetEx?.name}.', yes: 'OK');
+                  return;
+                }
                 final copy = copyGoal(g);
                 store.save();
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => GoalScreen(goalId: copy.id)));
               }),
           },
           children: [
-            if (from != null) Entry('Started from · ${from.name}', onTap: () => push(context, GoalScreen(goalId: from.id))),
+            if (from != null) Entry('Started from · ${from.name}', sub: 'Its answers are there', onTap: () => push(context, GoalScreen(goalId: from.id))),
             for (final s in successors) Entry('Continued as · ${s.name}', onTap: () => push(context, GoalScreen(goalId: s.id))),
+            // The end answer, then the start answers it is read against.
             if (g.state == GoalState.abandoned) ...[const Label('Why it was abandoned'), Para(g.abandonedBecause ?? '', apart: true)],
+            if (g.state == GoalState.reached) ...[const Label('What got you there'), Para(g.whatGotYouThere ?? 'Not answered.', apart: g.whatGotYouThere != null)],
             if (draft) ...[
               const Label('Name'),
               Field(controller: name, onChanged: (v) {
                 g.name = v.trim();
                 store.save();
               }),
-              const Label('What it is for, and how it is meant to be achieved'),
-              Field(controller: explanation, lines: 3, hint: 'In your own words', onChanged: (v) {
-                g.explanation = v;
-                store.save();
-              }),
-            ] else if (g.explanation.isNotEmpty)
-              Para(g.explanation, apart: true),
+              const SizedBox(height: 6),
+              const Para('Each question is optional. Your answers lock when the goal is made active, and its end shows them again.'),
+              for (final (i, q) in _questions.indexed) ...[
+                Label(q),
+                Field(controller: answers[i], lines: 2, hint: 'For you, at the end of this goal', onChanged: (v) => _setAnswer(g, i, v)),
+              ],
+            ] else
+              for (final (i, q) in _questions.indexed) ...[
+                Label(q),
+                Para(_answers(g)[i].trim().isEmpty ? 'Not answered.' : _answers(g)[i].trim(), apart: _answers(g)[i].trim().isNotEmpty),
+              ],
             const Label('Target'),
-            if (t == null) const Para('None yet. A goal is made active with its target.') else Para(_targetLine(t), apart: true),
-            if (draft) KeyButton(t == null ? 'Set the target' : 'Change the target', onTap: () => _editTarget(g)),
+            if (t == null) const Para('None.') else Para(_targetLine(t), apart: true),
+            if (draft && t != null) ...[
+              Row(children: [
+                Expanded(child: KeyButton(t.value <= 0 ? 'Set the target' : 'Change the target', size: 11, onTap: () => _editTarget(g))),
+                const SizedBox(width: 8),
+                Expanded(child: KeyButton('Move to another exercise', size: 11, onTap: () => _moveTarget(g))),
+              ]),
+            ],
             if (t != null && !draft) ...[
               const SizedBox(height: 4),
               Container(
@@ -233,53 +319,65 @@ class _GoalScreenState extends State<GoalScreen> {
               store.save();
             }),
             const SizedBox(height: 10),
-            LineChart(lines: lines, target: onTargetParam ? t.value : null, markers: {if (g.activatedAt != null) 'ACTIVE': dayOf(g.activatedAt!)}),
-            const SizedBox(height: 6),
-            for (final (e, _, isTarget, empty) in legend)
+            LineChart(
+              lines: lines,
+              target: onTargetParam ? t.value : null,
+              unit: parameter == Param.load ? 'kg' : 'reps',
+              markers: {if (g.activatedAt != null) 'ACTIVE': dayOf(g.activatedAt!)},
+              onOpen: (w) => push(context, w.endedAt == null ? const WorkoutScreen() : PastWorkoutScreen(workoutId: w.id)),
+            ),
+            const Label('Sets per workout'),
+            if (targetEx != null)
+              Row(children: [
+                Expanded(child: Text('${targetEx.name} · the target\'s${draft ? '' : ' · locked'}'.toUpperCase(), style: ts(11.5, color: primaryC))),
+                limitKey(targetEx, locked: !draft),
+              ]),
+            const Label('Alternates · offered on demand'),
+            if (alternates.isEmpty) const Para('None.'),
+            for (final e in alternates) ...[
               Entry(e.name,
-                  glyph: isTarget ? '[T]' : (g.hiddenExerciseIds.contains(e.id) ? '[ ]' : '[x]'),
+                  glyph: g.hiddenExerciseIds.contains(e.id) ? '[ ]' : '[x]',
                   sub: [
-                    if (isTarget) 'The target\'s · always shown' else if (g.hiddenExerciseIds.contains(e.id)) 'Hidden' else 'Shown',
-                    if (empty) 'no points on this parameter',
+                    g.hiddenExerciseIds.contains(e.id) ? 'Line hidden' : 'Line shown',
+                    if (targetEx != null && !fitsAsAlternate(targetEx, e)) 'no longer shares a main mover or a gym',
                     if (e.archived) 'archived',
                   ].join(' · '),
-                  trailing: !isTarget && !g.ended ? 'Remove' : null,
-                  dim: !isTarget && g.hiddenExerciseIds.contains(e.id),
-                  onTap: isTarget
-                      ? null
-                      : () async {
-                          final act = await pickOne<String>(context, e.name, [g.hiddenExerciseIds.contains(e.id) ? 'Show its line' : 'Hide its line', if (!g.ended) 'Remove from the goal'], (s) => s);
-                          if (act == null) return;
-                          if (act.startsWith('Remove')) {
-                            g.exerciseIds.remove(e.id);
-                            g.hiddenExerciseIds.remove(e.id);
-                          } else {
-                            g.hiddenExerciseIds.contains(e.id) ? g.hiddenExerciseIds.remove(e.id) : g.hiddenExerciseIds.add(e.id);
-                          }
-                          store.save();
-                        }),
-            if (draft && t != null && g.exerciseIds.contains(t.exerciseId))
-              Padding(
-                padding: const EdgeInsets.only(top: 6),
-                child: KeyButton('Take the target\'s exercise out', size: 11, height: 40, onTap: () {
-                  g.exerciseIds.remove(t.exerciseId);
-                  store.save();
-                }),
-              ),
-            const Label('Supporting lines · grades shown'),
+                  dim: g.hiddenExerciseIds.contains(e.id),
+                  onTap: () async {
+                    final act = await pickOne<String>(context, e.name, [g.hiddenExerciseIds.contains(e.id) ? 'Show its line' : 'Hide its line', if (!g.ended) 'Remove from the goal'], (s) => s);
+                    if (act == null) return;
+                    if (act.startsWith('Remove')) {
+                      g.alternateIds.remove(e.id);
+                      g.hiddenExerciseIds.remove(e.id);
+                      if (draft) g.setLimitsRemoveFor(e.id);
+                    } else {
+                      g.hiddenExerciseIds.contains(e.id) ? g.hiddenExerciseIds.remove(e.id) : g.hiddenExerciseIds.add(e.id);
+                    }
+                    store.save();
+                  }),
+              Align(alignment: Alignment.centerRight, child: Padding(padding: const EdgeInsets.only(top: 4), child: limitKey(e, locked: false))),
+            ],
+            if (!g.ended) ...[const SizedBox(height: 10), KeyButton('Add an alternate', onTap: () => _addAlternate(g))],
+            if (changes.isNotEmpty) ...[
+              const Label('Limit changes since active'),
+              for (final l in changes)
+                Entry('${store.exercise(l.exerciseId)?.name ?? '?'} · ${l.sets == null ? 'no limit' : '${l.sets} sets'}', glyph: '-', trailing: fmtDay(l.setAt)),
+            ],
+            const Label('Alternates\' lines · grades shown'),
             Choice<Grade>(options: Grade.values, label: gradeLabel, isOn: g.shownGrades.contains, onTap: (gr) {
               g.shownGrades.contains(gr) ? g.shownGrades.remove(gr) : g.shownGrades.add(gr);
               store.save();
             }),
-            if (!g.ended) ...[const SizedBox(height: 14), KeyButton(draft ? 'Add an exercise' : 'Add a supporting exercise', onTap: () => _addExercise(g))],
           ],
         );
       });
 }
 
 /// A target is marked and not yet kept or undone: Auburn asks how to proceed, and cannot be dismissed.
+/// Keeping it also asks what got you there, beside the start answers.
 Future<void> askOwedReaches(BuildContext context) async {
   for (final g in owedPrompts()) {
+    if (!context.mounted) return;
     final t = g.target!;
     final choice = await mustChoose<String>(
       context,
@@ -290,8 +388,11 @@ Future<void> askOwedReaches(BuildContext context) async {
     if (choice == 'undo') {
       undoReach(g);
     } else {
-      keepReach(g);
-      if (choice == 'new') copyGoal(g);
+      final answers = _answersText(g);
+      if (!context.mounted) return;
+      final got = await askText(context, 'What got you there?', lines: 3, note: '${answers.isEmpty ? '' : 'At the start you said:\n\n$answers\n\n'}Optional. It is kept on the goal.');
+      keepReach(g, got);
+      if (choice == 'new' && targetTakenBy(t.exerciseId) == null) copyGoal(g);
     }
     store.save();
   }

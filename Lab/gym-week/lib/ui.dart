@@ -310,42 +310,115 @@ class RestMeter extends StatelessWidget {
 }
 
 class ChartLine {
-  ChartLine(this.points, {this.color = ember, this.dashed = false});
+  ChartLine(this.points, {this.color = ember, this.dashed = false, this.label = '', this.isTarget = false});
   final List<Point> points;
   final Color color;
   final bool dashed;
+  final String label; // which exercise, and which side
+  final bool isTarget; // the line the goal's target sits on
 }
 
-/// Progress only draws: lines of points over time, and a target line across them.
-class LineChart extends StatelessWidget {
-  const LineChart({super.key, required this.lines, this.target, this.markers = const {}});
+/// Progress only draws: lines of points over time, and a target line across them. Touching the chart selects the
+/// point nearest the touch, on its line; dragging moves along that line. The readout opens the workout.
+class LineChart extends StatefulWidget {
+  const LineChart({super.key, required this.lines, this.target, this.markers = const {}, this.unit = 'kg', this.onOpen});
   final List<ChartLine> lines;
   final double? target;
   final Map<String, DateTime> markers;
+  final String unit;
+  final void Function(Workout)? onOpen;
+  @override
+  State<LineChart> createState() => _LineChartState();
+}
+
+class _LineChartState extends State<LineChart> {
+  int? line, point; // the selection
+
+  void _select(Offset at, Size size, {bool alongLine = false}) {
+    final g = _Geometry(widget.lines, widget.target, size);
+    double best = double.infinity;
+    int? bl, bp;
+    for (final (li, l) in widget.lines.indexed) {
+      if (alongLine && li != line) continue;
+      for (final (pi, p) in l.points.indexed) {
+        final o = Offset(g.x(p.date), g.y(p.value));
+        // Along a line, only the date decides; on a touch, the nearest point.
+        final d = alongLine ? (o.dx - at.dx).abs() : (o - at).distance;
+        if (d < best) {
+          best = d;
+          bl = li;
+          bp = pi;
+        }
+      }
+    }
+    if (bl != null) {
+      setState(() {
+        line = bl;
+        point = bp;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final lines = widget.lines;
     if (lines.every((l) => l.points.isEmpty)) {
       return Container(height: 80, alignment: Alignment.center, decoration: BoxDecoration(border: Border.all(color: lineSupporting, width: 2)), child: Text('NO POINTS YET', style: ts(11, color: secondaryC)));
     }
-    return SizedBox(height: 190, child: CustomPaint(painter: _ChartPainter(lines, target, markers), size: Size.infinite));
+    if (line != null && (line! >= lines.length || point! >= lines[line!].points.length)) line = point = null;
+    final selected = line == null ? null : lines[line!].points[point!];
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      LayoutBuilder(builder: (context, box) {
+        final size = Size(box.maxWidth, 190);
+        return GestureDetector(
+          onTapDown: (d) => _select(d.localPosition, size),
+          onHorizontalDragStart: (d) => _select(d.localPosition, size),
+          onHorizontalDragUpdate: (d) => _select(d.localPosition, size, alongLine: true),
+          child: SizedBox(height: 190, child: CustomPaint(painter: _ChartPainter(lines, widget.target, widget.markers, selected), size: size)),
+        );
+      }),
+      if (selected != null) _readout(lines[line!], selected),
+    ]);
+  }
+
+  Widget _readout(ChartLine l, Point p) {
+    final s = p.set;
+    final w = p.workout;
+    final parts = [
+      fmtDay(p.date),
+      if (w != null) store.gym(w.gymId)?.name ?? '?',
+      l.label,
+      '${fmtKg(p.value)} ${widget.unit}',
+      if (s != null) gradeLabel(s.grade),
+      if (s != null && s.test) 'test ${s.reps} reps at ${fmtKg(s.loadKg)} kg',
+      if (s?.side != null) sideLabel(s!.side!),
+      'given ${p.given} of ${p.total} sets',
+      if (l.isTarget && widget.target != null) p.value >= widget.target! ? 'at the target' : '${fmtKg(widget.target! - p.value)} ${widget.unit} from the target',
+    ];
+    return InkWell(
+      onTap: w == null || widget.onOpen == null ? null : () => widget.onOpen!(w),
+      child: Container(
+        margin: const EdgeInsets.only(top: 6),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(border: Border.all(color: lineSecondary, width: 2)),
+        child: Row(children: [
+          Expanded(child: Text(parts.join(' · ').toUpperCase(), style: ts(11, color: cyanWhite))),
+          if (w != null && widget.onOpen != null) Text('  OPEN >', style: ts(11, color: primaryC, bold: true)),
+        ]),
+      ),
+    );
   }
 }
 
-class _ChartPainter extends CustomPainter {
-  _ChartPainter(this.lines, this.target, this.markers);
-  final List<ChartLine> lines;
-  final double? target;
-  final Map<String, DateTime> markers;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    const left = 38.0, right = 8.0, top = 12.0, bottom = 22.0;
+/// Where values and dates fall on the chart.
+class _Geometry {
+  _Geometry(List<ChartLine> lines, double? target, this.size) {
     final all = [for (final l in lines) ...l.points];
-    var lo = all.map((p) => p.value).reduce((a, b) => a < b ? a : b);
-    var hi = all.map((p) => p.value).reduce((a, b) => a > b ? a : b);
+    lo = all.map((p) => p.value).reduce((a, b) => a < b ? a : b);
+    hi = all.map((p) => p.value).reduce((a, b) => a > b ? a : b);
     if (target != null) {
-      if (target! > hi) hi = target!;
-      if (target! < lo) lo = target!;
+      if (target > hi) hi = target;
+      if (target < lo) lo = target;
     }
     if (hi == lo) {
       hi += 1;
@@ -354,15 +427,34 @@ class _ChartPainter extends CustomPainter {
     final pad = (hi - lo) * 0.1;
     hi += pad;
     lo = lo - pad < 0 && lo >= 0 ? 0 : lo - pad;
-    var t0 = all.map((p) => p.date).reduce((a, b) => a.isBefore(b) ? a : b);
-    var t1 = all.map((p) => p.date).reduce((a, b) => a.isAfter(b) ? a : b);
+    t0 = all.map((p) => p.date).reduce((a, b) => a.isBefore(b) ? a : b);
+    t1 = all.map((p) => p.date).reduce((a, b) => a.isAfter(b) ? a : b);
     if (!t1.isAfter(t0)) {
       t0 = t0.subtract(const Duration(days: 1));
       t1 = t1.add(const Duration(days: 1));
     }
-    final span = t1.difference(t0).inSeconds.toDouble();
-    double x(DateTime d) => left + (d.difference(t0).inSeconds / span).clamp(0.0, 1.0) * (size.width - left - right);
-    double y(double v) => top + (1 - (v - lo) / (hi - lo)) * (size.height - top - bottom);
+  }
+  static const left = 38.0, right = 8.0, top = 12.0, bottom = 22.0;
+  final Size size;
+  late double lo, hi;
+  late DateTime t0, t1;
+  double x(DateTime d) => left + (d.difference(t0).inSeconds / t1.difference(t0).inSeconds).clamp(0.0, 1.0) * (size.width - left - right);
+  double y(double v) => top + (1 - (v - lo) / (hi - lo)) * (size.height - top - bottom);
+}
+
+class _ChartPainter extends CustomPainter {
+  _ChartPainter(this.lines, this.target, this.markers, this.selected);
+  final List<ChartLine> lines;
+  final double? target;
+  final Map<String, DateTime> markers;
+  final Point? selected;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final g = _Geometry(lines, target, size);
+    const left = _Geometry.left, right = _Geometry.right, top = _Geometry.top, bottom = _Geometry.bottom;
+    final lo = g.lo, hi = g.hi, t0 = g.t0, t1 = g.t1;
+    final x = g.x, y = g.y;
 
     void text(String s, Offset at, {Color? color, TextAlign align = TextAlign.left}) {
       final tp = TextPainter(text: TextSpan(text: s, style: ts(9.5, color: color ?? secondaryC, spacing: 0.5)), textDirection: TextDirection.ltr)..layout();
@@ -406,6 +498,11 @@ class _ChartPainter extends CustomPainter {
         canvas.drawCircle(Offset(x(p.date), y(p.value)), 2.6, Paint()..color = l.color);
       }
     }
+    if (selected != null) {
+      final at = Offset(x(selected!.date), y(selected!.value));
+      canvas.drawLine(Offset(at.dx, top), Offset(at.dx, size.height - bottom), Paint()..color = cyanWhite.withValues(alpha: 0.5)..strokeWidth = 1);
+      canvas.drawCircle(at, 6, Paint()..color = cyanWhite..style = PaintingStyle.stroke..strokeWidth = 2);
+    }
   }
 
   @override
@@ -414,6 +511,52 @@ class _ChartPainter extends CustomPainter {
 
 const gradeLabels = ['Ideal', 'Acceptable', 'Light', 'Yielding', 'Warmup'];
 String gradeLabel(Grade? g) => g == null ? 'Ungraded' : gradeLabels[g.index];
-String setLine(LoggedSet s) => '${fmtKg(s.loadKg)} kg · ${gradeLabel(s.grade)}${s.test ? ' · test ${s.reps ?? '?'} reps' : ''}';
+String sideLabel(Side s) => s == Side.left ? 'Left' : 'Right';
+String setLine(LoggedSet s) => '${s.side == null ? '' : '${sideLabel(s.side!)} · '}${fmtKg(s.loadKg)} kg · ${gradeLabel(s.grade)}${s.test ? ' · test ${s.reps ?? '?'} reps' : ''}';
+
+/// Keys for every property value, grouped by property; tapping one turns it on or off.
+class ValueFilter extends StatelessWidget {
+  const ValueFilter({super.key, required this.on, required this.onToggle});
+  final Set<String> on;
+  final void Function(String valueId) onToggle;
+  @override
+  Widget build(BuildContext context) {
+    final props = store.properties.where((p) => store.propertyValues.any((v) => v.propertyId == p.id)).toList();
+    if (props.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        for (final p in props) ...[
+          Padding(padding: const EdgeInsets.only(top: 4, bottom: 4), child: Text(p.name.toUpperCase(), style: ts(10, color: secondaryC))),
+          Choice<PropertyValue>(
+            options: store.propertyValues.where((v) => v.propertyId == p.id).toList(),
+            label: (v) => v.name,
+            isOn: (v) => on.contains(v.id),
+            onTap: (v) => onToggle(v.id),
+          ),
+        ],
+      ]),
+    );
+  }
+}
+
+/// Picks one exercise, with the property filter above the list. Returns null when dismissed.
+Future<Exercise?> pickExercise(BuildContext context, String title, List<Exercise> options, {String Function(Exercise)? sub}) {
+  final on = <String>{};
+  options.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+  return showDialog<Exercise>(
+    context: context,
+    builder: (ctx) => StatefulBuilder(builder: (ctx, setState) {
+      final shown = options.where((e) => passesFilter(e, on)).toList();
+      return _sheet(ctx, title, [
+        ValueFilter(on: on, onToggle: (id) => setState(() => on.contains(id) ? on.remove(id) : on.add(id))),
+        if (shown.isEmpty) const Para('Nothing to choose from.'),
+        for (final e in shown) Entry(nameWithValues(e), sub: sub?.call(e), onTap: () => Navigator.pop(ctx, e)),
+        const SizedBox(height: 12),
+        KeyButton('Cancel', onTap: () => Navigator.pop(ctx)),
+      ]);
+    }),
+  );
+}
 String loadKindLabel(LoadKind k) => const ['Plates', 'Stack', 'Dumbbells', 'Bodyweight'][k.index];
 

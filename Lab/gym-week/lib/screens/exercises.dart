@@ -7,8 +7,15 @@ import '../model.dart';
 import '../ui.dart';
 import 'workout.dart';
 
-class ExercisesScreen extends StatelessWidget {
+class ExercisesScreen extends StatefulWidget {
   const ExercisesScreen({super.key});
+  @override
+  State<ExercisesScreen> createState() => _ExercisesState();
+}
+
+class _ExercisesState extends State<ExercisesScreen> {
+  final filter = <String>{};
+
   @override
   Widget build(BuildContext context) => Live((context) {
         final all = [...store.exercises]..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
@@ -18,16 +25,23 @@ class ExercisesScreen extends StatelessWidget {
           status: '${all.where((e) => !e.archived).length} exercises${unnamed == 0 ? '' : ' · $unnamed with no muscle groups named'}',
           bottom: KeyButton('New exercise', onTap: () async {
             final name = await askText(context, 'New exercise', hint: 'Name', required: true);
-            if (name == null || name.isEmpty) return;
-            final e = Exercise(name: name, loadKind: LoadKind.stack, stepKg: 2.5);
+            if (name == null || name.isEmpty || !context.mounted) return;
+            // An exercise is tied to at least one gym.
+            final gym = await pickOne<Gym>(context, 'Done at which gym?', store.gyms.where((g) => !g.archived).toList(), (g) => g.name);
+            if (gym == null) return;
+            final e = Exercise(name: name, loadKind: LoadKind.stack, stepKg: 2.5, gymIds: {gym.id});
             store.exercises.add(e);
             store.save();
             if (context.mounted) push(context, ExerciseEditScreen(exerciseId: e.id));
           }),
           children: [
-            for (final e in all.where((e) => !e.archived))
-              Entry(e.name,
-                  sub: e.mainMovers.isEmpty ? 'No main mover named' : e.mainMovers.map((g) => g.label).join(', '),
+            ValueFilter(on: filter, onToggle: (id) => setState(() => filter.contains(id) ? filter.remove(id) : filter.add(id))),
+            for (final e in all.where((e) => !e.archived && passesFilter(e, filter)))
+              Entry(nameWithValues(e),
+                  sub: [
+                    e.mainMovers.isEmpty ? 'No main mover named' : e.mainMovers.map((g) => g.label).join(', '),
+                    if (e.unilateral) 'unilateral',
+                  ].join(' · '),
                   onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
             if (all.any((e) => e.archived)) const Label('Archived'),
             for (final e in all.where((e) => e.archived)) Entry(e.name, dim: true, onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
@@ -51,22 +65,31 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         final e = store.exercise(widget.exerciseId);
         if (e == null) return const Screen(title: 'Exercise', children: [Para('Gone.')]);
         final rest = readRest();
-        final line = exerciseLine(e.id, e.shownParameter, (s) => e.shownGrades.contains(s.grade));
+        final lines = [
+          for (final side in sidesOf(e))
+            ChartLine(exerciseLine(e.id, e.shownParameter, (s) => e.shownGrades.contains(s.grade), side: side),
+                label: side == null ? e.name : '${e.name} ${sideLabel(side)}', color: side == Side.right ? cyanWhite.withValues(alpha: 0.8) : ember),
+        ];
         final served = goalsServedBy(e.id);
+        final alternates = alternatesOf(e);
+        final from = alternatesFrom(e);
         final workouts = store.workouts.where((w) => w.commits.any((c) => c.exerciseId == e.id && c.sets.isNotEmpty)).toList()
           ..sort((a, b) => b.startedAt.compareTo(a.startedAt));
         final notes = [e.observations, e.settings, e.form];
         return Screen(
           title: e.name,
-          status: '${loadKindLabel(e.loadKind)}${e.archived ? ' · archived' : ''}${e.gymIds.isEmpty ? ' · every gym' : ' · ${e.gymIds.map((id) => store.gym(id)?.name ?? '?').join(', ')}'}',
+          status: '${loadKindLabel(e.loadKind)}${e.unilateral ? ' · unilateral' : ''}${e.archived ? ' · archived' : ''} · ${e.gymIds.map((id) => store.gym(id)?.name ?? '?').join(', ')}',
           bottom: KeyButton('Edit', onTap: () => push(context, ExerciseEditScreen(exerciseId: e.id))),
           children: [
             if (e.mainMovers.isEmpty && e.supporting.isEmpty) const Para('No muscle groups named: it resets no rest.', apart: true),
             for (final g in e.mainMovers) RestMeter(rest[g]!),
             if (e.supporting.isNotEmpty) Text('SUPPORTING · ${e.supporting.map((g) => g.label).join(', ')}'.toUpperCase(), style: ts(10.5, color: secondaryC)),
+            if (valuesOf(e).isNotEmpty) Padding(padding: const EdgeInsets.only(top: 6), child: Text(valuesOf(e).map((v) => '${store.property(v.propertyId)?.name}: ${v.name}').join(' · ').toUpperCase(), style: ts(10.5, color: secondaryC))),
             if (served.isNotEmpty) Padding(padding: const EdgeInsets.only(top: 6), child: Text('SERVES · ${served.map((g) => g.name).join(', ')}'.toUpperCase(), style: ts(10.5, color: secondaryC))),
-            if (e.alternateIds.isNotEmpty)
-              Padding(padding: const EdgeInsets.only(top: 6), child: Text('ALTERNATES · ${e.alternateIds.map((id) => store.exercise(id)?.name ?? '?').join(', ')}'.toUpperCase(), style: ts(10.5, color: secondaryC))),
+            if (alternates.isNotEmpty)
+              Padding(
+                  padding: const EdgeInsets.only(top: 6),
+                  child: Text('ALTERNATES${from == null ? '' : ', FROM ${from.name}'} · ${alternates.map((x) => x.name).join(', ')}'.toUpperCase(), style: ts(10.5, color: secondaryC))),
             const Label('Notes'),
             Choice<int>(options: const [0, 1, 2], label: (i) => const ['Observations', 'Settings', 'Form'][i], isOn: (i) => i == tab, onTap: (i) => setState(() => tab = i)),
             Para(notes[tab].isEmpty ? 'Nothing noted.' : notes[tab], apart: notes[tab].isNotEmpty),
@@ -81,7 +104,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               store.save();
             }),
             const SizedBox(height: 10),
-            LineChart(lines: [ChartLine(line)]),
+            LineChart(lines: lines, unit: e.shownParameter == Param.load ? 'kg' : 'reps', onOpen: (w) => push(context, PastWorkoutScreen(workoutId: w.id))),
             const Label('Past sets'),
             if (workouts.isEmpty) const Para('Never done.'),
             for (final w in workouts.take(30)) ...[
@@ -110,6 +133,55 @@ class _ExerciseEditState extends State<ExerciseEditScreen> {
   late final bar = TextEditingController(text: fmtKg(e.barKg ?? 20));
   late final step = TextEditingController(text: fmtKg(e.stepKg ?? 2.5));
 
+  Future<void> _property(Property p) async {
+    final values = store.propertyValues.where((v) => v.propertyId == p.id).toList();
+    final act = await pickOne<String>(context, p.name, ['Add a value', 'Rename ${p.name}', for (final v in values) 'Rename ${v.name}', for (final v in values) 'Delete ${v.name}', 'Delete ${p.name}'], (s) => s);
+    if (act == null || !mounted) return;
+    if (act == 'Add a value') {
+      final n = await askText(context, 'New value of ${p.name}', hint: 'Such as Strict', required: true);
+      if (n == null || n.isEmpty) return;
+      final v = PropertyValue(propertyId: p.id, name: n);
+      store.propertyValues.add(v);
+      _hold(v);
+    } else if (act == 'Rename ${p.name}') {
+      final n = await askText(context, 'Rename ${p.name}', initial: p.name, required: true);
+      if (n == null || n.isEmpty) return;
+      p.name = n;
+    } else if (act == 'Delete ${p.name}') {
+      if (!await confirm(context, 'Delete ${p.name}?', note: 'It leaves every exercise that holds one of its values.', yes: 'Delete')) return;
+      final ids = values.map((v) => v.id).toSet();
+      for (final x in store.exercises) {
+        x.propertyValueIds.removeAll(ids);
+      }
+      store.propertyValues.removeWhere((v) => ids.contains(v.id));
+      store.properties.remove(p);
+    } else {
+      final v = values.firstWhere((v) => act.endsWith(' ${v.name}'));
+      if (act.startsWith('Rename')) {
+        final n = await askText(context, 'Rename ${v.name}', initial: v.name, required: true);
+        if (n == null || n.isEmpty) return;
+        v.name = n;
+      } else {
+        for (final x in store.exercises) {
+          x.propertyValueIds.remove(v.id);
+        }
+        store.propertyValues.remove(v);
+      }
+    }
+    store.save();
+  }
+
+  /// An exercise holds at most one value of each property.
+  void _hold(PropertyValue v) {
+    final siblings = store.propertyValues.where((x) => x.propertyId == v.propertyId).map((x) => x.id);
+    final had = e.propertyValueIds.contains(v.id);
+    e.propertyValueIds.removeAll(siblings);
+    if (!had) e.propertyValueIds.add(v.id);
+    store.save();
+  }
+
+  bool get _hasSides => store.workouts.any((w) => w.commits.any((c) => c.exerciseId == e.id && c.sets.any((s) => s.side != null)));
+
   void _cycle(MuscleGroup g) {
     // neither, main, supporting, neither again
     if (e.mainMovers.remove(g)) {
@@ -124,6 +196,7 @@ class _ExerciseEditState extends State<ExerciseEditScreen> {
   Widget build(BuildContext context) => Live((context) {
         final others = store.exercises.where((x) => x.id != e.id && !x.archived).toList()..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
         final activeTarget = store.goals.any((g) => g.state == GoalState.active && g.target?.exerciseId == e.id);
+        final from = alternatesFrom(e);
         return Screen(title: 'Edit exercise', status: e.name, children: [
           const Label('Name'),
           Field(controller: name, onChanged: (v) {
@@ -156,6 +229,40 @@ class _ExerciseEditState extends State<ExerciseEditScreen> {
               store.save();
             }),
           ],
+          const Label('Sides'),
+          KeyButton(
+            e.unilateral
+                ? (activeTarget ? 'Unilateral · an active goal\'s target sits on it' : (_hasSides ? 'Unilateral · its sets have sides' : 'Unilateral · tap to unmark'))
+                : (activeTarget ? 'Both sides · an active goal\'s target sits on it' : 'Both sides at once · tap to mark unilateral'),
+            on: e.unilateral,
+            onTap: activeTarget || (e.unilateral && _hasSides)
+                ? null
+                : () {
+                    e.unilateral = !e.unilateral;
+                    store.save();
+                  },
+          ),
+          const Label('Properties · one value of each'),
+          for (final p in store.properties) ...[
+            Row(children: [
+              Expanded(child: Text(p.name.toUpperCase(), style: ts(10.5, color: secondaryC))),
+              SizedBox(width: 72, child: KeyButton('Edit', size: 10, height: 36, onTap: () => _property(p))),
+            ]),
+            const SizedBox(height: 4),
+            Choice<PropertyValue>(options: store.propertyValues.where((v) => v.propertyId == p.id).toList(), label: (v) => v.name, isOn: (v) => e.propertyValueIds.contains(v.id), onTap: _hold),
+            const SizedBox(height: 8),
+          ],
+          KeyButton('New property', size: 11, onTap: () async {
+            final n = await askText(context, 'New property', hint: 'Such as Form', required: true);
+            if (n == null || n.isEmpty || !context.mounted) return;
+            final v = await askText(context, 'Its first value', hint: 'Such as Strict', required: true);
+            if (v == null || v.isEmpty) return;
+            final p = Property(name: n);
+            final pv = PropertyValue(propertyId: p.id, name: v);
+            store.properties.add(p);
+            store.propertyValues.add(pv);
+            _hold(pv);
+          }),
           const Label('Muscle groups · tap: neither, main, supporting'),
           for (final g in MuscleGroup.values)
             Entry(g.label,
@@ -163,20 +270,30 @@ class _ExerciseEditState extends State<ExerciseEditScreen> {
                 dim: !e.mainMovers.contains(g) && !e.supporting.contains(g),
                 trailing: e.mainMovers.contains(g) ? 'Main' : (e.supporting.contains(g) ? 'Supporting' : '—'),
                 onTap: () => _cycle(g)),
-          const Label('Gyms · none ticked: the same everywhere'),
+          const Label('Gyms · at least one'),
           Choice<Gym>(options: store.gyms.where((g) => !g.archived).toList(), label: (g) => g.name, isOn: (g) => e.gymIds.contains(g.id), onTap: (g) {
-            e.gymIds.contains(g.id) ? e.gymIds.remove(g.id) : e.gymIds.add(g.id);
+            if (e.gymIds.contains(g.id)) {
+              if (e.gymIds.length == 1) return; // the last gym tie stays
+              e.gymIds.remove(g.id);
+            } else {
+              e.gymIds.add(g.id);
+            }
             store.save();
           }),
-          const Label('Alternates, in order'),
+          const Label('Its own alternates, in order'),
+          if (from != null) Para('While ${from.name} is active, its alternates are the goal\'s. These return when it ends.'),
           for (final (i, id) in e.alternateIds.indexed)
-            Entry(store.exercise(id)?.name ?? '?', glyph: '${i + 1}.', trailing: 'Remove', onTap: () {
-              e.alternateIds.remove(id);
-              store.save();
-            }),
+            Entry(store.exercise(id)?.name ?? '?',
+                glyph: '${i + 1}.',
+                sub: store.exercise(id) != null && !fitsAsAlternate(e, store.exercise(id)!) ? 'No longer shares a main mover or a gym · not offered' : null,
+                trailing: 'Remove',
+                onTap: () {
+                  e.alternateIds.remove(id);
+                  store.save();
+                }),
           const SizedBox(height: 6),
           KeyButton('Add an alternate', onTap: () async {
-            final pick = await pickOne<Exercise>(context, 'Alternate for ${e.name}', others.where((x) => !e.alternateIds.contains(x.id)).toList(), (x) => x.name);
+            final pick = await pickExercise(context, 'Alternate for ${e.name}', others.where((x) => !e.alternateIds.contains(x.id) && fitsAsAlternate(e, x)).toList());
             if (pick == null) return;
             e.alternateIds.add(pick.id);
             store.save();

@@ -5,11 +5,11 @@ Throwaway code. The question, pass condition, and verdict live in [`Lab/Log.md`]
 A whole session on the phone, on Training '26's history: start at a gym, pick a routine or none, commit exercises as they are done, log load and grade, mark a test now and then. Goals, their charts, and rest by rhythm read what the week records.
 
 - `lib/model.dart` — the records, after `Spec/Data Model.md`, kept in one JSON file on the phone and written on every change.
-- `lib/logic.dart` — rest and its rhythm, progress lines, a goal's reach, what a routine offers, a set's starting load.
+- `lib/logic.dart` — rest and its rhythm, progress lines, a goal's reach, alternates, set limits, what a routine offers, a set's starting load and side, and the property filter.
 - `lib/ui.dart` — plain parts from the visual basics: the palette, a 48 px tap area. No tube. Saira and secondary and supporting text at 70% are a trial for the prototype only.
 - `lib/screens/` — home, workouts and sets, exercises, routines, goals, rest, gyms, and export and import.
 - `tool/convert_notion.py` — turns the Notion export into `assets/history.json`.
-- `test/logic_test.dart` — checks rest's rhythm, a goal's reach and undo, a routine's offer, and that every screen lays out.
+- `test/logic_test.dart` — checks rest's rhythm, a goal's reach and undo, a target on both sides, alternates, set limits, a routine's offer, the move from 0.3 records, that a chart's point can be read, and that every screen lays out.
 
 ## The history
 
@@ -43,6 +43,15 @@ Put `lab.keystore` at `android/app/lab.keystore` first. It is not committed. Bui
 2. **Routines** and **Goals** — make the ones you train by. A goal joins a routine once it is active.
 3. **Start workout**.
 
+## Coming from 0.3
+
+0.4 brings in this week's spec: every exercise and routine tied to a gym, properties, unilateral sides, alternates on the goal, a goal's start and end questions, one goal per target exercise, set limits, and reading a point on a chart. What 0.3 kept is moved over on first launch:
+
+- An exercise tied to no gym is tied to the gyms it was done at, or to every gym if it was never done. Check each under **Edit**.
+- A routine tied to no gym, or to several, is tied to the gym it was last started at, or to the first one it named.
+- A goal's explanation becomes its answer to "Why this goal?", and its other exercises become its alternates.
+- An exercise you mark unilateral keeps its past sets with no side.
+
 ## Keeping the data
 
 **Export data** on home writes every record to one file, `auburn-<date>.json`, wherever you choose. **Import data** replaces everything on the phone with such a file. Export before installing a build signed with another key, and import after.
@@ -59,7 +68,7 @@ Every friction, with the moment it happened. Most of all:
 ## Shortcuts, and where it leaves the spec
 
 - Plain screens: only screens 00 and 01 are agreed, so every layout and word here is a stand-in.
-- No tube, sound, figure, splits, settings, or cardio. A goal's target sits on an exercise only.
+- No tube, sound, figure, splits, settings, or cardio. A goal's target sits on an exercise only, so a cardio goal's alternates are not needed.
 - A reach prompt appears on home; home is a list, not screen 01's widgets and sheet.
 - An exercise's load kind can be changed after it has sets, since the import guesses it from the name.
 - Loads are corrected in 2.5 kg steps on plates, without the plate keys.
