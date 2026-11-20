@@ -602,6 +602,27 @@ class ValueFilter extends StatelessWidget {
   }
 }
 
+/// Keys for every gym; tapping one turns it on or off. An exercise passes when it is tied to one that is on.
+class GymFilter extends StatelessWidget {
+  const GymFilter({super.key, required this.on, required this.onToggle});
+  final Set<String> on;
+  final void Function(String gymId) onToggle;
+  @override
+  Widget build(BuildContext context) {
+    final gyms = store.gyms.where((g) => !g.archived).toList();
+    if (gyms.length < 2) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(padding: const EdgeInsets.only(bottom: 4), child: Text('GYM', style: ts(10, color: secondaryC))),
+        Choice<Gym>(options: gyms, label: (g) => g.name, isOn: (g) => on.contains(g.id), onTap: (g) => onToggle(g.id)),
+      ]),
+    );
+  }
+}
+
+bool passesGyms(Exercise e, Set<String> gymIds) => gymIds.isEmpty || gymIds.any(e.gymIds.contains);
+
 /// Picks one exercise, with the property filter above the list. Returns null when dismissed.
 Future<Exercise?> pickExercise(BuildContext context, String title, List<Exercise> options) {
   final on = <String>{};

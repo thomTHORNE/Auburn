@@ -258,6 +258,34 @@ void main() {
     expect(store.routine('r')!.gymId, g4y.id); // the gym it was last started at
   });
 
+  test('only an exercise with no sets can be deleted, and it leaves everything that named it', () {
+    seed();
+    final iva = store.gyms.first;
+    final squat = Exercise(name: 'Squat', gymIds: {iva.id}, mainMovers: {MuscleGroup.quads});
+    final split = Exercise(name: 'Split squat', gymIds: {iva.id}, mainMovers: {MuscleGroup.quads});
+    final lunge = Exercise(name: 'Lunge', gymIds: {iva.id}, mainMovers: {MuscleGroup.quads}, alternateIds: [split.id]);
+    store.exercises.addAll([squat, split, lunge]);
+    store.workouts.add(workoutOn(2, iva, squat));
+    store.workouts.first.commits.add(Commit(exerciseId: split.id)); // committed, no sets
+    final goal = Goal(name: 'Squat 100', alternateIds: [split.id], target: Target(exerciseId: squat.id, value: 100));
+    goal.setLimit(split.id, 3);
+    store.goals.add(goal);
+    store.routines.add(Routine(name: 'Legs', gymId: iva.id, items: [RoutineItem(exerciseId: split.id), RoutineItem(goalId: goal.id)]));
+    expect(cannotDelete(squat), isNotNull); // it has sets
+    expect(cannotDelete(split), null);
+    deleteExercise(split);
+    expect(store.exercise(split.id), null);
+    expect(goal.alternateIds, isEmpty);
+    expect(goal.setLimits, isEmpty);
+    expect(lunge.alternateIds, isEmpty);
+    expect(store.routines.first.items.length, 1);
+    expect(store.workouts.first.commits.length, 1);
+    final lone = Exercise(name: 'Leg extension', gymIds: {iva.id});
+    store.exercises.add(lone);
+    store.goals.add(Goal(name: 'Quads', target: Target(exerciseId: lone.id, value: 50)));
+    expect(cannotDelete(lone), isNotNull); // a goal's target sits on it
+  });
+
   test('everything written out reads back the same', () {
     seed();
     final gym = store.gyms.first;

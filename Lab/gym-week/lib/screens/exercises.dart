@@ -15,6 +15,7 @@ class ExercisesScreen extends StatefulWidget {
 
 class _ExercisesState extends State<ExercisesScreen> {
   final filter = <String>{};
+  final gyms = <String>{};
 
   @override
   Widget build(BuildContext context) => Live((context) {
@@ -35,11 +36,12 @@ class _ExercisesState extends State<ExercisesScreen> {
             if (context.mounted) push(context, ExerciseEditScreen(exerciseId: e.id));
           }),
           children: [
+            GymFilter(on: gyms, onToggle: (id) => setState(() => gyms.contains(id) ? gyms.remove(id) : gyms.add(id))),
             ValueFilter(on: filter, onToggle: (id) => setState(() => filter.contains(id) ? filter.remove(id) : filter.add(id))),
-            for (final e in all.where((e) => !e.archived && passesFilter(e, filter)))
+            for (final e in all.where((e) => !e.archived && passesFilter(e, filter) && passesGyms(e, gyms)))
               ExerciseEntry(e, after: [if (e.mainMovers.isEmpty) const Tag('No main mover named', kind: TagKind.mark)], onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
             if (all.any((e) => e.archived)) const Label('Archived'),
-            for (final e in all.where((e) => e.archived)) ExerciseEntry(e, dim: true, onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
+            for (final e in all.where((e) => e.archived && passesFilter(e, filter) && passesGyms(e, gyms))) ExerciseEntry(e, dim: true, onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
           ],
         );
       });
@@ -58,7 +60,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   @override
   Widget build(BuildContext context) => Live((context) {
         final e = store.exercise(widget.exerciseId);
-        if (e == null) return const Screen(title: 'Exercise', children: [Para('Gone.')]);
+        if (e == null) {
+          // Deleted from its edit screen: leave as well.
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (context.mounted) Navigator.of(context).maybePop();
+          });
+          return const Screen(title: 'Exercise', children: [Para('Deleted.')]);
+        }
         final rest = readRest();
         final lines = [
           for (final side in sidesOf(e))
@@ -305,6 +313,18 @@ class _ExerciseEditState extends State<ExerciseEditScreen> {
                     store.save();
                   },
           ),
+          const SizedBox(height: 8),
+          KeyButton('Delete', onTap: () async {
+            final why = cannotDelete(e);
+            if (why != null) {
+              await confirm(context, 'Not deleted', note: why, yes: 'OK');
+              return;
+            }
+            if (!context.mounted || !await confirm(context, 'Delete ${e.name}?', note: 'It has no sets. It leaves every routine, goal and exercise that names it, and cannot be restored.', yes: 'Delete')) return;
+            deleteExercise(e);
+            store.save();
+            if (context.mounted) Navigator.of(context).pop();
+          }),
         ]);
       });
 }

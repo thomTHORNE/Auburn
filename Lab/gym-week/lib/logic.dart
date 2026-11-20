@@ -443,6 +443,37 @@ int? lastTestReps(String exerciseId) {
 /// The goals an exercise serves.
 List<Goal> goalsServedBy(String exerciseId) => [for (final g in store.goals) if (g.exerciseIds.contains(exerciseId)) g];
 
+// ---- Deleting an exercise ----
+
+/// Why an exercise cannot be deleted, or null when it can. Only one with no sets can: history points at the rest.
+String? cannotDelete(Exercise e) {
+  if (store.workouts.any((w) => w.commits.any((c) => c.exerciseId == e.id && c.sets.isNotEmpty))) return 'It has sets. Archive it instead.';
+  final target = store.goals.where((g) => g.target?.exerciseId == e.id).firstOrNull;
+  if (target != null) return 'The target of ${target.name.isEmpty ? 'a goal' : target.name} sits on it.';
+  final ended = store.goals.where((g) => g.ended && g.alternateIds.contains(e.id)).firstOrNull;
+  if (ended != null) return '${ended.name.isEmpty ? 'An ended goal' : ended.name} names it, and an ended goal never changes.';
+  return null;
+}
+
+/// Deletes an exercise with no sets, and takes it out of everything that names it.
+void deleteExercise(Exercise e) {
+  for (final w in store.workouts) {
+    w.commits.removeWhere((c) => c.exerciseId == e.id);
+  }
+  for (final g in store.goals) {
+    g.alternateIds.remove(e.id);
+    g.hiddenExerciseIds.remove(e.id);
+    g.setLimitsRemoveFor(e.id);
+  }
+  for (final r in store.routines) {
+    r.items.removeWhere((i) => i.exerciseId == e.id);
+  }
+  for (final x in store.exercises) {
+    x.alternateIds.remove(e.id);
+  }
+  store.exercises.remove(e);
+}
+
 // ---- Properties (Spec/Features/Exercises.md) ----
 
 /// An exercise's property values, in the order the properties were made, as shown beside its name.
