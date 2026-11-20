@@ -14,7 +14,7 @@ A way of doing an exercise that is to be tracked apart, such as slow and control
 
 ### Gym ties
 
-An exercise is tied to at least one gym, and is offered only at its gyms. One done at two gyms is tied to both.
+An exercise is tied to at least one gym, and is offered only at its gyms. One done at two gyms is tied to both. Wherever an exercise is offered, its gyms are shown with it.
 
 ### Properties
 
