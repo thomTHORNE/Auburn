@@ -12,7 +12,7 @@ The method a goal is meant to be reached by, stated in advance by the user, so t
 - **Programming is on a goal.** Training as a whole carries no intent: workouts a week are counted from the facts wherever a screen needs them, and an intent above goals has no outcome to compare with.
 - **Programming is part of its goal and locks with it.** A goal with its programming is one commitment. A new method is a new goal: the old one is abandoned with why the method did not work, and the new one starts from it with a link back, even at the same target. Changing methods inside a goal is not supported.
 - **The exercises a goal's programming names stay in it while it is active**, as the exercises its targets sit on do.
-- **A programming entry is an exercise, workouts a week, and sets per workout.** A week is kept when that many workouts each hold that many sets of the exercise, Warmups excluded. Weeks run in sevens from the day the goal was made active.
+- **Sets per workout landed in [Goals](../../Spec/Features/Goals.md#set-limits) as a limit**: a cap per exercise, refused at the limit, not an exact count. Workouts a week is still open here; weeks run in sevens from the day the goal was made active.
 
 ## Open questions
 

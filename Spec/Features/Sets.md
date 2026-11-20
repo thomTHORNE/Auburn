@@ -8,7 +8,7 @@ Logging a set — its load and its grade, plus reps when it is a test — and co
 
 ### Logging
 
-A set is logged when its grade is tapped. Load and reps are set first; the grade commits them. Grades are Ideal, Acceptable, Light, Yielding, and Warmup, each shown distinctly. Ideal has the largest key.
+A set is logged when its grade is tapped. Load and reps are set first; the grade commits them. Grades are Ideal, Acceptable, Light, Yielding, and Warmup, each shown distinctly. Ideal has the largest key. A set an active goal's limit refuses is not logged, as specified in [Goals](Goals.md#set-limits).
 
 ### Load
 

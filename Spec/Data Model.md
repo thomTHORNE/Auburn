@@ -148,6 +148,18 @@ class Target {
 - `kept` is true only with `reachedAt`. A reached goal's target is kept.
 - A target's reach is stored, not derived: the user keeps or undoes it, and an ended goal never changes.
 
+```dart
+/// A limit of sets per workout on one exercise a goal names. From activation, every change is a new record, and the latest holds.
+class SetLimit {
+  final String goalId;
+  final String exerciseId;
+  final int? sets;       // at least 1; null: the limit was removed
+  final DateTime setAt;
+}
+```
+
+- While a goal is a draft, its set limits are replaced, not kept. From activation, the target's exercise's limit never changes, and each change to an alternate's is a new record.
+
 ## Routines
 
 ```dart

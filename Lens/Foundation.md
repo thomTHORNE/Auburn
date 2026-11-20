@@ -64,7 +64,7 @@ A muscle group that is never a main mover keeps no rest. Making it one is the us
 
 ### A goal says why
 
-A goal is something to reach: a movement mastered, an imbalance levelled, a time run. It is a commitment the user learns from. At its start the user says why it exists, what reaching it means, and what they expect to be hardest; at its end, reached or abandoned, they say what happened, beside what they said at the start. It names the exercise its target sits on and the alternates that serve it. A goal is never owed. It shows the gap to its target, not rest.
+A goal is something to reach: a movement mastered, an imbalance levelled, a time run. It is a commitment the user learns from. At its start the user says why it exists, what reaching it means, and what they expect to be hardest; at its end, reached or abandoned, they say what happened, beside what they said at the start. It names the exercise its target sits on and the alternates that serve it. Each exercise it names can carry a limit of sets per workout, and Auburn holds the user to it. A goal is never owed. It shows the gap to its target, not rest.
 
 Its target says what reaching it looks like, in the user's own rules, and only the facts prove it: a goal is reached by a set or an activity, never by being marked. A target committed to cannot be trusted unless it holds, so once a goal is active its target does not move. The goal is reached or abandoned, never paused, and an abandoned goal keeps the reason why.
 
@@ -113,7 +113,7 @@ The fiction changes what Auburn says, never what Auburn does. Every behaviour fo
 ## Terms
 
 - **Muscle group** — a part of the body rest is kept for, from a standard list: chest, front delts, side delts, rear delts, biceps, triceps, forearms, lats, upper back, traps, lower back, abs, obliques, quads, hamstrings, glutes, calves, adductors, abductors, neck. Cardio rests the same way, reset by runs, treadmill sessions, and hikes from the watch.
-- **Goal** — something to reach: its target, the exercise the target sits on and its alternates, and what the user says at its start and its end.
+- **Goal** — something to reach: its target, the exercise the target sits on and its alternates, optional limits of sets per workout on them, and what the user says at its start and its end.
 - **Routine** — a workout prepared in advance: exercises and goals, in order, picked when a workout starts. It is tied to one gym.
 - **Routine group** — a named set of routines, such as Push, Pull and Legs. It implies no order among them.
 - **Target** — what reaching a goal looks like: a value on one exercise's sets or one kind of activity, under the user's own rules.

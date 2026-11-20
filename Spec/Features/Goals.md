@@ -47,6 +47,12 @@ A draft asks three questions, each optional: Why this goal? What does reaching i
 
 At the end, the goal asks one question, with the start answers shown beside it. Reached: what got you there? It is asked when the mark is kept, and is optional. Abandoned: why? It is required, as below.
 
+### Set limits
+
+Each exercise a goal names, its target's exercise and each alternate, can carry a limit of sets per workout. A limit is optional. While the goal is active, a workout holds at most that many sets of the exercise, Warmups not counted: once it holds that many, the exercise's next set is refused, and deleting a set frees its place. On a unilateral exercise, the limit holds for each side. An exercise named by two active goals takes the lower limit. While the exercise is done, it shows its limit and the sets logged toward it.
+
+The limit on the target's exercise is set in the draft and locks when the goal is made active. An alternate's limit is set when it is added, and can be changed or removed while the goal is active. Each change is kept on the goal with its date, and the goal shows them.
+
 ### Reaching a target
 
 The target is reached by the first fact that meets its rules, dated after the goal was made active. Auburn marks it on that fact's date.
@@ -85,6 +91,7 @@ A reached goal also shows the days from active to reached. An abandoned goal sho
 - A goal never affects rest, and is never overdue.
 - Nothing in an active goal changes but its alternates.
 - An exercise is the target of at most one goal that is a draft or active.
+- A set beyond an active goal's limit on its exercise is never logged.
 - An ended goal never changes.
 - Auburn never sets or moves a target.
 
@@ -103,6 +110,10 @@ A reached goal also shows the days from active to reached. An abandoned goal sho
 | An exercise a target of an active goal sits on is archived | Refused until the goal ends |
 | A goal is drafted on an exercise that is already a draft or active goal's target | Refused; once that goal ends, a new one can start on it |
 | A target on both sides, with the left reached in one workout and the right in the next | Not reached; both sides meet it in one workout |
+| A Warmup is logged with the limit reached | Logged; Warmups do not count |
+| A Warmup is corrected to a working grade with the limit reached | Refused |
+| An alternate's limit is lowered below the sets already logged in the workout in progress | Those sets stay; no more are logged |
+| The exercise is committed in a swap for another | Its own limit applies, if a goal names it |
 | A target on runs, and a treadmill session meets it | It does not count; only the target's own kind does |
 | Sets imported from Notion, dated before a goal was made active | Never reach its targets |
 | A bodyweight exercise's load target | The added load counts; 0 when none |

@@ -32,7 +32,7 @@ Builds are numbered major.minor.patch, and the major is the version: v0's builds
 | **Platforms** | Android and iOS phones. |
 | **Muscle groups** | The standard list, and the groups each exercise mainly trains and supports. A muscle group may carry a split. |
 | **Rest** | Each muscle group's rest, counted from its main moves and read in four steps against its own rhythm, or steps set by hand; cardio rests the same way. Every rest in a list, as the basis for choosing the day's training. |
-| **Goals** | Goals with a target the facts prove, the exercise it sits on and its alternates, and what the user says at the start and at the end, shown with the gap to the target. A goal is drafted, made active, and ends reached or abandoned. Weaknesses are goals. |
+| **Goals** | Goals with a target the facts prove, the exercise it sits on and its alternates, optional limits of sets per workout on them, and what the user says at the start and at the end, shown with the gap to the target. A goal is drafted, made active, and ends reached or abandoned. Weaknesses are goals. |
 | **Workouts** | Starting a workout by choosing the gym, which limits the exercises on offer to that gym's, then a routine or none; committing exercises to it in order; its duration; and past workouts. |
 | **Routines** | Workouts prepared in advance — exercises and goals, in order — picked when a workout starts, standing alone or in a routine group, and tied to one gym. |
 | **Sets** | Load and grade, the side on a unilateral exercise, and tests: a set the user marks, recording its reps. |
