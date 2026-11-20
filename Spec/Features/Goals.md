@@ -69,7 +69,7 @@ An active goal can be abandoned at any time. Auburn asks why; the answer is free
 
 A reached or abandoned goal is frozen: a permanent record that never changes. Its progress is shown up to the day it ended. It keeps its exercises as history, and none can be added to it.
 
-A new goal can be started from an ended one: a draft holding its name, its target unreached, and its alternates, linked to the goal it came from. Its questions start unanswered; the link shows the old goal's answers. The link shows on both.
+A new goal can be started from an ended one: a draft holding its name, its target unreached, and its alternates, linked to the goal it came from. Its questions start unanswered and it has no set limits: it is a new commitment. The link shows the old goal's answers, and shows on both.
 
 ### What a goal shows
 
