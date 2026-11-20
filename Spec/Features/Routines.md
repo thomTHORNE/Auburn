@@ -28,6 +28,12 @@ An exercise in a routine whose tie to the routine's gym is removed stays on its 
 
 A routine stands alone or belongs to one routine group: a name and its routines. Grouped routines are shown together, apart from standalone ones. A group implies no order among its routines.
 
+### Archiving
+
+An archived routine is offered nowhere and stays in every workout started from it. It can be restored, and is then offered again.
+
+A routine no workout was started from can be deleted outright instead.
+
 ### Starting from a routine
 
 When a workout starts at a gym, the routines tied to that gym are offered, and the user picks one or none. A workout started from a routine offers the routine's exercises and what its goals bring.
@@ -59,4 +65,6 @@ Auburn never suggests which routine is next, and never schedules one.
 | A routine is edited while a workout started from it is in progress | The offered list follows the routine as it now stands |
 | The phone dies during a workout started from a routine | The offered list is there when Auburn reopens; what was committed stays committed |
 | A routine's group is deleted | Its routines stand alone |
+| A routine that workouts were started from is deleted | Refused; it is archived instead |
+| The last routine of a group is deleted | The group is deleted with it |
 | An exercise in a routine loses its tie to the routine's gym | It stays on the edit screen, marked, and is not offered |
