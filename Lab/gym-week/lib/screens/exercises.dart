@@ -16,6 +16,7 @@ class ExercisesScreen extends StatefulWidget {
 class _ExercisesState extends State<ExercisesScreen> {
   final filter = <String>{};
   final gyms = <String>{};
+  final muscles = <MuscleGroup>{};
 
   @override
   Widget build(BuildContext context) => Live((context) {
@@ -37,11 +38,12 @@ class _ExercisesState extends State<ExercisesScreen> {
           }),
           children: [
             GymFilter(on: gyms, onToggle: (id) => setState(() => gyms.contains(id) ? gyms.remove(id) : gyms.add(id))),
+            MuscleFilter(on: muscles, onToggle: (m) => setState(() => muscles.contains(m) ? muscles.remove(m) : muscles.add(m))),
             ValueFilter(on: filter, onToggle: (id) => setState(() => filter.contains(id) ? filter.remove(id) : filter.add(id))),
-            for (final e in all.where((e) => !e.archived && passesFilter(e, filter) && passesGyms(e, gyms)))
+            for (final e in all.where((e) => !e.archived && passesFilter(e, filter) && passesGyms(e, gyms) && passesMuscles(e, muscles)))
               ExerciseEntry(e, after: [if (e.mainMovers.isEmpty) const Tag('No main mover named', kind: TagKind.mark)], onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
             if (all.any((e) => e.archived)) const Label('Archived'),
-            for (final e in all.where((e) => e.archived && passesFilter(e, filter) && passesGyms(e, gyms))) ExerciseEntry(e, dim: true, onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
+            for (final e in all.where((e) => e.archived && passesFilter(e, filter) && passesGyms(e, gyms) && passesMuscles(e, muscles))) ExerciseEntry(e, dim: true, onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
           ],
         );
       });

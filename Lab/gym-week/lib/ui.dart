@@ -623,6 +623,29 @@ class GymFilter extends StatelessWidget {
 
 bool passesGyms(Exercise e, Set<String> gymIds) => gymIds.isEmpty || gymIds.any(e.gymIds.contains);
 
+/// Keys for every muscle group some exercise names as a main mover. An exercise passes when one of those on is its
+/// main mover.
+class MuscleFilter extends StatelessWidget {
+  const MuscleFilter({super.key, required this.on, required this.onToggle});
+  final Set<MuscleGroup> on;
+  final void Function(MuscleGroup) onToggle;
+  @override
+  Widget build(BuildContext context) {
+    final named = {for (final e in store.exercises) ...e.mainMovers};
+    final groups = MuscleGroup.values.where(named.contains).toList();
+    if (groups.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(padding: const EdgeInsets.only(bottom: 4), child: Text('MAIN MOVER', style: ts(10, color: secondaryC))),
+        Choice<MuscleGroup>(options: groups, label: (g) => g.label, isOn: on.contains, onTap: onToggle),
+      ]),
+    );
+  }
+}
+
+bool passesMuscles(Exercise e, Set<MuscleGroup> groups) => groups.isEmpty || groups.any(e.mainMovers.contains);
+
 /// Picks one exercise, with the property filter above the list. Returns null when dismissed.
 Future<Exercise?> pickExercise(BuildContext context, String title, List<Exercise> options) {
   final on = <String>{};
