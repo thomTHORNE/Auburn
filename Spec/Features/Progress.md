@@ -29,9 +29,21 @@ In a goal's chart, the line is given what the goal decides, as specified in [Goa
 
 For each activity of a kind the line is given, one point on the activity's date, for the parameter chosen: pace (minutes per kilometre), duration, distance, or average heart rate. The line is shown in the chart of each goal whose target sits on that kind, which decides the activities it is given, as specified in [Goals](Goals.md), with each of those activities' distance, duration, pace, and average heart rate listed beneath, newest first.
 
+### Reading a point
+
+A point is selected by touching the chart: the point nearest the touch, on its line. Dragging moves the selection from point to point along that line. One point is selected at a time, and the selection ends when the chart is left.
+
+A selected exercise point shows its date and gym, its line, its value, and the set behind it: its grade, its reps on a test, and its side on a unilateral exercise. It also shows how many of that workout's sets the line was given. On the line a goal's target sits on, it shows how far the point is from the target. The readout opens the workout the point came from.
+
+A selected activity point shows its date, distance, duration, pace, and average heart rate.
+
 ## States
 
-None. Progress is drawn from sets and activities; only each exercise's viewing choices are stored.
+| State | Kind | Meaning |
+|---|---|---|
+| A point selected | Runtime | A point's readout is shown; it ends when the chart is left |
+
+Progress is drawn from sets and activities; only each exercise's viewing choices are stored.
 
 ## Constraints
 
@@ -42,6 +54,10 @@ None. Progress is drawn from sets and activities; only each exercise's viewing c
 | Scenario | Behavior |
 |---|---|
 | An exercise with one point ever | One point, no line |
+| Two sets tie as a workout's heaviest | The readout shows the first logged |
+| Two lines' points fall where the touch lands | The nearer one is selected |
+| The set behind a selected point is corrected or deleted | The selection follows the point, or ends if the point is gone |
+| A line with one point | It can be selected like any other |
 | A unilateral exercise whose sets all predate its marking | Both lines are empty; the sets stay in its past sets |
 | Two sets given tie as heaviest in a workout | One point at that load |
 | A set's grade is corrected to one not shown | Its point moves to the next set given, or disappears |
