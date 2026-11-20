@@ -1,7 +1,7 @@
 name: auburn_gym_week
 description: "Lab prototype: a week in the gym. Throwaway code."
 publish_to: 'none'
-version: 0.4.4+8
+version: 0.4.5+9
 
 environment:
   sdk: ^3.13.5

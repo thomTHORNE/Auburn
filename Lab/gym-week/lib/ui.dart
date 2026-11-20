@@ -647,12 +647,14 @@ class ValueFilter extends StatelessWidget {
 
 /// Keys for every gym; tapping one turns it on or off. An exercise passes when it is tied to one that is on.
 class GymFilter extends StatelessWidget {
-  const GymFilter({super.key, required this.on, required this.onToggle});
+  const GymFilter({super.key, required this.on, required this.onToggle, this.pool});
   final Set<String> on;
   final void Function(String gymId) onToggle;
+  final List<Exercise>? pool; // only the gyms these exercises are tied to; every gym when null
   @override
   Widget build(BuildContext context) {
-    final gyms = store.gyms.where((g) => !g.archived).toList();
+    final tied = pool == null ? null : {for (final e in pool!) ...e.gymIds};
+    final gyms = store.gyms.where((g) => !g.archived && (tied == null || tied.contains(g.id))).toList();
     if (gyms.length < 2) return const SizedBox.shrink();
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -669,12 +671,13 @@ bool passesGyms(Exercise e, Set<String> gymIds) => gymIds.isEmpty || gymIds.any(
 /// Keys for every muscle group some exercise names as a main mover. An exercise passes when one of those on is its
 /// main mover.
 class MuscleFilter extends StatelessWidget {
-  const MuscleFilter({super.key, required this.on, required this.onToggle});
+  const MuscleFilter({super.key, required this.on, required this.onToggle, this.pool});
   final Set<MuscleGroup> on;
   final void Function(MuscleGroup) onToggle;
+  final List<Exercise>? pool; // only the groups these exercises name; every exercise's when null
   @override
   Widget build(BuildContext context) {
-    final named = {for (final e in store.exercises) ...e.mainMovers};
+    final named = {for (final e in pool ?? store.exercises) ...e.mainMovers};
     final groups = MuscleGroup.values.where(named.contains).toList();
     if (groups.isEmpty) return const SizedBox.shrink();
     return Padding(
@@ -689,16 +692,31 @@ class MuscleFilter extends StatelessWidget {
 
 bool passesMuscles(Exercise e, Set<MuscleGroup> groups) => groups.isEmpty || groups.any(e.mainMovers.contains);
 
-/// Picks one exercise, with the property filter above the list. Returns null when dismissed.
+/// Picks one exercise, with the gym, main mover and property filters folded above the list. Each filter offers only
+/// what the options hold. Returns null when dismissed.
 Future<Exercise?> pickExercise(BuildContext context, String title, List<Exercise> options) {
   final on = <String>{};
+  final gyms = <String>{};
+  final muscles = <MuscleGroup>{};
+  var filtering = false;
   options.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
   return showDialog<Exercise>(
     context: context,
     builder: (ctx) => StatefulBuilder(builder: (ctx, setState) {
-      final shown = options.where((e) => passesFilter(e, on)).toList();
+      final shown = options.where((e) => passesFilter(e, on) && passesGyms(e, gyms) && passesMuscles(e, muscles)).toList();
+      final count = on.length + gyms.length + muscles.length;
       return _sheet(ctx, title, [
-        ValueFilter(on: on, onToggle: (id) => setState(() => on.contains(id) ? on.remove(id) : on.add(id))),
+        if (options.length > 1)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: KeyButton(filtering ? 'Hide filters' : (count == 0 ? 'Filter' : 'Filter · $count on · ${shown.length} of ${options.length}'),
+                size: 11, height: 40, on: count > 0, onTap: () => setState(() => filtering = !filtering)),
+          ),
+        if (filtering) ...[
+          GymFilter(pool: options, on: gyms, onToggle: (id) => setState(() => gyms.contains(id) ? gyms.remove(id) : gyms.add(id))),
+          MuscleFilter(pool: options, on: muscles, onToggle: (m) => setState(() => muscles.contains(m) ? muscles.remove(m) : muscles.add(m))),
+          ValueFilter(on: on, onToggle: (id) => setState(() => on.contains(id) ? on.remove(id) : on.add(id))),
+        ],
         if (shown.isEmpty) const Para('Nothing to choose from.'),
         for (final e in shown) ExerciseEntry(e, onTap: () => Navigator.pop(ctx, e)),
         const SizedBox(height: 12),
