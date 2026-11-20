@@ -170,6 +170,49 @@ class ExerciseEntry extends StatelessWidget {
       );
 }
 
+/// An exercise in the exercise list, as a card: its name, its tags, and where it applies, the muscles it supports and
+/// the goals it serves.
+class ExerciseCard extends StatelessWidget {
+  const ExerciseCard(this.exercise, {super.key, this.after = const [], this.onTap});
+  final Exercise exercise;
+  final List<Tag> after;
+  final VoidCallback? onTap;
+
+  Widget _line(String label, List<Tag> tags) => Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: Wrap(spacing: 4, runSpacing: 4, crossAxisAlignment: WrapCrossAlignment.center, children: [
+          Padding(padding: const EdgeInsets.only(right: 2), child: Text(label.toUpperCase(), style: ts(9.5, color: secondaryC, bold: true, spacing: 1.5))),
+          ...tags,
+        ]),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    final e = exercise;
+    final served = goalsServedBy(e.id).where((g) => !g.ended).toList();
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+          decoration: BoxDecoration(color: graphite, border: Border.all(color: e.archived ? lineSupporting : lineSecondary.withValues(alpha: 0.35), width: 2)),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Text(e.name.toUpperCase(), style: ts(15, color: e.archived ? secondaryC : primaryC, spacing: 1.6)),
+            const SizedBox(height: 6),
+            Wrap(spacing: 4, runSpacing: 4, children: [...exerciseTags(e), ...after]),
+            if (e.supporting.isNotEmpty) _line('Supporting', [for (final m in e.supporting) Tag(m.label)]),
+            if (served.isNotEmpty)
+              _line('Serves', [
+                for (final g in served) Tag('${g.name}${g.target?.exerciseId == e.id ? ' · target' : ''}${g.state == GoalState.draft ? ' · draft' : ''}', kind: TagKind.value),
+              ]),
+          ]),
+        ),
+      ),
+    );
+  }
+}
+
 class KeyButton extends StatelessWidget {
   const KeyButton(this.label, {super.key, this.onTap, this.filled = false, this.on = false, this.height = 48, this.size = 13});
   final String label;

@@ -17,10 +17,16 @@ class _ExercisesState extends State<ExercisesScreen> {
   final filter = <String>{};
   final gyms = <String>{};
   final muscles = <MuscleGroup>{};
+  bool filtering = false;
+
+  bool _passes(Exercise e) => passesFilter(e, filter) && passesGyms(e, gyms) && passesMuscles(e, muscles);
 
   @override
   Widget build(BuildContext context) => Live((context) {
         final all = [...store.exercises]..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+        final on = filter.length + gyms.length + muscles.length;
+        final shown = all.where((e) => !e.archived && _passes(e)).toList();
+        final archived = all.where((e) => e.archived && _passes(e)).toList();
         final unnamed = all.where((e) => !e.archived && e.mainMovers.isEmpty && e.supporting.isEmpty).length;
         return Screen(
           title: 'Exercises',
@@ -37,13 +43,30 @@ class _ExercisesState extends State<ExercisesScreen> {
             if (context.mounted) push(context, ExerciseEditScreen(exerciseId: e.id));
           }),
           children: [
-            GymFilter(on: gyms, onToggle: (id) => setState(() => gyms.contains(id) ? gyms.remove(id) : gyms.add(id))),
-            MuscleFilter(on: muscles, onToggle: (m) => setState(() => muscles.contains(m) ? muscles.remove(m) : muscles.add(m))),
-            ValueFilter(on: filter, onToggle: (id) => setState(() => filter.contains(id) ? filter.remove(id) : filter.add(id))),
-            for (final e in all.where((e) => !e.archived && passesFilter(e, filter) && passesGyms(e, gyms) && passesMuscles(e, muscles)))
-              ExerciseEntry(e, after: [if (e.mainMovers.isEmpty) const Tag('No main mover named', kind: TagKind.mark)], onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
-            if (all.any((e) => e.archived)) const Label('Archived'),
-            for (final e in all.where((e) => e.archived && passesFilter(e, filter) && passesGyms(e, gyms) && passesMuscles(e, muscles))) ExerciseEntry(e, dim: true, onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
+            // The filters fold away behind one key, so the list starts high on the screen.
+            Row(children: [
+              Expanded(child: KeyButton(filtering ? 'Hide filters' : (on == 0 ? 'Filter' : 'Filter · $on on'), size: 11, height: 40, on: on > 0, onTap: () => setState(() => filtering = !filtering))),
+              if (on > 0) ...[
+                const SizedBox(width: 8),
+                SizedBox(width: 96, child: KeyButton('Clear', size: 11, height: 40, onTap: () => setState(() {
+                      filter.clear();
+                      gyms.clear();
+                      muscles.clear();
+                    }))),
+              ],
+            ]),
+            if (filtering) ...[
+              const SizedBox(height: 10),
+              GymFilter(on: gyms, onToggle: (id) => setState(() => gyms.contains(id) ? gyms.remove(id) : gyms.add(id))),
+              MuscleFilter(on: muscles, onToggle: (m) => setState(() => muscles.contains(m) ? muscles.remove(m) : muscles.add(m))),
+              ValueFilter(on: filter, onToggle: (id) => setState(() => filter.contains(id) ? filter.remove(id) : filter.add(id))),
+            ],
+            const SizedBox(height: 12),
+            if (on > 0) Padding(padding: const EdgeInsets.only(bottom: 8), child: Text('${shown.length} OF ${all.where((e) => !e.archived).length} SHOWN', style: ts(10.5, color: secondaryC))),
+            for (final e in shown)
+              ExerciseCard(e, after: [if (e.mainMovers.isEmpty) const Tag('No main mover named', kind: TagKind.mark)], onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
+            if (archived.isNotEmpty) const Label('Archived'),
+            for (final e in archived) ExerciseCard(e, onTap: () => push(context, ExerciseScreen(exerciseId: e.id))),
           ],
         );
       });
