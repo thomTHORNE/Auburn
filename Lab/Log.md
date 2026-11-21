@@ -172,3 +172,18 @@ Code: Lab/gym-week/
 Stakes: friction found here is fixed in the spec before v0's screens are designed.
 Shortcuts: plain screens from the visual basics; no sound, figure or overdue prompt; rest read-only, as Rest specifies it, rhythm included; any storage.
 Notes: built 2026-11-11 and compiled to an APK. A goal's target sits on an exercise only; splits, settings and cardio are left out. Rest's rhythm, a goal's reach and undo, and a routine's offer are checked by the attempt's own tests. Build 0.2.0 (2026-11-12) exports and imports every record as one file, so logged sets survive a reinstall. Build 0.3.0 (2026-11-14) tries Saira in place of Courier Prime, and secondary and supporting text at 70% in place of 42%, after Courier Prime read poorly in use; a trial for the prototype only, the basics unchanged. Build 0.4.0 (2026-11-20) takes in the spec agreed during the week: gyms on every exercise and routine, properties, unilateral sides, alternates on the goal, a goal's start and end questions, set limits, and reading a chart's point. The week's verdict is read across both builds. Found in use: exercises with the same name at different gyms could not be told apart where they were offered. 0.4.1 shows each exercise's name alone, with its gyms, property values and details as tags beneath it.
+
+---
+
+## Cardio beside the gym
+
+Prototype · draft
+
+Question: do runs, treadmill sessions, and hikes, arriving from the watch through intervals.icu, sit right beside the gym in Auburn — cardio's rest, a goal on an activity kind, and when and how far back they arrive?
+Pass: over a week, every activity recorded arrives without being entered, with the right kind, distance, duration, and heart rate; cardio's rest and a goal on a run read right; and how far back the first import should reach and when activities should arrive are answered, with every friction written down.
+Timebox: a day to build, a week of use.
+Needs: the intervals.icu API key and athlete ID entered on the phone; a build on the Fold.
+Feeds: Research/Suunto.
+Code: Lab/gym-week/, beside the gym.
+Shortcuts: intervals.icu's activity list in place of the FIT file; the key kept in the prototype's data file and left out of exports; activities fetched on opening and on request, never in the background.
+Stakes: its answers settle Research/Suunto's open questions before cardio is specified.
